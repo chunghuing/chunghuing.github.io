@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言學習常用的陣列的處理方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS特訓-DAY27 陣列補充觀念">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY27-%E9%99%A3%E5%88%97%E8%A3%9C%E5%85%85%E8%A7%80%E5%BF%B5/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言學習常用的陣列的處理方式">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-07-20T11:48:17.000Z">
+<meta property="article:modified_time" content="2020-07-20T11:50:24.182Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY27-%E9%99%A3%E5%88%97%E8%A3%9C%E5%85%85%E8%A7%80%E5%BF%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS特訓-DAY27 陣列補充觀念 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Etiquetas</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categorías</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archivo</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY27-%E9%99%A3%E5%88%97%E8%A3%9C%E5%85%85%E8%A7%80%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS特訓-DAY27 陣列補充觀念
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Publicado el</span>
+              
+
+              <time title="Creado por: 2020-07-20 19:48:17 / Modificado por: 19:50:24" itemprop="dateCreated datePublished" datetime="2020-07-20T19:48:17+08:00">2020-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">En</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>學習常用的陣列的處理方式</p>
+<a id="more"></a>  
+
+<hr>
+<p>本篇文章分別針對以下幾個方法來介紹：  </p>
+<p>(直接點下方連結就能跳到指定區域)  </p>
+<ul>
+<li><h4 id="修改原始陣列的方法-本類別的方法可以變更原始陣列"><a href="#修改原始陣列的方法-本類別的方法可以變更原始陣列" class="headerlink" title="修改原始陣列的方法 (本類別的方法可以變更原始陣列)"></a>修改原始陣列的方法 (本類別的方法可以變更原始陣列)</h4><p><a href="#copywithin">copyWithin()</a>、<a href="#fill">fill()</a>、<a href="#pop">pop()</a>、<a href="#push">push()</a>、<a href="#shift">shift()</a>、<a href="#unshift">unshift()</a>、<a href="#sort">sort()</a>、<a href="#splice">splice()</a></p>
+</li>
+<li><h4 id="取得陣列而不會更動原始陣列的方法"><a href="#取得陣列而不會更動原始陣列的方法" class="headerlink" title="取得陣列而不會更動原始陣列的方法"></a>取得陣列而不會更動原始陣列的方法</h4><p><a href="#concat">concat()</a>、<a href="#indexOf">indexOf()</a>、<a href="#slice">slice()</a>、<a href="#tostring">toString()</a></p>
+</li>
+<li><h4 id="對陣列內每個元素進行同樣處理的方法（疊代）"><a href="#對陣列內每個元素進行同樣處理的方法（疊代）" class="headerlink" title="對陣列內每個元素進行同樣處理的方法（疊代）"></a>對陣列內每個元素進行同樣處理的方法（疊代）</h4><p><a href="#every">every()</a>、<a href="#some">some()</a>、<a href="#filter">filter()</a>、<a href="#find">find()</a>、<a href="#foreach">forEach()</a>、<a href="#map">map()</a>、<a href="#reduce">reduce()</a>   </p>
+</li>
+</ul>
+<hr>
+<h1 id="修改原始陣列的方法"><a href="#修改原始陣列的方法" class="headerlink" title="修改原始陣列的方法"></a>修改原始陣列的方法</h1><h2 id="copyWithin"><a href="#copyWithin" class="headerlink" title=" copyWithin() "></a><a id="copywithin"> copyWithin() </a></h2><p>複製陣列中的元素，並置換原始陣列中原本的元素。  </p>
+<h3 id="參數-有三個"><a href="#參數-有三個" class="headerlink" title="參數(有三個)"></a>參數(有三個)</h3><ul>
+<li>第一個是要置換的位置（必填）。  </li>
+<li>第二個是複製起點的索引值（選填）。  </li>
+<li>第三個是複製終點的索引值 + 1（選填）。  </li>
+</ul>
+<blockquote>
+<p>如果省略第二個參數，則會從陣列第一個元素開始複製。<br>如果省略第三個參數，則會複製到陣列最後一個元素為止。<br>使用此方法處理後的陣列長度必須等於原本的長度，<br>如果超過原本長度，則超過的部分不予顯示。  </p>
+</blockquote>
+<h3 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+
+<span class="comment">// 從 Dinah 開始置換，從 Bonnie 開始複製到 Chloe  </span>
+peoples.copyWithin(<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>);  
+
+<span class="built_in">console</span>.log(peoples);  
+<span class="comment">// ['Adela', 'Bonnie', 'Chloe', 'Bonnie', 'Chloe'];  </span>
+<span class="comment">// ['Bonnie', 'Chloe'] 取代了 ['Dinah', 'Emma']</span></code></pre>
+<h2 id="fill"><a href="#fill" class="headerlink" title=" fill() "></a><a id="fill"> fill() </a></h2><p>用一個指定的值置換陣列中所有元素。  </p>
+<h3 id="參數-有三個-1"><a href="#參數-有三個-1" class="headerlink" title="參數(有三個)"></a>參數(有三個)</h3><ul>
+<li>第一個是指定要置換的值（必填）。  </li>
+<li>第二個是置換起點的索引值（選填，預設為 0，即置換全部）。  </li>
+<li>第三個是置換終點的索引值 + 1（選填，預設等於陣列長度）。  </li>
+</ul>
+<h3 id="範例-1"><a href="#範例-1" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+
+<span class="comment">// 索引值 2 跟 3 的值置換為「Uriah」</span>
+<span class="built_in">console</span>.log(peoples.fill(<span class="string">'Uriah'</span>, <span class="number">2</span>, <span class="number">4</span>));  
+<span class="comment">// ['Adela', 'Bonnie', 'Uriah', 'Uriah', 'Emma'];  </span>
+
+<span class="comment">// 從索引值 1 開始的值置換為「Tyrone」</span>
+<span class="built_in">console</span>.log(peoples.fill(<span class="string">'Tyrone'</span>, <span class="number">1</span>));  
+<span class="comment">// ['Adela', 'Tyrone', 'Tyrone', 'Tyrone', 'Tyrone'];</span></code></pre>
+<h2 id="pop"><a href="#pop" class="headerlink" title=" pop() "></a><a id="pop"> pop() </a></h2><p>從陣列中刪除最後一個元素並回傳該元素。  </p>
+<h3 id="範例-2"><a href="#範例-2" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+
+<span class="comment">// 刪除並回傳最後面的元素</span>
+<span class="built_in">console</span>.log(peoples.pop());
+<span class="comment">// 'Emma'  </span>
+
+<span class="comment">// 檢查原陣列</span>
+<span class="built_in">console</span>.log(peoples);
+<span class="comment">// ['Adela', 'Bonnie', 'Chloe', 'Dinah']  </span></code></pre>
+<blockquote>
+<p>提醒：跟下面的 shift() 剛好相反，可以一起記。  </p>
+</blockquote>
+<h2 id="shift"><a href="#shift" class="headerlink" title=" shift() "></a><a id="shift"> shift() </a></h2><p>從陣列中刪除第一個元素並回傳該元素。  </p>
+<h3 id="範例-3"><a href="#範例-3" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+
+<span class="built_in">console</span>.log(peoples.shift());  
+<span class="comment">// 'Adela'</span>
+<span class="built_in">console</span>.log(peoples);  
+<span class="comment">// ['Bonnie', 'Chloe', 'Dinah', 'Emma'];  </span></code></pre>
+<blockquote>
+<p>提醒：跟上面的 pop() 剛好相反，可以一起記。  </p>
+</blockquote>
+<h2 id="push"><a href="#push" class="headerlink" title=" push() "></a><a id="push"> push() </a></h2><p>在陣列尾端加入一個或數個元素，並回傳修改後的陣列。  </p>
+<h3 id="範例-4"><a href="#範例-4" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>];  
+
+<span class="comment">// 增加一個資料</span>
+peoples.push(<span class="string">'Todd'</span>);
+<span class="built_in">console</span>.log(peoples);
+<span class="comment">// ['Adela', 'Bonnie','Todd'];  </span>
+
+<span class="comment">// 繼續增加數個資料</span>
+peoples.push(<span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>);
+<span class="built_in">console</span>.log(peoples);
+<span class="comment">// ['Adela', 'Bonnie', 'Todd', 'Chloe', 'Dinah'];  </span></code></pre>
+<blockquote>
+<p>提醒：跟下面的 unshift() 剛好相反，可以一起記。  </p>
+</blockquote>
+<h2 id="unshift"><a href="#unshift" class="headerlink" title=" unshift() "></a><a id="unshift"> unshift() </a></h2><p>在陣列前端加入指定的一個或數個元素，並回傳修改後的陣列及新長度。  </p>
+<h3 id="範例-5"><a href="#範例-5" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+
+<span class="comment">// 增加一個資料</span>
+<span class="built_in">console</span>.log(peoples.unshift(<span class="string">'Stan'</span>));
+<span class="built_in">console</span>.log(peoples);
+<span class="comment">// 6</span>
+<span class="comment">// ['Stan', 'Adela', 'Bonnie', 'Chloe', 'Dinah', 'Emma']</span></code></pre>
+<blockquote>
+<p>提醒：跟上面的 push() 剛好相反，可以一起記。  </p>
+</blockquote>
+<h2 id="sort"><a href="#sort" class="headerlink" title=" sort() "></a><a id="sort"> sort() </a></h2><p>對陣列的元素進行排序並回傳陣列。  </p>
+<h3 id="參數"><a href="#參數" class="headerlink" title="參數"></a>參數</h3><p>此方法需要指定一個函式作為參數來定義陣列內的排序，且函式包含兩個參數，以 a 跟 b 為例，若 a - b &lt; 0，則 a 會排在 b 前面；若 a - b &gt; 0，則 a 會排在 b 的後面；若 a - b = 0，則 a 跟 b 兩者的排序不會變動，但會跟全部的元素一起比較來排序。假如省略函式參數，陣列會將各個元素轉為字串，並根據每一個字元的 Unicode 進行排序。</p>
+<h3 id="範例-6"><a href="#範例-6" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="comment">// 指定函式參數的例子 1</span>
+<span class="keyword">let</span> nums = [<span class="number">99</span>, <span class="number">999</span>, <span class="number">88</span>, <span class="number">888</span>, <span class="number">666</span>];
+nums.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>{
+  <span class="keyword">return</span> a - b; <span class="comment">// 由小到大排列</span>
+});
+<span class="built_in">console</span>.log(nums);
+<span class="comment">// [88, 99, 666, 888, 999]</span>
+
+<span class="comment">// 指定函式參數的例子 2</span>
+<span class="keyword">let</span> nums = [<span class="number">99</span>, <span class="number">999</span>, <span class="number">88</span>, <span class="number">888</span>, <span class="number">666</span>];
+nums.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>{
+  <span class="keyword">return</span> b - a; <span class="comment">// 由大到小排列</span>
+});
+<span class="built_in">console</span>.log(nums);
+<span class="comment">// [999, 888, 666, 99, 88]</span>
+
+<span class="comment">// 沒指定函式參數的例子</span>
+<span class="keyword">let</span> nums = [<span class="number">99</span>, <span class="number">999</span>, <span class="number">88</span>, <span class="number">888</span>, <span class="number">666</span>];
+nums.sort();
+<span class="built_in">console</span>.log(nums);
+<span class="comment">// [666, 88, 888, 99, 999]</span></code></pre>
+<h2 id="splice"><a href="#splice" class="headerlink" title=" splice() "></a><a id="splice"> splice() </a></h2><p>移除或取代陣列中的元素。  </p>
+<h3 id="參數-有三個-2"><a href="#參數-有三個-2" class="headerlink" title="參數(有三個)"></a>參數(有三個)</h3><ul>
+<li>第一個是要改動的元素索引值（必填）。</li>
+<li>第二個是要移除的總筆數（選填），若省略，則從刪除起點開始的所有元素都會被刪除；若設定為 0 或負數，則不會有元素被移除。</li>
+<li>第三個是要添加的內容（選填），若省略，則原陣列資料不會被新資料替換，也就是單純刪除陣列資料的意思。  </li>
+</ul>
+<h3 id="範例-7"><a href="#範例-7" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="comment">// 從'Chloe'開始，刪除一筆資料</span>
+<span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+peoples.splice(<span class="number">2</span>,<span class="number">1</span>);
+<span class="built_in">console</span>.log(peoples);
+<span class="comment">// ['Adela', 'Bonnie', 'Dinah', 'Emma']  </span>
+
+<span class="comment">// 指定第三個參數，取代原本的資料</span>
+<span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+<span class="comment">// 從'Chloe'開始，替換一筆資料為'Sid'</span>
+peoples.splice(<span class="number">2</span>,<span class="number">1</span>,<span class="string">'Sid'</span>);
+<span class="built_in">console</span>.log(peoples);
+<span class="comment">// ['Adela', 'Bonnie', 'Sid', 'Dinah', 'Emma']  </span></code></pre>
+<blockquote>
+<p>提醒：小心不要跟 slice() 搞混囉～  </p>
+</blockquote>
+<hr>
+<h1 id="取得陣列的方法"><a href="#取得陣列的方法" class="headerlink" title="取得陣列的方法"></a>取得陣列的方法</h1><p>本類別的方法不會修改到原始陣列，而是以某些表現形式回傳值或新陣列。</p>
+<h2 id="slice"><a href="#slice" class="headerlink" title=" slice() "></a><a id="slice"> slice() </a></h2><p>用索引值選取起點到終點，就可以複製該範圍（不含終點）的元素並回傳一個新陣列。  </p>
+<h3 id="參數-有兩個"><a href="#參數-有兩個" class="headerlink" title="參數(有兩個)"></a>參數(有兩個)</h3><ul>
+<li>第一個是起點索引值。  </li>
+<li>第二個是終點索引值 + 1。<br>值得一提的是，兩個參數均非必填，如果忽略的話，將會複製整個原始陣列。</li>
+</ul>
+<h3 id="範例-8"><a href="#範例-8" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+
+<span class="comment">// 兩個參數均填入  </span>
+<span class="keyword">let</span> peopleleave = peoples.slice(<span class="number">3</span>,<span class="number">5</span>);  
+<span class="built_in">console</span>.log(peopleleave);  
+<span class="comment">// ['Dinah', 'Emma']  </span>
+
+<span class="comment">// 忽略兩個參數</span>
+<span class="keyword">let</span> samepeoples = peoples.slice();
+<span class="built_in">console</span>.log(samepeoples);
+<span class="comment">// ['Adela', 'Bonnie', 'Chloe', 'Dinah', 'Emma'];  </span></code></pre>
+<blockquote>
+<p>提醒：小心不要跟 splice() 搞混囉～  </p>
+</blockquote>
+<h2 id="concat"><a href="#concat" class="headerlink" title=" concat() "></a><a id="concat"> concat() </a></h2><p>用來合併數個陣列，會回傳一個合併後的新陣列，且不會更改到原始的陣列。  </p>
+<h3 id="範例-9"><a href="#範例-9" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples1 = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>];  
+<span class="keyword">var</span> peoples2 = [<span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+<span class="keyword">var</span> peoples3 = peoples1.concat(peoples2);  
+
+<span class="built_in">console</span>.log(peoples3);  
+<span class="comment">// ['Adela', 'Bonnie', 'Chloe', 'Dinah', 'Emma']  </span>
+
+<span class="comment">// 兩個原陣列不變</span>
+<span class="built_in">console</span>.log(peoples1);  <span class="comment">// ['Adela', 'Bonnie', 'Chloe']</span>
+<span class="built_in">console</span>.log(peoples2);  <span class="comment">// ['Dinah', 'Emma']</span></code></pre>
+<h2 id="indexOf"><a href="#indexOf" class="headerlink" title=" indexOf() "></a><a id="indexOf"> indexOf() </a></h2><p>在陣列中搜尋指定元素，將會回傳第一個符合條件的元素的索引值；<br>若在陣列中沒找到，則回傳 -1。</p>
+<h3 id="參數-有兩個-1"><a href="#參數-有兩個-1" class="headerlink" title="參數(有兩個)"></a>參數(有兩個)</h3><ul>
+<li>第一個參數為要判斷的值（必填）。  </li>
+<li>第二個參數為搜尋起點的索引值（選填，預設為 0）。  </li>
+</ul>
+<h3 id="範例-10"><a href="#範例-10" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+
+<span class="built_in">console</span>.log(peoples.indexOf(<span class="string">'Bonnie'</span>));
+<span class="comment">// 1，代表元素在索引值 1</span>
+
+<span class="built_in">console</span>.log(peoples.indexOf(<span class="string">'Chloe'</span>));
+<span class="comment">// 2，只會回傳第一個符合的元素索引值</span>
+
+<span class="built_in">console</span>.log(peoples.indexOf(<span class="string">'Scott'</span>));
+<span class="comment">// -1，陣列中無此資料</span>
+
+<span class="built_in">console</span>.log(peoples.indexOf(<span class="string">'Bonnie'</span>,<span class="number">3</span>));
+<span class="comment">// -1，從索引值 3 開始找，沒找到</span></code></pre>
+<h2 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title=" toString() "></a><a id="tostring"> toString() </a></h2><p>將陣列以字串方式回傳。  </p>
+<h3 id="範例-11"><a href="#範例-11" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> peoples = [<span class="string">'Adela'</span>, <span class="string">'Bonnie'</span>, <span class="string">'Chloe'</span>, <span class="string">'Dinah'</span>, <span class="string">'Emma'</span>];  
+<span class="built_in">console</span>.log(peoples.toString());
+<span class="comment">// 'Adela, Bonnie, Chloe, Dinah, Emma'</span></code></pre>
+<hr>
+<h1 id="陣列疊代的方法"><a href="#陣列疊代的方法" class="headerlink" title="陣列疊代的方法"></a>陣列疊代的方法</h1><h3 id="什麼是疊代？"><a href="#什麼是疊代？" class="headerlink" title="什麼是疊代？"></a>什麼是疊代？</h3><p>疊代指的是對物件重複同樣的處理方法，每重複一次就稱為一次疊代。JavaScript 中的疊代大部分指的是迴圈，但陣列中也有類似迴圈功能的方法，這些方法會產生「疊代器」來達成類似迴圈的效果。  </p>
+<h3 id="帶有函式參數的陣列方法"><a href="#帶有函式參數的陣列方法" class="headerlink" title="帶有函式參數的陣列方法"></a>帶有函式參數的陣列方法</h3><p>有些方法在處理陣列時，會使用回呼函式作為參數。這些方法會採樣原始陣列的長度，而在回呼中被加入的元素則不會被巡訪。所以如果你需要更改陣列，還是應該先複製一個新陣列來操作。  </p>
+<h3 id="回傳疊代器物件的陣列方法"><a href="#回傳疊代器物件的陣列方法" class="headerlink" title="回傳疊代器物件的陣列方法"></a>回傳疊代器物件的陣列方法</h3><p>有些方法回傳的不是新陣列或是特定的值，而是一個陣列疊代器物件，而要操作或讀取該物件的值就需要使用 for…of 語法。for…of 的用法是這樣的：  </p>
+<pre><code class="javascript"><span class="keyword">for</span> ( <span class="keyword">let</span> 要疊代的元素 <span class="keyword">of</span> 疊代器){
+  要對元素做的事;
+}</code></pre>
+<p><a href="https://pjchender.blogspot.com/2017/01/javascript-es6-for-of.html" target="_blank" rel="noopener">[筆記] JavaScript ES6 中的 for … of（處理陣列的好幫手）</a>  </p>
+<h2 id="every"><a href="#every" class="headerlink" title=" every() "></a><a id="every"> every() </a></h2><p>如果此陣列中的 <strong>每個元素</strong> 都滿足回呼函式給的條件，則回傳 true，如果有任何一個不符合條件，則回傳 false。  </p>
+<h3 id="參數-1"><a href="#參數-1" class="headerlink" title="參數"></a>參數</h3><ul>
+<li>含有一個參數，此參數為 callback 函式。  </li>
+<li>函式中有一個必填的參數，這個參數用來代表陣列中每個需要被疊代的元素。  </li>
+<li>函式中的 return 後面接著的是要判斷的條件。</li>
+</ul>
+<h3 id="範例-12"><a href="#範例-12" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> array = [
+  {
+    name: <span class="string">'Adela'</span>,
+    age: <span class="number">18</span>
+  },
+  {
+    name: <span class="string">'Bonnie'</span>,
+    age: <span class="number">24</span>
+  },
+  {
+    name: <span class="string">'Chloe'</span>,
+    age: <span class="number">1</span>
+  },
+  {
+    name: <span class="string">'Dinah'</span>,
+    age: <span class="number">3</span>
+  }
+];  
+
+<span class="keyword">var</span> ans = array.every(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="built_in">console</span>.log(item, index, array); <span class="comment">// 物件, 索引, 全部陣列</span>
+  <span class="keyword">return</span> item.age &gt; <span class="number">10</span> <span class="comment">// 當全部 age 大於 10 才能回傳 true</span>
+});
+<span class="built_in">console</span>.log(ans); <span class="comment">// false: 只要有部分不符合，則為 false</span>
+
+<span class="keyword">var</span> ans2 = array.every(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> item.age &lt; <span class="number">25</span>
+});
+<span class="built_in">console</span>.log(ans2); <span class="comment">// true: 全部 age 都小於 25</span></code></pre>
+<h2 id="some"><a href="#some" class="headerlink" title=" some() "></a><a id="some"> some() </a></h2><p>陣列中 <strong>至少有一個元素滿足</strong> 回呼函式的條件，就會返回 true，如果全部元素都不符合條件，則回傳 false。  </p>
+<h3 id="參數-2"><a href="#參數-2" class="headerlink" title="參數"></a>參數</h3><ul>
+<li>含有一個參數，此參數為 callback 函式。</li>
+<li>函式中有一個必填參數及三個選填參數：<br>每個被疊代的元素（必填）。<br>目前處理的元素索引值（選填）。<br>使用該方法的陣列（選填）。<br>執行此函式的 this 值（選填）。  </li>
+</ul>
+<h3 id="範例-13"><a href="#範例-13" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> array = [
+  {
+    name: <span class="string">'Adela'</span>,
+    age: <span class="number">18</span>
+  },
+  {
+    name: <span class="string">'Bonnie'</span>,
+    age: <span class="number">24</span>
+  },
+  {
+    name: <span class="string">'Chloe'</span>,
+    age: <span class="number">1</span>
+  },
+  {
+    name: <span class="string">'Dinah'</span>,
+    age: <span class="number">3</span>
+  }
+];  
+
+<span class="keyword">var</span> ans = people.some(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> item.age &gt; <span class="number">10</span> <span class="comment">// 當全部 age 大於 10 才能回傳 true</span>
+});
+<span class="built_in">console</span>.log(ans);  <span class="comment">// true: 只要有部分符合，則為 true</span>
+
+<span class="keyword">var</span> ans2 = people.some(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> item.age &lt; <span class="number">25</span>
+});
+<span class="built_in">console</span>.log(ans2); <span class="comment">// true: 只要有部分符合，則為 true  </span>
+
+<span class="keyword">var</span> ans2 = people.some(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> item.age &gt; <span class="number">25</span>
+});
+<span class="built_in">console</span>.log(ans2); <span class="comment">// false: 全部都不符合則為 false  </span></code></pre>
+<h2 id="filter"><a href="#filter" class="headerlink" title=" filter() "></a><a id="filter"> filter() </a></h2><p>使用此方法給定條件，就能將符合條件的元素從陣列中過濾出來，過濾出來的元素會以一個陣列的形式回傳。  </p>
+<h3 id="參數-3"><a href="#參數-3" class="headerlink" title="參數"></a>參數</h3><ul>
+<li>含有一個參數，此參數為 callback 函式。</li>
+<li>函式中有一個必填參數及三個選填參數：<br>每個被疊代的元素（必填）。<br>目前處理的元素索引值（選填）。<br>使用該方法的陣列（選填）。<br>執行此函式的 this 值（選填）。  </li>
+<li>函式中的 return 後面接著的是要判斷的條件。  </li>
+</ul>
+<h3 id="範例-14"><a href="#範例-14" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> array = [
+  {
+    name: <span class="string">'Adela'</span>,
+    like: <span class="string">'蛋糕'</span>,
+    age: <span class="number">18</span>
+  },
+  {
+    name: <span class="string">'Bonnie'</span>,
+    like: <span class="string">'泡麵'</span>,
+    age: <span class="number">24</span>
+  },
+  {
+    name: <span class="string">'Chloe'</span>,
+    like: <span class="string">'果汁'</span>,
+    age: <span class="number">1</span>
+  },
+  {
+    name: <span class="string">'Dinah'</span>,
+    like: <span class="string">'米餅'</span>,
+    age: <span class="number">3</span>
+  }
+];  
+
+<span class="keyword">var</span> filterEmpty = people.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+});
+<span class="built_in">console</span>.log(filterEmpty);    <span class="comment">// 沒有條件，會是一個空陣列</span>
+
+<span class="keyword">var</span> filterAgeThan5 = people.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> item.age &gt; <span class="number">5</span>;       <span class="comment">// 取得大於五歲的</span>
+});
+<span class="built_in">console</span>.log(filterAgeThan5); <span class="comment">// Adela, Bonnie 這兩個物件</span>
+
+<span class="keyword">var</span> filterDouble = people.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> index % <span class="number">2</span> === <span class="number">1</span>;    <span class="comment">// 取得陣列中雙數的物件</span>
+});
+<span class="built_in">console</span>.log(filterDouble);   <span class="comment">// Bonnie, Dinah 這兩個物件  </span></code></pre>
+<h2 id="find"><a href="#find" class="headerlink" title=" find() "></a><a id="find"> find() </a></h2><p>find() 與 filter() 很像，但 find() 只會回傳一次值，且是第一次為 true 的值，如果找不到則回傳 undefined。  </p>
+<h3 id="參數-4"><a href="#參數-4" class="headerlink" title="參數"></a>參數</h3><ul>
+<li>含有一個參數，此參數為 callback 函式。</li>
+<li>函式中有一個必填參數及三個選填參數：<br>每個被疊代的元素（必填）。<br>目前處理的元素索引值（選填）。<br>使用該方法的陣列（選填）。<br>執行此函式的 this 值（選填）。  </li>
+<li>函式中的 return 後面接著的是要判斷的條件。  </li>
+</ul>
+<h3 id="範例-15"><a href="#範例-15" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> array = [
+  {
+    name: <span class="string">'Adela'</span>,
+    like: <span class="string">'蛋糕'</span>,
+    age: <span class="number">18</span>
+  },
+  {
+    name: <span class="string">'Bonnie'</span>,
+    like: <span class="string">'泡麵'</span>,
+    age: <span class="number">24</span>
+  },
+  {
+    name: <span class="string">'Chloe'</span>,
+    like: <span class="string">'蘿蔔泥'</span>,
+    age: <span class="number">1</span>
+  },
+  {
+    name: <span class="string">'Dinah'</span>,
+    like: <span class="string">'蘿蔔泥'</span>,
+    age: <span class="number">3</span>
+  }
+];  
+
+<span class="keyword">var</span> findEmpty = people.find(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+});
+<span class="built_in">console</span>.log(findEmpty);  
+<span class="comment">// 沒有條件，會是 undefined</span>
+
+<span class="keyword">var</span> findAgeThan5 = people.find(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> item.age &gt; <span class="number">5</span>;  
+  <span class="comment">// 取得大於五歲的</span>
+});
+<span class="built_in">console</span>.log(findAgeThan5);  
+<span class="comment">// 雖然答案有兩個，但只會回傳 Adela 這一個物件</span>
+
+<span class="keyword">var</span> findLike = people.find(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> item.like === <span class="string">'蘿蔔泥'</span>;  
+  <span class="comment">// 取得陣列 like === '蘿蔔泥'</span>
+});
+<span class="built_in">console</span>.log(findLike);  
+<span class="comment">// 雖然答案有兩個，但只會回傳第一個 Chloe 物件</span></code></pre>
+<h2 id="forEach"><a href="#forEach" class="headerlink" title=" forEach() "></a><a id="foreach"> forEach() </a></h2><p>forEach 是這幾個陣列函式最單純的一個，不會額外回傳值，只單純執行每個陣列內的物件或值。</p>
+<h3 id="範例-16"><a href="#範例-16" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> array = [
+  {
+    name: <span class="string">'Adela'</span>,
+    like: <span class="string">'蛋糕'</span>,
+    age: <span class="number">18</span>
+  },
+  {
+    name: <span class="string">'Bonnie'</span>,
+    like: <span class="string">'泡麵'</span>,
+    age: <span class="number">24</span>
+  },
+  {
+    name: <span class="string">'Chloe'</span>,
+    like: <span class="string">'蘿蔔泥'</span>,
+    age: <span class="number">1</span>
+  },
+  {
+    name: <span class="string">'Dinah'</span>,
+    like: <span class="string">'蘿蔔泥'</span>,
+    age: <span class="number">3</span>
+  }
+];  
+
+<span class="keyword">var</span> forEachIt = people.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="built_in">console</span>.log(item, index, array); <span class="comment">// 物件, 索引, 全部陣列</span>
+  <span class="keyword">return</span> item;  <span class="comment">// forEach 沒在 return 的，所以這邊寫了也沒用</span>
+});
+<span class="built_in">console</span>.log(forEachIt);  <span class="comment">// undefined</span>
+
+people.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  item.age = item.age + <span class="number">1</span>;  <span class="comment">// forEach 就如同 for，不過寫法更容易</span>
+});
+
+<span class="built_in">console</span>.log(people);  <span class="comment">// 全部 age + 1  </span></code></pre>
+<h2 id="map"><a href="#map" class="headerlink" title=" map() "></a><a id="map"> map() </a></h2><p>使用 map() 時他需要回傳一個值，他會透過函式內所回傳的值組合成一個陣列。  </p>
+<ul>
+<li>如果不回傳則是 undefined  </li>
+<li>回傳數量等於原始陣列的長度  </li>
+</ul>
+<h3 id="範例-17"><a href="#範例-17" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> array = [
+  {
+    name: <span class="string">'Adela'</span>,
+    like: <span class="string">'蛋糕'</span>,
+    age: <span class="number">18</span>
+  },
+  {
+    name: <span class="string">'Bonnie'</span>,
+    like: <span class="string">'泡麵'</span>,
+    age: <span class="number">24</span>
+  },
+  {
+    name: <span class="string">'Chloe'</span>,
+    like: <span class="string">'蘿蔔泥'</span>,
+    age: <span class="number">1</span>
+  },
+  {
+    name: <span class="string">'Dinah'</span>,
+    like: <span class="string">'蘿蔔泥'</span>,
+    age: <span class="number">3</span>
+  }
+];  
+
+<span class="keyword">var</span> mapEmpty = people.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+});
+<span class="built_in">console</span>.log(mapEmpty);  
+<span class="comment">// [undefined, undefined, undefined, undefined]</span>
+
+<span class="keyword">var</span> mapAgeThan5 = people.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">return</span> item.age &gt; <span class="number">5</span>;  
+  <span class="comment">// 比較大於五歲的</span>
+});
+<span class="built_in">console</span>.log(mapAgeThan5);  
+<span class="comment">// [true, true, false, false]</span>
+
+<span class="keyword">var</span> mapAgeThan5_2 = people.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="comment">// 錯誤示範</span>
+  <span class="keyword">if</span> (item.age &gt; <span class="number">5</span>) {
+    <span class="keyword">return</span> item;  
+    <span class="comment">// 回傳大於五歲的</span>
+  }
+  <span class="keyword">return</span> <span class="literal">false</span>;  
+  <span class="comment">// 別以為空的或是 false 就不會回傳</span>
+});
+<span class="built_in">console</span>.log(mapAgeThan5_2);  
+<span class="comment">// [{name: 'Adela'...}, {name: 'Bonnie'...}, false, false]</span>
+
+<span class="keyword">var</span> mapEat = people.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="keyword">if</span> (item.like !== <span class="string">'蘿蔔泥'</span>) {
+    <span class="keyword">return</span> <span class="string">`<span class="subst">${item.like}</span> 好吃`</span>;
+  } <span class="keyword">else</span> {
+    <span class="keyword">return</span> <span class="string">`<span class="subst">${item.like}</span> 不好吃`</span>;
+  }
+});
+
+<span class="built_in">console</span>.log(mapEat);  
+<span class="comment">// ["蛋糕 好吃", "泡麵 好吃", "蘿蔔泥 不好吃", "蘿蔔泥 不好吃"]  </span></code></pre>
+<h2 id="reduce"><a href="#reduce" class="headerlink" title=" reduce() "></a><a id="reduce"> reduce() </a></h2><p>reduce() 和其他幾個差異就很大了，他可以與前一個回傳的值再次作運算，參數包含以下：  </p>
+<ul>
+<li>accumulator: 前一個參數，如果是第一個陣列的話，值是以另外傳入或初始化的值  </li>
+<li>currentValue: 當前變數  </li>
+<li>currentIndex: 當前索引  </li>
+<li>array: 全部陣列  </li>
+</ul>
+<h3 id="範例-18"><a href="#範例-18" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="keyword">var</span> array = [
+  {
+    name: <span class="string">'Adela'</span>,
+    like: <span class="string">'蛋糕'</span>,
+    age: <span class="number">18</span>
+  },
+  {
+    name: <span class="string">'Bonnie'</span>,
+    like: <span class="string">'泡麵'</span>,
+    age: <span class="number">24</span>
+  },
+  {
+    name: <span class="string">'Chloe'</span>,
+    like: <span class="string">'蘿蔔泥'</span>,
+    age: <span class="number">1</span>
+  },
+  {
+    name: <span class="string">'Dinah'</span>,
+    like: <span class="string">'蘿蔔泥'</span>,
+    age: <span class="number">3</span>
+  }
+];  
+
+<span class="keyword">var</span> reduceEmpty = people.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">accumulator, currentValue, currentIndex, array</span>)</span>{
+});
+<span class="built_in">console</span>.log(reduceEmpty);  <span class="comment">// 沒有條件，會是 undefined</span>
+
+<span class="keyword">var</span> reducePlus = people.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">accumulator, currentValue, currentIndex, array</span>)</span>{
+  <span class="comment">// 分別為：前一個回傳值, 目前值, 當前索引值</span>
+  <span class="built_in">console</span>.log(accumulator, currentValue, currentIndex);
+  <span class="keyword">return</span> accumulator + currentValue.age;  <span class="comment">// 與前一個值相加</span>
+}, <span class="number">0</span>);                                    <span class="comment">// 傳入初始化值為 0</span>
+<span class="built_in">console</span>.log(reducePlus);                  <span class="comment">// 總和為 46</span>
+
+<span class="keyword">var</span> reducePlus = people.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">accumulator, currentValue, currentIndex, array</span>)</span>{
+  <span class="built_in">console</span>.log(<span class="string">'reduce'</span>, accumulator, currentValue, currentIndex)
+  <span class="keyword">return</span> <span class="built_in">Math</span>.max( accumulator, currentValue.age );  <span class="comment">// 與前一個值比較哪個大</span>
+}, <span class="number">0</span>);
+<span class="built_in">console</span>.log(reducePlus);  <span class="comment">// 最大值為 24  </span></code></pre>
+<blockquote>
+<p>reduce() 的使用方法更為豐富，想認識更詳細可參考 <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">MDN</a>  </p>
+</blockquote>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>預設的陣列行為內的 this 是指向 window (本篇中除了 reduce() 是傳入初始資料)，如果要改，可以在 function 後傳入。  </p>
+<h3 id="範例-19"><a href="#範例-19" class="headerlink" title="範例"></a>範例</h3><pre><code class="javascript"><span class="comment">// arr.forEach(function callback(currentValue, index, array) {</span>
+<span class="comment">// your iterator</span>
+<span class="comment">// }[, thisArg]);</span>
+
+<span class="keyword">var</span> ans3 = people.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>{
+  <span class="built_in">console</span>.log(<span class="keyword">this</span>) 
+  <span class="comment">// 這邊的 this 就會使用後方傳入的</span>
+  <span class="keyword">return</span> item.age &lt; <span class="number">25</span>
+}, people);  <span class="comment">// 傳入的物件，替代 this，如果無則是 window  </span></code></pre>
+<hr>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a href="https://w3c.hexschool.com/blog/6594e4ff" target="_blank" rel="noopener">Cheatsheet for Array Methods - JavaScript 陣列方法大全</a><br><a href="https://www.oxxostudio.tw/articles/201908/js-array.html#array_filter" target="_blank" rel="noopener">JavaScript Array 陣列操作方法大全 ( 含 ES6 )</a><br><a href="https://wcc723.github.io/javascript/2017/06/29/es6-native-array/#Array-prototype-reduce" target="_blank" rel="noopener">JavaScript 陣列處理方法 [filter(), find(), forEach(), map(), every(), some(), reduce()]</a><br><a href="https://pjchender.github.io/2017/10/26/js-javascript-%E7%96%8A%E4%BB%A3%E8%88%87%E8%BF%B4%E5%9C%88%EF%BC%88iterate-and-loop%EF%BC%89/" target="_blank" rel="noopener">[JS] JavaScript 疊代與迴圈（iterate and loop</a><br><a href="https://pjchender.github.io/2017/09/26/js-javascript-%E7%96%8A%E4%BB%A3%E5%99%A8%EF%BC%88iterator%EF%BC%89/" target="_blank" rel="noopener">[JS] JavaScript 疊代器（Iterator)</a>  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/15/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Tabla de contenidos
+        </li>
+        <li class="sidebar-nav-overview">
+          Inicio
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改原始陣列的方法-本類別的方法可以變更原始陣列"><span class="nav-number">1.1.</span> <span class="nav-text">修改原始陣列的方法 (本類別的方法可以變更原始陣列)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取得陣列而不會更動原始陣列的方法"><span class="nav-number">1.2.</span> <span class="nav-text">取得陣列而不會更動原始陣列的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#對陣列內每個元素進行同樣處理的方法（疊代）"><span class="nav-number">1.3.</span> <span class="nav-text">對陣列內每個元素進行同樣處理的方法（疊代）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改原始陣列的方法"><span class="nav-number"></span> <span class="nav-text">修改原始陣列的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#copyWithin"><span class="nav-number"></span> <span class="nav-text"> copyWithin() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-有三個"><span class="nav-number">1.</span> <span class="nav-text">參數(有三個)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fill"><span class="nav-number"></span> <span class="nav-text"> fill() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-有三個-1"><span class="nav-number">1.</span> <span class="nav-text">參數(有三個)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-1"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pop"><span class="nav-number"></span> <span class="nav-text"> pop() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-2"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shift"><span class="nav-number"></span> <span class="nav-text"> shift() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-3"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#push"><span class="nav-number"></span> <span class="nav-text"> push() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-4"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unshift"><span class="nav-number"></span> <span class="nav-text"> unshift() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-5"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sort"><span class="nav-number"></span> <span class="nav-text"> sort() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數"><span class="nav-number">1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-6"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#splice"><span class="nav-number"></span> <span class="nav-text"> splice() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-有三個-2"><span class="nav-number">1.</span> <span class="nav-text">參數(有三個)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-7"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#取得陣列的方法"><span class="nav-number"></span> <span class="nav-text">取得陣列的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#slice"><span class="nav-number"></span> <span class="nav-text"> slice() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-有兩個"><span class="nav-number">1.</span> <span class="nav-text">參數(有兩個)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-8"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat"><span class="nav-number"></span> <span class="nav-text"> concat() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-9"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexOf"><span class="nav-number"></span> <span class="nav-text"> indexOf() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-有兩個-1"><span class="nav-number">1.</span> <span class="nav-text">參數(有兩個)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-10"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toString-NaN"><span class="nav-number"></span> <span class="nav-text"> toString() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-11"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#陣列疊代的方法"><span class="nav-number"></span> <span class="nav-text">陣列疊代的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什麼是疊代？"><span class="nav-number">1.</span> <span class="nav-text">什麼是疊代？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#帶有函式參數的陣列方法"><span class="nav-number">2.</span> <span class="nav-text">帶有函式參數的陣列方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回傳疊代器物件的陣列方法"><span class="nav-number">3.</span> <span class="nav-text">回傳疊代器物件的陣列方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#every"><span class="nav-number"></span> <span class="nav-text"> every() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-1"><span class="nav-number">1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-12"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#some"><span class="nav-number"></span> <span class="nav-text"> some() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-2"><span class="nav-number">1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-13"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter"><span class="nav-number"></span> <span class="nav-text"> filter() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-3"><span class="nav-number">1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-14"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number"></span> <span class="nav-text"> find() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參數-4"><span class="nav-number">1.</span> <span class="nav-text">參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-15"><span class="nav-number">2.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forEach"><span class="nav-number"></span> <span class="nav-text"> forEach() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-16"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map"><span class="nav-number"></span> <span class="nav-text"> map() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-17"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reduce"><span class="nav-number"></span> <span class="nav-text"> reduce() </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-18"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number"></span> <span class="nav-text">其它</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#範例-19"><span class="nav-number">1.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考資料"><span class="nav-number"></span> <span class="nav-text">參考資料</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">entradas</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categorías</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">Creado mediante <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
