@@ -20,19 +20,20 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="前言這次的練習是需要：完課率排名功能以API撈出資料，依照每個物件的 process 來進行進度排序，範例格式如下圖。   &lt;ul&gt;  &lt;li&gt;第 1 名是廖洧杰，他的特訓班完成度是 33%&lt;&#x2F;li&gt;  &lt;li&gt;第 2 名是王小明，他的特訓班完成度是 30%&lt;&#x2F;li&gt; &lt;&#x2F;ul&gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://chunghuing.github.io/2020/07/15/hello-world/index.html">
+<meta property="og:title" content="JS特訓-DAY28-陣列排序進度">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY28-%E9%99%A3%E5%88%97%E6%8E%92%E5%BA%8F%E9%80%B2%E5%BA%A6/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="前言這次的練習是需要：完課率排名功能以API撈出資料，依照每個物件的 process 來進行進度排序，範例格式如下圖。   &lt;ul&gt;  &lt;li&gt;第 1 名是廖洧杰，他的特訓班完成度是 33%&lt;&#x2F;li&gt;  &lt;li&gt;第 2 名是王小明，他的特訓班完成度是 30%&lt;&#x2F;li&gt; &lt;&#x2F;ul&gt;">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-07-15T06:47:39.329Z">
-<meta property="article:modified_time" content="2020-07-15T06:47:39.329Z">
+<meta property="article:published_time" content="2020-07-20T12:15:08.000Z">
+<meta property="article:modified_time" content="2020-07-26T09:27:11.201Z">
 <meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://chunghuing.github.io/2020/07/15/hello-world/">
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY28-%E9%99%A3%E5%88%97%E6%8E%92%E5%BA%8F%E9%80%B2%E5%BA%A6/">
 
 
 <script id="page-configurations">
@@ -45,7 +46,7 @@
   };
 </script>
 
-  <title>Hello World | Renee's Blog</title>
+  <title>JS特訓-DAY28-陣列排序進度 | Renee's Blog</title>
   
 
 
@@ -161,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/15/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY28-%E9%99%A3%E5%88%97%E6%8E%92%E5%BA%8F%E9%80%B2%E5%BA%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          JS特訓-DAY28-陣列排序進度
         </h1>
 
         <div class="post-meta">
@@ -184,7 +185,23 @@
               </span>
               <span class="post-meta-item-text">Veröffentlicht am</span>
 
-              <time title="Erstellt: 2020-07-15 14:47:39" itemprop="dateCreated datePublished" datetime="2020-07-15T14:47:39+08:00">2020-07-15</time>
+              <time title="Erstellt: 2020-07-20 20:15:08" itemprop="dateCreated datePublished" datetime="2020-07-20T20:15:08+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-07-26 17:27:11" itemprop="dateModified" datetime="2020-07-26T17:27:11+08:00">2020-07-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
             </span>
 
           
@@ -198,19 +215,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>這次的練習是需要：完課率排名功能<br>以<a href="https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json" target="_blank" rel="noopener">API</a>撈出資料，依照每個物件的 process 來進行進度排序，範例格式如下圖。  </p>
+<pre><code class="javascript">&lt;ul&gt;
+ &lt;li&gt;第 <span class="number">1</span> 名是廖洧杰，他的特訓班完成度是 <span class="number">33</span>%&lt;<span class="regexp">/li&gt;</span>
+<span class="regexp"> &lt;li&gt;第 2 名是王小明，他的特訓班完成度是 30%&lt;/</span>li&gt;
+&lt;<span class="regexp">/ul&gt;  </span></code></pre>
+<a id="more"></a>  
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="陣列排序進度"><a href="#陣列排序進度" class="headerlink" title="陣列排序進度"></a>陣列排序進度</h3><h3 id="axios取得API資料"><a href="#axios取得API資料" class="headerlink" title="axios取得API資料"></a>axios取得API資料</h3><ul>
+<li>綁定HTML的標籤，變數也使用一樣的名稱  </li>
+<li>宣告一個變數為data，後續存放回傳的資料用  </li>
+<li>使用axios取得API資料  </li>
+</ul>
+<pre><code class="javascript"><span class="keyword">let</span> list = <span class="built_in">document</span>.querySelector(<span class="string">'.userList'</span>);  
+<span class="keyword">let</span> dataList = [];  
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+axios.get(<span class="string">'https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json'</span>)
+.then(<span class="function">(<span class="params">response</span>) =&gt;</span>{
+  dataList = response.data;
+  getData(dataList);
+})
+.catch(<span class="function">(<span class="params">err</span>) =&gt;</span> {  
+  <span class="built_in">console</span>.log(err);  
+});  </code></pre>
+<h3 id="建立清單渲染於網頁"><a href="#建立清單渲染於網頁" class="headerlink" title="建立清單渲染於網頁"></a>建立清單渲染於網頁</h3><p>使用一個函式存放要取得資料的方式  </p>
+<ul>
+<li>宣告一個變數為空字串  </li>
+<li>使用 <code>sort()</code> 方法讓資料可以依照條件做排序(大到小)，因為取得的值為字串，所以同時轉型為整數  </li>
+<li>透過 forEach 來取得想要的資料  </li>
+<li>組字串，因為我要做成列表，所以用一個 div 包住，成為區塊元素  </li>
+<li>用 innerHTML 印出標籤在網頁上</li>
+</ul>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">data</span>)</span>{
+  <span class="keyword">let</span> str = <span class="string">''</span>;  
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+  data.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> <span class="built_in">parseInt</span>(b.process) - <span class="built_in">parseInt</span>(a.process));  
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+  .forEach(<span class="function">(<span class="params">user, index</span>) =&gt;</span> {  
+    str += <span class="string">`</span>
+<span class="string">    &lt;div&gt;</span>
+<span class="string">      &lt;ul&gt;</span>
+<span class="string">        &lt;li&gt;第 <span class="subst">${index + <span class="number">1</span>}</span> 名是 <span class="subst">${user.name}</span>，&lt;/br&gt;他的特訓班完成度是<span class="subst">${user.process}</span>&lt;/li&gt;</span>
+<span class="string">      &lt;/ul&gt;</span>
+<span class="string">    &lt;div&gt;</span>
+<span class="string">    `</span>;  
+  });  
+  list.innerHTML = str;  
+}  </code></pre>
+<p><a href="https://codepen.io/chunghuing/pen/LYGXMPZ" target="_blank" rel="noopener">CodePen</a>  </p>
 
     </div>
 
@@ -219,17 +272,20 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
 
         
 
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY27-%E9%99%A3%E5%88%97%E8%A3%9C%E5%85%85%E8%A7%80%E5%BF%B5/" rel="next" title="JS特訓-DAY27 陣列補充觀念">
-      JS特訓-DAY27 陣列補充觀念 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY27-%E9%99%A3%E5%88%97%E8%A3%9C%E5%85%85%E8%A7%80%E5%BF%B5/" rel="prev" title="JS特訓-DAY27 陣列補充觀念">
+      <i class="fa fa-chevron-left"></i> JS特訓-DAY27 陣列補充觀念
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -288,7 +344,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#陣列排序進度"><span class="nav-number">2.</span> <span class="nav-text">陣列排序進度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#axios取得API資料"><span class="nav-number">3.</span> <span class="nav-text">axios取得API資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立清單渲染於網頁"><span class="nav-number">4.</span> <span class="nav-text">建立清單渲染於網頁</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
