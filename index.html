@@ -81,7 +81,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -111,22 +111,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
 
   </li>
   </ul>
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/26/postJS%E7%89%B9%E8%A8%93-C3-js-%E5%9F%BA%E6%9C%AC%E8%AA%8D%E8%AD%98/">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/26/JS%E7%89%B9%E8%A8%93-C3-js-%E5%9F%BA%E6%9C%AC%E8%AA%8D%E8%AD%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -170,7 +170,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/26/postJS%E7%89%B9%E8%A8%93-C3-js-%E5%9F%BA%E6%9C%AC%E8%AA%8D%E8%AD%98/" class="post-title-link" itemprop="url">JS特訓-C3.js 基本認識</a>
+            <a href="/2020/07/26/JS%E7%89%B9%E8%A8%93-C3-js-%E5%9F%BA%E6%9C%AC%E8%AA%8D%E8%AD%98/" class="post-title-link" itemprop="url">JS特訓-C3.js 基本認識</a>
         </h2>
 
         <div class="post-meta">
@@ -178,22 +178,22 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-              <time title="أُنشأ: 2020-07-26 23:45:50" itemprop="dateCreated datePublished" datetime="2020-07-26T23:45:50+08:00">2020-07-26</time>
+              <time title="Erstellt: 2020-07-26 23:45:50" itemprop="dateCreated datePublished" datetime="2020-07-26T23:45:50+08:00">2020-07-26</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-07-27 00:10:52" itemprop="dateModified" datetime="2020-07-27T00:10:52+08:00">2020-07-27</time>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-07-27 00:13:15" itemprop="dateModified" datetime="2020-07-27T00:13:15+08:00">2020-07-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -211,184 +211,14 @@
 
       
           <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>C3.js 原自 D3.js 開源的圖表套件  </p>
-<h3 id="起手式"><a href="#起手式" class="headerlink" title="起手式"></a>起手式</h3><p>載入 CSS  </p>
-<pre><code class="css">&lt;link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.18/c3.css"&gt;  </code></pre>
-<p>載入 JavaScript  </p>
-<pre><code class="javascript">&lt;script src=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.js"</span>&gt;&lt;<span class="regexp">/script&gt;  </span>
-<span class="regexp">&lt;script src="https:/</span><span class="regexp">/cdnjs.cloudflare.com/</span>ajax/libs/c3/<span class="number">0.7</span><span class="number">.18</span>/c3.js<span class="string">"&gt;&lt;/script&gt;  </span></code></pre>
-<p>亦可從官方 <a href="https://github.com/c3js/c3/releases/tag/v0.7.18" target="_blank" rel="noopener">GitHub</a>中下載最新版本的 C3.js  </p>
-<blockquote>
-<p>因為基於 D3.js 所開發的套件，所以還是要載入 D3.js，才會有效果  </p>
-</blockquote>
-<p>在 HTML 中放入這個標籤，id 名稱可以自訂義  </p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"chart"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </code></pre>
-<hr>
-<h3 id="使用長條圖"><a href="#使用長條圖" class="headerlink" title="使用長條圖"></a>使用長條圖</h3><p>這邊使用長條圖當做範本，在 JS 中貼上下方程式碼  </p>
-<ul>
-<li>c3 使用 generate() 這個方法啟動圖表內容，其內容皆為物件  </li>
-<li>將 id 名稱用引號放在 bindto 這個位置  </li>
-<li>data 為資料位置，columns 中放入陣列資料  </li>
-<li>相關設定則在 data 外  </li>
-</ul>
-<pre><code class="javascript"><span class="keyword">var</span> chart = c3.generate({
-  bindto: <span class="string">"#chart"</span>,
-  data: {
-    columns: [
-      [<span class="string">"data1"</span>, <span class="number">30</span>, <span class="number">200</span>, <span class="number">100</span>, <span class="number">400</span>, <span class="number">150</span>, <span class="number">250</span>],
-      [<span class="string">"data2"</span>, <span class="number">50</span>, <span class="number">20</span>, <span class="number">10</span>, <span class="number">40</span>, <span class="number">15</span>, <span class="number">25</span>],
-    ],
-  },
-});  </code></pre>
-<hr>
-<h3 id="自訂義圖表"><a href="#自訂義圖表" class="headerlink" title="自訂義圖表"></a>自訂義圖表</h3><h4 id="右側加上數據"><a href="#右側加上數據" class="headerlink" title="右側加上數據"></a>右側加上數據</h4><ul>
-<li>在 data 物件外加上 axes 屬性，給予 data2 數據軸線  </li>
-<li>用 axis 屬性指定剛剛 y2 數據軸線給予顯示  </li>
-</ul>
-<pre><code class="javascript"><span class="keyword">var</span> chart = c3.generate({
-  bindto: <span class="string">"#chart"</span>,
-  data: {
-    columns: [
-      [<span class="string">"data1"</span>, <span class="number">30</span>, <span class="number">200</span>, <span class="number">100</span>, <span class="number">400</span>, <span class="number">150</span>, <span class="number">250</span>],
-      [<span class="string">"data2"</span>, <span class="number">50</span>, <span class="number">20</span>, <span class="number">10</span>, <span class="number">40</span>, <span class="number">15</span>, <span class="number">25</span>],
-    ],
-    axes: {
-      data2: <span class="string">"y2"</span>, <span class="comment">// ADD</span>
-    },
-  },
-  axis: {
-    y2: {
-      show: <span class="literal">true</span>, <span class="comment">// ADD</span>
-    },
-  },
-});  </code></pre>
-<hr>
-<h3 id="改變圖表類型"><a href="#改變圖表類型" class="headerlink" title="改變圖表類型"></a>改變圖表類型</h3><p>加上一個 type 屬性，給予指定的數據使用圖表類型，這裡使用 bar (長條圖)。<br>更多圖表類型請見官網，看不懂英文沒關係，可以用 google 翻譯，懶得用的話就直接每個點出來玩一玩吧！改變圖表顏色使用 color 屬性，更改的圖表數據用物件包覆起來  </p>
-<blockquote>
-<p>只要是針對資料相關設定都要寫在 data 的物件內  </p>
-</blockquote>
-<pre><code class="javascript"><span class="keyword">var</span> chart = c3.generate({
-  bindto: <span class="string">"#chart"</span>,
-  data: {
-    columns: [
-      [<span class="string">"data1"</span>, <span class="number">30</span>, <span class="number">200</span>, <span class="number">100</span>, <span class="number">400</span>, <span class="number">150</span>, <span class="number">250</span>],
-      [<span class="string">"data2"</span>, <span class="number">50</span>, <span class="number">20</span>, <span class="number">10</span>, <span class="number">40</span>, <span class="number">15</span>, <span class="number">25</span>],
-    ],
-    <span class="comment">//新增 data2 的數據在右邊</span>
-    axes: {
-      data2: <span class="string">"y2"</span>,
-    },
-    <span class="comment">//自訂圖表類型</span>
-    types: {
-      data1: <span class="string">"line"</span>, <span class="comment">//指定 data1 的圖表類型</span>
-      data2: <span class="string">"bar"</span>, <span class="comment">// 指定 data2 的圖表類型</span>
-    },
-    <span class="comment">//自訂 data 顏色</span>
-    colors: {
-      data1: <span class="string">"#03A9F4"</span>,
-      data2: <span class="string">"#76FF03"</span>,
-    },
-  },
-  legend: {
-    show: <span class="literal">true</span>, <span class="comment">//是否顯示項目</span>
-  },
-  <span class="comment">//客製左邊數據</span>
-  axis: {
-    <span class="comment">//客製 X 軸內容</span>
-    x: {
-      type: <span class="string">"category"</span>,
-      categories: [<span class="number">2000</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2003</span>, <span class="number">2004</span>, <span class="number">2005</span>],
-      label: {
-        text: <span class="string">"X軸名稱"</span>,
-      },
-    },
-    <span class="comment">//客製 Y 軸內容</span>
-    y: {
-      label: {
-        text: <span class="string">"左邊Y軸名稱"</span>,
-        position: <span class="string">"outer-middle"</span>, <span class="comment">//名稱位置</span>
-      },
-    },
-    <span class="comment">//客製右側 (data2) Y2 軸內容</span>
-    y2: {
-      show: <span class="literal">true</span>,
-      label: {
-        text: <span class="string">"右邊Y軸名稱"</span>,
-        position: <span class="string">"outer-middle"</span>, <span class="comment">//名稱位置</span>
-      },
-    },
-  },
-});  </code></pre>
-<hr>
-<h3 id="串接-API-資料"><a href="#串接-API-資料" class="headerlink" title="串接 API 資料"></a>串接 API 資料</h3><p>如果要串接 API，可以使用下方程式碼  </p>
-<pre><code class="javascript"><span class="built_in">require</span>.config({
-  baseUrl: <span class="string">'/js'</span>,
-  paths: {
-    d3: <span class="string">"http://d3js.org/d3.v5.min"</span>
-  }
-});
-
-<span class="built_in">require</span>([<span class="string">"d3"</span>, <span class="string">"c3"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">d3, c3</span>) </span>{
-  c3.generate({
-    ...
-  });
-});  </code></pre>
-<h3 id="Load-Data"><a href="#Load-Data" class="headerlink" title="Load Data"></a>Load Data</h3><p>使用 load() 方法來載入  </p>
-<pre><code class="javascript">chart.load({
-  columns: [
-    [<span class="string">"data1"</span>, <span class="number">300</span>, <span class="number">100</span>, <span class="number">250</span>, <span class="number">150</span>, <span class="number">300</span>, <span class="number">150</span>, <span class="number">500</span>],
-    [<span class="string">"data2"</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">150</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">250</span>],
-  ],
-});  </code></pre>
-<hr>
-<h3 id="unload-Data"><a href="#unload-Data" class="headerlink" title="unload Data"></a>unload Data</h3><p>使用 unload() 卸載 data  </p>
-<pre><code class="javascript">chart.unload({
-  ids: [<span class="string">"data2"</span>, <span class="string">"data3"</span>],
-});  </code></pre>
-<hr>
-<h3 id="串接-API-與圖表結合"><a href="#串接-API-與圖表結合" class="headerlink" title="串接 API 與圖表結合"></a>串接 API 與圖表結合</h3><p>使用這筆 <a href="https://github.com/gonsakon/D3-API-SAMPLE" target="_blank" rel="noopener">API</a> 來做這次範本的串接，並使用 promise 語法  </p>
-<pre><code class="javascript"><span class="keyword">const</span> url = <span class="string">"https://gonsakon.github.io/D3-API-SAMPLE/"</span>;
-<span class="built_in">console</span>.log(url);
-
-<span class="comment">//載入圖表</span>
-<span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params">data</span>) </span>{
-  <span class="keyword">var</span> chart = c3.generate({
-    bindto: <span class="string">"#chart"</span>,
-    data: {
-      columns: data,
-    },
-  });
-}
-
-<span class="comment">//取得資料方法</span>
-<span class="function"><span class="keyword">function</span> <span class="title">getURL</span>(<span class="params">URL</span>) </span>{
-  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>{
-    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();
-    xhr.open(<span class="string">"get"</span>, url + URL);
-    xhr.send(<span class="literal">null</span>);
-    xhr.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-      <span class="comment">//回傳一個資料</span>
-      resolve(<span class="built_in">JSON</span>.parse(xhr.responseText));
-    };
-  });
-}
-
-<span class="comment">//取得高雄屏東資料</span>
-<span class="keyword">let</span> kaohsiung = getURL(<span class="string">"kaohsiung.json"</span>);
-<span class="keyword">let</span> pingtung = getURL(<span class="string">"pingtung.json"</span>);
-
-<span class="comment">//promise AJAX 取得資料方式</span>
-<span class="built_in">Promise</span>.all([kaohsiung, pingtung]).then(<span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>{
-  <span class="keyword">var</span> originData = [];
-  originData.push([<span class="string">"高雄"</span>].concat(results[<span class="number">0</span>])); <span class="comment">//把高雄資料展開後載入圖表</span>
-  originData.push([<span class="string">"屏東"</span>].concat(results[<span class="number">1</span>])); <span class="comment">//把屏東資料展開後載入圖表</span>
-  load(originData); <span class="comment">//帶回圖表</span>
-});  </code></pre>
-<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
-<li><a href="https://c3js.org/" target="_blank" rel="noopener">C3.js</a>  </li>
-<li><a href="https://wcc723.github.io/life/2017/05/25/promise/" target="_blank" rel="noopener">JavaScript ES6 Promise</a>  </li>
-<li><a href="https://www.youtube.com/watch?v=0PQ8VOsyjzw" target="_blank" rel="noopener">六角學院-D3.js、C3.js 資料視覺化教學</a>  </li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/26/JS%E7%89%B9%E8%A8%93-C3-js-%E5%9F%BA%E6%9C%AC%E8%AA%8D%E8%AD%98/#more" rel="contents">
+                Weiterlesen &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -429,22 +259,22 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-              <time title="أُنشأ: 2020-07-26 22:55:18" itemprop="dateCreated datePublished" datetime="2020-07-26T22:55:18+08:00">2020-07-26</time>
+              <time title="Erstellt: 2020-07-26 22:55:18" itemprop="dateCreated datePublished" datetime="2020-07-26T22:55:18+08:00">2020-07-26</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-07-27 00:11:14" itemprop="dateModified" datetime="2020-07-27T00:11:14+08:00">2020-07-27</time>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-07-27 00:11:14" itemprop="dateModified" datetime="2020-07-27T00:11:14+08:00">2020-07-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -465,7 +295,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/26/JS%E7%89%B9%E8%A8%93-DAY30-C3-js-%E5%9C%96%E8%A1%A8%E6%95%B4%E5%90%88/#more" rel="contents">
-                تابع القراءة &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -510,16 +340,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
-              <time title="أُنشأ: 2020-07-26 17:51:16 / عُدل: 20:04:56" itemprop="dateCreated datePublished" datetime="2020-07-26T17:51:16+08:00">2020-07-26</time>
+              <time title="Erstellt: 2020-07-26 17:51:16 / Geändert am: 20:04:56" itemprop="dateCreated datePublished" datetime="2020-07-26T17:51:16+08:00">2020-07-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -540,7 +370,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/26/JS%E7%89%B9%E8%A8%93-DAY29-%E7%9B%A3%E8%81%BD%E5%88%87%E6%8F%9B%E6%8E%92%E5%BA%8F%E5%8A%9F%E8%83%BD/#more" rel="contents">
-                تابع القراءة &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -585,22 +415,22 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-              <time title="أُنشأ: 2020-07-20 20:15:08" itemprop="dateCreated datePublished" datetime="2020-07-20T20:15:08+08:00">2020-07-20</time>
+              <time title="Erstellt: 2020-07-20 20:15:08" itemprop="dateCreated datePublished" datetime="2020-07-20T20:15:08+08:00">2020-07-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-07-26 17:31:14" itemprop="dateModified" datetime="2020-07-26T17:31:14+08:00">2020-07-26</time>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-07-26 17:31:14" itemprop="dateModified" datetime="2020-07-26T17:31:14+08:00">2020-07-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -621,7 +451,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY28-%E9%99%A3%E5%88%97%E6%8E%92%E5%BA%8F%E9%80%B2%E5%BA%A6/#more" rel="contents">
-                تابع القراءة &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -666,16 +496,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
-              <time title="أُنشأ: 2020-07-20 19:48:17 / عُدل: 19:50:24" itemprop="dateCreated datePublished" datetime="2020-07-20T19:48:17+08:00">2020-07-20</time>
+              <time title="Erstellt: 2020-07-20 19:48:17 / Geändert am: 19:50:24" itemprop="dateCreated datePublished" datetime="2020-07-20T19:48:17+08:00">2020-07-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -696,7 +526,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY27-%E9%99%A3%E5%88%97%E8%A3%9C%E5%85%85%E8%A7%80%E5%BF%B5/#more" rel="contents">
-                تابع القراءة &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -759,10 +589,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          Inhaltsverzeichnis
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          Übersicht
         </li>
       </ul>
 
@@ -782,20 +612,20 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">5</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-name">Artikel</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">التصنيفات</span></a>
+        <span class="site-state-item-name">Kategorien</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">الوسوم</span></a>
+        <span class="site-state-item-name">schlagwörter</span></a>
       </div>
   </nav>
 </div>
@@ -827,7 +657,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
