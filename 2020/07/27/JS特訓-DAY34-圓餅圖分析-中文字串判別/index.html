@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言這次的練習是需要：完課率排名功能以API撈出資料，依照每個物件的 process 來進行進度排序，範例格式如下圖。">
+  <meta name="description" content="前言此次功能需求是：觀察每個參賽者「姓名長度的字元數」">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS特訓-DAY28-陣列排序進度">
-<meta property="og:url" content="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY28-%E9%99%A3%E5%88%97%E6%8E%92%E5%BA%8F%E9%80%B2%E5%BA%A6/index.html">
+<meta property="og:title" content="JS特訓-DAY34-圓餅圖分析(中文字串判別)">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY34-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E4%B8%AD%E6%96%87%E5%AD%97%E4%B8%B2%E5%88%A4%E5%88%A5/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
-<meta property="og:description" content="前言這次的練習是需要：完課率排名功能以API撈出資料，依照每個物件的 process 來進行進度排序，範例格式如下圖。">
+<meta property="og:description" content="前言此次功能需求是：觀察每個參賽者「姓名長度的字元數」">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-07-20T12:15:08.000Z">
-<meta property="article:modified_time" content="2020-07-26T09:31:14.049Z">
+<meta property="article:published_time" content="2020-07-27T06:23:10.000Z">
+<meta property="article:modified_time" content="2020-07-27T07:13:59.255Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY28-%E9%99%A3%E5%88%97%E6%8E%92%E5%BA%8F%E9%80%B2%E5%BA%A6/">
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY34-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E4%B8%AD%E6%96%87%E5%AD%97%E4%B8%B2%E5%88%A4%E5%88%A5/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>JS特訓-DAY28-陣列排序進度 | Renee's Blog</title>
+  <title>JS特訓-DAY34-圓餅圖分析(中文字串判別) | Renee's Blog</title>
   
 
 
@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY28-%E9%99%A3%E5%88%97%E6%8E%92%E5%BA%8F%E9%80%B2%E5%BA%A6/">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY34-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E4%B8%AD%E6%96%87%E5%AD%97%E4%B8%B2%E5%88%A4%E5%88%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JS特訓-DAY28-陣列排序進度
+          JS特訓-DAY34-圓餅圖分析(中文字串判別)
         </h1>
 
         <div class="post-meta">
@@ -184,16 +184,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">نُشر في</span>
+              
 
-              <time title="أُنشأ: 2020-07-20 20:15:08" itemprop="dateCreated datePublished" datetime="2020-07-20T20:15:08+08:00">2020-07-20</time>
+              <time title="أُنشأ: 2020-07-27 14:23:10 / عُدل: 15:13:59" itemprop="dateCreated datePublished" datetime="2020-07-27T14:23:10+08:00">2020-07-27</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-07-26 17:31:14" itemprop="dateModified" datetime="2020-07-26T17:31:14+08:00">2020-07-26</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -215,55 +209,65 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>這次的練習是需要：完課率排名功能<br>以<a href="https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json" target="_blank" rel="noopener">API</a>撈出資料，依照每個物件的 process 來進行進度排序，範例格式如下圖。  </p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>此次功能需求是：觀察每個參賽者「姓名長度的字元數」</p>
 <a id="more"></a>  
 
-<pre><code class="javascript">&lt;ul&gt;
- &lt;li&gt;第 <span class="number">1</span> 名是廖洧杰，他的特訓班完成度是 <span class="number">33</span>%&lt;<span class="regexp">/li&gt;</span>
-<span class="regexp"> &lt;li&gt;第 2 名是王小明，他的特訓班完成度是 30%&lt;/</span>li&gt;
-&lt;<span class="regexp">/ul&gt;  </span></code></pre>
-<hr>
-<h3 id="陣列排序進度"><a href="#陣列排序進度" class="headerlink" title="陣列排序進度"></a>陣列排序進度</h3><h3 id="axios取得API資料"><a href="#axios取得API資料" class="headerlink" title="axios取得API資料"></a>axios取得API資料</h3><ul>
-<li>綁定HTML的標籤，變數也使用一樣的名稱  </li>
-<li>宣告一個變數為data，後續存放回傳的資料用  </li>
-<li>使用axios取得API資料  </li>
+<h3 id="取得資料"><a href="#取得資料" class="headerlink" title="取得資料"></a>取得資料</h3><ul>
+<li>宣告 data 放回傳的資料用  </li>
+<li>宣告變數，起始值為0  </li>
+<li>以 axios 抓取 API 資料，執行 <code>render()</code> 及 <code>pieChart()</code> 函式，分別為判斷字元及繪製圓餅圖  </li>
 </ul>
-<pre><code class="javascript"><span class="keyword">let</span> list = <span class="built_in">document</span>.querySelector(<span class="string">'.userList'</span>);  
-<span class="keyword">let</span> dataList = [];  
+<pre><code class="javascript"><span class="keyword">var</span> apiUrl =<span class="string">"https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json"</span>;
+<span class="keyword">var</span> data = [];
+<span class="keyword">var</span> underSix = <span class="number">0</span>;
+<span class="keyword">var</span> aboveSix = <span class="number">0</span>;
 
-axios.get(<span class="string">'https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json'</span>)
-.then(<span class="function">(<span class="params">response</span>) =&gt;</span>{
-  dataList = response.data;
-  getData(dataList);
-})
-.catch(<span class="function">(<span class="params">err</span>) =&gt;</span> {  
-  <span class="built_in">console</span>.log(err);  
-});  </code></pre>
-<h3 id="建立清單渲染於網頁"><a href="#建立清單渲染於網頁" class="headerlink" title="建立清單渲染於網頁"></a>建立清單渲染於網頁</h3><p>使用一個函式存放要取得資料的方式  </p>
-<ul>
-<li>宣告一個變數為空字串  </li>
-<li>使用 <code>sort()</code> 方法讓資料可以依照條件做排序(大到小)，因為取得的值為字串，所以同時轉型為整數  </li>
-<li>透過 forEach 來取得想要的資料  </li>
-<li>組字串，因為我要做成列表，所以用一個 div 包住，成為區塊元素  </li>
-<li>用 innerHTML 印出標籤在網頁上</li>
-</ul>
-<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">data</span>)</span>{
-  <span class="keyword">let</span> str = <span class="string">''</span>;  
 
-  data.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> <span class="built_in">parseInt</span>(b.process) - <span class="built_in">parseInt</span>(a.process));  
-
-  .forEach(<span class="function">(<span class="params">user, index</span>) =&gt;</span> {  
-    str += <span class="string">`</span>
-<span class="string">    &lt;div&gt;</span>
-<span class="string">      &lt;ul&gt;</span>
-<span class="string">        &lt;li&gt;第 <span class="subst">${index + <span class="number">1</span>}</span> 名是 <span class="subst">${user.name}</span>，&lt;/br&gt;他的特訓班完成度是<span class="subst">${user.process}</span>&lt;/li&gt;</span>
-<span class="string">      &lt;/ul&gt;</span>
-<span class="string">    &lt;div&gt;</span>
-<span class="string">    `</span>;  
-  });  
-  list.innerHTML = str;  
+axios.get(apiUrl).then(<span class="function">(<span class="params">response</span>) =&gt;</span> {
+    data = response.data;
+    <span class="comment">// console.log(data);</span>
+    render();
+    pieChart();
+  })
+  <span class="comment">//除錯</span>
+  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>{
+    <span class="comment">// handle error</span>
+    <span class="built_in">console</span>.log(error);
+  });  </code></pre>
+<h3 id="判斷字元函式"><a href="#判斷字元函式" class="headerlink" title="判斷字元函式"></a>判斷字元函式</h3><pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>{
+  data.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> {
+    <span class="comment">//處理中文字元</span>
+    <span class="keyword">if</span> (item.name.replace(<span class="regexp">/[^\x00-\xff]/g</span>,<span class="string">"xx"</span>).length &lt;= <span class="number">6</span>) {
+      underSix += <span class="number">1</span>;
+    } <span class="keyword">else</span> {
+      aboveSix += <span class="number">1</span>;
+    }
+  });
 }  </code></pre>
-<p><a href="https://codepen.io/chunghuing/pen/LYGXMPZ" target="_blank" rel="noopener">CodePen</a>  </p>
+<h3 id="載入-C3-js-繪製圓餅圖"><a href="#載入-C3-js-繪製圓餅圖" class="headerlink" title="載入 C3.js 繪製圓餅圖"></a>載入 C3.js 繪製圓餅圖</h3><pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">pieChart</span>(<span class="params"></span>) </span>{
+  <span class="keyword">const</span> chart = c3.generate({
+    data: {
+      columns: [
+        [<span class="string">'參賽者姓名在6個(含)字元數以下'</span>, underSix],
+        [<span class="string">'參賽者姓名在7個字元數以上'</span>, aboveSix]
+      ],
+      type: <span class="string">"pie"</span>,
+       colors: {
+        <span class="string">'參賽者姓名在6個(含)字元數以下'</span>: <span class="string">"#29B6F6"</span>,
+        <span class="string">'參賽者姓名在7個字元數以上'</span>: <span class="string">"#F06292"</span>,
+        <span class="comment">//前面放"完成率"，後面指定顏色</span>
+      },
+    }
+  });
+}</code></pre>
+<p><a href="https://codepen.io/chunghuing/pen/gOPyBMG?editors=1010" target="_blank" rel="noopener">CodePen</a>  </p>
+<h3 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h3><ul>
+<li><a href="https://blog.typeart.cc/JavaScript%E8%A8%88%E7%AE%97%E5%90%AB%E4%B8%AD%E8%8B%B1%E6%96%87%E5%AD%97%E7%9A%84%E5%AD%97%E4%B8%B2%E9%95%B7%E5%BA%A6/" target="_blank" rel="noopener">JavaScript計算含中英文字的字串長度</a>  </li>
+<li><a href="https://www.cnblogs.com/PatrickChen/archive/2008/10/17/1313250.html" target="_blank" rel="noopener">javascript 中英文字符长度和截断处理</a>  </li>
+<li><a href="http://www.w3big.com/zh-TW/regexp/regexp-syntax.html" target="_blank" rel="noopener">正則表達式– 語法</a>  </li>
+<li><a href="https://gist.github.com/Codyooo/18ddfcb2bc4952e8a3e3f05871b18042" target="_blank" rel="noopener">正則匹配</a>  </li>
+<li><a href="http://dhcp.tcgs.tc.edu.tw/c/p009.htm" target="_blank" rel="noopener">字元與字串</a>  </li>
+</ul>
 
     </div>
 
@@ -282,13 +286,10 @@ axios.get(<span class="string">'https://raw.githubusercontent.com/hexschool/hexs
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY27-%E9%99%A3%E5%88%97%E8%A3%9C%E5%85%85%E8%A7%80%E5%BF%B5/" rel="prev" title="JS特訓-DAY27 陣列補充觀念">
-      <i class="fa fa-chevron-left"></i> JS特訓-DAY27 陣列補充觀念
+    <a href="/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY33-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E5%8F%83%E8%B3%BD%E6%AF%94%E4%BE%8B/" rel="prev" title="JS特訓-DAY33-圓餅圖分析(參賽比例)">
+      <i class="fa fa-chevron-left"></i> JS特訓-DAY33-圓餅圖分析(參賽比例)
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/26/JS%E7%89%B9%E8%A8%93-DAY29-%E7%9B%A3%E8%81%BD%E5%88%87%E6%8F%9B%E6%8E%92%E5%BA%8F%E5%8A%9F%E8%83%BD/" rel="next" title="JS特訓-DAY29-監聽切換排序功能">
-      JS特訓-DAY29-監聽切換排序功能 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -347,7 +348,7 @@ axios.get(<span class="string">'https://raw.githubusercontent.com/hexschool/hexs
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#陣列排序進度"><span class="nav-number">2.</span> <span class="nav-text">陣列排序進度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#axios取得API資料"><span class="nav-number">3.</span> <span class="nav-text">axios取得API資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立清單渲染於網頁"><span class="nav-number">4.</span> <span class="nav-text">建立清單渲染於網頁</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取得資料"><span class="nav-number">2.</span> <span class="nav-text">取得資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判斷字元函式"><span class="nav-number">3.</span> <span class="nav-text">判斷字元函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#載入-C3-js-繪製圓餅圖"><span class="nav-number">4.</span> <span class="nav-text">載入 C3.js 繪製圓餅圖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文件"><span class="nav-number">5.</span> <span class="nav-text">參考文件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
