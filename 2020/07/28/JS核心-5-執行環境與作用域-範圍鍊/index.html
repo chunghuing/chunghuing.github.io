@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言此次功能需求是：觀察每個參賽者「姓名長度的字元數」">
+  <meta name="description" content="前言範圍鍊 Scope Chain 指的是：當函式內沒有需要的變數時，會向外尋找該變數的過程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS特訓-DAY34-圓餅圖分析(中文字串判別)">
-<meta property="og:url" content="http://chunghuing.github.io/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY34-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E4%B8%AD%E6%96%87%E5%AD%97%E4%B8%B2%E5%88%A4%E5%88%A5/index.html">
+<meta property="og:title" content="JS核心(5)-執行環境與作用域-範圍鍊">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/28/JS%E6%A0%B8%E5%BF%83-5-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-%E7%AF%84%E5%9C%8D%E9%8D%8A/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
-<meta property="og:description" content="前言此次功能需求是：觀察每個參賽者「姓名長度的字元數」">
+<meta property="og:description" content="前言範圍鍊 Scope Chain 指的是：當函式內沒有需要的變數時，會向外尋找該變數的過程。">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-07-27T06:23:10.000Z">
-<meta property="article:modified_time" content="2020-07-27T07:13:59.255Z">
+<meta property="og:image" content="https://imgur.com/TeVpUg1.png">
+<meta property="article:published_time" content="2020-07-28T05:49:14.000Z">
+<meta property="article:modified_time" content="2020-07-28T07:32:12.623Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/TeVpUg1.png">
 
-<link rel="canonical" href="http://chunghuing.github.io/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY34-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E4%B8%AD%E6%96%87%E5%AD%97%E4%B8%B2%E5%88%A4%E5%88%A5/">
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/28/JS%E6%A0%B8%E5%BF%83-5-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-%E7%AF%84%E5%9C%8D%E9%8D%8A/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>JS特訓-DAY34-圓餅圖分析(中文字串判別) | Renee's Blog</title>
+  <title>JS核心(5)-執行環境與作用域-範圍鍊 | Renee's Blog</title>
   
 
 
@@ -162,7 +164,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY34-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E4%B8%AD%E6%96%87%E5%AD%97%E4%B8%B2%E5%88%A4%E5%88%A5/">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/28/JS%E6%A0%B8%E5%BF%83-5-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-%E7%AF%84%E5%9C%8D%E9%8D%8A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +177,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JS特訓-DAY34-圓餅圖分析(中文字串判別)
+          JS核心(5)-執行環境與作用域-範圍鍊
         </h1>
 
         <div class="post-meta">
@@ -186,7 +188,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-27 14:23:10 / Modified: 15:13:59" itemprop="dateCreated datePublished" datetime="2020-07-27T14:23:10+08:00">2020-07-27</time>
+              <time title="Created: 2020-07-28 13:49:14 / Modified: 15:32:12" itemprop="dateCreated datePublished" datetime="2020-07-28T13:49:14+08:00">2020-07-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,65 +211,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>此次功能需求是：觀察每個參賽者「姓名長度的字元數」</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>範圍鍊 Scope Chain 指的是：當函式內沒有需要的變數時，會向外尋找該變數的過程。  </p>
 <a id="more"></a>  
 
-<h3 id="取得資料"><a href="#取得資料" class="headerlink" title="取得資料"></a>取得資料</h3><ul>
-<li>宣告 data 放回傳的資料用  </li>
-<li>宣告變數，起始值為0  </li>
-<li>以 axios 抓取 API 資料，執行 <code>render()</code> 及 <code>pieChart()</code> 函式，分別為判斷字元及繪製圓餅圖  </li>
-</ul>
-<pre><code class="javascript"><span class="keyword">var</span> apiUrl =<span class="string">"https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json"</span>;
-<span class="keyword">var</span> data = [];
-<span class="keyword">var</span> underSix = <span class="number">0</span>;
-<span class="keyword">var</span> aboveSix = <span class="number">0</span>;
+<h3 id="範圍鍊"><a href="#範圍鍊" class="headerlink" title="範圍鍊"></a>範圍鍊</h3><p>前面的章節有提過，JS的作用域為語法作用域。<br>也就是說，作用域在函式撰寫完的時候，就已經被確定下來了，所以與執行堆疊以及執行環境並不會有任何直接關係，而這個尋找的過程就是所謂的範圍鍊  </p>
+<p>以下範例屬於在外層宣告，但內層卻可以取得。<br>無論是<code>fn1</code>或是<code>fn2</code>，範圍鍊都指向全域，這是因為原始碼撰寫結構的關係<br>因此 <code>fu1()</code> 並不會因為他是在 <code>fu2()</code> 下被呼叫而去尋找 <code>fu2()</code> 的 <code>var value = 2;</code>，<br>而是 <code>fu1()</code> 的 <code>value</code> 會去將外尋找外部的 <code>var value = 1;</code></p>
+<p><img src="https://imgur.com/TeVpUg1.png" alt="範圍鍊">  </p>
+<p>我們再來看一個例子：  </p>
+<p>下面這段程式碼為例，執行<code>sayHi</code>時，因為<code>sayHi</code>函式內沒有<code>person</code>變數，因此向外尋找，找到全域的<code>person</code> <code>&#39;老媽&#39;</code>，<br>這就是範圍鍊的概念  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = <span class="string">'老媽'</span>;
 
+<span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>) </span>{
+ <span class="built_in">console</span>.log(<span class="string">'hi'</span> + person);
+}
 
-axios.get(apiUrl).then(<span class="function">(<span class="params">response</span>) =&gt;</span> {
-    data = response.data;
-    <span class="comment">// console.log(data);</span>
-    render();
-    pieChart();
-  })
-  <span class="comment">//除錯</span>
-  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>{
-    <span class="comment">// handle error</span>
-    <span class="built_in">console</span>.log(error);
-  });  </code></pre>
-<h3 id="判斷字元函式"><a href="#判斷字元函式" class="headerlink" title="判斷字元函式"></a>判斷字元函式</h3><pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>{
-  data.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> {
-    <span class="comment">//處理中文字元</span>
-    <span class="keyword">if</span> (item.name.replace(<span class="regexp">/[^\x00-\xff]/g</span>,<span class="string">"xx"</span>).length &lt;= <span class="number">6</span>) {
-      underSix += <span class="number">1</span>;
-    } <span class="keyword">else</span> {
-      aboveSix += <span class="number">1</span>;
-    }
-  });
-}  </code></pre>
-<h3 id="載入-C3-js-繪製圓餅圖"><a href="#載入-C3-js-繪製圓餅圖" class="headerlink" title="載入 C3.js 繪製圓餅圖"></a>載入 C3.js 繪製圓餅圖</h3><pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">pieChart</span>(<span class="params"></span>) </span>{
-  <span class="keyword">const</span> chart = c3.generate({
-    data: {
-      columns: [
-        [<span class="string">'參賽者姓名在6個(含)字元數以下'</span>, underSix],
-        [<span class="string">'參賽者姓名在7個字元數以上'</span>, aboveSix]
-      ],
-      type: <span class="string">"pie"</span>,
-       colors: {
-        <span class="string">'參賽者姓名在6個(含)字元數以下'</span>: <span class="string">"#29B6F6"</span>,
-        <span class="string">'參賽者姓名在7個字元數以上'</span>: <span class="string">"#F06292"</span>,
-        <span class="comment">//前面放"完成率"，後面指定顏色</span>
-      },
-    }
-  });
-}</code></pre>
-<p><a href="https://codepen.io/chunghuing/pen/gOPyBMG?editors=1010" target="_blank" rel="noopener">CodePen</a>  </p>
-<h3 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h3><ul>
-<li><a href="https://blog.typeart.cc/JavaScript%E8%A8%88%E7%AE%97%E5%90%AB%E4%B8%AD%E8%8B%B1%E6%96%87%E5%AD%97%E7%9A%84%E5%AD%97%E4%B8%B2%E9%95%B7%E5%BA%A6/" target="_blank" rel="noopener">JavaScript計算含中英文字的字串長度</a>  </li>
-<li><a href="https://www.cnblogs.com/PatrickChen/archive/2008/10/17/1313250.html" target="_blank" rel="noopener">javascript 中英文字符长度和截断处理</a>  </li>
-<li><a href="http://www.w3big.com/zh-TW/regexp/regexp-syntax.html" target="_blank" rel="noopener">正則表達式– 語法</a>  </li>
-<li><a href="https://gist.github.com/Codyooo/18ddfcb2bc4952e8a3e3f05871b18042" target="_blank" rel="noopener">正則匹配</a>  </li>
-<li><a href="http://dhcp.tcgs.tc.edu.tw/c/p009.htm" target="_blank" rel="noopener">字元與字串</a>  </li>
-</ul>
+<span class="function"><span class="keyword">function</span> <span class="title">doMorningWork</span>(<span class="params"></span>) </span>{
+ <span class="keyword">var</span> person = <span class="string">'老爸'</span>;
+
+ <span class="function"><span class="keyword">function</span> <span class="title">meetAuntie</span>(<span class="params"></span>) </span>{
+  <span class="keyword">var</span> person = <span class="string">'漂亮阿姨'</span>;
+  <span class="built_in">console</span>.log(<span class="string">'哈囉～'</span> + person);
+ }
+
+}
+
+sayHi();  </code></pre>
+<p>將程式碼稍做修改，在<code>doMorningWork</code>裡面呼叫<code>sayHi</code> ， <code>console.log</code> 結果竟然會跟前一個例子一樣: hi 老媽<br>這是因為<code>sayHi</code>函式的範圍鍊依然指向全域，雖然他在<code>doMorningWork</code>執行環境下  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = <span class="string">'老媽'</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>) </span>{
+ <span class="built_in">console</span>.log(<span class="string">'hi'</span> + person);
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">doMorningWork</span>(<span class="params"></span>) </span>{
+ <span class="keyword">var</span> person = <span class="string">'老爸'</span>;
+
+ <span class="function"><span class="keyword">function</span> <span class="title">meetAuntie</span>(<span class="params"></span>) </span>{
+  <span class="keyword">var</span> person = <span class="string">'漂亮阿姨'</span>;
+  <span class="built_in">console</span>.log(<span class="string">'哈囉～'</span> + person);
+ }
+
+ sayHi();
+}
+
+doMorningWork();</code></pre>
 
     </div>
 
@@ -286,12 +273,12 @@ axios.get(apiUrl).then(<span class="function">(<span class="params">response</sp
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY33-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E5%8F%83%E8%B3%BD%E6%AF%94%E4%BE%8B/" rel="prev" title="JS特訓-DAY33-圓餅圖分析(參賽比例)">
-      <i class="fa fa-chevron-left"></i> JS特訓-DAY33-圓餅圖分析(參賽比例)
+    <a href="/2020/07/28/JS%E6%A0%B8%E5%BF%83-4-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E5%9F%B7%E8%A1%8C%E5%A0%86%E7%96%8A/" rel="prev" title="JS核心(4)-執行環境與作用域-執行環境與執行堆疊">
+      <i class="fa fa-chevron-left"></i> JS核心(4)-執行環境與作用域-執行環境與執行堆疊
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/27/JS%E6%A0%B8%E5%BF%83-1-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-JavaScript-%E9%81%8B%E4%BD%9C%E6%96%B9%E5%BC%8F/" rel="next" title="JS核心(1)-執行環境與作用域-JavaScript 運作方式">
-      JS核心(1)-執行環境與作用域-JavaScript 運作方式 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/28/JS%E6%A0%B8%E5%BF%83-6-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-%E6%8F%90%E5%8D%87/" rel="next" title="JS核心(6)-執行環境與作用域-提升">
+      JS核心(6)-執行環境與作用域-提升 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -351,7 +338,7 @@ axios.get(apiUrl).then(<span class="function">(<span class="params">response</sp
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取得資料"><span class="nav-number">2.</span> <span class="nav-text">取得資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判斷字元函式"><span class="nav-number">3.</span> <span class="nav-text">判斷字元函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#載入-C3-js-繪製圓餅圖"><span class="nav-number">4.</span> <span class="nav-text">載入 C3.js 繪製圓餅圖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文件"><span class="nav-number">5.</span> <span class="nav-text">參考文件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#範圍鍊"><span class="nav-number">2.</span> <span class="nav-text">範圍鍊</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
