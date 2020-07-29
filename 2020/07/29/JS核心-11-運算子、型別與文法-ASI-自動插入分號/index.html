@@ -20,26 +20,20 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言了解 JavaScript 的運作模式">
+  <meta name="description" content="前言JavaScript 為什麼一下子可以有「;」號一下子有沒有「;」號呢？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS核心(1)-執行環境與作用域-JavaScript 運作方式">
-<meta property="og:url" content="http://chunghuing.github.io/2020/07/27/JS%E6%A0%B8%E5%BF%83-1-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-JavaScript-%E9%81%8B%E4%BD%9C%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:title" content="JS核心(11)-運算子、型別與文法-ASI 自動插入分號">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-11-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-ASI-%E8%87%AA%E5%8B%95%E6%8F%92%E5%85%A5%E5%88%86%E8%99%9F/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
-<meta property="og:description" content="前言了解 JavaScript 的運作模式">
+<meta property="og:description" content="前言JavaScript 為什麼一下子可以有「;」號一下子有沒有「;」號呢？">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://imgur.com/bZi5029.png">
-<meta property="og:image" content="https://imgur.com/5IpVHnA.png">
-<meta property="og:image" content="https://imgur.com/TJ8b40n.png">
-<meta property="og:image" content="https://imgur.com/WctM3wA.png">
-<meta property="og:image" content="https://imgur.com/4JsK9u8.png">
-<meta property="article:published_time" content="2020-07-27T15:19:18.000Z">
-<meta property="article:modified_time" content="2020-07-27T16:30:04.709Z">
+<meta property="article:published_time" content="2020-07-29T05:18:39.000Z">
+<meta property="article:modified_time" content="2020-07-29T05:56:52.323Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://imgur.com/bZi5029.png">
 
-<link rel="canonical" href="http://chunghuing.github.io/2020/07/27/JS%E6%A0%B8%E5%BF%83-1-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-JavaScript-%E9%81%8B%E4%BD%9C%E6%96%B9%E5%BC%8F/">
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-11-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-ASI-%E8%87%AA%E5%8B%95%E6%8F%92%E5%85%A5%E5%88%86%E8%99%9F/">
 
 
 <script id="page-configurations">
@@ -52,7 +46,7 @@
   };
 </script>
 
-  <title>JS核心(1)-執行環境與作用域-JavaScript 運作方式 | Renee's Blog</title>
+  <title>JS核心(11)-運算子、型別與文法-ASI 自動插入分號 | Renee's Blog</title>
   
 
 
@@ -168,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/27/JS%E6%A0%B8%E5%BF%83-1-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-JavaScript-%E9%81%8B%E4%BD%9C%E6%96%B9%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-11-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-ASI-%E8%87%AA%E5%8B%95%E6%8F%92%E5%85%A5%E5%88%86%E8%99%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -181,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JS核心(1)-執行環境與作用域-JavaScript 運作方式
+          JS核心(11)-運算子、型別與文法-ASI 自動插入分號
         </h1>
 
         <div class="post-meta">
@@ -190,16 +184,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Veröffentlicht am</span>
+              
 
-              <time title="Erstellt: 2020-07-27 23:19:18" itemprop="dateCreated datePublished" datetime="2020-07-27T23:19:18+08:00">2020-07-27</time>
+              <time title="Erstellt: 2020-07-29 13:18:39 / Geändert am: 13:56:52" itemprop="dateCreated datePublished" datetime="2020-07-29T13:18:39+08:00">2020-07-29</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2020-07-28 00:30:04" itemprop="dateModified" datetime="2020-07-28T00:30:04+08:00">2020-07-28</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -221,45 +209,85 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>了解 JavaScript 的運作模式  </p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>JavaScript 為什麼一下子可以有「;」號一下子有沒有「;」號呢？  </p>
 <a id="more"></a>  
 
-<p>我們寫的原始碼是無法直接被電腦或是瀏覽器閱讀的，在被電腦運行之前需經過 <strong>轉譯器</strong> 將相關的指令轉換成電腦能懂的指令。  </p>
-<h3 id="JavaScript-是一種直譯式語言"><a href="#JavaScript-是一種直譯式語言" class="headerlink" title="JavaScript 是一種直譯式語言"></a>JavaScript 是一種直譯式語言</h3><p>什麼是直譯式語言(Interperted language)?  </p>
-<p>動態將程式碼透過直譯器逐句編譯為機器碼(直接生成電腦看得懂的代碼)，之後再執行，以JavaScript來說，錯誤訊息都是會直接反映在瀏覽器的console上面。  </p>
-<p><img src="https://imgur.com/bZi5029.png" alt="直譯式語言">  </p>
-<hr>
-<h3 id="編譯式語言"><a href="#編譯式語言" class="headerlink" title="編譯式語言"></a>編譯式語言</h3><p>什麼是編譯式語言(Compiled language)?  </p>
-<p>程式在撰寫的同時就 <strong>已被預先編譯</strong> 成機器碼，可以直接執行，<br>不用像直譯式語言還要多一道直譯程式。  </p>
-<p><img src="https://imgur.com/5IpVHnA.png" alt="編譯式語言">  </p>
-<hr>
-<h3 id="兩者的差異"><a href="#兩者的差異" class="headerlink" title="兩者的差異"></a>兩者的差異</h3><ul>
-<li><p>直譯式語言：<br>優點：彈性高、修改、除錯方便。<br>缺點：效率較低、不適合及時運用。  </p>
-</li>
-<li><p>編譯式語言：<br>優點：執行速度快。<br>缺點：開發速度、除錯速度較慢。  </p>
-</li>
-</ul>
-<hr>
-<h3 id="JavaScript直譯器轉換的過程"><a href="#JavaScript直譯器轉換的過程" class="headerlink" title="JavaScript直譯器轉換的過程"></a>JavaScript直譯器轉換的過程</h3><p><img src="https://imgur.com/TJ8b40n.png" alt="直譯器轉換的過程">  </p>
-<blockquote>
-<p>可以使用 <a href="https://esprima.org/demo/parse.html" target="_blank" rel="noopener">Esprima</a> 的小工具來了解何謂語法基本單位化及抽象結構樹  </p>
-</blockquote>
-<p>首先我們可以先在 Esprima 輸入以下程式碼  </p>
-<pre><code class="javascript"><span class="keyword">var</span> ming = <span class="string">'小明'</span>;  </code></pre>
-<p>透過旁邊的 Token 分頁標籤我們可以看到程式碼都被分析成一個一個類似物件的結構，而這就是所謂的語法基本單位化(Tokenizing)  </p>
-<p><img src="https://imgur.com/WctM3wA.png" alt="Tokenizing">  </p>
-<p>會看到 type 會有這些選項  </p>
+<h3 id="ASI-Automatic-Semicolon-Insertion"><a href="#ASI-Automatic-Semicolon-Insertion" class="headerlink" title="ASI (Automatic Semicolon Insertion)"></a>ASI (Automatic Semicolon Insertion)</h3><p>中文名稱為「自動分號插入」，當 JavaScript 語句沒有加上分號時，則會受到自動插入分號 (ASI) 規則影響。  </p>
+<p>在撰寫 JavaScript 中其實它是允許你不寫分號的，因為它會自動幫你插入  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = {
+  hi: <span class="string">'Bob'</span>,
+}
+<span class="built_in">console</span>.log(a.hi); <span class="comment">// Bob</span></code></pre>
+<p>ASI 機制相當的方便，其中 JavaScript 的風格管理器 ESLint 中的 Standard 就是採用此方式  </p>
+<p>但是以一個工程師來講，自動這種東西其實相當的危險，舉例來講</p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">return</span>
+  <span class="string">'goodmorning Bob'</span>
+}
+
+<span class="built_in">console</span>.log(a())</code></pre>
+<p>在上面程式碼我們將函式儲存在變數 <code>a</code> 中，並透過 <code>console.log()</code> 回傳顯示 <code>goodmorning Bob</code>，但這時候你若實際執行程式碼，應該會發現一個很奇怪的現象，不但沒有回傳 <code>goodmorning Bob</code> 反而是出現了 <code>undefined</code>  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">return</span>
+  <span class="string">'goodmorning Bob'</span>
+}
+
+<span class="built_in">console</span>.log(a())
+<span class="comment">// undefined</span></code></pre>
+<p>主要原因在於 ASI 所導致，因為 ASI 機制會在結尾處補上分號，因此上面程式碼實際的運行狀況如下  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">return</span>; <span class="string">'goodmorning Bob'</span>;
+}
+
+<span class="built_in">console</span>.log(a())</code></pre>
+<p>因此才會回傳一個 <code>undefined</code>，因為根本沒有回傳任何東西  </p>
+<p>其中 ASI 也有另一個常見的經典錯誤，也就是立即函式  </p>
+<pre><code class="javascript">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'one'</span>)
+})()
+
+(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'two'</span>)
+})()
+<span class="comment">// Uncaught TypeError: (intermediate value)(...) is not a function at &lt;anonymous&gt;:5:1</span></code></pre>
+<p>而要解決這個錯誤的方式有兩種，一種是在立即函式結尾補上分號或者是在立即函式前面補上分號  </p>
+<pre><code class="javascript"><span class="comment">// 第一種</span>
+(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'one'</span>)
+})();
+
+(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'two'</span>)
+})();
+
+<span class="comment">// 第二種</span>
+;(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'one'</span>)
+})()
+
+;(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'two'</span>)
+})()</code></pre>
+<p>基本上 ASI 比較容易出現錯誤的規則大約就是新的一行有這幾種開頭  </p>
 <ul>
-<li>Keyword (關鍵字)  </li>
-<li>Identifier (標識符，又稱為識別碼)  </li>
-<li>Punctuator (符號)  </li>
-<li>String、Number (型別)  </li>
+<li><code>(</code>、<code>[</code>、<code>/</code>、  </li>
+<li>大部分算數運算子 (<code>+</code>、<code>-</code>、<code>*</code>、<code>%</code>)  </li>
+<li>點運算子(<code>.</code>)  </li>
+<li>逗號(<code>,</code>)  </li>
 </ul>
-<p>在這邊要注意，在語法基本單位化時，他還不知道 ming 是一個變數名稱，他只是先將字詞解析為一個identifier。而等號和分號都被解析為punctuator標點符號而已。 </p>
-<hr>
-<p>抽象結構樹會將前一階段解析出來的tokens轉換為他們原本被賦予的意義。我們可以看到在tree這個tab裡，他已經成功將這段程式碼解讀為一個結構樹：<strong>宣告一個變數ming, 且初始值為小明</strong>。  </p>
-<p><img src="https://imgur.com/4JsK9u8.png" alt="抽象結構樹">  </p>
-<p>透過這過程我們可以了解到 JavaScript 的直譯器，是在 Tree 的階段才開始正式的了解每一個字詞的意義，但是這邊 JavaScript 並還沒有開始真正的執行，只是了解他的字詞而已，真正的執行是在代碼生成的時候，但每一個執行環境的不同，所以執行的結果就會跟著不同。  </p>
+<p>但是你也必須要知道有哪些語句容易受到 ASI 影響  </p>
+<ul>
+<li>空的陳述式  </li>
+<li>var 陳述式  </li>
+<li>表達陳述式  </li>
+<li>do-while  </li>
+<li>continue  </li>
+<li>break  </li>
+<li>return  </li>
+<li>throw  </li>
+</ul>
+<p>詳細一點的 ASI 可以在這裡看到<a href="http://www.ecma-international.org/ecma-262/7.0/index.html#sec-rules-of-automatic-semicolon-insertion" target="_blank" rel="noopener">11.9.1Rules of Automatic Semicolon Insertion</a>  </p>
+<p>另外這邊也有相當多<a href="https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi" target="_blank" rel="noopener">範例</a>可以參考  </p>
 
     </div>
 
@@ -278,12 +306,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/27/JS%E7%89%B9%E8%A8%93-DAY34-%E5%9C%93%E9%A4%85%E5%9C%96%E5%88%86%E6%9E%90-%E4%B8%AD%E6%96%87%E5%AD%97%E4%B8%B2%E5%88%A4%E5%88%A5/" rel="prev" title="JS特訓-DAY34-圓餅圖分析(中文字串判別)">
-      <i class="fa fa-chevron-left"></i> JS特訓-DAY34-圓餅圖分析(中文字串判別)
+    <a href="/2020/07/29/JS%E6%A0%B8%E5%BF%83-10-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E8%A1%A8%E9%81%94%E5%BC%8F/" rel="prev" title="JS核心(10)-運算子、型別與文法-陳述式與表達式">
+      <i class="fa fa-chevron-left"></i> JS核心(10)-運算子、型別與文法-陳述式與表達式
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/27/JS%E6%A0%B8%E5%BF%83-2-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-%E5%9F%B7%E8%A1%8C%E7%9A%84%E9%8C%AF%E8%AA%A4%E6%83%85%E5%A2%83-LHS-RHS/" rel="next" title="JS核心(2)-執行環境與作用域-執行的錯誤情境 LHS, RHS">
-      JS核心(2)-執行環境與作用域-執行的錯誤情境 LHS, RHS <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/29/JS%E6%A0%B8%E5%BF%83-12-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E5%8B%95%E6%85%8B%E5%9E%8B%E5%88%A5/" rel="next" title="JS核心(12)-運算子、型別與文法-動態型別">
+      JS核心(12)-運算子、型別與文法-動態型別 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -343,7 +371,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-是一種直譯式語言"><span class="nav-number">2.</span> <span class="nav-text">JavaScript 是一種直譯式語言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#編譯式語言"><span class="nav-number">3.</span> <span class="nav-text">編譯式語言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兩者的差異"><span class="nav-number">4.</span> <span class="nav-text">兩者的差異</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript直譯器轉換的過程"><span class="nav-number">5.</span> <span class="nav-text">JavaScript直譯器轉換的過程</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ASI-Automatic-Semicolon-Insertion"><span class="nav-number">2.</span> <span class="nav-text">ASI (Automatic Semicolon Insertion)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

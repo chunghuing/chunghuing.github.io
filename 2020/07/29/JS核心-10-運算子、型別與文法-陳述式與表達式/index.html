@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言陳述式(Statement)與表達式(Expression)最大的差別在：陳述式不會回傳結果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心(10)-運算子、型別與文法-陳述式與表達式">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-10-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E8%A1%A8%E9%81%94%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言陳述式(Statement)與表達式(Expression)最大的差別在：陳述式不會回傳結果">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/UMjIn2C.png">
+<meta property="article:published_time" content="2020-07-28T16:09:16.000Z">
+<meta property="article:modified_time" content="2020-07-29T05:02:41.193Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/UMjIn2C.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-10-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E8%A1%A8%E9%81%94%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心(10)-運算子、型別與文法-陳述式與表達式 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-10-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E8%A1%A8%E9%81%94%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心(10)-運算子、型別與文法-陳述式與表達式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              <time title="Erstellt: 2020-07-29 00:09:16 / Geändert am: 13:02:41" itemprop="dateCreated datePublished" datetime="2020-07-29T00:09:16+08:00">2020-07-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>陳述式(Statement)與表達式(Expression)最大的差別在：陳述式不會回傳結果  </p>
+<a id="more"></a>  
+
+<h3 id="陳述式與表達式"><a href="#陳述式與表達式" class="headerlink" title="陳述式與表達式"></a>陳述式與表達式</h3><p><img src="https://imgur.com/UMjIn2C.png" alt="陳述式與表達式">  </p>
+<p>可以透過 MDN 文件了解 JavaScript 的陳述式 <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements" target="_blank" rel="noopener">陳述式</a> 與 <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators#%E9%81%8B%E7%AE%97%E5%BC%8F" target="_blank" rel="noopener">表達式</a> 有那些  </p>
+<blockquote>
+<p>陳述式有 <code>var</code>、<code>let</code>、<code>const</code>、<code>if...else</code>、<code>for</code> …等等<br>表達式經常會與運算子搭配並回傳結果  </p>
+</blockquote>
+<h3 id="陳述式-Statement"><a href="#陳述式-Statement" class="headerlink" title="陳述式 (Statement)"></a>陳述式 (Statement)</h3><p>基本上陳述式是不會回傳結果的，在這邊你應該會覺得很奇怪，剛才不是說表達式通常會搭配運算子並回傳結果嗎？那麼變數宣告的 <code>var a = 1;</code> 有回傳一個 <code>undefined</code> 為什麼不算是一個表達式呢？而且他也有 = 運算子，這樣子不算是表達式嗎？</br>  </p>
+<p>相信很多人對於「變數宣告」為什麼是一個陳述式感到疑惑，陳述式最簡單的觀念來自「它只會靜靜躺在那邊等你呼叫，最大特徵在於不會回傳任何的結果，但是<strong>陳述式必定會先執行過一次</strong>」，其主要原因在於它要先確定語法作用域。</br>  </p>
+<p>因此若在 Chrome 上的 console 輸入 <code>var a = 1;</code> 卻會回傳 <code>undefined</code> 的原因在於變數宣告時，JavaScript 會先執行過一次，因為它要替這個變數準備一個記憶體空間，並將記憶體空間與變數名稱對應，但並不會回傳結果，因此變數宣告才會回傳給你一個 <code>undefined</code>，而在這邊的 <code>undefined</code> 只是告訴你我已經替這個變數宣告準備好了記憶體空間而已。</br>  </p>
+<h3 id="表達式-Expression"><a href="#表達式-Expression" class="headerlink" title="表達式 (Expression)"></a>表達式 (Expression)</h3><p>表達式又稱之為運算式，也可以稱為表示式，最間單的觀念理解在於它會回傳一個值，例如當你輸入 <code>1+1</code> 它會在底下回傳一個 <code>2</code>，而這就是表達式  </p>
+<pre><code class="javascript">&gt; <span class="number">1</span>+<span class="number">1</span>
+&lt; <span class="number">2</span></code></pre>
+<p>在 MDN 中有說明運算式的幾個特徵  </p>
+<blockquote>
+<p>算數: 解析出數字， 例如 3.14159. (通常使用 算術運算子)<br>字串: 解析出字串， 例如 “Fred” or “234”。 (通常使用 字串運算子)<br>邏輯: 解析出 True 或 False (通常與 邏輯運算子 相關)<br>主流運算式: JavaScript 基本的關鍵字及運算式<br>左側運算式: 左側是指定值的對象  </p>
+</blockquote>
+<p>表達式最簡單的便是觀念在於「會回傳一個結果 or 一個值」，因此當我們輸入 <code>hi = &#39;Bob&#39;</code> 它會回傳一個 <code>&#39;Bob&#39;</code> 這就是表達式  </p>
+<pre><code class="javascript">&gt; hi = <span class="string">'Bob'</span>;
+&lt; <span class="string">'Bob'</span></code></pre>
+<p>而表達式的重點觀念在於運算子，因此等號是一個表達式，它會將值賦予到 <code>hi</code> 並回傳結果，因此我們這邊可以回顧一下變數宣告中的 <code>var a = &#39;10&#39;;</code> 為什麼會回傳 <code>undefined</code>，前面有說過變數宣告會回傳 <code>undefined</code> 的原因在於它準備好一個空間給記憶體給變數使用，接下來讓我們看一下其他陳述式通常會發生什麼事情  </p>
+<pre><code class="javascript"><span class="keyword">if</span>(<span class="literal">true</span>) {
+}
+<span class="comment">//undefined</span>
+
+<span class="function"><span class="keyword">function</span> <span class="title">fu</span>(<span class="params"></span>) </span>{}
+<span class="comment">//undefined</span>
+
+<span class="keyword">for</span>(<span class="keyword">var</span> i; i&lt; <span class="number">10</span>;i++) {}
+<span class="comment">//undefined</span>
+</code></pre>
+<p>你會發現只要是陳述式它就只會回傳 <code>undefined</code>  </p>
+<p>反之表達式就不同，表達式必定會回傳一個結果一個值  </p>
+<pre><code class="javascript">hi = <span class="string">'Bob'</span>;
+<span class="comment">//'Bob'</span>
+
+<span class="number">1</span>+<span class="number">1</span>;
+<span class="comment">//2</span>
+
+w = <span class="literal">true</span>;
+<span class="comment">//true</span>
+
+d = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{}
+<span class="comment">//f () {}</span>
+</code></pre>
+<hr>
+<p>另外，我們常在開發使用的 setTimeout 以及 setInterval 也是屬於表達式  </p>
+<pre><code class="javascript">&gt; setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}, <span class="number">10000</span>); <span class="comment">// 1000 = 1 秒</span>
+&lt; <span class="number">7</span>
+
+&gt; setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}, <span class="number">10000</span>);
+&lt; <span class="number">8</span></code></pre>
+<p>此外陳述式與表達式還有一個特徵可以辨別，也就是陳述式無法被變數儲存，因為陳述式不會回傳值的關係  </p>
+<pre><code class="javascript">a = <span class="keyword">if</span> (<span class="literal">true</span>) {};
+<span class="comment">// Uncaught SyntaxError: Unexpected token 'if'</span></code></pre>
+<hr>
+<h3 id="函式陳述式"><a href="#函式陳述式" class="headerlink" title="函式陳述式"></a>函式陳述式</h3><p>接下來講另一種的陳述式與表達式，函式在宣告時其實也有分為兩種廣義的宣告方式，第一種就是所謂的函式陳述式  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">fu</span>(<span class="params"></span>) </span>{
+
+}</code></pre>
+<p>基本上函式陳述式在宣告時，並不會回傳結果，而是與前面相同，僅會回傳 undefined，此外上面的函式陳述式又稱之為具名函式陳述式  </p>
+<h3 id="函式表達式"><a href="#函式表達式" class="headerlink" title="函式表達式"></a>函式表達式</h3><p>函式表達式通常會宣告一個變數並搭配等號運算子以及一個函式，而這個就是所謂的函式表達式  </p>
+<pre><code class="javascript"><span class="keyword">var</span> fu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{}</code></pre>
+<p>而這個宣告函式的方式又稱之為匿名函式表達式，雖然你在 Chrome 中，輸入他一樣會回傳給你一個 <code>undefined</code>，但實際上因為這個函式沒有 <code>name</code> 所以會被回傳儲存在 <code>fu</code> 的變數內，而函式表達式最大的特徵在於他不會受到提升的影響，因此若你在函式表達式之前呼叫，它就會出現錯誤訊息  </p>
+<pre><code class="javascript">fu();  
+<span class="keyword">var</span> fu = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{}
+<span class="comment">//Uncaught TypeError: fu is not a functionat &lt;anonymous&gt;:1:1</span></code></pre>
+<hr>
+<h3 id="block-與物件實字"><a href="#block-與物件實字" class="headerlink" title="block 與物件實字"></a>block 與物件實字</h3><p>在 JavaScript 中有一個 block，也就是 <code>{}</code>， block 在 MDN 中也是屬於陳述式，因此可以這樣寫  </p>
+<pre><code class="javascript">{
+  <span class="keyword">var</span> hi = <span class="string">'Bob'</span>;
+}</code></pre>
+<p>但是若是改寫成物件實字則是使用「:」來區分屬性與值  </p>
+<pre><code class="javascript">{
+  hi: <span class="string">'Bob'</span>,
+}</code></pre>
+<p>而這邊兩者最大差異在於物件實字是一個表達式，因此表達式我們可以儲存進變數內中  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = {
+  hi: <span class="string">'Bob'</span>,
+};</code></pre>
+<p>但若是 block 則是不行，因為他是一個陳述式  </p>
+<pre><code class="javascript"><span class="keyword">var</span> b = {
+  <span class="keyword">var</span> hi = <span class="string">'Bob'</span>;
+}
+<span class="comment">// Uncaught SyntaxError: Unexpected identifier</span></code></pre>
+<p><strong>結論</strong><br>只要會回傳結果或是值，那麼就是屬於表達式，若不會那麼就是陳述式  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/29/JS%E6%A0%B8%E5%BF%83-9-%E5%9F%B7%E8%A1%8C%E7%92%B0%E5%A2%83%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F-%E5%9F%B7%E8%A1%8C%E7%B7%92%E8%88%87%E5%90%8C%E6%AD%A5%E3%80%81%E9%9D%9E%E5%90%8C%E6%AD%A5/" rel="prev" title="JS核心(9)-執行環境與作用域-執行緒與同步、非同步">
+      <i class="fa fa-chevron-left"></i> JS核心(9)-執行環境與作用域-執行緒與同步、非同步
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/29/JS%E6%A0%B8%E5%BF%83-11-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-ASI-%E8%87%AA%E5%8B%95%E6%8F%92%E5%85%A5%E5%88%86%E8%99%9F/" rel="next" title="JS核心(11)-運算子、型別與文法-ASI 自動插入分號">
+      JS核心(11)-運算子、型別與文法-ASI 自動插入分號 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Inhaltsverzeichnis
+        </li>
+        <li class="sidebar-nav-overview">
+          Übersicht
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#陳述式與表達式"><span class="nav-number">2.</span> <span class="nav-text">陳述式與表達式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#陳述式-Statement"><span class="nav-number">3.</span> <span class="nav-text">陳述式 (Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表達式-Expression"><span class="nav-number">4.</span> <span class="nav-text">表達式 (Expression)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函式陳述式"><span class="nav-number">5.</span> <span class="nav-text">函式陳述式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函式表達式"><span class="nav-number">6.</span> <span class="nav-text">函式表達式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#block-與物件實字"><span class="nav-number">7.</span> <span class="nav-text">block 與物件實字</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">Artikel</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">Kategorien</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">schlagwörter</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
