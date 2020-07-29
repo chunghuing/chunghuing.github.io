@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言延續上一次陣列排序進度，此次練習針對 select 切換排序方式">
+  <meta name="description" content="前言優化完課率的圖表設計">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS特訓-DAY29-監聽切換排序功能">
-<meta property="og:url" content="http://chunghuing.github.io/2020/07/26/JS%E7%89%B9%E8%A8%93-DAY29-%E7%9B%A3%E8%81%BD%E5%88%87%E6%8F%9B%E6%8E%92%E5%BA%8F%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:title" content="JS特訓-DAY35-圓餅圖與長條圖合併使用">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/29/JS%E7%89%B9%E8%A8%93-DAY35-%E5%9C%93%E9%A4%85%E5%9C%96%E8%88%87%E9%95%B7%E6%A2%9D%E5%9C%96%E5%90%88%E4%BD%B5%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
-<meta property="og:description" content="前言延續上一次陣列排序進度，此次練習針對 select 切換排序方式">
+<meta property="og:description" content="前言優化完課率的圖表設計">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-07-26T09:51:16.000Z">
-<meta property="article:modified_time" content="2020-07-26T12:04:56.713Z">
+<meta property="og:image" content="https://imgur.com/rQ6yfxz.png">
+<meta property="article:published_time" content="2020-07-29T08:42:08.000Z">
+<meta property="article:modified_time" content="2020-07-29T09:11:16.245Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/rQ6yfxz.png">
 
-<link rel="canonical" href="http://chunghuing.github.io/2020/07/26/JS%E7%89%B9%E8%A8%93-DAY29-%E7%9B%A3%E8%81%BD%E5%88%87%E6%8F%9B%E6%8E%92%E5%BA%8F%E5%8A%9F%E8%83%BD/">
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/29/JS%E7%89%B9%E8%A8%93-DAY35-%E5%9C%93%E9%A4%85%E5%9C%96%E8%88%87%E9%95%B7%E6%A2%9D%E5%9C%96%E5%90%88%E4%BD%B5%E4%BD%BF%E7%94%A8/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>JS特訓-DAY29-監聽切換排序功能 | Renee's Blog</title>
+  <title>JS特訓-DAY35-圓餅圖與長條圖合併使用 | Renee's Blog</title>
   
 
 
@@ -162,7 +164,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/26/JS%E7%89%B9%E8%A8%93-DAY29-%E7%9B%A3%E8%81%BD%E5%88%87%E6%8F%9B%E6%8E%92%E5%BA%8F%E5%8A%9F%E8%83%BD/">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/29/JS%E7%89%B9%E8%A8%93-DAY35-%E5%9C%93%E9%A4%85%E5%9C%96%E8%88%87%E9%95%B7%E6%A2%9D%E5%9C%96%E5%90%88%E4%BD%B5%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +177,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JS特訓-DAY29-監聽切換排序功能
+          JS特訓-DAY35-圓餅圖與長條圖合併使用
         </h1>
 
         <div class="post-meta">
@@ -186,7 +188,7 @@
               <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
-              <time title="Erstellt: 2020-07-26 17:51:16 / Geändert am: 20:04:56" itemprop="dateCreated datePublished" datetime="2020-07-26T17:51:16+08:00">2020-07-26</time>
+              <time title="Erstellt: 2020-07-29 16:42:08 / Geändert am: 17:11:16" itemprop="dateCreated datePublished" datetime="2020-07-29T16:42:08+08:00">2020-07-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,82 +211,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>延續上一次陣列排序進度，此次練習針對 select 切換排序方式  </p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>優化完課率的圖表設計  </p>
 <a id="more"></a>  
 
-<h3 id="axios-取得-API-資料"><a href="#axios-取得-API-資料" class="headerlink" title="axios 取得 API 資料"></a>axios 取得 API 資料</h3><ul>
-<li>綁定 HTML 的標籤，變數也使用一樣的名稱  </li>
-<li>宣告一個變數為 data，後續存放回傳的資料用  </li>
-<li>使用 axios 取得 API 資料  </li>
+<p><img src="https://imgur.com/rQ6yfxz.png" alt="優化圖表結果">  </p>
+<h3 id="取得資料"><a href="#取得資料" class="headerlink" title="取得資料"></a>取得資料</h3><ul>
+<li>分成三種級距，<code>finishHigh</code> 完課率 50% 以上，<code>finishMiddle</code> 完課率 21%<del>49%，<code>finishLow</code> 完課率 0%</del>20%。  </li>
+<li>判斷使用到運算子。  </li>
+<li>使用兩個函式 <code>loadPie()</code> 及 <code>loadBar()</code> 放不同圖表，為了是避免修正樣式結果另一個圖表也壞掉了，帶入的參數一致，資料來源一致。  </li>
+<li>圖表設定方法跟前面相同，只有更換 type，就不多加說明了。  </li>
 </ul>
-<pre><code class="javascript"><span class="keyword">let</span> record = <span class="built_in">document</span>.querySelector(<span class="string">".record"</span>);  
-<span class="keyword">let</span> select = <span class="built_in">document</span>.querySelector(<span class="string">".select"</span>);  
-<span class="keyword">let</span> data;  
-<span class="keyword">let</span> dataUrl =<span class="string">"https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json"</span>;  
+<pre><code class="javascript"><span class="keyword">let</span> dataUrl = <span class="string">"https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json"</span>;
+<span class="keyword">let</span> data;
+<span class="keyword">let</span> finishHigh = <span class="number">0</span>;
+<span class="keyword">let</span> finishMiddle = <span class="number">0</span>;
+<span class="keyword">let</span> finishLow = <span class="number">0</span>;
 
 axios.get(dataUrl).then(<span class="function">(<span class="params">response</span>) =&gt;</span> {
-data = response.data;  
-<span class="built_in">console</span>.log(data);  
-getRecord();  
-sortData(data, select.value);  
-});  </code></pre>
-<h3 id="建立清單渲染於網頁"><a href="#建立清單渲染於網頁" class="headerlink" title="建立清單渲染於網頁"></a>建立清單渲染於網頁</h3><p>使用一個函式存放要取得資料的方式  </p>
-<ul>
-<li>宣告一個變數為空字串  </li>
-<li>透過 forEach 來取得想要的資料  </li>
-<li>組字串，因為我要做成列表，所以用一個 div 包住，成為區塊元素  </li>
-<li>用 innerHTML 印出標籤在網頁上  </li>
-</ul>
-<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">getRecord</span>(<span class="params"></span>) </span>{
-  <span class="keyword">let</span> str = <span class="string">""</span>;  
+  data = response.data;
   data.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> {
-    str += <span class="string">`</span>
-<span class="string">      &lt;div&gt;  </span>
-<span class="string">        &lt;ul&gt;</span>
-<span class="string">          &lt;li&gt;編號 ID：<span class="subst">${item.id}</span>&lt;/li&gt;</span>
-<span class="string">          &lt;li&gt;姓名：<span class="subst">${item.name}</span>&lt;/li&gt;</span>
-<span class="string">          &lt;li&gt;完成進度為 <span class="subst">${item.process}</span>&lt;/li&gt;</span>
-<span class="string">        &lt;/ul&gt;</span>
-<span class="string">      &lt;/div&gt;  </span>
-<span class="string">    `</span>;  
-});  
-
-record.innerHTML = str;  
-}  </code></pre>
-<h3 id="監聽切換排序功能"><a href="#監聽切換排序功能" class="headerlink" title="監聽切換排序功能"></a>監聽切換排序功能</h3><p>延續上方取得資料後，要使用一個下拉選單做為條件，並排序其資料內容  </p>
-<h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><p>把選項先寫好在 option 中，並在 select 做一個 class  </p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">select</span> <span class="attr">class</span>=<span class="string">"select"</span>&gt;</span>  
-  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"id"</span>&gt;</span>依照 id 編號排序(由1開始從上往下)<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"process"</span>&gt;</span>依照完課率排序(由最高到最低)<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">select</span>&gt;</span>  </code></pre>
-<h3 id="sort-排序資料"><a href="#sort-排序資料" class="headerlink" title="sort() 排序資料"></a>sort() 排序資料</h3><p>使用 <code>sort()</code> 讓資料可以依照條件排序：  </p>
-<ul>
-<li>建立一個函式，其參數為(資料，select 選擇結果)  </li>
-<li>判斷 select 的結果是 id ，使資料採用 sort()方法做排序(小到大)，因為取得的值為字串，所以同時轉型為整數。</li>
-<li>判斷 select 的結果是 process，使資料採用 sort()方法做排序(大到小)，並只取到小數點後兩位，因後台結果有超過小數點兩位，小數點取到後兩位的渲染畫面較好看也可以做區別。  </li>
-</ul>
-<pre><code class="javascript"><span class="comment">//select 排列條件  </span>
-<span class="function"><span class="keyword">function</span> <span class="title">sortData</span>(<span class="params">data, select</span>) </span>{  
-  <span class="keyword">if</span> (select === <span class="string">"id"</span>) data.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> <span class="built_in">parseInt</span>(a.id) - <span class="built_in">parseInt</span>(b.id));  
-  <span class="comment">//四捨五入，取小數點後兩位  </span>
-  <span class="keyword">else</span> <span class="keyword">if</span> (select === <span class="string">"process"</span>)  
-    data.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> <span class="built_in">parseFloat</span>(b.process) - <span class="built_in">parseFloat</span>(a.process));  
-}  </code></pre>
-<h3 id="監聽事件"><a href="#監聽事件" class="headerlink" title="監聽事件"></a>監聽事件</h3><p>完成資料處理後，建立 select 的監聽事件，對應的是 change，其函式內容要按照原本條件的順序排列，不然讀取的結果會是相反。(因為程式是由上到下讀取)  </p>
-<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">selectRecord</span>(<span class="params"></span>) </span>{  
-  sortData(data, select.value);  
-  getRecord();  
-}  
-
-select.addEventListener(<span class="string">"change"</span>, selectRecord);  </code></pre>
-<p><a href="https://codepen.io/chunghuing/pen/QWyJzqP" target="_blank" rel="noopener">CodePen</a>  </p>
-<h3 id="文件資源"><a href="#文件資源" class="headerlink" title="文件資源"></a>文件資源</h3><ul>
-<li><a href="https://medium.com/%E9%A6%AC%E6%A0%BC%E8%95%BE%E7%89%B9%E7%9A%84%E5%86%92%E9%9A%AA%E8%80%85%E6%97%A5%E8%AA%8C/js-%E4%BA%8B%E4%BB%B6%E7%AD%86%E8%A8%98-%E4%B8%8A-5377a572be51" target="_blank" rel="noopener">[JS] 事件筆記（上）</a>  </li>
-<li><a href="https://hsuchihting.github.io/jQuery/20200713/1759814760/" target="_blank" rel="noopener">jQuery 筆記 - 讓網頁回到最頂點寫法</a>  </li>
-<li><a href="https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/286905/" target="_blank" rel="noopener">js取float型小數點後兩位數的方法</a>  </li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10202307" target="_blank" rel="noopener">DOM Event 觸發事件</a>  </li>
-<li><a href="https://yuwensaf.github.io/c8a1ad27/" target="_blank" rel="noopener">change - 表單內容更動內容時觸發 | Saffran’s Blog</a>  </li>
-</ul>
+    <span class="keyword">if</span> (item.process &gt; <span class="string">"50%"</span>) {
+      finishHigh += <span class="number">1</span>;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (item.process &gt; <span class="string">"20%"</span> &amp;&amp; item.process &lt; <span class="string">"49%"</span>) {
+      finishMiddle += <span class="number">1</span>;
+    } <span class="keyword">else</span> {
+      finishLow += <span class="number">1</span>;
+    }
+  });
+  loadPie(finishHigh, finishMiddle, finishLow);
+  loadBar(finishHigh, finishMiddle, finishLow);
+});</code></pre>
+<p><a href="https://codepen.io/chunghuing/pen/bGEJQob" target="_blank" rel="noopener">CodePen</a>  </p>
 
     </div>
 
@@ -303,13 +260,10 @@ select.addEventListener(<span class="string">"change"</span>, selectRecord);  </
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/20/JS%E7%89%B9%E8%A8%93-DAY28-%E9%99%A3%E5%88%97%E6%8E%92%E5%BA%8F%E9%80%B2%E5%BA%A6/" rel="prev" title="JS特訓-DAY28-陣列排序進度">
-      <i class="fa fa-chevron-left"></i> JS特訓-DAY28-陣列排序進度
+    <a href="/2020/07/29/JS%E6%A0%B8%E5%BF%83-14-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E9%81%8B%E7%AE%97%E5%AD%90/" rel="prev" title="JS核心(14)-運算子、型別與文法-運算子">
+      <i class="fa fa-chevron-left"></i> JS核心(14)-運算子、型別與文法-運算子
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/26/JS%E7%89%B9%E8%A8%93-DAY30-C3-js-%E5%9C%96%E8%A1%A8%E6%95%B4%E5%90%88/" rel="next" title="JS特訓-DAY30-C3.js 圖表整合">
-      JS特訓-DAY30-C3.js 圖表整合 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -368,7 +322,7 @@ select.addEventListener(<span class="string">"change"</span>, selectRecord);  </
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#axios-取得-API-資料"><span class="nav-number">2.</span> <span class="nav-text">axios 取得 API 資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立清單渲染於網頁"><span class="nav-number">3.</span> <span class="nav-text">建立清單渲染於網頁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#監聽切換排序功能"><span class="nav-number">4.</span> <span class="nav-text">監聽切換排序功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select"><span class="nav-number">5.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-排序資料"><span class="nav-number">6.</span> <span class="nav-text">sort() 排序資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#監聽事件"><span class="nav-number">7.</span> <span class="nav-text">監聽事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件資源"><span class="nav-number">8.</span> <span class="nav-text">文件資源</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取得資料"><span class="nav-number">2.</span> <span class="nav-text">取得資料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
