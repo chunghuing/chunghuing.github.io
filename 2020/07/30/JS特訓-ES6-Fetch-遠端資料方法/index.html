@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言運算子在各種開發狀況下是非常常使用的">
+  <meta name="description" content="前言讓取得 AJAX 更簡單">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS核心(14)-運算子、型別與文法-運算子">
-<meta property="og:url" content="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-14-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E9%81%8B%E7%AE%97%E5%AD%90/index.html">
+<meta property="og:title" content="JS特訓-ES6 Fetch 遠端資料方法">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/30/JS%E7%89%B9%E8%A8%93-ES6-Fetch-%E9%81%A0%E7%AB%AF%E8%B3%87%E6%96%99%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
-<meta property="og:description" content="前言運算子在各種開發狀況下是非常常使用的">
+<meta property="og:description" content="前言讓取得 AJAX 更簡單">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-07-29T05:18:58.000Z">
-<meta property="article:modified_time" content="2020-07-29T08:24:46.948Z">
+<meta property="article:published_time" content="2020-07-30T03:49:23.000Z">
+<meta property="article:modified_time" content="2020-07-31T03:28:35.109Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-14-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E9%81%8B%E7%AE%97%E5%AD%90/">
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/30/JS%E7%89%B9%E8%A8%93-ES6-Fetch-%E9%81%A0%E7%AB%AF%E8%B3%87%E6%96%99%E6%96%B9%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>JS核心(14)-運算子、型別與文法-運算子 | Renee's Blog</title>
+  <title>JS特訓-ES6 Fetch 遠端資料方法 | Renee's Blog</title>
   
 
 
@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/29/JS%E6%A0%B8%E5%BF%83-14-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E9%81%8B%E7%AE%97%E5%AD%90/">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/30/JS%E7%89%B9%E8%A8%93-ES6-Fetch-%E9%81%A0%E7%AB%AF%E8%B3%87%E6%96%99%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JS核心(14)-運算子、型別與文法-運算子
+          JS特訓-ES6 Fetch 遠端資料方法
         </h1>
 
         <div class="post-meta">
@@ -184,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">نُشر في</span>
-              
 
-              <time title="أُنشأ: 2020-07-29 13:18:58 / عُدل: 16:24:46" itemprop="dateCreated datePublished" datetime="2020-07-29T13:18:58+08:00">2020-07-29</time>
+              <time title="أُنشأ: 2020-07-30 11:49:23" itemprop="dateCreated datePublished" datetime="2020-07-30T11:49:23+08:00">2020-07-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-07-31 11:28:35" itemprop="dateModified" datetime="2020-07-31T11:28:35+08:00">2020-07-31</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -209,37 +215,82 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>運算子在各種開發狀況下是非常常使用的  </p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>讓取得 AJAX 更簡單  </p>
 <a id="more"></a>  
 
-<h3 id="運算子"><a href="#運算子" class="headerlink" title="運算子"></a>運算子</h3><p>運算子其實本身就是 JavaScript 所提供的簡單函式，舉例來講賦值動作中的等號就是一個等號運算子  </p>
-<pre><code class="javascript">hi = <span class="string">'Bob'</span>;</code></pre>
-<p>左右兩邊的又稱之為「運算元」，基本上依照運算子的數量就會變成一元、二元以及三元運算子等，但決大部分都是一元運算子。  </p>
-<p>基本上只要是運算子通通都是屬於表達式，因為必定會回傳一個結果  </p>
-<pre><code class="javascript"><span class="number">1</span> + <span class="number">1</span> <span class="comment">// 2</span>
-hi = <span class="string">'Bob'</span>; <span class="comment">// Bob</span></code></pre>
-<p>依照 <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators" target="_blank" rel="noopener">MDN</a> 說明中，運算子是非常多的</p>
+<h3 id="Fetch-基本用法"><a href="#Fetch-基本用法" class="headerlink" title="Fetch 基本用法"></a>Fetch 基本用法</h3><p>看似與 axios 及 jQuery <code>$.ajax</code> 挺相近的，不過還是有不同的概念  </p>
 <ul>
-<li>賦值運算子  </li>
-<li>比較運算子  </li>
-<li>算數運算子  </li>
-<li>位元運算子  </li>
-<li>邏輯運算子  </li>
-<li>字串運算子  </li>
-<li>條件(三元)運算子  </li>
-<li>逗點運算子  </li>
-<li>一元運算子  </li>
-<li>關係運算子  </li>
+<li>fetch 會使用 ES6 的 Promise 作回應  </li>
+<li>回傳的為 ReadableStream 物件，需要使用不同資料類型使用對應方法，才能正確取得資料物件  </li>
+<li>then 作為下一步  </li>
+<li>catch 作為錯誤回應 (404, 500…)  </li>
 </ul>
-<p>在這邊值得一提的是在前面我們很常使用的 typeof 也是屬於運算子，並且是一元運算子，大部分一元運算子都是以單字為開頭。  </p>
-<p>剛剛前面有講到運算子都是一個簡易的函式，因此假使這樣子寫呢？  </p>
-<pre><code class="javascript"><span class="keyword">var</span> a = +(<span class="number">1</span>, <span class="number">2</span>);</code></pre>
-<p>其實並不會出現錯誤，因為運算子本身就是一個簡易的函式，因此概念就像這樣  </p>
-<pre><code class="javascript"><span class="function"><span class="keyword">function</span> +(<span class="params">a, b</span>)</span>{
- <span class="keyword">return</span> a + b;
-}</code></pre>
-<p>雖然並不會出現正確的結果，它只會取得值得最後一個，這邊只是說明一個概念而已，而假使若這個方式是可以運作的，那在實際開發上這種寫法也非常麻煩，因此我們就會這樣寫運算子 1 + 1，將加號運算子放在中間，而這種作法也有另一種名詞說明叫做「中輟表達式」，簡單來講就是將你的函式名稱寫在兩個參數中間。  </p>
-<p>因此運算子若放在前面稱之為前輟表達式反之放在後面則是後輟表達式。  </p>
+<pre><code class="javascript">fetch(<span class="string">'網址'</span>, {})
+  .then(<span class="function">(<span class="params">response</span>) =&gt;</span> {
+    <span class="built_in">console</span>.log(response);  <span class="comment">// 處理 response，這裡會得到一個 ReadableStream 的物件</span>
+    <span class="keyword">return</span> response.json(); <span class="comment">// 可以透過 blob(), json(), text() 轉成可用的資訊</span>
+  })
+  .then(<span class="function">(<span class="params">jsonData</span>) =&gt;</span> {
+    <span class="built_in">console</span>.log(jsonData);  <span class="comment">//在這裡才能在 console 看到整個資料</span>
+  })
+  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="string">'錯誤:'</span>, err);  <span class="comment">// 錯誤處理</span>
+});</code></pre>
+<p>fetch 後方會接 <code>then()</code>，這是 Promise 的特性，資料取得後可在 then 裡面接收。return <code>response.json( );</code> 的資料則會傳到下一個 <code>then()</code>  </p>
+<h3 id="ReadableStream"><a href="#ReadableStream" class="headerlink" title="ReadableStream"></a>ReadableStream</h3><p>Fetch API 的 Response 物件中的 body 屬性提供了一個 ReadableStream 的實體，這個階段我們無法直接讀取資料內容，而 ReadableStream 物件中可用以下對應的方法來取得資料 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Body" target="_blank" rel="noopener">MDN文件</a>  ：  </p>
+<ul>
+<li>arrayBuffer()  </li>
+<li>blob()  </li>
+<li>formData()  </li>
+<li>json()  </li>
+<li>text()  </li>
+</ul>
+<p>例如我們可以將 <code>response.json( )</code> 改為 <code>response.text( )</code>，那麼取得的資料格式將會是純字串。  </p>
+<h3 id="實務使用"><a href="#實務使用" class="headerlink" title="實務使用"></a>實務使用</h3><p>本次以 JS 特訓第28關來改寫用 Fetch 方法抓遠端資料</p>
+<pre><code class="javascript"><span class="keyword">let</span> list = <span class="built_in">document</span>.querySelector(<span class="string">'.userList'</span>);
+<span class="keyword">let</span> dataList = [];
+<span class="keyword">let</span> apiUrl = <span class="string">'https://raw.githubusercontent.com/hexschool/hexschoolNewbieJS/master/data.json'</span>;
+
+  fetch(apiUrl, {})
+    .then(<span class="function">(<span class="params">response</span>) =&gt;</span> {
+    <span class="built_in">console</span>.log(response);
+    <span class="keyword">return</span> response.text();
+
+    })
+    .then(<span class="function">(<span class="params">jsonData</span>) =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(jsonData));
+    dataList = <span class="built_in">JSON</span>.parse(jsonData);
+
+    getData(dataList);
+  })
+    .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="string">'錯誤:'</span>, err);
+});
+
+<span class="comment">//渲染</span>
+<span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">data</span>)</span>{
+  <span class="keyword">let</span> str = <span class="string">''</span>;
+  data.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> <span class="built_in">parseInt</span>(b.process) - <span class="built_in">parseInt</span>(a.process)) <span class="comment">//b - a 由大到小排列</span>
+
+  .forEach(<span class="function">(<span class="params">user, index</span>) =&gt;</span> {
+    str += <span class="string">`</span>
+<span class="string">      &lt;div&gt;</span>
+<span class="string">        &lt;ul&gt;</span>
+<span class="string">          &lt;li&gt;第 <span class="subst">${index + <span class="number">1</span>}</span> 名是 <span class="subst">${user.name}</span>，&lt;/br&gt;他的特訓班完成度是 <span class="subst">${user.process}</span>&lt;/li&gt;</span>
+<span class="string">        &lt;/ul&gt;</span>
+<span class="string">      &lt;/div&gt;</span>
+<span class="string">    `</span>;
+    });
+  list.innerHTML = str;
+};</code></pre>
+<p><a href="https://codepen.io/chunghuing/pen/oNbrwGG" target="_blank" rel="noopener">CodePen</a>  </p>
+<h3 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h3><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch" target="_blank" rel="noopener">使用 Fetch</a>  </li>
+<li><a href="https://www.oxxostudio.tw/articles/201908/js-fetch.html" target="_blank" rel="noopener">JavaScript Fetch API 使用教學</a>  </li>
+<li><a href="https://ithelp.ithome.com.tw/users/20083608/ironman/1354" target="_blank" rel="noopener">邁向 JavaScript 勇者之路</a>  </li>
+<li><a href="https://ithelp.ithome.com.tw/users/20065504/ironman/1259" target="_blank" rel="noopener">重新認識 JavaScript</a>  </li>
+<li><a href="https://es6.ruanyifeng.com/" target="_blank" rel="noopener">ES6 入門手冊</a>  </li>
+</ul>
 
     </div>
 
@@ -258,13 +309,10 @@ hi = <span class="string">'Bob'</span>; <span class="comment">// Bob</span></cod
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/29/JS%E6%A0%B8%E5%BF%83-13-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5%E5%8F%8A%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5/" rel="prev" title="JS核心(13)-運算子、型別與文法-原始型別及物件型別">
-      <i class="fa fa-chevron-left"></i> JS核心(13)-運算子、型別與文法-原始型別及物件型別
+    <a href="/2020/07/30/JS%E7%89%B9%E8%A8%93-DAY36-ES6-Template-String-%E6%A8%A3%E6%9D%BF%E5%AD%97%E4%B8%B2/" rel="prev" title="JS特訓-DAY36-ES6 Template String 樣板字串">
+      <i class="fa fa-chevron-left"></i> JS特訓-DAY36-ES6 Template String 樣板字串
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/29/JS%E7%89%B9%E8%A8%93-DAY35-%E5%9C%93%E9%A4%85%E5%9C%96%E8%88%87%E9%95%B7%E6%A2%9D%E5%9C%96%E5%90%88%E4%BD%B5%E4%BD%BF%E7%94%A8/" rel="next" title="JS特訓-DAY35-圓餅圖與長條圖合併使用">
-      JS特訓-DAY35-圓餅圖與長條圖合併使用 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -323,7 +371,7 @@ hi = <span class="string">'Bob'</span>; <span class="comment">// Bob</span></cod
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#運算子"><span class="nav-number">2.</span> <span class="nav-text">運算子</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fetch-基本用法"><span class="nav-number">2.</span> <span class="nav-text">Fetch 基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReadableStream"><span class="nav-number">3.</span> <span class="nav-text">ReadableStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#實務使用"><span class="nav-number">4.</span> <span class="nav-text">實務使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文件"><span class="nav-number">5.</span> <span class="nav-text">參考文件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
