@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言Arrow Functions 所附帶的新特性對於函數內容的運作有著不同的行為，如果沒弄清楚，把舊函數的語法簡化成 Arrow Functions 的寫法，可能造成程式運作不正確。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS特訓-DAY39-箭頭函式 (arrow function)">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY39-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言Arrow Functions 所附帶的新特性對於函數內容的運作有著不同的行為，如果沒弄清楚，把舊函數的語法簡化成 Arrow Functions 的寫法，可能造成程式運作不正確。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-07-31T08:04:07.000Z">
+<meta property="article:modified_time" content="2020-08-05T03:45:04.787Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY39-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS特訓-DAY39-箭頭函式 (arrow function) | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY39-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS特訓-DAY39-箭頭函式 (arrow function)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-07-31 16:04:07" itemprop="dateCreated datePublished" datetime="2020-07-31T16:04:07+08:00">2020-07-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-05 11:45:04" itemprop="dateModified" datetime="2020-08-05T11:45:04+08:00">2020-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Arrow Functions 所附帶的新特性對於函數內容的運作有著不同的行為，如果沒弄清楚，把舊函數的語法簡化成 Arrow Functions 的寫法，可能造成程式運作不正確。  </p>
+<a id="more"></a>  
+
+<h3 id="Arrow-Functions-小檔案"><a href="#Arrow-Functions-小檔案" class="headerlink" title="Arrow Functions 小檔案"></a>Arrow Functions 小檔案</h3><ul>
+<li>ECMAScript 2015 (ES6) 導入的新特性。  </li>
+<li>稱為 Arrow Function Expression，或稱 Fat Arrow Functions，最初在 CoffeeScript 的語法中流行。  </li>
+<li>在函數定義的語法上更為簡潔。  </li>
+<li>函數運作行為上和傳統語法所定義的函數有差異，例如 <code>arguments</code>、<code>this</code>  </li>
+</ul>
+<hr>
+<h3 id="Arrow-Functions-語法"><a href="#Arrow-Functions-語法" class="headerlink" title="Arrow Functions 語法"></a>Arrow Functions 語法</h3><h3 id="標準語法"><a href="#標準語法" class="headerlink" title="標準語法"></a>標準語法</h3><pre><code class="javascript"><span class="keyword">var</span> add = <span class="function">(<span class="params">n1 ,n2</span>) =&gt;</span> {
+  <span class="keyword">return</span> n1 + n2;
+};
+<span class="built_in">console</span>.log( add(<span class="number">3</span>, <span class="number">6</span>) );   <span class="comment">// 9</span></code></pre>
+<p>和傳統語法比起來：  </p>
+<ul>
+<li>少了 <code>function</code> 關鍵字。  </li>
+<li>使用 <code>=&gt;</code> 符號來告知這是 Arrow Functions。  </li>
+</ul>
+<hr>
+<h3 id="當函數內容只有單行回傳時的簡寫"><a href="#當函數內容只有單行回傳時的簡寫" class="headerlink" title="當函數內容只有單行回傳時的簡寫"></a>當函數內容只有單行回傳時的簡寫</h3><p>很常我們的函數內容只做很簡單的動作，就像前面的 <code>add()</code> 只有一行負責簡單運算並同時做 <code>return</code>。<br>語法上可以進一步簡化：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> add = <span class="function">(<span class="params">n1 ,n2</span>) =&gt;</span> n1 + n2;
+<span class="built_in">console</span>.log( add(<span class="number">3</span>, <span class="number">6</span>) );   <span class="comment">// 9</span></code></pre>
+<ul>
+<li>省略函數外殼 <code>{ }</code>  </li>
+<li>省略 <code>return</code> 關鍵字  </li>
+</ul>
+<hr>
+<h3 id="當只有單一個參數時的簡寫"><a href="#當只有單一個參數時的簡寫" class="headerlink" title="當只有單一個參數時的簡寫"></a>當只有單一個參數時的簡寫</h3><p>例如以下範例，<code>intro()</code> 只有一個參數 <code>name</code>：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> intro = <span class="function">(<span class="params">name</span>) =&gt;</span> {
+  <span class="keyword">return</span> <span class="string">`Hi, I am <span class="subst">${name}</span>!`</span>;
+};
+<span class="built_in">console</span>.log( intro(<span class="string">'Bob'</span>) );     <span class="comment">// "Hi, I am Bob!"</span></code></pre>
+<p><code>intro()</code> 在參數部分的語法可以進一步簡化，省略小括號，效果一樣：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> intro = <span class="function"><span class="params">name</span> =&gt;</span> {
+  <span class="keyword">return</span> <span class="string">`Hi, I am <span class="subst">${name}</span>!`</span>;
+};
+<span class="built_in">console</span>.log( intro(<span class="string">'Bob'</span>) );     <span class="comment">// "Hi, I am Bob!"</span></code></pre>
+<p>搭配前面提到的單行回傳簡寫法，整體語法就更顯簡潔：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> intro = <span class="function"><span class="params">name</span> =&gt;</span> <span class="string">`Hi, I am <span class="subst">${name}</span>!`</span>;
+<span class="built_in">console</span>.log( intro(<span class="string">'Bob'</span>) );     <span class="comment">// "Hi, I am Bob!"</span></code></pre>
+<p>但記得這是「單一個參數」時的簡寫，若是沒有參數或多個參數，仍必須用標準寫法，例如以下是沒有參數的範例：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> sayHello = <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">`Hello Bob!`</span>;
+<span class="built_in">console</span>.log( sayHello() );          <span class="comment">// "Hello Bob!"</span></code></pre>
+<hr>
+<h3 id="Arrow-Functions-使用的注意事項"><a href="#Arrow-Functions-使用的注意事項" class="headerlink" title="Arrow Functions 使用的注意事項"></a>Arrow Functions 使用的注意事項</h3><ul>
+<li><h3 id="沒有-Hoisting-效果"><a href="#沒有-Hoisting-效果" class="headerlink" title="沒有 Hoisting 效果"></a>沒有 Hoisting 效果</h3></li>
+</ul>
+<p>Arrow Functions 是表達式的語法形式，像傳統函數中「具名表達式」或「匿名表達式」那樣，函數定義的部分不會被 Hoist  </p>
+<p>換言之，<strong>定義必須寫在使用之前</strong>  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log( sayHello );    <span class="comment">//undefined</span>
+<span class="built_in">console</span>.log( sayHello() );  <span class="comment">// TypeError: sayHello is not a function</span>
+<span class="keyword">var</span> sayHello = <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">`Hello Bob!`</span>;</code></pre>
+<ul>
+<li><h3 id="建議使用-const-做名稱部分的宣告"><a href="#建議使用-const-做名稱部分的宣告" class="headerlink" title="建議使用 const 做名稱部分的宣告"></a>建議使用 const 做名稱部分的宣告</h3></li>
+</ul>
+<p>雖然前面例子故意都用 <code>var</code>，但實際上建議使用 <code>const</code>  </p>
+<p>因為函數表達式應該被視為一個常數的值，而非變數，函數定義這件事並不是一個該變動的東西。  </p>
+<blockquote>
+<p>W3Schools :<br>A function expression is always constant value.  </p>
+</blockquote>
+<hr>
+<h3 id="Arrow-Functions-和傳統函數語法的差異"><a href="#Arrow-Functions-和傳統函數語法的差異" class="headerlink" title="Arrow Functions 和傳統函數語法的差異"></a>Arrow Functions 和傳統函數語法的差異</h3><p>Arrow Functions 不是單純語法簡化而已，也會對函數的運作行為多了些限制或改變。  </p>
+<ul>
+<li><h3 id="不會產生新的-arguments-物件"><a href="#不會產生新的-arguments-物件" class="headerlink" title="不會產生新的 arguments 物件"></a>不會產生新的 arguments 物件</h3></li>
+</ul>
+<blockquote>
+<p>如果外圍包裝一層傳統函數，作用域內還是會有可用的 <code>arguments</code>  </p>
+</blockquote>
+<p>Arrow Functions 不會在自己的函數作用域內產生新的 <code>arguments</code> 物件，讓函數使用上更嚴謹。  </p>
+<p>例如以下是傳統函數寫法，雖然在函數定義的上只定義了 <code>n1</code> 和 <code>n2</code> 兩個參數，但實際上呼叫函數時我可以丟任意個參數進去，而在函數內也可以靠 <code>arguments</code> 取得所有參數：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">n1, n2</span>) </span>{
+  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);         <span class="comment">// Arguments(3) [100, 200, 300]</span>
+  <span class="keyword">return</span> n1 + n2;
+};
+<span class="built_in">console</span>.log( add(<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>) );  <span class="comment">//300</span></code></pre>
+<p>甚至極端一點，我可以完全不管參數定義什麼：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">n1, n2</span>) </span>{
+  <span class="keyword">return</span> <span class="built_in">arguments</span>[<span class="number">0</span>] + <span class="built_in">arguments</span>[<span class="number">1</span>];
+};
+<span class="built_in">console</span>.log( add(<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>) );  <span class="comment">//300</span></code></pre>
+<p>這讓函數的參數定義非常沒有約束力。看起來好像很自由，但這種寫法很容易導致「包裝與內容物不符合」，會讓程式難以維護。  </p>
+<p>而 Arrow Functions 改善這一點。在 Arrow Functions 內不會為這個作用域建立一個新的 <code>arguments</code> 物件，因此 <code>arguments</code> 不再被認得：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> add = <span class="function">(<span class="params">n1, n2</span>) =&gt;</span> {
+  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// ReferenceError: arguments is not defined</span>
+  <span class="keyword">return</span> n1 + n2;
+};
+<span class="built_in">console</span>.log( add(<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>) ); <span class="comment">// 300</span></code></pre>
+<p>無法使用 <code>arguments</code>，代表只能取用被定義的參數。雖然依舊無法阻止呼叫端任意亂丟參數進來，但至少會讓函數內容更可控。</p>
+<p>但要注意，<strong>Arrow Functions 只是不會產生新的 <code>arguments</code>，不代表 <code>arguments</code> 變數一定不存在。</strong>  </p>
+<p>例如以下例子，使用一個傳統函數包裝一個 Arrow Function：  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">getObj</span>(<span class="params"></span>)</span>{
+  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);  <span class="comment">// Arguments(3) [1, 2, 3]</span>
+    <span class="keyword">return</span> {
+        f: <span class="function"><span class="params">()</span> =&gt;</span> {
+            <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);  <span class="comment">// Arguments(3) [1, 2, 3]</span>
+      }
+  };
+}
+
+getObj(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>).f(<span class="number">4</span>, <span class="number">5</span>);</code></pre>
+<ul>
+<li>傳統函數 <code>getObj()</code> 還是會產生新的 <code>arguments</code>。  </li>
+<li>對作用域來說，<code>f()</code> 可以使用 <code>getObj()</code> 內存在的變數。  </li>
+<li>因此如果在 <code>f()</code> 內去使用 <code>arguments</code>，會取到的是 <code>getObj()</code> 的 <code>arguments</code>，要特別注意。  </li>
+</ul>
+<p>如果使用 Arrow Function 去包裝另一個 Arrow Function：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> getObj = <span class="function"><span class="params">()</span> =&gt;</span> {
+  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);  <span class="comment">// ReferenceError: arguments is not defined</span>
+    <span class="keyword">return</span> {
+        f: <span class="function"><span class="params">()</span> =&gt;</span> {
+            <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);  <span class="comment">// ReferenceError: arguments is not defined</span>
+      }
+  };
+}
+
+getObj(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>).f(<span class="number">4</span>, <span class="number">5</span>);</code></pre>
+<ul>
+<li><p><code>getObj()</code> 和 <code>f()</code> 都不會產生新的 <code>arguments</code>。  </p>
+</li>
+<li><p>因此在 <code>getObj()</code> 和 <code>f()</code> 內企圖使用 <code>arguments</code>，都會得到 <code>arguments is not defined</code> 的錯誤。  </p>
+</li>
+<li><h3 id="this-運作行為的不同"><a href="#this-運作行為的不同" class="headerlink" title="this 運作行為的不同"></a>this 運作行為的不同</h3></li>
+</ul>
+<p>判斷 <code>this</code> 代表什麼物件的大原則：<strong>看呼叫時的物件是誰</strong>  </p>
+<p>例如借用函數的例子 (函數被定義在物件之外)，雖然 <code>whatsThis</code> 語彙上定義的地方是在 Global Context，但被執行時的呼叫者是 <code>player</code>，因此回傳的 <code>this</code> 物件是 <code>player</code>：</p>
+<pre><code class="javascript"><span class="keyword">var</span> whatsThis = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};
+
+<span class="keyword">var</span> player = {};
+player.f = whatsThis;
+
+<span class="built_in">console</span>.log(player.f() === player);     <span class="comment">// true</span></code></pre>
+<p>但如果是 Arrow Functions 就不一樣了：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> whatsThis = <span class="function"><span class="params">()</span> =&gt;</span> {
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};
+
+<span class="keyword">var</span> player = {};
+player.f = whatsThis;
+
+<span class="built_in">console</span>.log(player.f() === player);     <span class="comment">// false</span>
+<span class="built_in">console</span>.log(player.f() === <span class="built_in">window</span>);     <span class="comment">// true</span></code></pre>
+<p>可以發現，同樣的呼叫方式，<code>this</code> 不再回傳呼叫者物件，在這個例子變成回傳 Global 物件，是不同的運作行為。  </p>
+<hr>
+<h3 id="Arrow-Functions-重點小結"><a href="#Arrow-Functions-重點小結" class="headerlink" title="Arrow Functions 重點小結"></a>Arrow Functions 重點小結</h3><ul>
+<li>是 ES6 導入的新特性。  </li>
+<li>在語法上更為簡潔。  </li>
+<li>不是單純語法簡化而已，也會對函數的運作行為多了些限制或改變：  <ul>
+<li>函數執行時不會產生新的 <code>arguments</code> 物件。  </li>
+<li><code>this</code> 的運作方式與傳統函數不同。  </li>
+</ul>
+</li>
+<li>定義的語法必須在使用之前 (不具 Hoisting 效果)。  </li>
+<li>建議使用 <code>const</code> 宣告名稱。  </li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY38-let-%E8%88%87-const-%E8%A7%80%E5%BF%B5%E8%A4%87%E7%BF%92/" rel="prev" title="JS特訓-DAY38-let 與 const 觀念複習">
+      <i class="fa fa-chevron-left"></i> JS特訓-DAY38-let 與 const 觀念複習
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/05/JS%E7%89%B9%E8%A8%93-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E7%9A%84-this-%E5%92%8C%E4%BD%A0%E6%83%B3%E7%9A%84%E4%B8%8D%E4%B8%80%E6%A8%A3-%E4%B8%8A/" rel="next" title="JS特訓-箭頭函式 (arrow function) 的 this 和你想的不一樣(上)">
+      JS特訓-箭頭函式 (arrow function) 的 this 和你想的不一樣(上) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrow-Functions-小檔案"><span class="nav-number">2.</span> <span class="nav-text">Arrow Functions 小檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrow-Functions-語法"><span class="nav-number">3.</span> <span class="nav-text">Arrow Functions 語法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#標準語法"><span class="nav-number">4.</span> <span class="nav-text">標準語法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#當函數內容只有單行回傳時的簡寫"><span class="nav-number">5.</span> <span class="nav-text">當函數內容只有單行回傳時的簡寫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#當只有單一個參數時的簡寫"><span class="nav-number">6.</span> <span class="nav-text">當只有單一個參數時的簡寫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrow-Functions-使用的注意事項"><span class="nav-number">7.</span> <span class="nav-text">Arrow Functions 使用的注意事項</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#沒有-Hoisting-效果"><span class="nav-number">8.</span> <span class="nav-text">沒有 Hoisting 效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建議使用-const-做名稱部分的宣告"><span class="nav-number">9.</span> <span class="nav-text">建議使用 const 做名稱部分的宣告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrow-Functions-和傳統函數語法的差異"><span class="nav-number">10.</span> <span class="nav-text">Arrow Functions 和傳統函數語法的差異</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不會產生新的-arguments-物件"><span class="nav-number">11.</span> <span class="nav-text">不會產生新的 arguments 物件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this-運作行為的不同"><span class="nav-number">12.</span> <span class="nav-text">this 運作行為的不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrow-Functions-重點小結"><span class="nav-number">13.</span> <span class="nav-text">Arrow Functions 重點小結</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

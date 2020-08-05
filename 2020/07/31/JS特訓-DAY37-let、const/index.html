@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言有了「區塊域」的概念，就能避免掉使用 var 會汙染全域變數了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS特訓-DAY37-let、const">
+<meta property="og:url" content="http://chunghuing.github.io/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY37-let%E3%80%81const/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言有了「區塊域」的概念，就能避免掉使用 var 會汙染全域變數了">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-07-31T08:03:58.000Z">
+<meta property="article:modified_time" content="2020-08-03T04:17:06.839Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY37-let%E3%80%81const/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS特訓-DAY37-let、const | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY37-let%E3%80%81const/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS特訓-DAY37-let、const
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-07-31 16:03:58" itemprop="dateCreated datePublished" datetime="2020-07-31T16:03:58+08:00">2020-07-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-03 12:17:06" itemprop="dateModified" datetime="2020-08-03T12:17:06+08:00">2020-08-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有了「區塊域」的概念，就能避免掉使用 var 會汙染全域變數了</p>
+<a id="more"></a>  
+
+<p>ES6 許多語法與現有的觀念有很大的關係，其中是為了改進現有的語法，<br>這次就要來介紹 <code>let</code>、<code>const</code> 。<br>這些語法改進目前很多問題，最大的感受在於 <code>Promise()</code>，他可以把非同步的語法處理得更好。  </p>
+<p>但 ES6 語法依然還有瀏覽器不支援，所以還會利用 <a href="https://babeljs.io/" target="_blank" rel="noopener">BABEL</a> 做編譯，但 ES6 在開發上的確會省下不少時間，<br>而且編輯器外掛直接可以安裝 BABEL，是提升 JS 程式碼品質的最佳利器!  </p>
+<blockquote>
+<p>注意：目前還不是所有語法支援，詳細可參考 MDN 或 <a href="https://caniuse.com/#feat=promises" target="_blank" rel="noopener">Can I use</a>  </p>
+</blockquote>
+<h3 id="let、const、var"><a href="#let、const、var" class="headerlink" title="let、const、var"></a>let、const、var</h3><ul>
+<li>var 是函式作用域(function scope)  </li>
+<li>let 與 const 是區塊作用域 (block scope)，區塊就是指在大括號內 <code>{ }</code>  </li>
+<li>const 是宣告常數，不能再作修改  </li>
+</ul>
+<h3 id="let-跟-var-的不同"><a href="#let-跟-var-的不同" class="headerlink" title="let 跟 var 的不同"></a>let 跟 var 的不同</h3><p><code>var</code> 變數的範圍在 <code>function</code>，而 <code>let</code> 的作用域在 <code>block</code>，<code>block</code> 意指 <code>{ }</code> 這個符號，<br>除了 <code>function</code> 以外 <code>if</code>、<code>for</code> 的 <code>{ }</code> 都屬於 <code>let</code> 的作用域。  </p>
+<p>從下面的範例可以看到， <code>Bob</code> 這個變數在兩者的結尾是不同的，因為 <code>{ }</code> 所定義的空間並不同。  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">varMing</span> (<span class="params"></span>) </span>{
+  <span class="keyword">var</span> ming = <span class="string">'Bob'</span>;
+  <span class="keyword">if</span> (<span class="literal">true</span>) {
+    <span class="keyword">var</span> ming = <span class="string">'May'</span>;  
+    <span class="comment">// 這裡的 ming 依然是外層的 Bob，所以 Bob 即將被取代</span>
+  }
+  <span class="built_in">console</span>.log(ming);  <span class="comment">// 'May'</span>
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">letMing</span> (<span class="params"></span>) </span>{
+  <span class="keyword">let</span> ming = <span class="string">'Bob'</span>;
+  <span class="keyword">if</span> (<span class="literal">true</span>) {
+    <span class="keyword">let</span> ming = <span class="string">'May'</span>;  
+    <span class="comment">// 這裡的 ming 是不同的，只有在這個 if block 才有作用</span>
+  }
+  <span class="built_in">console</span>.log(ming);  <span class="comment">// 'Bob'</span>
+}
+varMing(); letMing();</code></pre>
+<h3 id="let-與-for-loop"><a href="#let-與-for-loop" class="headerlink" title="let 與 for loop"></a>let 與 for loop</h3><p>大多時候我們不會這樣寫，常見的習慣中我們會將變數宣告放在 function 的前方  </p>
+<pre><code class="javascript"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {
+  <span class="built_in">console</span>.log(i);
+  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="string">'這執行第'</span> + i + <span class="string">'次'</span>);
+  }, <span class="number">10</span>);
+}</code></pre>
+<p>上面範例你可能會以為答案是「這執行第 0 次, 這執行第 1 次, 這執行第 2 次… (延續 10 次)」，<br>但實際執行時會發現答案其實會是 「這執行第 10 次… 」(延續 10 次)，因為 <code>var</code> 會直接將 <code>i</code> 宣告成全域變數，不斷透過 <code>for</code> 迴圈累加，在 <code>setTimeout</code> 實際執行時只會拿到 10 這個數字。  </p>
+<p>所以此段要正確地執行，可以使用 <code>let</code> 宣告 <code>i</code> 這個變數， <code>i</code> 會被緊緊的鎖在 <code>for...</code> 後方的 <code>{ }</code> 內。<br>這樣就會正確的出現，因為 <code>let</code> 是屬於 <code>block</code> 變數。</p>
+<pre><code class="javascript"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {
+  <span class="built_in">console</span>.log(i);
+  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="string">'這執行第'</span> + i + <span class="string">'次'</span>);
+  }, <span class="number">10</span>);
+}
+
+<span class="comment">// 這執行第0次</span>
+<span class="comment">// 這執行第1次</span>
+<span class="comment">// 這執行第2次</span>
+<span class="comment">// 這執行第3次</span>
+<span class="comment">// ...</span></code></pre>
+<p>此外，<code>var</code> 在全域下的變數會直接在 <code>window</code> 上，可以在這裡使用 <code>console.log()</code> 看看兩者之間的差異：  </p>
+<pre><code class="javascript"><span class="comment">// 這段宣告擇一執行</span>
+<span class="keyword">var</span> mom = <span class="string">"老媽"</span>;
+<span class="keyword">let</span> mom = <span class="string">"老媽"</span>;
+<span class="built_in">console</span>.log(<span class="built_in">window</span>.mom);
+<span class="comment">// var 會出現 "老媽"</span>
+<span class="comment">// let 會出現 undefined</span></code></pre>
+<p>這也是 let 的一大特性，他並不會讓整個 window 物件掛上在全域環境所宣告的變數，對於愛乾淨不喜歡污染全域的開發者會是一大福音。  </p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>const 宣告的是常數，常數在被宣告時就務必要指定給值，並且不能再被更改，不然會產生錯誤。<br>如果是需要變更的數值則改用作用範圍較小的 let 做宣告，來減少錯誤出現的機率，Ex:使用 funciton 或是 for 迴圈，可以使用 let。  </p>
+<p>來看簡單的例子：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> a = <span class="number">1</span>;
+a = <span class="number">2</span>;
+<span class="built_in">console</span>.log(a); <span class="comment">//2</span></code></pre>
+<p>這可以理解。如果換成 <code>const</code>，  </p>
+<pre><code class="javascript"><span class="keyword">const</span> a = <span class="number">1</span>;
+a = <span class="number">2</span>;
+<span class="built_in">console</span>.log(a); <span class="comment">//2</span></code></pre>
+<p>在開發人員工具，就會出現跳錯的訊息，<br><code>Uncaught SyntaxError: Identifier &#39;a&#39; has already been declared</code><br>所以只要是不能變更的資訊，就可以使用 const 來宣告。  </p>
+<h3 id="const-物件與陣列資料"><a href="#const-物件與陣列資料" class="headerlink" title="const 物件與陣列資料"></a>const 物件與陣列資料</h3><p>用 const 宣告物件與陣列的資料時是可以改變其內容的，假設今天 const 一個物件，然後修改他，會發現內容的值變動了：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> obj = {
+  url: <span class="string">"http://xxx.com"</span>,
+};
+obj.url = <span class="number">1</span>;
+<span class="built_in">console</span>.log(obj.url); <span class="comment">//1</span></code></pre>
+<p>倘若不希望使其資料變動，可以加上一段語法 <code>Object.freeze</code>，就可以鎖住資料，不會被修改  </p>
+<blockquote>
+<p>freeze: 凍結的意思  </p>
+</blockquote>
+<p>程式碼的位置要放在物件或陣列資料的後方:  </p>
+<pre><code class="javascript"><span class="keyword">const</span> obj = {
+  url: <span class="string">"http://xxx.com"</span>,
+};
+<span class="built_in">Object</span>.freeze(obj); <span class="comment">//將 obj 的資料或屬性鎖定，便不能修改</span>
+<span class="built_in">console</span>.log(obj.url); <span class="comment">//'http://xxx.com'</span>
+obj.url = <span class="number">1</span>;
+<span class="built_in">console</span>.log(obj.url); <span class="comment">//'http://xxx.com'</span></code></pre>
+<p>陣列的鎖定資料語法也相同是 <code>Object.freeze</code>  </p>
+<h3 id="let-與-const-的共同特性"><a href="#let-與-const-的共同特性" class="headerlink" title="let 與 const 的共同特性"></a>let 與 const 的共同特性</h3><h4 id="var-有向上提升的特性，-let-跟-const-沒有"><a href="#var-有向上提升的特性，-let-跟-const-沒有" class="headerlink" title="var 有向上提升的特性， let 跟 const 沒有"></a><code>var</code> 有向上提升的特性， <code>let</code> 跟 <code>const</code> 沒有</h4><p>使用 <code>var</code> 宣告變數的時候具備向上提升的功能，所以如果是這樣宣告，結果會如下：  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log(a); <span class="comment">//undefinded</span>
+<span class="keyword">var</span> a = <span class="number">1</span>;
+<span class="built_in">console</span>.log(a); <span class="comment">//1</span></code></pre>
+<p>因為 <code>var</code> 有向上提升的功能，在 JavaScript 是從上讀取到下的方式，其實會變成這樣的讀取：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a; <span class="comment">//尚未賦予 value</span>
+<span class="built_in">console</span>.log(a); <span class="comment">//undefinded</span>
+<span class="keyword">var</span> a = <span class="number">1</span>;
+<span class="built_in">console</span>.log(a); <span class="comment">//1</span></code></pre>
+<p>但如果將 <code>var</code> 改成 <code>let</code> 或是 <code>const</code> 都會變成跳錯的資訊。</p>
+<p><code>Uncaught ReferenceError: Cannot access &#39;a&#39; before initialization</code>  </p>
+<h4 id="在同個區塊-上不能重複命名"><a href="#在同個區塊-上不能重複命名" class="headerlink" title="在同個區塊 { } 上不能重複命名"></a>在同個區塊 { } 上不能重複命名</h4><ul>
+<li><code>var</code> 可以重新賦予其值  </li>
+</ul>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="number">1</span>;
+<span class="keyword">var</span> a = <span class="number">2</span>; <span class="comment">// var 可以重新賦予</span></code></pre>
+<ul>
+<li><code>let</code> 與 <code>const</code> 不能重新賦予值  </li>
+</ul>
+<pre><code class="javascript"><span class="keyword">let</span> a = <span class="number">1</span>;
+<span class="keyword">let</span> a = <span class="number">2</span>; <span class="comment">// a 已被賦予值</span>
+<span class="keyword">const</span> b = <span class="number">1</span>;
+<span class="keyword">const</span> b = <span class="number">2</span>; <span class="comment">// b 已被賦予值</span></code></pre>
+<h4 id="const-與-let-不會在全域變數-（window）裡面"><a href="#const-與-let-不會在全域變數-（window）裡面" class="headerlink" title="const 與 let 不會在全域變數 （window）裡面"></a>const 與 let 不會在全域變數 （window）裡面</h4><p>這裡可以使用開發人員工具，在 <code>console</code> 輸入 <code>window</code> 檢查。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> a = <span class="number">1</span>;
+<span class="keyword">const</span> b = <span class="number">1</span>;
+<span class="keyword">var</span> c = <span class="number">1</span>;</code></pre>
+<p>我們會發現 a 與 b 都不會出現在 <code>window</code> 裡，但是 c 會出現在 <code>window</code> 裡，這是因為 c 是全域變數。<br>這邊就能回到我們一開始所說的，使用 <code>let</code> 與 <code>const</code> 能避免掉使用 <code>var</code> 會汙染全域變數的副作用囉！  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/30/JS%E7%89%B9%E8%A8%93-ES6-Fetch-%E9%81%A0%E7%AB%AF%E8%B3%87%E6%96%99%E6%96%B9%E6%B3%95/" rel="prev" title="JS特訓-ES6 Fetch 遠端資料方法">
+      <i class="fa fa-chevron-left"></i> JS特訓-ES6 Fetch 遠端資料方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY38-let-%E8%88%87-const-%E8%A7%80%E5%BF%B5%E8%A4%87%E7%BF%92/" rel="next" title="JS特訓-DAY38-let 與 const 觀念複習">
+      JS特訓-DAY38-let 與 const 觀念複習 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let、const、var"><span class="nav-number">2.</span> <span class="nav-text">let、const、var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let-跟-var-的不同"><span class="nav-number">3.</span> <span class="nav-text">let 跟 var 的不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let-與-for-loop"><span class="nav-number">4.</span> <span class="nav-text">let 與 for loop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const"><span class="nav-number">5.</span> <span class="nav-text">const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-物件與陣列資料"><span class="nav-number">6.</span> <span class="nav-text">const 物件與陣列資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let-與-const-的共同特性"><span class="nav-number">7.</span> <span class="nav-text">let 與 const 的共同特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#var-有向上提升的特性，-let-跟-const-沒有"><span class="nav-number">7.1.</span> <span class="nav-text">var 有向上提升的特性， let 跟 const 沒有</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在同個區塊-上不能重複命名"><span class="nav-number">7.2.</span> <span class="nav-text">在同個區塊 { } 上不能重複命名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const-與-let-不會在全域變數-（window）裡面"><span class="nav-number">7.3.</span> <span class="nav-text">const 與 let 不會在全域變數 （window）裡面</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

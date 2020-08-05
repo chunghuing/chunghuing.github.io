@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言在箭頭函數中，this 指稱的對象在所定義時就固定了，而不會隨著使用時的脈絡而改變">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS特訓-箭頭函式 (arrow function) 的 this 和你想的不一樣(上)">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/05/JS%E7%89%B9%E8%A8%93-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E7%9A%84-this-%E5%92%8C%E4%BD%A0%E6%83%B3%E7%9A%84%E4%B8%8D%E4%B8%80%E6%A8%A3-%E4%B8%8A/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言在箭頭函數中，this 指稱的對象在所定義時就固定了，而不會隨著使用時的脈絡而改變">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-08-05T03:51:40.000Z">
+<meta property="article:modified_time" content="2020-08-05T06:03:03.340Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/05/JS%E7%89%B9%E8%A8%93-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E7%9A%84-this-%E5%92%8C%E4%BD%A0%E6%83%B3%E7%9A%84%E4%B8%8D%E4%B8%80%E6%A8%A3-%E4%B8%8A/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS特訓-箭頭函式 (arrow function) 的 this 和你想的不一樣(上) | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/05/JS%E7%89%B9%E8%A8%93-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E7%9A%84-this-%E5%92%8C%E4%BD%A0%E6%83%B3%E7%9A%84%E4%B8%8D%E4%B8%80%E6%A8%A3-%E4%B8%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS特訓-箭頭函式 (arrow function) 的 this 和你想的不一樣(上)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-05 11:51:40 / عُدل: 14:03:03" itemprop="dateCreated datePublished" datetime="2020-08-05T11:51:40+08:00">2020-08-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在箭頭函數中，this 指稱的對象在所定義時就固定了，而不會隨著使用時的脈絡而改變</p>
+<a id="more"></a>  
+
+<p>傳統函數下的 <code>this</code> 物件，有一個大原則：<strong>看呼叫時的物件是誰</strong>。不是看定義的語彙位置，而是根據執行當下誰擁有這段程式碼，也就是看誰呼叫的。  </p>
+<p>但在 Arrow Functions 卻不是這麼回事，幾乎可以說是完全不同的另一套運作邏輯。  </p>
+<h3 id="Arrow-Functions-的-this-判斷原則"><a href="#Arrow-Functions-的-this-判斷原則" class="headerlink" title="Arrow Functions 的 this 判斷原則"></a>Arrow Functions 的 this 判斷原則</h3><p>Arrow Functions 的 <code>this</code> 和傳統函數的一個重大差異就是<strong>看的是語彙位置</strong>  </p>
+<p>傳統函數每次呼叫函數，都會建立一個新的函數執行環境 (Function Execution Context)，然後建立一個新的 <code>this</code> 引用物件，指向當下的呼叫者。  </p>
+<p>而 Arrow Functions 則不會有自己的 <code>this</code> 引用物件，呼叫 <code>this</code> 時，會沿用語彙環境外圍的 <code>this</code>。  </p>
+<p>我們用具體的例子來看：  </p>
+<h3 id="物件函式"><a href="#物件函式" class="headerlink" title="物件函式"></a><font color=#00BCD4>物件函式</font></h3><ul>
+<li><h3 id="函數被定義在物件之內"><a href="#函數被定義在物件之內" class="headerlink" title="函數被定義在物件之內"></a>函數被定義在物件之內</h3></li>
+</ul>
+<h4 id="傳統函數"><a href="#傳統函數" class="headerlink" title="傳統函數"></a>傳統函數</h4><p>傳統函數看的是誰呼叫，所以這個例子相對單純，<code>player.whatsThis()</code> 的呼叫者就是 <code>player</code>：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> player = {
+  whatsThis: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{   <span class="comment">// normal function</span>
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+  },
+};
+
+<span class="built_in">console</span>.log( player.whatsThis() === player );    <span class="comment">// true</span></code></pre>
+<h4 id="Arrow-Functions"><a href="#Arrow-Functions" class="headerlink" title="Arrow Functions"></a>Arrow Functions</h4><p><code>whatsThis()</code> 使用 Arrow Functions 定義，因此 <code>whatsThis()</code> 本身不會有自己的 <code>this</code>，而是沿用外圍環境的 <code>this</code>。  </p>
+<p>在這個例子裡，從 <code>whatsThis()</code> 再往外一層不在任何 Function Context 內，換言之就是 Global Context。在全域環境裡的 <code>this</code> 就是 Global 物件，在 HTML 裡就是 <code>window</code>：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> player = {
+  whatsThis: <span class="function"><span class="params">()</span> =&gt;</span> {    <span class="comment">// arrow function</span>
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+  },
+};
+
+<span class="built_in">console</span>.log( player.whatsThis() === <span class="built_in">window</span> );    <span class="comment">// true</span></code></pre>
+<ul>
+<li><h3 id="函數被定義在物件之外"><a href="#函數被定義在物件之外" class="headerlink" title="函數被定義在物件之外"></a>函數被定義在物件之外</h3></li>
+</ul>
+<h4 id="傳統函數-1"><a href="#傳統函數-1" class="headerlink" title="傳統函數"></a>傳統函數</h4><p>傳統函數一樣單純看是誰呼叫，<code>player.f()</code> 的呼叫者就是 <code>player</code>：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> whatsThis = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{   <span class="comment">// normal function</span>
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};
+
+<span class="keyword">var</span> player = {};
+player.f = whatsThis;
+
+<span class="built_in">console</span>.log(player.f() === player);     <span class="comment">// true</span></code></pre>
+<h4 id="Arrow-Functions-1"><a href="#Arrow-Functions-1" class="headerlink" title="Arrow Functions"></a>Arrow Functions</h4><p>雖然是透過 <code>player.f()</code> 呼叫，但這邊看的是語彙位置，<code>whatsThis()</code> 再往外一層的 <code>this</code> 是 Global 物件：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> whatsThis = <span class="function"><span class="params">()</span> =&gt;</span> {    <span class="comment">// arrow function</span>
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};
+
+<span class="keyword">var</span> player = {};
+player.f = whatsThis;
+
+<span class="built_in">console</span>.log(player.f() === <span class="built_in">window</span>);     <span class="comment">// true</span></code></pre>
+<ul>
+<li><h3 id="物件的屬性物件的函式"><a href="#物件的屬性物件的函式" class="headerlink" title="物件的屬性物件的函式"></a>物件的屬性物件的函式</h3></li>
+</ul>
+<h4 id="傳統函數-2"><a href="#傳統函數-2" class="headerlink" title="傳統函數"></a>傳統函數</h4><p>根據 <code>obj.method()</code> 的公式，呼叫者同樣很好辨認：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> player = {
+  name: <span class="string">'Bob'</span>,
+  f: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+  },
+  pet: {
+    name: <span class="string">'May'</span>,
+    f: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+      <span class="keyword">return</span> <span class="keyword">this</span>;
+    },
+  }
+};
+
+<span class="built_in">console</span>.log(player.f() === player);             <span class="comment">// true</span>
+<span class="built_in">console</span>.log(player.pet.f() === player.pet );    <span class="comment">// true</span></code></pre>
+<h4 id="Arrow-Functions-2"><a href="#Arrow-Functions-2" class="headerlink" title="Arrow Functions"></a>Arrow Functions</h4><p>雖然呼叫者不同，函數定義的層次也不太一樣，但由於 <code>player.f()</code> 和 <code>player.pet.f()</code> 語彙位置再往外一層其實都是 Global Context，所以兩個函數回傳的 <code>this</code> 都是 Global 物件：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> player = {
+  name: <span class="string">'OneJar'</span>,
+  f: <span class="function"><span class="params">()</span> =&gt;</span> {
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+  },
+  pet: {
+    name: <span class="string">'Totoro'</span>,
+    f: <span class="function"><span class="params">()</span> =&gt;</span> {
+      <span class="keyword">return</span> <span class="keyword">this</span>;
+    },
+  }
+};
+
+<span class="built_in">console</span>.log(player.f() === <span class="built_in">window</span>);         <span class="comment">// true</span>
+<span class="built_in">console</span>.log(player.pet.f() === <span class="built_in">window</span> );    <span class="comment">// true</span></code></pre>
+<hr>
+<h3 id="簡易呼叫-Simple-Call"><a href="#簡易呼叫-Simple-Call" class="headerlink" title="簡易呼叫 (Simple Call)"></a><font color=#00BCD4>簡易呼叫 (Simple Call)</font></h3><ul>
+<li><h3 id="全域環境-Global-Context-下定義函數-amp-呼叫函數"><a href="#全域環境-Global-Context-下定義函數-amp-呼叫函數" class="headerlink" title="全域環境 (Global Context) 下定義函數 &amp; 呼叫函數"></a>全域環境 (Global Context) 下定義函數 &amp; 呼叫函數</h3></li>
+</ul>
+<h4 id="傳統函數-3"><a href="#傳統函數-3" class="headerlink" title="傳統函數"></a>傳統函數</h4><p>前面沒有指定呼叫者的狀況，傳統函數在一般模式下是 Global 物件，嚴謹模式下是 <code>undefined</code>：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> whatsThis = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">return</span> <span class="keyword">this</span>;
+}
+
+<span class="built_in">console</span>.log( whatsThis() ); <span class="comment">// (normal mode) window / (strict mode) undefined</span></code></pre>
+<h4 id="Arrow-Functions-3"><a href="#Arrow-Functions-3" class="headerlink" title="Arrow Functions"></a>Arrow Functions</h4><p>由於看的是語彙位置，往外一層是 Global Context，不管在一般模式或嚴謹模式，<code>this</code> 都是 Global 物件：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> whatsThis = <span class="function"><span class="params">()</span> =&gt;</span> {
+  <span class="keyword">return</span> <span class="keyword">this</span>;
+}
+
+<span class="built_in">console</span>.log( whatsThis() ); <span class="comment">// window</span></code></pre>
+<ul>
+<li><h3 id="內部函數-Inner-Functions"><a href="#內部函數-Inner-Functions" class="headerlink" title="內部函數 (Inner Functions)"></a>內部函數 (Inner Functions)</h3></li>
+</ul>
+<h4 id="傳統函數-4"><a href="#傳統函數-4" class="headerlink" title="傳統函數"></a>傳統函數</h4><pre><code class="javascript"><span class="keyword">var</span> x = <span class="number">10</span>;
+<span class="keyword">var</span> obj = {
+    x: <span class="number">20</span>,
+    f: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="built_in">console</span>.log(<span class="string">'Output#1: '</span>, <span class="keyword">this</span>.x);
+        <span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{ <span class="built_in">console</span>.log(<span class="string">'Output#2: '</span>, <span class="keyword">this</span>.x); }
+        foo();
+    }
+};
+
+obj.f();</code></pre>
+<p>執行結果：  </p>
+<pre><code class="javascript">Output#1:  20
+Output#2:  10</code></pre>
+<p>「Output#1」時，呼叫方式是 <code>obj.f()</code>，因此 <code>this</code> 是呼叫者 <code>obj</code> 物件，<code>this.x</code> 是 20。<br>「Output#2」時，呼叫方式是 <code>foo()</code>，視同簡單呼叫，一般模式下 <code>this</code> 是 Global 物件，因此 <code>this.x</code> 是 10。  </p>
+<h4 id="Arrow-Functions-I"><a href="#Arrow-Functions-I" class="headerlink" title="Arrow Functions  I"></a>Arrow Functions  I</h4><p>如果只有內部函數是 Arrow Function，外部函數仍是傳統函數：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> x = <span class="number">10</span>;
+<span class="keyword">var</span> obj = {
+    x: <span class="number">20</span>,
+    f: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="built_in">console</span>.log(<span class="string">'Output#1: '</span>, <span class="keyword">this</span>.x);
+        <span class="keyword">var</span> foo = <span class="function"><span class="params">()</span> =&gt;</span> { <span class="built_in">console</span>.log(<span class="string">'Output#2: '</span>, <span class="keyword">this</span>.x); } <span class="comment">// arrow function</span>
+        foo();
+    }
+};
+
+obj.f();</code></pre>
+<p>執行結果：  </p>
+<pre><code class="javascript">Output#1:  20
+Output#2:  20</code></pre>
+<p>「Output#1」所在的函數仍是傳統函數，因此 <code>this.x</code> 不變仍是 20。<br>「Output#2」所在的函數變成 Arrow Function，沿用外層的 <code>this</code>，其外層就是 <code>obj.f()</code>，因此 <code>this.x</code> 也是 20。  </p>
+<h4 id="Arrow-Functions-II"><a href="#Arrow-Functions-II" class="headerlink" title="Arrow Functions II"></a>Arrow Functions II</h4><p>如果外部函數是 Arrow Function，內部函數是傳統函數：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> x = <span class="number">10</span>;
+<span class="keyword">var</span> obj = {
+    x: <span class="number">20</span>,
+    f: <span class="function"><span class="params">()</span> =&gt;</span> {  <span class="comment">// arrow function</span>
+        <span class="built_in">console</span>.log(<span class="string">'Output#1: '</span>, <span class="keyword">this</span>.x);
+        <span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ <span class="built_in">console</span>.log(<span class="string">'Output#2: '</span>, <span class="keyword">this</span>.x); }
+        foo();
+    }
+};
+
+obj.f();</code></pre>
+<p>執行結果：  </p>
+<pre><code class="javascript">Output#1:  10
+Output#2:  10</code></pre>
+<p>「Output#2」根據呼叫方式是 <code>foo()</code>，視同簡單呼叫，一般模式下 <code>this</code> 是 Global 物件，因此 <code>this.x</code> 是 10。<br>「Output#1」會沿用外層的 <code>this</code>，往外找一層是 Global Context，所以 <code>this</code> 也是 Global 物件。  </p>
+<h4 id="Arrow-Functions-III"><a href="#Arrow-Functions-III" class="headerlink" title="Arrow Functions III"></a>Arrow Functions III</h4><p>如果外部函數和內部函數都是 Arrow Function：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> x = <span class="number">10</span>;
+<span class="keyword">var</span> obj = {
+    x: <span class="number">20</span>,
+    f: <span class="function"><span class="params">()</span> =&gt;</span> {  <span class="comment">// arrow function</span>
+        <span class="built_in">console</span>.log(<span class="string">'Output#1: '</span>, <span class="keyword">this</span>.x);
+        <span class="keyword">var</span> foo = <span class="function"><span class="params">()</span> =&gt;</span> { <span class="built_in">console</span>.log(<span class="string">'Output#2: '</span>, <span class="keyword">this</span>.x); } <span class="comment">// arrow function</span>
+        foo();
+    }
+};
+
+obj.f();</code></pre>
+<p>執行結果：  </p>
+<pre><code class="javascript">Output#1:  10
+Output#2:  10</code></pre>
+<p>「Output#1」會沿用外層的 <code>this</code>，往外找一層是 Global Context，所以 <code>this</code> 也是 Global 物件。<br>「Output#2」沿用外層的 <code>this</code>，其外層是 <code>obj.f()</code>；而 <code>obj.f()</code> 的 <code>this</code> 如上面所說，經過沿用後是 Global 物件。  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/31/JS%E7%89%B9%E8%A8%93-DAY39-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/" rel="prev" title="JS特訓-DAY39-箭頭函式 (arrow function)">
+      <i class="fa fa-chevron-left"></i> JS特訓-DAY39-箭頭函式 (arrow function)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/05/JS%E7%89%B9%E8%A8%93-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E7%9A%84-this-%E5%92%8C%E4%BD%A0%E6%83%B3%E7%9A%84%E4%B8%8D%E4%B8%80%E6%A8%A3-%E4%B8%8B/" rel="next" title="JS特訓-箭頭函式 (arrow function) 的 this 和你想的不一樣(下)">
+      JS特訓-箭頭函式 (arrow function) 的 this 和你想的不一樣(下) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrow-Functions-的-this-判斷原則"><span class="nav-number">2.</span> <span class="nav-text">Arrow Functions 的 this 判斷原則</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件函式"><span class="nav-number">3.</span> <span class="nav-text">物件函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函數被定義在物件之內"><span class="nav-number">4.</span> <span class="nav-text">函數被定義在物件之內</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#傳統函數"><span class="nav-number">4.1.</span> <span class="nav-text">傳統函數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrow-Functions"><span class="nav-number">4.2.</span> <span class="nav-text">Arrow Functions</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函數被定義在物件之外"><span class="nav-number">5.</span> <span class="nav-text">函數被定義在物件之外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#傳統函數-1"><span class="nav-number">5.1.</span> <span class="nav-text">傳統函數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrow-Functions-1"><span class="nav-number">5.2.</span> <span class="nav-text">Arrow Functions</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件的屬性物件的函式"><span class="nav-number">6.</span> <span class="nav-text">物件的屬性物件的函式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#傳統函數-2"><span class="nav-number">6.1.</span> <span class="nav-text">傳統函數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrow-Functions-2"><span class="nav-number">6.2.</span> <span class="nav-text">Arrow Functions</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#簡易呼叫-Simple-Call"><span class="nav-number">7.</span> <span class="nav-text">簡易呼叫 (Simple Call)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全域環境-Global-Context-下定義函數-amp-呼叫函數"><span class="nav-number">8.</span> <span class="nav-text">全域環境 (Global Context) 下定義函數 &amp; 呼叫函數</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#傳統函數-3"><span class="nav-number">8.1.</span> <span class="nav-text">傳統函數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrow-Functions-3"><span class="nav-number">8.2.</span> <span class="nav-text">Arrow Functions</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#內部函數-Inner-Functions"><span class="nav-number">9.</span> <span class="nav-text">內部函數 (Inner Functions)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#傳統函數-4"><span class="nav-number">9.1.</span> <span class="nav-text">傳統函數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrow-Functions-I"><span class="nav-number">9.2.</span> <span class="nav-text">Arrow Functions  I</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrow-Functions-II"><span class="nav-number">9.3.</span> <span class="nav-text">Arrow Functions II</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrow-Functions-III"><span class="nav-number">9.4.</span> <span class="nav-text">Arrow Functions III</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
