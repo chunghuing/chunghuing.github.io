@@ -20,16 +20,18 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="前言運算子、型別與文法的小練習">
+<meta property="og:type" content="article">
 <meta property="og:title" content="JS核心(19)-運算子、型別與文法-課後練習">
 <meta property="og:url" content="http://chunghuing.github.io/2020/08/05/JS%E6%A0%B8%E5%BF%83-19-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E8%AA%B2%E5%BE%8C%E7%B7%B4%E7%BF%92/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言運算子、型別與文法的小練習">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-08-05T07:46:22.000Z">
-<meta property="article:modified_time" content="2020-08-05T07:46:22.579Z">
+<meta property="article:modified_time" content="2020-08-06T02:56:58.310Z">
 <meta property="article:author" content="Renee">
-<meta property="article:tag" content="tag1">
-<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://chunghuing.github.io/2020/08/05/JS%E6%A0%B8%E5%BF%83-19-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E8%AA%B2%E5%BE%8C%E7%B7%B4%E7%BF%92/">
@@ -85,7 +87,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -115,22 +117,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
 
   </li>
   </ul>
@@ -182,21 +184,24 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-              <time title="أُنشأ: 2020-08-05 15:46:22" itemprop="dateCreated datePublished" datetime="2020-08-05T15:46:22+08:00">2020-08-05</time>
+              <time title="Erstellt: 2020-08-05 15:46:22" itemprop="dateCreated datePublished" datetime="2020-08-05T15:46:22+08:00">2020-08-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-08-06 10:56:58" itemprop="dateModified" datetime="2020-08-06T10:56:58+08:00">2020-08-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/" itemprop="url" rel="index"><span itemprop="name">tag1</span></a>
-                </span>
-                  ، 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/tag2/" itemprop="url" rel="index"><span itemprop="name">tag2</span></a>
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
             </span>
 
@@ -211,7 +216,209 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>運算子、型別與文法的小練習  </p>
+<a id="more"></a>  
+
+<h3 id="第一題"><a href="#第一題" class="headerlink" title="第一題"></a>第一題</h3><p>我們都知道 JavaScript 是一個動態型別的語言，必須在執行後才能夠知道型別。<br>請問以下 a、b、c、d、e 的型別是?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="literal">true</span>;
+<span class="keyword">var</span> b = <span class="string">'undefined'</span>;
+<span class="keyword">var</span> c = <span class="number">1</span>;
+<span class="keyword">var</span> d = <span class="literal">null</span>;
+<span class="keyword">var</span> e = <span class="literal">NaN</span>;
+
+<span class="built_in">console</span>.log(<span class="keyword">typeof</span>(a));
+<span class="built_in">console</span>.log(<span class="keyword">typeof</span>(b));
+<span class="built_in">console</span>.log(<span class="keyword">typeof</span>(c));
+<span class="built_in">console</span>.log(<span class="keyword">typeof</span>(d));
+<span class="built_in">console</span>.log(<span class="keyword">typeof</span>(e));</code></pre>
+<p>請問這樣出現什麼訊息呢?</p>
+<ol>
+<li>boolean / string / number / null / number  </li>
+<li>boolean / undefined / number / object / NaN  </li>
+<li>boolean / string / number / object / number  </li>
+<li>boolean / undefined / boolean / object / number  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案是「boolean / string / number / object / number」  
+補充: NaN 雖然在 JavaScript 代表無效的數字，但是還是歸類於數字唷~  
+另外 null 在課程上有講述到，這是很長久的 bug，所以才會顯示 object  
+</code></pre>
+</details>  
+
+<h3 id="第二題"><a href="#第二題" class="headerlink" title="第二題"></a>第二題</h3><p>請問當使用了 new Number( ) 建立資料後後，此時使用 typeof( ) 會出現什麼型別?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>);</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>array  </li>
+<li>object  </li>
+<li>number  </li>
+<li>string  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「object」  
+簡單來講凡是使用 new 所建構的型別，在 typeof 都會是 object  
+</code></pre>
+</details>  
+
+<h3 id="第三題"><a href="#第三題" class="headerlink" title="第三題"></a>第三題</h3><p>請問下方程式碼分別為 true 還是 false?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="string">'10'</span>;
+<span class="built_in">console</span>.log(<span class="number">10</span> == <span class="keyword">this</span>.a);
+<span class="built_in">console</span>.log(<span class="number">10</span> === <span class="keyword">this</span>.a);</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>true , false  </li>
+<li>false, true  </li>
+<li>true, true  </li>
+<li>false, false  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「true , false」  
+一般來講，實際開發最好還是使用嚴格模式來做比較(三個等於)否則很容易出現一些奇怪的 bug  
+</code></pre>
+</details>  
+
+<h3 id="第四題"><a href="#第四題" class="headerlink" title="第四題"></a>第四題</h3><p>請問以下答案是什麼?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();
+<span class="keyword">var</span> b = a;
+
+<span class="built_in">console</span>.log(a === b);</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>true  </li>
+<li>false  </li>
+<li>undefined  </li>
+<li>以上都不是  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「true」  
+這邊的觀念主要是物件會參考同一個記憶體，所以答案是 true  
+</code></pre>
+</details>  
+
+<h3 id="第五題"><a href="#第五題" class="headerlink" title="第五題"></a>第五題</h3><p>請問以下答案是什麼?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>(<span class="string">'1234'</span>);
+<span class="keyword">var</span> b = BigInt(<span class="number">1234</span>);
+
+<span class="built_in">console</span>.log(a == b);</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>true  </li>
+<li>false  </li>
+<li>NaN  </li>
+<li>Undefined  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「true」
+在做寬鬆比較的時候，a 是一個物件格式，但是會被轉換成與 BigInt 相同格式
+</code></pre>
+</details>  
+
+<h3 id="第六題"><a href="#第六題" class="headerlink" title="第六題"></a>第六題</h3><p>請問以下程式碼會跑哪一個 console.log()?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();
+<span class="keyword">if</span> (a) {
+  <span class="built_in">console</span>.log(<span class="string">'程式執行'</span>);
+} <span class="keyword">else</span> {
+  <span class="built_in">console</span>.log(<span class="string">'程式跑 else'</span>);
+}</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>程式執行  </li>
+<li>程式跑 else  </li>
+<li>都不是  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「程式執行」
+就算透過建構式來建立的物件，一樣是會被判定 true，因為物件的記憶體已經存在了。
+</code></pre>
+</details>  
+
+<h3 id="第七題"><a href="#第七題" class="headerlink" title="第七題"></a>第七題</h3><p>請問以下答案是什麼?  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log(<span class="number">10</span> + <span class="number">10</span> - <span class="number">10</span> * <span class="number">2</span>);</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>0  </li>
+<li>20  </li>
+<li>10  </li>
+<li>NaN  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「0」
+</code></pre>
+</details>  
+
+<h3 id="第八題"><a href="#第八題" class="headerlink" title="第八題"></a>第八題</h3><p>請問以下 console.log() 會出現什麼答案?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="number">10</span>;
+<span class="built_in">console</span>.log(++a * a);
+a = <span class="number">10</span>;
+<span class="built_in">console</span>.log(--a * a);</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>121, 81  </li>
+<li>110, 90  </li>
+<li>120, 80  </li>
+<li>144 ,64  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「121, 81」  
+這個問題主要是跟 「++」 放在前後有差，這邊讓我們看一下 MDN 如何說明  
+
+<blockquote>
+<p>將運算元增加1。假如使用在運算元之前 (++x)，會運算元回傳增加1後的值;假如使用在運算元之後。 (x++)， 會回傳運算元加1前的值。<br>因此當 var a = 10 的時候， a++ 實際上是回傳 10 但 * a 的時候這個 a 已經變成 11，因此其實已經變成這樣 10 * 11 = 110<br></code></pre></p>
+</blockquote>
+</details>  
+
+<h3 id="第九題"><a href="#第九題" class="headerlink" title="第九題"></a>第九題</h3><p>前面課程我們了解 JavaScript 有所謂的 ASI 機制，那麼底下程式碼是否會出現錯誤呢?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="number">10</span>
+(a + <span class="number">10</span>).toString();</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>出現錯誤  </li>
+<li>不會出現錯誤  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「出現錯誤」
+實際執行得狀況會變成這樣子 var a = 10(a + 10).toString( );
+而這邊的觀念就是在考 ASI 自動補入分號的機制
+</code></pre>
+</details>  
+
+<h3 id="第十題"><a href="#第十題" class="headerlink" title="第十題"></a>第十題</h3><p>ASI 的機制各有好壞，其中常見的經典例子就是 return，那麼底下程式碼是否為正確呢?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="number">1</span>
+(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+ <span class="built_in">console</span>.log(a);
+})()</code></pre>
+<p>請問這樣出現什麼訊息呢?  </p>
+<ol>
+<li>出現錯誤  </li>
+<li>不會出現錯誤  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">  
+答案是「出現錯誤」
+這題與上一題類似，課堂上也有講到類似的題型，實際運作時程式碼會變成這樣 var a = 1(function() { console.log(a); })()
+</code></pre>
+</details>  
+
+
     </div>
 
     
@@ -220,8 +427,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/tag1/" rel="tag"># tag1</a>
-              <a href="/tags/tag2/" rel="tag"># tag2</a>
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
           </div>
 
         
@@ -286,15 +493,16 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          Inhaltsverzeichnis
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          Übersicht
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一題"><span class="nav-number">2.</span> <span class="nav-text">第一題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二題"><span class="nav-number">3.</span> <span class="nav-text">第二題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三題"><span class="nav-number">4.</span> <span class="nav-text">第三題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四題"><span class="nav-number">5.</span> <span class="nav-text">第四題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五題"><span class="nav-number">6.</span> <span class="nav-text">第五題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六題"><span class="nav-number">7.</span> <span class="nav-text">第六題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七題"><span class="nav-number">8.</span> <span class="nav-text">第七題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八題"><span class="nav-number">9.</span> <span class="nav-text">第八題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第九題"><span class="nav-number">10.</span> <span class="nav-text">第九題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第十題"><span class="nav-number">11.</span> <span class="nav-text">第十題</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -309,20 +517,20 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">36</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-name">Artikel</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">التصنيفات</span></a>
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">Kategorien</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">الوسوم</span></a>
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">schlagwörter</span></a>
       </div>
   </nav>
 </div>
@@ -354,7 +562,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         

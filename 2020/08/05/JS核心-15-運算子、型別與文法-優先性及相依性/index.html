@@ -20,16 +20,18 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="前言聊聊運算子裡面常見的優先性及相依性">
+<meta property="og:type" content="article">
 <meta property="og:title" content="JS核心(15)-運算子、型別與文法-優先性及相依性">
 <meta property="og:url" content="http://chunghuing.github.io/2020/08/05/JS%E6%A0%B8%E5%BF%83-15-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E5%84%AA%E5%85%88%E6%80%A7%E5%8F%8A%E7%9B%B8%E4%BE%9D%E6%80%A7/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言聊聊運算子裡面常見的優先性及相依性">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-08-05T07:45:46.000Z">
-<meta property="article:modified_time" content="2020-08-05T07:45:46.472Z">
+<meta property="article:modified_time" content="2020-08-05T08:46:31.802Z">
 <meta property="article:author" content="Renee">
-<meta property="article:tag" content="tag1">
-<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://chunghuing.github.io/2020/08/05/JS%E6%A0%B8%E5%BF%83-15-%E9%81%8B%E7%AE%97%E5%AD%90%E3%80%81%E5%9E%8B%E5%88%A5%E8%88%87%E6%96%87%E6%B3%95-%E5%84%AA%E5%85%88%E6%80%A7%E5%8F%8A%E7%9B%B8%E4%BE%9D%E6%80%A7/">
@@ -85,7 +87,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -115,22 +117,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
 
   </li>
   </ul>
@@ -182,21 +184,18 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              
 
-              <time title="أُنشأ: 2020-08-05 15:45:46" itemprop="dateCreated datePublished" datetime="2020-08-05T15:45:46+08:00">2020-08-05</time>
+              <time title="Erstellt: 2020-08-05 15:45:46 / Geändert am: 16:46:31" itemprop="dateCreated datePublished" datetime="2020-08-05T15:45:46+08:00">2020-08-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/" itemprop="url" rel="index"><span itemprop="name">tag1</span></a>
-                </span>
-                  ، 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/tag2/" itemprop="url" rel="index"><span itemprop="name">tag2</span></a>
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
             </span>
 
@@ -211,7 +210,118 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>聊聊運算子裡面常見的優先性及相依性  </p>
+<a id="more"></a>  
+
+<h3 id="名詞小字典"><a href="#名詞小字典" class="headerlink" title="名詞小字典"></a>名詞小字典</h3><p>優先性(Precedence)：決定運算子彼此之間被語法解析的方式，優先序較高的運算子會成為優先序較低運算子的運算元  </p>
+<p>相依性(Associativity)：相依性決定運算方向</p>
+<h3 id="優先性及相依性"><a href="#優先性及相依性" class="headerlink" title="優先性及相依性"></a>優先性及相依性</h3><p>先來看一段簡易的計算公式  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="number">2</span> + <span class="number">2</span> * <span class="number">2</span> / <span class="number">2</span>;</code></pre>
+<p>在這邊我直接講答案是 <code>4</code>，基本上計算時，我們可以依照直覺來思考，在 JavaScript 的賦值行為一定會是等計算完畢後才賦予值，並且依照我們成長過程中的數學老師都會說「先乘除後加減」，所以 2 / 2 = 1，接下來 2 * 1 = 2 最後才會 2 + 2 = 4，其實這一段計算方式有錯。  </p>
+<p>因此在程式語言中其實他是有一定的邏輯與規範可以去查看，在 MDN 文件中就有一份「<a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/Operator_Precedence" target="_blank" rel="noopener">運算子優先序</a>」可以看。  </p>
+<p>在這邊我們可以看到等號運算子的優先性(Precedence)等級是 3(數字越大優先執行越高)，接下來加號運算子則是 13，但這邊比較特別的是乘號運算子與除號運算子是相同的等級 14，那麼在執行順序下來就會像這樣  </p>
+<p>3 &lt; 13 &lt; 14  </p>
+<p>而這邊你可能會很疑惑乘號運算子與除號運算子等級都是相同，那這樣子 JavaScript 該怎麼計算？因此這邊就會有一個東西叫做相依性(Associativity)。  </p>
+<p>相依性的意思是說當有相同等級的運算子在一起時，他就會依照特定的方向執行，因此我們可以看到乘號運算子、除號運算子以及餘數運算子是從「從左至右」執行  </p>
+<table>
+<thead>
+<tr>
+<th>14</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>Multiplication</td>
+<td>從左至右</td>
+<td>… * …</td>
+</tr>
+<tr>
+<td></td>
+<td>Division</td>
+<td></td>
+<td>… / …</td>
+</tr>
+<tr>
+<td></td>
+<td>Remainder</td>
+<td></td>
+<td>… % …</td>
+</tr>
+</tbody></table>
+<p>因此計算是正確的方式是先從 2 * 2 開始，然後 4 / 2 最後才是 2 + 2 並將結果賦予到 a  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="number">2</span> + ((<span class="number">2</span> * <span class="number">2</span>) / <span class="number">2</span>); <span class="comment">// 4</span></code></pre>
+<p>至於為什麼要講這個呢？接下來講講另一個常見的前端考題  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log(<span class="number">1</span> &lt; <span class="number">2</span> &lt; <span class="number">3</span>); <span class="comment">// true</span></code></pre>
+<p>依照結果來看，答案絕對會是 true，因為 1 確實小於 2 並且 2 小於 3，但若是這樣呢？  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log(<span class="number">3</span> &gt; <span class="number">2</span> &gt; <span class="number">1</span>); <span class="comment">// ?</span></code></pre>
+<p>上面結果會出現 <code>false</code>，確實 3 是大於 2 並且 2 大於 1，因此在這邊觀念是與相依性與型別轉換有關的，因為我們使用的都是比較運算子，在使用比較運算子時，它會比較結果並回傳 <code>true</code> 或 <code>false</code>，因此依照 MDN 相依性表來看，小於運算子是從左至右開始執行，拆開來看就像這樣  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log(<span class="number">3</span> &gt; <span class="number">2</span>); <span class="comment">// true</span>
+<span class="built_in">console</span>.log(<span class="literal">true</span> &gt; <span class="number">1</span>); <span class="comment">// 注意這邊會發生所謂的型別轉換，而 true = 1; 因此其實是 1 &gt; 1</span>
+<span class="built_in">console</span>.log(<span class="number">1</span> &gt; <span class="number">1</span>); <span class="comment">// false 因為 1 並沒有大於 1 因此結果就是 false</span></code></pre>
+<p>最後來講一個賦值的狀況  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="number">1</span>;
+<span class="keyword">var</span> b = <span class="number">2</span>;
+
+a = b = <span class="number">1</span>;</code></pre>
+<p>依照 MDN 說明，等號運算子的相依性是從右至左，因此拆開來看就會像這樣  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="number">1</span>;
+<span class="keyword">var</span> b = <span class="number">2</span>;
+
+b = <span class="number">1</span>;
+a = b;</code></pre>
+<p>這邊邏輯看起來是很正確的，也依照等號運算子的相依性去說明，但其實這一段是有錯誤的，因此實際上來說明，這一段真正的狀況是 <code>a</code> 是接收 <code>b = 1</code> 回傳的結果，我們都知道 <code>b = 1</code> 是會回傳一個結果的，因為這一段是表達式，所以 <code>a</code> 其實是接收 <code>b = 1</code> 回傳的結果而不是直接去取得 <code>b</code> 的值，這一段非常特別，所以來講講另一個範例  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = {};
+
+<span class="built_in">Object</span>.defineProperty(a, <span class="string">'b'</span>, {
+  value: <span class="number">0</span>,
+  writable: <span class="literal">false</span>,
+})</code></pre>
+<p>在這邊可以看到我們使用了 <code>Object.defineProperty</code> 賦予 <code>a</code> 一個屬性與值是 <code>b: 0</code>, 並且不能再次修改  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = {};
+
+<span class="built_in">Object</span>.defineProperty(a, <span class="string">'b'</span>, {
+  value: <span class="number">0</span>,
+  writable: <span class="literal">false</span>,
+})
+a.b = <span class="number">10</span>;
+<span class="built_in">console</span>.log(a.b); <span class="comment">// 0</span></code></pre>
+<p>那該如何證明剛剛前面等號運算子是接收回傳的表達式呢？  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = {};
+
+<span class="built_in">Object</span>.defineProperty(a, <span class="string">'b'</span>, {
+  value: <span class="number">0</span>,
+  writable: <span class="literal">false</span>,
+})
+
+<span class="keyword">var</span> c = a.b = <span class="number">10</span>;
+<span class="built_in">console</span>.log(c); <span class="comment">// 10</span></code></pre>
+<p>這樣寫我們就可以確定 <code>c</code> 是直接接收表達式回傳的結果，因為當右邊先執行時 <code>a.b = 10;</code> 會回傳一個結果 <code>10</code>，但實際上並不能修改值，因此還是保持 <code>0</code> 這一點我們知道，因此 <code>c</code> 實際上接收的是回傳的結果，因此這一邊的觀念主要是表達式的觀念，如果掌握了這個觀念，就算是這樣寫  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = {};
+
+<span class="built_in">Object</span>.defineProperty(a, <span class="string">'b'</span>, {
+  value: <span class="number">0</span>,
+  writable: <span class="literal">false</span>,
+})
+
+<span class="keyword">var</span> b = {};
+
+<span class="built_in">Object</span>.defineProperty(b, <span class="string">'b'</span>, {
+  value: <span class="number">99</span>,
+  writable: <span class="literal">false</span>,
+})
+
+<span class="built_in">Object</span>.defineProperty(b, <span class="string">'c'</span>, {
+  value: <span class="number">123</span>,
+  writable: <span class="literal">false</span>,
+})
+
+<span class="keyword">var</span> c = b.c = b.b = a.b = <span class="number">10</span>;
+<span class="built_in">console</span>.log(c);</code></pre>
+<p>也都可以知道 <code>c</code> 真正的結果是什麼。  </p>
+
     </div>
 
     
@@ -220,8 +330,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/tag1/" rel="tag"># tag1</a>
-              <a href="/tags/tag2/" rel="tag"># tag2</a>
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
           </div>
 
         
@@ -286,15 +396,16 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          Inhaltsverzeichnis
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          Übersicht
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#名詞小字典"><span class="nav-number">2.</span> <span class="nav-text">名詞小字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#優先性及相依性"><span class="nav-number">3.</span> <span class="nav-text">優先性及相依性</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -309,20 +420,20 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">36</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-name">Artikel</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">التصنيفات</span></a>
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">Kategorien</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">الوسوم</span></a>
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">schlagwörter</span></a>
       </div>
   </nav>
 </div>
@@ -354,7 +465,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
