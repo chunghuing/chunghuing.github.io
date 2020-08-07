@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言變數內容的傳遞方式是 Pass by value (傳值) 或 Pass by reference (傳址)，對於程式開發是一個很基本、但極為重要的觀念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(27)-物件-Call by Reference 還是 Call by Sharing">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-27-%E7%89%A9%E4%BB%B6-Call-by-Reference-%E9%82%84%E6%98%AF-Call-by-Sharing/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言變數內容的傳遞方式是 Pass by value (傳值) 或 Pass by reference (傳址)，對於程式開發是一個很基本、但極為重要的觀念">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/mzt7dgq.png">
+<meta property="og:image" content="https://imgur.com/seHrAtX.png">
+<meta property="article:published_time" content="2020-08-06T07:25:06.000Z">
+<meta property="article:modified_time" content="2020-08-07T03:23:46.842Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/mzt7dgq.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-27-%E7%89%A9%E4%BB%B6-Call-by-Reference-%E9%82%84%E6%98%AF-Call-by-Sharing/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(27)-物件-Call by Reference 還是 Call by Sharing | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-27-%E7%89%A9%E4%BB%B6-Call-by-Reference-%E9%82%84%E6%98%AF-Call-by-Sharing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(27)-物件-Call by Reference 還是 Call by Sharing
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-08-06 15:25:06" itemprop="dateCreated datePublished" datetime="2020-08-06T15:25:06+08:00">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-07 11:23:46" itemprop="dateModified" datetime="2020-08-07T11:23:46+08:00">2020-08-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>變數內容的傳遞方式是 Pass by value (傳值) 或 Pass by reference (傳址)，對於程式開發是一個很基本、但極為重要的觀念</p>
+<a id="more"></a>  
+
+<h3 id="什麼是Pass-by-value-傳值"><a href="#什麼是Pass-by-value-傳值" class="headerlink" title="什麼是Pass by value (傳值)"></a>什麼是Pass by value (傳值)</h3><p>先來看一個 Pass by value 的例子  </p>
+<pre><code class="javascript"><span class="keyword">var</span> x = <span class="number">5</span>;
+<span class="keyword">var</span> y = x;
+<span class="built_in">console</span>.log(x);     <span class="comment">// 5</span>
+<span class="built_in">console</span>.log(y);     <span class="comment">// 5</span>
+
+x = <span class="number">10</span>;
+<span class="built_in">console</span>.log(x);     <span class="comment">// 10</span>
+<span class="built_in">console</span>.log(y);     <span class="comment">// 5</span></code></pre>
+<ul>
+<li><p>變數 <code>x</code> 被賦予 <code>5</code> 這個數值，然後透過 <code>y = x</code> 的方式為變數 <code>y</code> 賦值，因此 <code>x</code> 和 <code>y</code> 一開始的變數內容都是 <code>5</code>  </p>
+</li>
+<li><p>接著針對 <code>x</code> 賦予新的值 <code>10</code>，此時 <code>x</code> 是 <code>10</code>，但 <code>y</code> 仍是 <code>5</code>  </p>
+</li>
+</ul>
+<p>為什麼改變 <code>x</code> 的值，<code>y</code> 會不受影響？  </p>
+<p><img src="https://imgur.com/mzt7dgq.png" alt=" ">  </p>
+<p>因為當變數內容傳遞方式是 Pass by value (傳值)，也就是將舊變數的值內容複製一份，放進一塊新的記憶體，讓新變數指向過去。  </p>
+<p>以上面的例子來說，就是將變數 <code>y</code> 指向一塊新的記憶體，然後將變數 <code>x</code> 裡的值複製一份放進去，等於變數 <code>x</code> 和 <code>y</code> 裡存放的是兩份獨立的資料，其中一份改變，不會影響另一份。  </p>
+<hr>
+<h3 id="什麼是Pass-by-reference-傳址"><a href="#什麼是Pass-by-reference-傳址" class="headerlink" title="什麼是Pass by reference (傳址)"></a>什麼是Pass by reference (傳址)</h3><p>先來看一個 Pass by reference 的例子  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person1 = { <span class="attr">money</span>: <span class="number">111</span> };
+<span class="keyword">var</span> person2 = person1;
+<span class="built_in">console</span>.log(person1);  <span class="comment">// {money: 111}</span>
+<span class="built_in">console</span>.log(person2);  <span class="comment">// {money: 111}</span>
+
+person1.money = <span class="number">222</span>;
+<span class="built_in">console</span>.log(person1);  <span class="comment">// {money: 222}</span>
+<span class="built_in">console</span>.log(person2);  <span class="comment">// {money: 222}</span></code></pre>
+<ul>
+<li>變數 <code>person1</code> 賦予一個物件，透過 <code>person2 = person1</code> 的方式為 <code>person2</code> 賦值，<code>person1</code> 和 <code>person2</code> 兩個物件的 <code>money</code> 屬性一樣都是 <code>111</code></li>
+<li>針對 <code>person1.money</code> 更換值的內容，連 <code>person2</code> 的屬性也一起變動到  </li>
+</ul>
+<p><img src="https://imgur.com/seHrAtX.png" alt=" ">  </p>
+<p>因為當變數內容傳遞方式是 Pass by reference (傳址)，新變數會直接指向舊變數的記憶體位址，等於新舊變數共用同一個位址的資料。  </p>
+<p>所以 <code>person1</code> 和 <code>person2</code> 其實指向同一個物件，就像同一個房間有兩個入口，從哪一個入口進去，看到的都是同一個房間內容。因此，對 <code>person1</code> 作任何變動，也等同對 <code>person2</code> 作變動。  </p>
+<hr>
+<h3 id="JavaScript-什麼時候是-Pass-by-value？什麼時候是-Pass-by-reference？"><a href="#JavaScript-什麼時候是-Pass-by-value？什麼時候是-Pass-by-reference？" class="headerlink" title="JavaScript 什麼時候是 Pass by value？什麼時候是 Pass by reference？"></a>JavaScript 什麼時候是 Pass by value？什麼時候是 Pass by reference？</h3><p>基本上看變數的資料型別，決定傳遞行為是 Pass by value 或 Pass by reference。  </p>
+<h4 id="當變數的值是原生型別-Primitive-時，行為是-Pass-by-value"><a href="#當變數的值是原生型別-Primitive-時，行為是-Pass-by-value" class="headerlink" title="當變數的值是原生型別 (Primitive) 時，行為是 Pass by value"></a>當變數的值是原生型別 (Primitive) 時，行為是 Pass by value</h4><p>在 JavaScript 中，原生型別 (Primitive) 包含：  </p>
+<ul>
+<li>String  </li>
+<li>Number  </li>
+<li>Boolean  </li>
+<li>Undefined  </li>
+<li>Null  </li>
+</ul>
+<blockquote>
+<p><code>null</code> 雖然用 <code>typeof</code> 運算的結果是回傳 <code>object</code>，但 <code>null</code> 在行為上歸屬原生型別。  </p>
+</blockquote>
+<p>以下是這五種型別的行為測試：  </p>
+<pre><code class="javascript"><span class="comment">/* string */</span>
+<span class="keyword">var</span> str1 = <span class="string">"111"</span>;
+<span class="keyword">var</span> str2 = str1;
+<span class="built_in">console</span>.log(str1); <span class="comment">// "111"</span>
+<span class="built_in">console</span>.log(str2); <span class="comment">// "111"</span>
+
+str1 = <span class="string">"222"</span>;
+<span class="built_in">console</span>.log(str1); <span class="comment">// "222"</span>
+<span class="built_in">console</span>.log(str2); <span class="comment">// "111"</span>
+
+
+<span class="comment">/* number */</span>
+<span class="keyword">var</span> n1 = <span class="number">111</span>;
+<span class="keyword">var</span> n2 = n1;
+<span class="built_in">console</span>.log(n1); <span class="comment">// 111</span>
+<span class="built_in">console</span>.log(n2); <span class="comment">// 111</span>
+
+n1 = <span class="number">222</span>;
+<span class="built_in">console</span>.log(n1); <span class="comment">// 222</span>
+<span class="built_in">console</span>.log(n2); <span class="comment">// 111</span>
+
+
+<span class="comment">/* boolean */</span>
+<span class="keyword">var</span> bool1 = <span class="literal">true</span>;
+<span class="keyword">var</span> bool2 = bool1;
+<span class="built_in">console</span>.log(bool1); <span class="comment">// true</span>
+<span class="built_in">console</span>.log(bool2); <span class="comment">// true</span>
+
+bool1 = <span class="literal">false</span>;
+<span class="built_in">console</span>.log(bool1); <span class="comment">// false</span>
+<span class="built_in">console</span>.log(bool2); <span class="comment">// true</span>
+
+
+<span class="comment">/* null */</span>
+<span class="keyword">var</span> nu1 = <span class="literal">null</span>;
+<span class="keyword">var</span> nu2 = nu1;
+<span class="built_in">console</span>.log(nu1); <span class="comment">// null</span>
+<span class="built_in">console</span>.log(nu2); <span class="comment">// null</span>
+
+nu1 = <span class="string">"something"</span>;
+<span class="built_in">console</span>.log(nu1); <span class="comment">// "something"</span>
+<span class="built_in">console</span>.log(nu2); <span class="comment">// null</span>
+
+
+<span class="comment">/* undefined */</span>
+<span class="keyword">var</span> ud1 = <span class="literal">undefined</span>;
+<span class="keyword">var</span> ud2 = ud1;
+<span class="built_in">console</span>.log(ud1); <span class="comment">// undefined</span>
+<span class="built_in">console</span>.log(ud2); <span class="comment">// undefined</span>
+
+ud1 = <span class="string">"something"</span>;
+<span class="built_in">console</span>.log(ud1); <span class="comment">// "something"</span>
+<span class="built_in">console</span>.log(ud2); <span class="comment">// undefined</span></code></pre>
+<h4 id="當變數的值是物件型別-Object-時，行為是-Pass-by-reference"><a href="#當變數的值是物件型別-Object-時，行為是-Pass-by-reference" class="headerlink" title="當變數的值是物件型別 (Object) 時，行為是 Pass by reference"></a>當變數的值是物件型別 (Object) 時，行為是 Pass by reference</h4><p>在 JavaScript 中的物件型別常見的例如：  </p>
+<ul>
+<li>Array  </li>
+<li>Object  </li>
+</ul>
+<p>以下是這兩種型別的行為測試：  </p>
+<pre><code class="javascript"><span class="comment">/* array */</span>
+<span class="keyword">var</span> ary1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="keyword">var</span> ary2 = ary1;
+<span class="built_in">console</span>.log(ary1); <span class="comment">// [1, 2, 3]</span>
+<span class="built_in">console</span>.log(ary2); <span class="comment">// [1, 2, 3]</span>
+
+ary1[<span class="number">0</span>] = <span class="number">99</span>;
+<span class="built_in">console</span>.log(ary1); <span class="comment">// [99, 2, 3]</span>
+<span class="built_in">console</span>.log(ary2); <span class="comment">// [99, 2, 3]</span>
+
+
+<span class="comment">/* object */</span>
+<span class="keyword">var</span> person1 = { <span class="attr">money</span>: <span class="number">111</span> };
+<span class="keyword">var</span> person2 = person1;
+<span class="built_in">console</span>.log(person1);  <span class="comment">// {money: 111}</span>
+<span class="built_in">console</span>.log(person2);  <span class="comment">// {money: 111}</span>
+
+person1.money = <span class="number">222</span>;
+<span class="built_in">console</span>.log(person1);  <span class="comment">// {money: 222}</span>
+<span class="built_in">console</span>.log(person2);  <span class="comment">// {money: 222}</span></code></pre>
+<hr>
+<h3 id="Pass-by-sharing-又是怎麼一回事？"><a href="#Pass-by-sharing-又是怎麼一回事？" class="headerlink" title="Pass by sharing 又是怎麼一回事？"></a>Pass by sharing 又是怎麼一回事？</h3><p>JavaScript 裡，原生型別 (Primitive) 是 Pass by value，物件型別 (Object) 是 Pass by reference。  </p>
+<p>怎麼會冒出一個 Pass by sharing 的說法？我們來看以下的情境  </p>
+<h3 id="1-函數參數傳遞"><a href="#1-函數參數傳遞" class="headerlink" title="1. 函數參數傳遞"></a>1. 函數參數傳遞</h3><pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">rename</span>(<span class="params">obj</span>)</span>{
+    obj = { <span class="attr">name</span>: <span class="string">"XXX"</span> };
+}
+
+<span class="keyword">var</span> person = { <span class="attr">name</span>: <span class="string">"Bob"</span> };
+<span class="built_in">console</span>.log(person);
+rename(person);
+<span class="built_in">console</span>.log(person);</code></pre>
+<p>上面這個範例，將物件 <code>person</code> 傳遞給函數 <code>rename()</code> 作為參數，並在 <code>rename()</code> 裡面改變值。</p>
+<p>根據前面的結論，物件型別 (Object) 是 Pass by reference，那麼執行結果應該是先印 {name: “Bob”} 再印 {name: “XXX”} 囉？  </p>
+<p>執行結果：  </p>
+<pre><code class="javascript">{ <span class="attr">name</span>: <span class="string">"Bob"</span> }
+{ <span class="attr">name</span>: <span class="string">"Bob"</span> }</code></pre>
+<p>怎麼好像和前面說好的不一樣？  </p>
+<p>上述例子可以再作抽離，縮小範圍，只看對 <code>obj</code> 變更值的部分。例子中是使用物件實字 (Object Literals) 的方式來變更值。  </p>
+<h3 id="2-使用陣列實字-Array-Literals-和物件實字-Object-Literals-重新賦值"><a href="#2-使用陣列實字-Array-Literals-和物件實字-Object-Literals-重新賦值" class="headerlink" title="2. 使用陣列實字 (Array Literals) 和物件實字 (Object Literals) 重新賦值"></a>2. 使用陣列實字 (Array Literals) 和物件實字 (Object Literals) 重新賦值</h3><pre><code class="javascript"><span class="comment">/* array literals */</span>
+<span class="keyword">var</span> ary1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="keyword">var</span> ary2 = ary1;
+<span class="built_in">console</span>.log(ary1); <span class="comment">// [1, 2, 3]</span>
+<span class="built_in">console</span>.log(ary2); <span class="comment">// [1, 2, 3]</span>
+
+ary1 = [<span class="number">99</span>, <span class="number">100</span>];
+<span class="built_in">console</span>.log(ary1); <span class="comment">// [99, 100]</span>
+<span class="built_in">console</span>.log(ary2); <span class="comment">// [1, 2, 3]</span>
+
+
+<span class="comment">/* object literals */</span>
+<span class="keyword">var</span> person1 = { <span class="attr">money</span>: <span class="number">111</span> };
+<span class="keyword">var</span> person2 = person1;
+<span class="built_in">console</span>.log(person1);  <span class="comment">// {money: 111}</span>
+<span class="built_in">console</span>.log(person2);  <span class="comment">// {money: 111}</span>
+
+person1 = { <span class="attr">money</span>: <span class="number">222</span> };
+<span class="built_in">console</span>.log(person1);  <span class="comment">// {money: 222}</span>
+<span class="built_in">console</span>.log(person2);  <span class="comment">// {money: 111}</span></code></pre>
+<p>可以發現到，雖然是物件型別 (Object) 的變數，<strong>如果用實字 (Literals) 對變數作重新賦值，並不會連另一個變數一起變更</strong>  </p>
+<h3 id="3-使用第三方變數作重新賦值"><a href="#3-使用第三方變數作重新賦值" class="headerlink" title="3. 使用第三方變數作重新賦值　　"></a>3. 使用第三方變數作重新賦值　　</h3><p>即使不是直接用實字 (Literals)，而是透過第三方變數去作重新賦值，同樣不會影響到第二個變數：　　</p>
+<pre><code class="javascript"><span class="comment">/* array re-assigned */</span>
+<span class="keyword">var</span> ary1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="keyword">var</span> ary2 = ary1;
+<span class="built_in">console</span>.log(ary1); <span class="comment">// [1, 2, 3]</span>
+<span class="built_in">console</span>.log(ary2); <span class="comment">// [1, 2, 3]</span>
+
+<span class="keyword">var</span> ary3 = [<span class="number">99</span>, <span class="number">100</span>];
+ary1 = ary3;
+<span class="built_in">console</span>.log(ary1); <span class="comment">// [99, 100]</span>
+<span class="built_in">console</span>.log(ary2); <span class="comment">// [1, 2, 3]</span>
+<span class="built_in">console</span>.log(ary3); <span class="comment">// [99, 100]</span>
+
+
+<span class="comment">/* object re-assigned */</span>
+<span class="keyword">var</span> person1 = { <span class="attr">money</span>: <span class="number">111</span> };
+<span class="keyword">var</span> person2 = person1;
+<span class="built_in">console</span>.log(person1);  <span class="comment">// {money: 111}</span>
+<span class="built_in">console</span>.log(person2);  <span class="comment">// {money: 111}</span>
+
+<span class="keyword">var</span> person3 = { <span class="attr">money</span>: <span class="number">333</span> };
+person1 = person3;
+<span class="built_in">console</span>.log(person1);  <span class="comment">// {money: 333}</span>
+<span class="built_in">console</span>.log(person2);  <span class="comment">// {money: 111}</span>
+<span class="built_in">console</span>.log(person3);  <span class="comment">// {money: 333}</span></code></pre>
+<p>從前面例子發現到，雖然是物件型別 (Object) 的變數，如果是對物件變數作重新賦值，只會變更自己的值，  </p>
+<p>不會連另一個變數一起變更。這和前面提到的 Pass by reference 行為似乎不太一樣，反而有點像 Pass by value。  </p>
+<p>如此一來，稱為 Pass by reference 也不對，稱為 Pass by value 也不對，於是就出現了 Pass by sharing 的說法。<br></br><br>不少人將 JavaScript 的變數內容傳遞方式，稱為 Pass by sharing：  </p>
+<ul>
+<li><p>碰到原生型別 (Primitive)，表現行為是 Pass by value。  </p>
+</li>
+<li><p>碰到物件型別 (Object)，如果只是對物件內容作操作(例如陣列元素或物件屬性)，表現行為是 Pass by reference。  </p>
+</li>
+<li><p>碰到物件型別 (Object)，如果對物件作重新賦值，表現行為是 Pass by value。  </p>
+</li>
+</ul>
+<hr>
+<p>或者也有人視為：JavaScript 的 Primitive 是 Pass by Value，Object 是 Pass by sharing。  </p>
+<p>那為何有人說 JavaScript 只有 Pass by value？  </p>
+<p>答案都是對的，視乎立足的定義和觀點。會有這麼多技術名詞上的歧義，就像<a href="https://www.ithome.com.tw/voice/94877" target="_blank" rel="noopener">這篇文章</a>所言：  </p>
+<blockquote>
+<p>程式開發的世界中，名詞的創造經常是隨意的。<br>這些名詞通常沒有明確的定義，一開始只是為了溝通方便，而隨著聽聞者各自的領會與轉述，加上時間與歷史的推移，<br>它們的定義會發生岐義而各自發展，最後失去了溝通的意義。  </p>
+</blockquote>
+<hr>
+<h3 id="結論"><a href="#結論" class="headerlink" title="結論　　"></a>結論　　</h3><p>技術名詞是為了方便溝通，不是為了吵架。  </p>
+<p>技術名詞的概念統一定義很重要，因為能讓大家在一個共通的語彙概念上溝通或學習。  </p>
+<p>更詳盡的介紹我覺得可以看看這篇文章 <a href="https://blog.techbridge.cc/2018/06/23/javascript-call-by-value-or-reference/" target="_blank" rel="noopener">深入探討 JavaScript 中的參數傳遞：call by value 還是 reference？</a>  </p>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料　　"></a>參考資料　　</h3><ul>
+<li><a href="https://ithelp.ithome.com.tw/articles/10209104" target="_blank" rel="noopener">程式界的哈姆雷特 —— Pass by value, or Pass by reference？</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/06/JS%E6%A0%B8%E5%BF%83-26-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E5%8F%83%E8%80%83%E8%A7%80%E5%BF%B5%E7%9A%84%E5%AF%A6%E9%9A%9B%E9%81%8B%E4%BD%9C%E6%A8%A1%E5%BC%8F/" rel="prev" title="JS核心-(26)-物件-物件參考觀念的實際運作模式">
+      <i class="fa fa-chevron-left"></i> JS核心-(26)-物件-物件參考觀念的實際運作模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/06/JS%E6%A0%B8%E5%BF%83-28-%E7%89%A9%E4%BB%B6-%E6%B7%BA%E5%B1%A4%E8%A4%87%E8%A3%BD%E5%8F%8A%E6%B7%B1%E5%B1%A4%E8%A4%87%E8%A3%BD/" rel="next" title="JS核心-(28)-物件-淺層複製及深層複製">
+      JS核心-(28)-物件-淺層複製及深層複製 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什麼是Pass-by-value-傳值"><span class="nav-number">2.</span> <span class="nav-text">什麼是Pass by value (傳值)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什麼是Pass-by-reference-傳址"><span class="nav-number">3.</span> <span class="nav-text">什麼是Pass by reference (傳址)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-什麼時候是-Pass-by-value？什麼時候是-Pass-by-reference？"><span class="nav-number">4.</span> <span class="nav-text">JavaScript 什麼時候是 Pass by value？什麼時候是 Pass by reference？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#當變數的值是原生型別-Primitive-時，行為是-Pass-by-value"><span class="nav-number">4.1.</span> <span class="nav-text">當變數的值是原生型別 (Primitive) 時，行為是 Pass by value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#當變數的值是物件型別-Object-時，行為是-Pass-by-reference"><span class="nav-number">4.2.</span> <span class="nav-text">當變數的值是物件型別 (Object) 時，行為是 Pass by reference</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-by-sharing-又是怎麼一回事？"><span class="nav-number">5.</span> <span class="nav-text">Pass by sharing 又是怎麼一回事？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-函數參數傳遞"><span class="nav-number">6.</span> <span class="nav-text">1. 函數參數傳遞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用陣列實字-Array-Literals-和物件實字-Object-Literals-重新賦值"><span class="nav-number">7.</span> <span class="nav-text">2. 使用陣列實字 (Array Literals) 和物件實字 (Object Literals) 重新賦值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用第三方變數作重新賦值"><span class="nav-number">8.</span> <span class="nav-text">3. 使用第三方變數作重新賦值　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#結論"><span class="nav-number">9.</span> <span class="nav-text">結論　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考資料"><span class="nav-number">10.</span> <span class="nav-text">參考資料　　</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

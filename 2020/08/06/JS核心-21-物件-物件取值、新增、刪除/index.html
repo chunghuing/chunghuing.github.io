@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言聊聊物件的取值、新增以及刪除">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-21-物件-物件取值、新增、刪除">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-21-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E5%8F%96%E5%80%BC%E3%80%81%E6%96%B0%E5%A2%9E%E3%80%81%E5%88%AA%E9%99%A4/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言聊聊物件的取值、新增以及刪除">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/zoDI6yD.png">
+<meta property="og:image" content="https://imgur.com/3CP5bys.png">
+<meta property="article:published_time" content="2020-08-06T04:04:11.000Z">
+<meta property="article:modified_time" content="2020-08-06T06:11:23.380Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/zoDI6yD.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-21-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E5%8F%96%E5%80%BC%E3%80%81%E6%96%B0%E5%A2%9E%E3%80%81%E5%88%AA%E9%99%A4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-21-物件-物件取值、新增、刪除 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-21-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E5%8F%96%E5%80%BC%E3%80%81%E6%96%B0%E5%A2%9E%E3%80%81%E5%88%AA%E9%99%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-21-物件-物件取值、新增、刪除
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-06 12:04:11 / عُدل: 14:11:23" itemprop="dateCreated datePublished" datetime="2020-08-06T12:04:11+08:00">2020-08-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>聊聊物件的取值、新增以及刪除  </p>
+<a id="more"></a>  
+
+<h3 id="物件取值"><a href="#物件取值" class="headerlink" title="物件取值"></a>物件取值</h3><p>物件在取值時，主要有兩種方式  </p>
+<ul>
+<li>點運算子  </li>
+<li>中括號  </li>
+</ul>
+<p>先來講「點運算子」的做法，下方有一個物件範例程式碼  </p>
+<pre><code class="javascript"><span class="keyword">var</span> obj = {
+  myName: <span class="string">'Bob'</span>,
+  num: <span class="number">1</span>,
+  family: {
+    mon: <span class="string">'漂亮阿姨'</span>,
+  },
+  objFn: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="string">'漂亮阿姨回家囉'</span>);
+  },
+}</code></pre>
+<p>透過點運算子假使我們要取得 <code>myName</code> 只需要寫 <code>obj.myName</code> 即可  </p>
+<p>而中括號取值方式則是 <code>obj[&#39;myName&#39;]</code> 中括號取值裡面是使用字串的方式去取值，使用中括號取值的方式還有另一個好處，可以傳入變數來取值  </p>
+<pre><code class="javascript"><span class="keyword">var</span> obj = {
+  myName: <span class="string">'Bob'</span>,
+  num: <span class="number">1</span>,
+  family: {
+    mon: <span class="string">'漂亮阿姨'</span>,
+  },
+  objFn: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="string">'漂亮阿姨回家囉'</span>);
+  },
+}
+
+<span class="keyword">var</span> person = <span class="string">'myName'</span>;
+obj[person]; <span class="comment">// Bob</span></code></pre>
+<p>這邊你可能會問那點運算子呢？這必須注意點運算子是無法支援這種寫法，當你使用 <code>obj.person</code> 是會出現錯誤的，因為它會從 <code>obj</code> 底下去找有沒有 <code>person</code> 這個屬性。  </p>
+<p>另外這邊要注意一件事情就是物件的屬性「一率都是一個字串」，因此範例程式碼有一個數字 <code>1</code>，在這邊看起來會像是一個 Number，但實際上是一個字串  </p>
+<pre><code class="javascript"><span class="keyword">var</span> obj = {
+  myName: <span class="string">'Ray'</span>,
+  num: <span class="number">1</span>,
+  family: {
+    mon: <span class="string">'漂亮阿姨'</span>,
+  },
+  objFn: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="string">'漂亮阿姨回家囉'</span>);
+  },
+  <span class="number">1</span>: <span class="string">'qq123'</span>,
+}</code></pre>
+<p>你會發現使用點運算子 <code>obj.1</code> 是會出現 <code>Uncaught SyntaxError: Unexpected number</code> 的錯誤，那可能會想說改用 <code>obj.&#39;1&#39;</code>，但其實這還是會出現 <code>Uncaught SyntaxError: Unexpected string</code> 得錯誤訊息，那這些錯誤原因是什麼呢？這邊舉例 <code>obj.1</code> 來講，讓我們透過實際在 Chrome Console 來看它呈現的樣式  </p>
+<p>這邊假設來講我們在撰寫一個 Number 數字時，會呈現像這樣的淡綠色  </p>
+<p><img src="https://imgur.com/zoDI6yD.png" alt="數字">  </p>
+<p>但如果你使用點運算子並輸入一個 number 就會變成像這樣  </p>
+<p><img src="https://imgur.com/3CP5bys.png" alt="點運算子接數字">  </p>
+<p>若使用該方式你可以發現 . 後面若是數字就會是淡綠色，並且誤判成 Number，因此會建議使用中括號來取值。  </p>
+<p>那你可能會說為什麼撰寫 JavaScript 的時候，物件的屬性可以不撰寫字串？其主要原因是 JavaScript 雖然物件的屬性只能是一個字串，只要不是字串就會被強制轉成字串，也因為會被強制轉換成字串的關係，我們在開發時往往就會直接省略單雙引號，透過 JavaScript 的強制轉換成字串的技巧來撰寫物件。  </p>
+<p>也因此假使要執行物件中的方法，就可以透過以下兩種寫法來取值並執行囉  </p>
+<pre><code class="javascript">obj.objFn();
+obj[<span class="string">'objFn'</span>]();</code></pre>
+<h3 id="物件新增"><a href="#物件新增" class="headerlink" title="物件新增"></a>物件新增</h3><p>有時候我們物件在定義好後往往會發現，後面需要再新增物件進去，那麼新增的觀念其實是與取值差不多，主要還是透過點運算子或者是中括號，假使來講下方有一個範例程式碼，並且我要新增一些原本不存在的屬性與值進去就會向下方這樣寫  </p>
+<pre><code class="javascript"><span class="keyword">var</span> obj = {
+  myName: <span class="string">'Bob'</span>,
+}
+
+obj.qq = <span class="string">'123'</span>;
+obj[<span class="string">'qq2'</span>] = <span class="string">'456'</span>;
+<span class="built_in">console</span>.log(obj); <span class="comment">// { myName: 'Bob', qq: '123', qq2: '456' }</span></code></pre>
+<h3 id="物件刪除"><a href="#物件刪除" class="headerlink" title="物件刪除"></a>物件刪除</h3><p>最後一個就是物件刪除，在開發後面往往我們會需要刪除物件中特定的屬性，因此這邊就會使用一個方法 delete，這邊使用前面的範例程式碼來講，我要刪除剛剛加入的 qq 或是 qq2 的話就可以這樣刪除  </p>
+<pre><code class="javascript"><span class="keyword">var</span> obj = {
+  myName: <span class="string">'Bob'</span>,
+}
+
+obj.qq = <span class="string">'123'</span>;
+obj[<span class="string">'qq2'</span>] = <span class="string">'456'</span>;
+<span class="built_in">console</span>.log(obj); <span class="comment">// { myName: 'Bob', qq: '123', qq2: '456' }</span>
+
+<span class="keyword">delete</span> obj.qq
+<span class="keyword">delete</span> obj[<span class="string">'qq2'</span>]
+<span class="built_in">console</span>.log(obj); <span class="comment">// { myName: 'Bob' }</span></code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/05/JS%E6%A0%B8%E5%BF%83-20-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E7%B5%90%E6%A7%8B/" rel="prev" title="JS核心(20)-物件-物件結構">
+      <i class="fa fa-chevron-left"></i> JS核心(20)-物件-物件結構
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/06/JS%E6%A0%B8%E5%BF%83-22-%E7%89%A9%E4%BB%B6-%E9%A1%8D%E5%A4%96%E8%A3%9C%E5%85%85%EF%BC%9A%E8%AE%8A%E6%95%B8%E5%8F%8A%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E7%9A%84%E5%B7%AE%E7%95%B0/" rel="next" title="JS核心-22-物件-額外補充：變數及物件屬性的差異">
+      JS核心-22-物件-額外補充：變數及物件屬性的差異 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件取值"><span class="nav-number">2.</span> <span class="nav-text">物件取值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件新增"><span class="nav-number">3.</span> <span class="nav-text">物件新增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件刪除"><span class="nav-number">4.</span> <span class="nav-text">物件刪除</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言這個章節要來介紹 傳值 (Value) vs. 傳參考 (Reference)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(25)-物件-物件的參考特性">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-25-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E7%9A%84%E5%8F%83%E8%80%83%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言這個章節要來介紹 傳值 (Value) vs. 傳參考 (Reference)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/of91i1t.png">
+<meta property="og:image" content="https://imgur.com/tE4rStC.png">
+<meta property="og:image" content="https://imgur.com/QcAv4fk.png">
+<meta property="og:image" content="https://imgur.com/oEqwIAQ.png">
+<meta property="og:image" content="https://imgur.com/iR47ZSq.png">
+<meta property="og:image" content="https://imgur.com/iPB8Ace.png">
+<meta property="article:published_time" content="2020-08-06T07:24:51.000Z">
+<meta property="article:modified_time" content="2020-08-06T13:57:20.442Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/of91i1t.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-25-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E7%9A%84%E5%8F%83%E8%80%83%E7%89%B9%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(25)-物件-物件的參考特性 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/06/JS%E6%A0%B8%E5%BF%83-25-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E7%9A%84%E5%8F%83%E8%80%83%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(25)-物件-物件的參考特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-06 15:24:51 / عُدل: 21:57:20" itemprop="dateCreated datePublished" datetime="2020-08-06T15:24:51+08:00">2020-08-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>這個章節要來介紹 傳值 (Value) vs. 傳參考 (Reference)  </p>
+<a id="more"></a>  
+
+<p>首先我們先來看看程式碼  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = <span class="string">'Bob'</span>;
+<span class="keyword">var</span> person2 = person;
+person2 = <span class="string">'May'</span>;
+<span class="built_in">console</span>.log(person, person2);  <span class="comment">// Bob , May</span></code></pre>
+<p>上面這段程式碼先建立了 <code>person</code> 這個變數，並且賦值字串的<code>&#39;Bob&#39;</code>給他，之後也建立了 <code>person2</code> 的變數，<br>並且將 <code>person</code> 這個變數的內容指向給 <code>person2</code> 的變數。這時候 <code>person2</code> 的變數 的值會是 <code>&#39;Bob&#39;</code> ，<br>之後再將 <code>person2</code> 的變數重新賦值給一個字串 <code>&#39;May&#39;</code>，所以最後印出來的結果會是 <code>Bob</code> <code>May</code> 很合理 ~  </p>
+<p>那我們再來看看另一段程式碼  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    name: <span class="string">'Bob'</span>
+};
+<span class="keyword">var</span> person2 = person;
+person2.name = <span class="string">'May'</span>;
+<span class="built_in">console</span>.log(person.name, person2.name); <span class="comment">// May , May</span>
+<span class="built_in">console</span>.log(person === person2); <span class="comment">// true</span></code></pre>
+<p>兩個都是 <code>May</code>，而且用嚴格比對兩個物件居然還是 <code>true</code> ，怎麼會這樣呢?<br>其實這也是 Javascript 的特性  </p>
+<hr>
+<h3 id="物件傳參考的特性"><a href="#物件傳參考的特性" class="headerlink" title="物件傳參考的特性"></a>物件傳參考的特性</h3><p>Javascript 在賦予一個值在變數上的時候，會有兩個特性，一個稱為 <strong>傳值</strong> 另一個則是 <strong>傳參考</strong>  </p>
+<p><img src="https://imgur.com/of91i1t.png" alt="物件傳值傳參考表">  </p>
+<p>如上圖，左邊類型的資料型別就是傳值，也就是最上方字串的範例，做修改的時候只會更動被修改的變數內容。</p>
+<p>而只要是物件型別的資料結構，就是屬於傳參考的模式，傳的參考其實是記憶體位置  </p>
+<h3 id="傳值"><a href="#傳值" class="headerlink" title="傳值"></a>傳值</h3><p>以這個範例來看  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = <span class="string">'小明'</span>;
+<span class="keyword">var</span> person2 = person;
+person2 = <span class="string">'杰倫'</span>;
+<span class="built_in">console</span>.log(person, person2);  <span class="comment">// 小明 , 杰倫</span></code></pre>
+<p>當 <code>var person2 = person;</code> 的時候，就會變成下圖的狀況  </p>
+<p><img src="https://imgur.com/tE4rStC.png" alt=" ">  </p>
+<p>接著我們改變了 <code>person2</code> 的內容，但因為是傳值，所以 <code>person</code> 並不會跟著改變  </p>
+<p><img src="https://imgur.com/QcAv4fk.png" alt=" ">  </p>
+<h3 id="傳參考"><a href="#傳參考" class="headerlink" title="傳參考"></a>傳參考</h3><p>接下來看一下 傳參考 的概念  </p>
+<p>圖片中的 <code>0x01</code> 代表物件的內容被宣告的記憶體位置  </p>
+<p><img src="https://imgur.com/oEqwIAQ.png" alt=" ">  </p>
+<p>可以看到當我們宣告 <code>var person2 = person;</code> 的時候，其實是將 <code>person</code> 的記憶體位置也指向給 <code>person2</code>，也就是 <code>person</code> 以及 <code>person2</code> 都<strong>共享</strong>同一個記憶體空間的內容，也就是 <code>0x01</code> 的 物件內容。  </p>
+<p>所以依照這個邏輯來看，當我們改變了不論是 <code>person</code> 還是 <code>person2</code> 的 <code>name</code>，兩者取值印出來的結果都會一樣，是被改變後的結果。  </p>
+<p><img src="https://imgur.com/iR47ZSq.png" alt=" ">  </p>
+<p>那麼如果今天重新賦予 <code>perosn2</code> 新的 物件實字 的物件的話呢，他就會重新再另一個記憶體空間，放置被賦予的物件  </p>
+<p><img src="https://imgur.com/iPB8Ace.png" alt=" ">  </p>
+<p>這樣子更改 <code>name</code> 的值，就不會造成兩個一起更動的狀況囉 ~  </p>
+<p>那我們直接看看程式碼  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    name: <span class="string">'小明'</span>
+};
+<span class="keyword">var</span> person2 = person;
+person2 = {
+    name: <span class="string">'小明'</span>
+};
+<span class="built_in">console</span>.log(person.name, person2.name);  <span class="comment">// 小明 , 小明</span>
+<span class="built_in">console</span>.log(person === person2); <span class="comment">// false</span></code></pre>
+<p>可以看到，重新以一個物件實字的方式重新賦予給 <code>person2</code> 一個跟 <code>person</code> 一模一樣結構跟內容的物件。但對於記憶體空間來說，這樣賦值的方式就會是指向另一個記憶體空間，所以在嚴格比對的結果才會是<code>false</code>  </p>
+<p>從這點來看，關於 Javascript 物件類型的資料型別，以嚴格模式比對的時候，其實比對的是 記憶體位置 !!  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/06/JS%E6%A0%B8%E5%BF%83-24-%E7%89%A9%E4%BB%B6-%E6%9C%AA%E5%AE%9A%E7%BE%A9%E7%9A%84%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E9%A0%90%E8%A8%AD%E5%80%BC/" rel="prev" title="JS核心-(24)-物件-未定義的物件屬性預設值">
+      <i class="fa fa-chevron-left"></i> JS核心-(24)-物件-未定義的物件屬性預設值
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/06/JS%E6%A0%B8%E5%BF%83-26-%E7%89%A9%E4%BB%B6-%E7%89%A9%E4%BB%B6%E5%8F%83%E8%80%83%E8%A7%80%E5%BF%B5%E7%9A%84%E5%AF%A6%E9%9A%9B%E9%81%8B%E4%BD%9C%E6%A8%A1%E5%BC%8F/" rel="next" title="JS核心-(26)-物件-物件參考觀念的實際運作模式">
+      JS核心-(26)-物件-物件參考觀念的實際運作模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件傳參考的特性"><span class="nav-number">2.</span> <span class="nav-text">物件傳參考的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#傳值"><span class="nav-number">3.</span> <span class="nav-text">傳值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#傳參考"><span class="nav-number">4.</span> <span class="nav-text">傳參考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
