@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言我們要介紹的是 call, apply, bind 這三種方法，來改變 this 的指向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(40)-函式以及This的運作-this：call, apply, bind 與 嚴謹模式">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/08/JS%E6%A0%B8%E5%BF%83-40-%E5%87%BD%E5%BC%8F%E4%BB%A5%E5%8F%8AThis%E7%9A%84%E9%81%8B%E4%BD%9C-this%EF%BC%9Acall-apply-bind-%E8%88%87-%E5%9A%B4%E8%AC%B9%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言我們要介紹的是 call, apply, bind 這三種方法，來改變 this 的指向">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/ysXllMk.png">
+<meta property="og:image" content="https://imgur.com/WvUB2Bw.png">
+<meta property="og:image" content="https://imgur.com/E0ckeXI.png">
+<meta property="og:image" content="https://imgur.com/VaMDWMp.png">
+<meta property="og:image" content="https://imgur.com/plEzgNH.png">
+<meta property="og:image" content="https://imgur.com/8dipJIJ.png">
+<meta property="og:image" content="https://imgur.com/rfTLM16.png">
+<meta property="og:image" content="https://imgur.com/5a0kCDd.png">
+<meta property="og:image" content="https://imgur.com/Bjd0yjl.png">
+<meta property="og:image" content="https://imgur.com/N3mdTFT.png">
+<meta property="og:image" content="https://imgur.com/alvVbkx.png">
+<meta property="og:image" content="https://imgur.com/C90aLIN.png">
+<meta property="og:image" content="https://imgur.com/RDSMDUc.png">
+<meta property="article:published_time" content="2020-08-07T16:00:28.000Z">
+<meta property="article:modified_time" content="2020-08-09T08:27:56.971Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/ysXllMk.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/08/JS%E6%A0%B8%E5%BF%83-40-%E5%87%BD%E5%BC%8F%E4%BB%A5%E5%8F%8AThis%E7%9A%84%E9%81%8B%E4%BD%9C-this%EF%BC%9Acall-apply-bind-%E8%88%87-%E5%9A%B4%E8%AC%B9%E6%A8%A1%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(40)-函式以及This的運作-this：call, apply, bind 與 嚴謹模式 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Cambiar a barra de navegación">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Inicio</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Etiquetas</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categorías</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archivo</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/08/JS%E6%A0%B8%E5%BF%83-40-%E5%87%BD%E5%BC%8F%E4%BB%A5%E5%8F%8AThis%E7%9A%84%E9%81%8B%E4%BD%9C-this%EF%BC%9Acall-apply-bind-%E8%88%87-%E5%9A%B4%E8%AC%B9%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(40)-函式以及This的運作-this：call, apply, bind 與 嚴謹模式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Publicado el</span>
+
+              <time title="Creado por: 2020-08-08 00:00:28" itemprop="dateCreated datePublished" datetime="2020-08-08T00:00:28+08:00">2020-08-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Editado el</span>
+                <time title="Modificado por: 2020-08-09 16:27:56" itemprop="dateModified" datetime="2020-08-09T16:27:56+08:00">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">En</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我們要介紹的是 call, apply, bind 這三種方法，來改變 this 的指向  </p>
+<a id="more"></a>  
+
+<p>這三個的方法觀念都很相近，只是呼叫方法上不太一樣，我們來看看上一個章節我們提到的簡易呼叫 (Simple Call) ，  </p>
+<p>利用這個 <code>fn</code> 的函式印出來的結果是如何 ?  </p>
+<pre><code class="javascript"><span class="keyword">var</span> myName = <span class="string">'真心鎮大冒險'</span>;
+
+<span class="keyword">var</span> family = {
+    myName: <span class="string">'小明家'</span>
+};
+
+<span class="function"><span class="keyword">function</span> <span class="title">fn</span> (<span class="params">para1, para2</span>) </span>{
+    <span class="built_in">console</span>.log(<span class="keyword">this</span>, para1, para2);
+}
+
+fn(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 簡易呼叫(Simple Call)</span></code></pre>
+<p><img src="https://imgur.com/ysXllMk.png" alt=" ">  </p>
+<p>我們可以看到運用簡易呼叫的方式， <code>this</code> 的指向當然是指向 <code>Window</code> 物件，並且傳入的參數是 <code>1</code> 跟 <code>2</code>  </p>
+<hr>
+<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><pre><code class="javascript">fn.call(family, <span class="number">1</span>, <span class="number">2</span>);
+<span class="comment">// fn.call(要讓 this 指向的對象, 參數1, 參數2);</span></code></pre>
+<p>這邊要在執行的 <code>function</code> 後面接上 <code>.call()</code> ，並且第一個參數是給予要讓前面的 <code>function</code> 執行環境中的 <code>this</code> 要指向  </p>
+<p>哪個對象，通常是給予物件型別的資料，再來後面就是依據傳入該 <code>function</code>要傳入的參數  </p>
+<p>所以結果會是  </p>
+<p><img src="https://imgur.com/WvUB2Bw.png" alt=" ">  </p>
+<p>那麼在使用 <code>call</code> 的時候要特別注意，他是立刻執行這個函式，跟我們利用簡易呼叫的方式有點像，  </p>
+<p><strong>主要的差別就是可以透過 <code>call</code> 改變 <code>this</code> 的指向</strong>  </p>
+<hr>
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><p><code>apply</code> 的跟 <code>call</code> 很像，只是傳入參數給 <code>function</code> 的形式不太一樣  </p>
+<pre><code class="javascript">fn.apply(family, [<span class="number">3</span>, <span class="number">4</span>]);
+<span class="comment">// fn.apply(要讓 this 指向的對象, [參數1, 參數2]);</span></code></pre>
+<p>使用 <code>apply</code> 方法的時候，要傳入的參數必須包在一個陣列裡面，當作第二個參數傳入。</p>
+<p> <code>apply</code> 同樣也是立即執行，第一個參數也是用來改變執行環境的 <code>this</code> 指向  </p>
+<p> <img src="https://imgur.com/E0ckeXI.png" alt=" ">  </p>
+<hr>
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><p><code>bind</code> 的方法跟 <code>call</code>, <code>apply</code> 的主要差異在於，他不會立刻執行前面的 <code>function</code> ，因此要使用 <code>bind</code> 的方法的時候呢，必須  </p>
+<p>先做一些處理。  </p>
+<pre><code class="javascript"><span class="keyword">var</span> fn2 = fn.bind(family, <span class="string">'小明'</span>, <span class="string">'杰倫'</span>);
+fn2();</code></pre>
+<p>先把 <code>fn.bind(family, &#39;小明&#39;, &#39;杰倫&#39;)</code> 的內容用<strong>變數</strong>盛裝以後，再利用執行函式的方式執行這個變數。那麼在執行的過程中，  </p>
+<p>就會自動替換 <code>function</code> 的 <code>this</code> 指向。<br></br><br></br><br><strong>如果我們在 <code>fn2()</code> 的小括號中帶入參數的話會怎麼樣嗎 ?</strong>  </p>
+<p>答案是不會，因為我們一開始在定義 <code>fn2</code> 的時候就已經定義好要帶入的參數了。<br></br><br></br><br><strong>但是如果一開始沒有定義好帶入的參數的話呢 ?</strong>  </p>
+<pre><code class="javascript"><span class="keyword">var</span> fn2 = fn.bind(family, <span class="string">'小明'</span>);
+fn2(<span class="number">1</span>, <span class="number">2</span>);</code></pre>
+<p>這樣的話，少了一個參數，但我又在 <code>fn2</code> 的小括號中帶入 <code>1</code> 跟 <code>2</code> 的參數，那麼會用哪個參數呢 ?  </p>
+<p><img src="https://imgur.com/VaMDWMp.png" alt=" ">  </p>
+<p>答案是會從 <code>fn2</code> 傳入的第一個參數當作是 <code>fn</code> 的第二的參數，依序補足不夠的參數。</p>
+<blockquote>
+<p>另外一個要注意的是，雖然 <code>fn2()</code> 這樣的形式是 簡易呼叫，但是 <code>fn</code> 的 <code>this</code> 在一開始的時候就被指定了，所以這邊就算是用簡易呼叫的方式， <code>fn</code> 的<code>this</code> 還是會被 <code>bind</code> 綁定給指定的物件。  </p>
+</blockquote>
+<hr>
+<h3 id="進階觀念"><a href="#進階觀念" class="headerlink" title="進階觀念"></a>進階觀念</h3><p>到目前為止，我們知道可以透過 <code>call</code>, <code>apply</code>, <code>bind</code> 來改變 <code>this</code> 的指向。  </p>
+<p>那麼如果是下面這樣的狀況，會發生甚麼事情呢 ?  </p>
+<pre><code class="javascript">fn.call(<span class="number">1</span>, <span class="string">'小明'</span>, <span class="string">'杰倫'</span>);</code></pre>
+<p><img src="https://imgur.com/plEzgNH.png" alt=" ">  </p>
+<p>如果是傳入其他非物件型別的原始型別資料，會自動被轉換成建構式方式的物件型別。  </p>
+<pre><code class="javascript">fn.call(<span class="string">'文字'</span>, <span class="string">'小明'</span>, <span class="string">'杰倫'</span>);</code></pre>
+<p><img src="https://imgur.com/8dipJIJ.png" alt=" ">  </p>
+<p>我們再將 <code>fn</code> 多加上一個 <code>typeof(this)</code>  </p>
+<pre><code class="javascript"><span class="keyword">var</span> myName = <span class="string">'真心鎮大冒險'</span>;
+
+<span class="keyword">var</span> family = {
+    myName: <span class="string">'小明家'</span>
+};
+
+<span class="function"><span class="keyword">function</span> <span class="title">fn</span> (<span class="params">para1, para2</span>) </span>{
+    <span class="built_in">console</span>.log(<span class="keyword">this</span>, <span class="keyword">typeof</span>(<span class="keyword">this</span>), para1, para2);
+}</code></pre>
+<p>存檔之後的結果就是  </p>
+<p><img src="https://imgur.com/rfTLM16.png" alt=" ">  </p>
+<p>那我們再來傳一次不同的值看看  </p>
+<pre><code class="javascript">fn.call(<span class="literal">undefined</span>, <span class="string">'小明'</span>, <span class="string">'杰倫'</span>);</code></pre>
+<p><img src="https://imgur.com/5a0kCDd.png" alt=" ">  </p>
+<p>沒想到傳入了 <code>undefined</code>，居然會直接被指向到 <code>window</code></p>
+<p>為什麼呢 ? 我們來看一下 <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Function/call" target="_blank" rel="noopener">MDN</a> 的文件怎麼說:  </p>
+<p><img src="https://imgur.com/Bjd0yjl.png" alt=" ">  </p>
+<p>也就是說，如果再非嚴格模式的狀態下，就會將傳入的非物件型別資料封裝，也就是利用建構式封裝，並且如果傳入的是  </p>
+<p> <code>null</code>、<code>undefined</code>的話，就會被置換成是全域變數。</p>
+<p>這樣應該就能夠了解為什麼剛剛傳入的是 <code>undefined</code>，但後來 <code>this</code> 會指向為 <code>window</code>了。  </p>
+<hr>
+<h3 id="嚴格模式"><a href="#嚴格模式" class="headerlink" title="嚴格模式"></a>嚴格模式</h3><p>因為 Javascript 是相對寬鬆的程式，因此有很多不嚴謹的程式碼也能夠運行，但在維護上就會相對麻煩，並且不容易除錯。</p>
+<p>在 ES5 之後就提供了開發者這種語法受限的模式，那麼這個模式下呢就有以下這些特點：  </p>
+<ul>
+<li>加入<code>&#39;use strict&#39;</code>即可運作  </li>
+<li>並不會影響不支援嚴格模式的瀏覽器  </li>
+<li>可以據<strong>執行環境設定</strong> <code>&#39;use strict&#39;</code>  </li>
+<li>透過拋出錯誤的方式消除一些安靜的錯誤 (防止小錯誤)  </li>
+<li>禁止使用一些有可能被未來版本 ECMAScript 定義的語法  </li>
+</ul>
+<p>嚴格模式，只要在程式碼中加入 <code>&#39;use strict&#39;</code> 的字串就可以。</p>
+<p>主要是因為只撰寫 <code>&#39;use strict&#39;</code> 的字串是屬於一種表達式，這個程式碼不會影響不支援嚴格模式的瀏覽器。並且可以加在  </p>
+<p>特定的函式內進行嚴格模式，也就是說只有在特定的大括號內中執行的程式碼才會套用嚴格模式。當然如果在全域的  </p>
+<p>環境使用的話，你所有的程式碼都會進入嚴格模式  </p>
+<pre><code class="javascript">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+<span class="meta">    'use strict'</span>;
+    <span class="comment">// 這個執行環境進入了嚴格模式</span>
+})();</code></pre>
+<p>在嚴格模式中，透過拋出錯誤的方式來提醒開發者一些安靜的錯誤，也可以避免掉一些開發的不好習慣，同時也有利於偵錯。  </p>
+<p><img src="https://imgur.com/N3mdTFT.png" alt=" ">  </p>
+<p>像上方這個例子就是，如果在嚴格模式下，沒有使用 <code>var</code> 、 <code>let</code> 、 <code>const</code> 等宣告變數的方式進行宣告的話，他會直接跳錯。</p>
+<p>在嚴格模式下，他不允許你直接對變數賦予值，他會要你先宣告這個變數之後，再對變數賦予值。  </p>
+<p>其他更詳細，有關嚴格模式的內容，可以參考 <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Strict_mode" target="_blank" rel="noopener">MDN</a> 的文件  </p>
+<blockquote>
+<p>特別注意：在嚴格模式的狀態下，每個瀏覽器的結果可能會有不同，所以有時候文件跟實際的狀況有出入也是屬於正常的。  </p>
+</blockquote>
+<hr>
+<p>接著我們再來看一下嚴格模式的其他例子  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">callStrict</span> (<span class="params">para1, para2</span>) </span>{
+<span class="meta">    'use strict'</span>;
+    <span class="built_in">console</span>.log(<span class="keyword">this</span>, <span class="keyword">typeof</span>(<span class="keyword">this</span>), para1, para2);
+}
+
+callStrict.call(<span class="number">1</span>, <span class="string">'小明'</span>, <span class="string">'杰倫'</span>);</code></pre>
+<p>這樣會發生甚麼事情呢 ?  </p>
+<p><img src="https://imgur.com/alvVbkx.png" alt=" ">  </p>
+<p>可以看到在嚴格模式下，<code>this</code> 的指向就是我們透過 <code>call</code> 所傳入的 數字 <code>1</code> ，並且沒有被封裝成建構式的形式  </p>
+<p>那再來看看傳入 <code>undefined</code> 給大家看看  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">callStrict</span> (<span class="params">para1, para2</span>) </span>{
+<span class="meta">    'use strict'</span>;
+    <span class="built_in">console</span>.log(<span class="keyword">this</span>, <span class="keyword">typeof</span>(<span class="keyword">this</span>), para1, para2);
+}
+
+callStrict.call(<span class="literal">undefined</span>, <span class="string">'小明'</span>, <span class="string">'杰倫'</span>);</code></pre>
+<p><img src="https://imgur.com/C90aLIN.png" alt=" ">  </p>
+<p>原本我們在非嚴格模式(sloppy mode)下，傳入 <code>undefined</code> 的話就會將 <code>this</code> 指向全域的<code>window</code> 物件。那麼再嚴格模式下，  </p>
+<p>傳入 <code>undefined</code> 的時候就還是會維持 <code>undefined</code>  </p>
+<p>那麼我如果簡易呼叫 <code>callStrict</code> 的話會怎麼樣呢 ?  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">callStrict</span> (<span class="params">para1, para2</span>) </span>{
+<span class="meta">    'use strict'</span>;
+    <span class="built_in">console</span>.log(<span class="keyword">this</span>, <span class="keyword">typeof</span>(<span class="keyword">this</span>), para1, para2);
+}
+
+callStrict(<span class="string">'小明'</span>, <span class="string">'杰倫'</span>);</code></pre>
+<p><img src="https://imgur.com/RDSMDUc.png" alt=" ">  </p>
+<p>為什麼會這樣呢 ?  </p>
+<p>其實你使用簡易呼叫的時候，就等於是直接套用 <code>call</code> 這個方式進行呼叫，只是我們第一個參數沒有傳入，  </p>
+<p>所以是 <code>undefined</code>。<br></br><br></br><br>那麼如果在嚴格模式下的話，當然就會是 <code>undefined</code>；如果是非嚴格模式(sloppy mode)下，雖然會自動將 <code>this</code>  </p>
+<p>自動指向到 <code>window</code> 物件，可是它的本質其實是 <code>undefined</code>。這也是為什麼前面說的，在使用簡易呼叫的時候，  </p>
+<p>盡量不要去調用他的 <code>this</code>， 因為它的本質其實是 <code>undefined</code>  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/08/JS%E6%A0%B8%E5%BF%83-39-%E5%87%BD%E5%BC%8F%E4%BB%A5%E5%8F%8AThis%E7%9A%84%E9%81%8B%E4%BD%9C-this%EF%BC%9A%E7%B0%A1%E6%98%93%E5%91%BC%E5%8F%AB/" rel="prev" title="JS核心-(39)-函式以及This的運作-this：簡易呼叫">
+      <i class="fa fa-chevron-left"></i> JS核心-(39)-函式以及This的運作-this：簡易呼叫
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/08/JS%E6%A0%B8%E5%BF%83-41-%E5%87%BD%E5%BC%8F%E4%BB%A5%E5%8F%8AThis%E7%9A%84%E9%81%8B%E4%BD%9C-this-DOM/" rel="next" title="JS核心-(41)-函式以及This的運作-this : DOM">
+      JS核心-(41)-函式以及This的運作-this : DOM <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Tabla de contenidos
+        </li>
+        <li class="sidebar-nav-overview">
+          Inicio
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call"><span class="nav-number">2.</span> <span class="nav-text">call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply"><span class="nav-number">3.</span> <span class="nav-text">apply</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bind"><span class="nav-number">4.</span> <span class="nav-text">bind</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#進階觀念"><span class="nav-number">5.</span> <span class="nav-text">進階觀念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嚴格模式"><span class="nav-number">6.</span> <span class="nav-text">嚴格模式</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">entradas</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categorías</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">Creado mediante <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
