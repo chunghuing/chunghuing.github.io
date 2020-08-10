@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://imgur.com/ayTBVyW.png">
 <meta property="og:image" content="https://imgur.com/Z57lMwE.png">
 <meta property="article:published_time" content="2020-08-07T15:59:46.000Z">
-<meta property="article:modified_time" content="2020-08-08T06:08:04.100Z">
+<meta property="article:modified_time" content="2020-08-10T08:48:28.583Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="JavaScript 核心篇">
@@ -94,7 +94,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Cambiar a barra de navegación">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -124,22 +124,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Inicio</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Etiquetas</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categorías</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archivo</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -191,22 +191,22 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Publicado el</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Creado por: 2020-08-07 23:59:46" itemprop="dateCreated datePublished" datetime="2020-08-07T23:59:46+08:00">2020-08-07</time>
+              <time title="أُنشأ: 2020-08-07 23:59:46" itemprop="dateCreated datePublished" datetime="2020-08-07T23:59:46+08:00">2020-08-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Editado el</span>
-                <time title="Modificado por: 2020-08-08 14:08:04" itemprop="dateModified" datetime="2020-08-08T14:08:04+08:00">2020-08-08</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-10 16:48:28" itemprop="dateModified" datetime="2020-08-10T16:48:28+08:00">2020-08-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">En</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -306,8 +306,9 @@ callName(<span class="string">'小明'</span>);</code></pre>
 <span class="keyword">var</span> b = <span class="string">'b'</span>;
 <span class="keyword">var</span> c = <span class="string">'c'</span>;
 callMore(a, b ,c);</code></pre>
-<p>目前雖然傳了 3 個參數進去，也就是 <code>callMore(a, b ,c);</code> ，但函式接受的參數定義是 4 個，  </p>
-<p>也就是 <code>function callMore (d,c,b,a)</code> ，因此 <code>function callMore (d,c,b,a)</code> 最後一個 <code>a</code> 就會在函式內被定義為 <code>undefined</code>  </p>
+<p>目前雖然傳了 3 個參數進去，也就是 <code>callMore(a, b ,c);</code> ，但函式接受的參數定義是 <code>4</code> 個，  </p>
+<p>也就是 <code>function callMore (d,c,b,a)</code> ，因此 <code>function callMore (d,c,b,a)</code> 最後一個 <code>a</code>   </p>
+<p>就會在函式內被定義為 <code>undefined</code>  </p>
 <hr>
 <h3 id="傳入參數是物件類型的資料，依然會維持傳參考的特性"><a href="#傳入參數是物件類型的資料，依然會維持傳參考的特性" class="headerlink" title="傳入參數是物件類型的資料，依然會維持傳參考的特性"></a>傳入參數是物件類型的資料，依然會維持傳參考的特性</h3><pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">callObject</span> (<span class="params">obj</span>) </span>{
     obj.name = <span class="string">'杰倫家'</span>;
@@ -369,7 +370,7 @@ callArg(<span class="number">1</span>,<span class="number">2</span>,<span class=
 callArg(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="string">'a'</span>,<span class="string">'5'</span>);</code></pre>
 <p><img src="https://imgur.com/Z57lMwE.png" alt=" ">  </p>
 <p>關於甚麼是類陣列，在這個章節還不需要先學習。</p>
-<p>只要知道 <code>arguments</code> 是在函是運行的時候自帶的變數，並且會乘裝ㄧ切傳入的值，這樣就可以了。  </p>
+<p>只要知道 <code>arguments</code> 是在函式運行的時候自帶的變數，並且會乘裝ㄧ切傳入的值，這樣就可以了。  </p>
 
     </div>
 
@@ -445,10 +446,10 @@ callArg(<span class="number">1</span>,<span class="number">2</span>,<span class=
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Tabla de contenidos
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Inicio
+          عام
         </li>
       </ul>
 
@@ -469,20 +470,20 @@ callArg(<span class="number">1</span>,<span class="number">2</span>,<span class=
           <a href="/archives/">
         
           <span class="site-state-item-count">60</span>
-          <span class="site-state-item-name">entradas</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">categorías</span></a>
+        <span class="site-state-item-name">التصنيفات</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-name">الوسوم</span></a>
       </div>
   </nav>
 </div>
@@ -514,7 +515,7 @@ callArg(<span class="number">1</span>,<span class="number">2</span>,<span class=
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">Creado mediante <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
