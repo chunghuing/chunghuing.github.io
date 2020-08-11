@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言說明 JavaScript 中非常重要的概念，也就是繼承（inheritance）、原型（prototype）和原型鍊（prototype chain）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS特訓-DAY40-ES6-團戰關卡-原型、原型鍊 和 繼承的概念">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/11/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-%E5%8E%9F%E5%9E%8B%E7%B9%BC%E6%89%BF-prototype/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言說明 JavaScript 中非常重要的概念，也就是繼承（inheritance）、原型（prototype）和原型鍊（prototype chain）">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/o62G1dw.png">
+<meta property="article:published_time" content="2020-08-11T06:59:45.000Z">
+<meta property="article:modified_time" content="2020-08-11T16:27:21.731Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="javascript 特訓">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/o62G1dw.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/11/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-%E5%8E%9F%E5%9E%8B%E7%B9%BC%E6%89%BF-prototype/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS特訓-DAY40-ES6-團戰關卡-原型、原型鍊 和 繼承的概念 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/11/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-%E5%8E%9F%E5%9E%8B%E7%B9%BC%E6%89%BF-prototype/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS特訓-DAY40-ES6-團戰關卡-原型、原型鍊 和 繼承的概念
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-08-11 14:59:45" itemprop="dateCreated datePublished" datetime="2020-08-11T14:59:45+08:00">2020-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-12 00:27:21" itemprop="dateModified" datetime="2020-08-12T00:27:21+08:00">2020-08-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>說明 JavaScript 中非常重要的概念，也就是繼承（inheritance）、原型（prototype）和原型鍊（prototype chain）  </p>
+<a id="more"></a>  
+
+<h3 id="原型鍊-（prototype-chain）"><a href="#原型鍊-（prototype-chain）" class="headerlink" title="原型鍊 （prototype chain）"></a>原型鍊 （prototype chain）</h3><p>JavaScript 是一門物件導向的程式語言，因為沒有 <code>Class</code>，所以它的繼承方法是透過 「原型」(prototype) 來進行實作。  </p>
+<p>「原型」繼承的概念是什麼呢？ 簡單來說，透過「原型」繼承可以<strong>讓本來沒有某個屬性的物件去存取其他物件的屬性。</strong><br></br><br>以洛克人當例子，洛克人打敗了某關卡的頭目之後，就可以擁有那個敵人的武器。  </p>
+<pre><code class="javascript"><span class="comment">// 洛克人的武器是 buster 飛彈</span>
+<span class="keyword">var</span> rockman = { <span class="attr">buster</span>: <span class="literal">true</span> };
+
+<span class="comment">// 剪刀人的武器是剪刀</span>
+<span class="keyword">var</span> cutman  = { <span class="attr">cutter</span>: <span class="literal">true</span> };</code></pre>
+<p>像上面這樣，建立了兩個物件，分別代表洛克人與剪刀人。</p>
+<p>然後，我們可以透過 <code>in</code> 來判斷某個屬性是否可以透過這個物件來存取：</p>
+<pre><code class="javascript"><span class="comment">// 洛克人的武器是 buster 飛彈</span>
+<span class="keyword">var</span> rockman = { <span class="attr">buster</span>: <span class="literal">true</span> };
+
+<span class="comment">// 剪刀人的武器是剪刀</span>
+<span class="keyword">var</span> cutman  = { <span class="attr">cutter</span>: <span class="literal">true</span> };</code></pre>
+<p>很顯然，洛克人目前只有飛彈，並沒有獲得剪刀人的武器 <code>cutter</code>。<br></br></p>
+<p>那麼，洛克人辛辛苦苦把剪刀人幹掉了之後，這時候就可以取得他的武器。 以 JavaScript 來說，我們就可以透過  </p>
+<p><code>Object.setPrototypeOf( )</code> 將「剪刀人指定為原型」。<br></br><br></br></p>
+<p>在 JavaScript 裡，物件原型是物件的內部屬性，而且無法直接存取 (所以通常會直接被標示為 <code>[[prototype]]</code>)，但  </p>
+<p>我們可以透過 <code>Object.setPrototypeOf( )</code> 來指定物件之間的原型關係。  </p>
+<pre><code class="javascript"><span class="built_in">Object</span>.setPrototypeOf(rockman, cutman);</code></pre>
+<p>像這樣，第一個參數是「繼承者」的物件，第二個則是被當作「原型」的物件。<br></br><br></br><br>如果以洛克人的範例來說，可以這樣寫：  </p>
+<pre><code class="javascript"><span class="comment">// 洛克人的武器是 buster 飛彈</span>
+<span class="keyword">var</span> rockman = { <span class="attr">buster</span>: <span class="literal">true</span> };
+<span class="comment">// 剪刀人的武器是剪刀</span>
+<span class="keyword">var</span> cutman  = { <span class="attr">cutter</span>: <span class="literal">true</span> };
+
+<span class="built_in">console</span>.log( <span class="string">'buster'</span> <span class="keyword">in</span> rockman );     <span class="comment">// true</span>
+<span class="built_in">console</span>.log( <span class="string">'cutter'</span> <span class="keyword">in</span> rockman );     <span class="comment">// false</span>
+
+<span class="comment">// 指定 cutman 為 rockman 的「原型」</span>
+<span class="built_in">Object</span>.setPrototypeOf(rockman, cutman);
+
+<span class="built_in">console</span>.log( <span class="string">'buster'</span> <span class="keyword">in</span> rockman );     <span class="comment">// true</span>
+
+<span class="comment">// 透過原型繼承，現在洛克人也可以使用剪刀人的武器了</span>
+<span class="built_in">console</span>.log( <span class="string">'cutter'</span> <span class="keyword">in</span> rockman );     <span class="comment">// true</span></code></pre>
+<p>不過可惜的是，在原型繼承的規則裡，同一個物件無法指定兩種原型物件。</p>
+<p>也就是說，假設我們再新增一個「氣力人」：  </p>
+<pre><code class="javascript"><span class="comment">// 氣力人的武器是超級手臂</span>
+<span class="keyword">var</span> gutsman = { <span class="attr">superArm</span>: <span class="literal">true</span> };
+
+<span class="comment">// 指定 gutsman 為 rockman 的「原型」</span>
+<span class="built_in">Object</span>.setPrototypeOf(rockman, gutsman);
+
+<span class="comment">// 這個時候洛克人也可以使用氣力人的超級手臂</span>
+<span class="built_in">console</span>.log( <span class="string">'superArm'</span> <span class="keyword">in</span> rockman );     <span class="comment">// true</span>
+
+<span class="comment">// 但是剪刀卻不見了，哭哭</span>
+<span class="built_in">console</span>.log( <span class="string">'cutter'</span> <span class="keyword">in</span> rockman );       <span class="comment">// false</span></code></pre>
+<p>如果我們希望洛克人可以同時使用「剪刀」與「超級手臂」，要怎麼做呢？</p>
+<p>幸好在原型繼承之中，有個觀念叫「原型鏈」(Prototype Chain)。</p>
+<p>當我們從某個物件要試著去存取「不存在」的屬性時，那麼 JavaScript 就會往它的 <code>[[prototype]]</code> 原型物件去尋找。</p>
+<p>所以說，既然洛克人只能繼承剪刀人的武器，那麼我可不可以順勢讓剪刀人去繼承氣力人的超級手臂呢？  </p>
+<p><img src="https://imgur.com/o62G1dw.png" alt=" ">  </p>
+<pre><code class="javascript"><span class="comment">// 洛克人的武器是 buster 飛彈</span>
+<span class="keyword">var</span> rockman = { <span class="attr">buster</span>: <span class="literal">true</span> };
+<span class="comment">// 剪刀人的武器是剪刀</span>
+<span class="keyword">var</span> cutman  = { <span class="attr">cutter</span>: <span class="literal">true</span> };
+<span class="comment">// 氣力人的武器是超級手臂</span>
+<span class="keyword">var</span> gutsman = { <span class="attr">superArm</span>: <span class="literal">true</span> };
+
+<span class="comment">// 指定 cutman 為 rockman 的「原型」</span>
+<span class="built_in">Object</span>.setPrototypeOf(rockman, cutman);
+
+<span class="comment">// 指定 gutsman 為 cutman 的「原型」</span>
+<span class="built_in">Object</span>.setPrototypeOf(cutman, gutsman);
+
+<span class="comment">// 這樣洛克人就可以順著「原型鏈」取得各種武器了!</span>
+<span class="built_in">console</span>.log( <span class="string">'buster'</span> <span class="keyword">in</span> rockman );       <span class="comment">// true</span>
+<span class="built_in">console</span>.log( <span class="string">'cutter'</span> <span class="keyword">in</span> rockman );       <span class="comment">// true</span>
+<span class="built_in">console</span>.log( <span class="string">'superArm'</span> <span class="keyword">in</span> rockman );     <span class="comment">// true</span></code></pre>
+<hr>
+<h3 id="原型-（prototype）"><a href="#原型-（prototype）" class="headerlink" title="原型 （prototype）"></a>原型 （prototype）</h3><p> JavaScript 沒有內建 <code>class</code> 的概念，而是透過「原型」的關係，使物件得以繼承自另外一個物件，這個被繼承的物件我們就稱  </p>
+<p> 之為「原型」 (prototype)。當函式被建立的時候，都會有個原型物件 <code>prototype</code>。 透過擴充這個 <code>prototype</code> 的物件，就能讓每  </p>
+<p>一個透過這個函式建構的物件都擁有這個「屬性」或「方法」：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>{
+  <span class="keyword">this</span>.name = name;
+};
+
+<span class="comment">// 在 Person.prototype 新增 sayHello 方法</span>
+Person.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> <span class="string">"Hi, I'm "</span> + <span class="keyword">this</span>.name;
+}
+
+<span class="keyword">var</span> p = <span class="keyword">new</span> Person(<span class="string">'Bob'</span>);
+
+p.sayHello();       <span class="comment">// "Hi, I'm Bob"</span></code></pre>
+<p>當我們透過 <code>new</code> 建構一個 <code>Person</code> 的實體時，以上面範例來說就是物件 <code>p</code>，這個物件 <code>p</code> 的原型物件會自動指向建構式的  </p>
+<p> <code>prototype</code> 屬性，也就是 <code>Person.prototype</code>。透過「原型」來新增方法 (method)，其實是非常實用的概念，而且是在原型新增  </p>
+<p> 後馬上就可以用：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>{
+  <span class="keyword">this</span>.name = name;
+};
+
+<span class="keyword">var</span> p = <span class="keyword">new</span> Person(<span class="string">'Bob'</span>);
+
+p.sayHelloWorld();  <span class="comment">// TypeError: p.sayHelloWorld is not a function</span>
+
+Person.prototype.sayHelloWorld = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> <span class="string">"Hello, World!"</span>;
+}
+
+p.sayHelloWorld();  <span class="comment">// "Hello, World!"</span></code></pre>
+<p>像這樣，物件 <code>p</code> 與他的原型鏈上的所有物件原本都沒有 <code>sayHelloWorld( )</code> 方法，  </p>
+<p>但我們透過 <code>Person.prototype.sayHelloWorld</code> 新增了對應的方法後，我們無需重新建置物件 <code>p</code>，馬上就可以透過  </p>
+<p><code>p.sayHelloWorld( )</code> 來呼叫。<br></br></p>
+<p>這種手法，也是很多「Polyfill」用來增強擴充那些舊版本瀏覽器不支援的語法。 如 <code>Array.prototype.find( )</code> 在 ES6 以前是不  </p>
+<p>存在的，但我們可以透過檢查 <code>Array.prototype.find</code> 是否存在。  </p>
+<p>如果不存在就可以對 <code>Array.prototype</code> 新增 <code>find</code> 方法，然後就可以直接使用。  </p>
+<pre><code class="javascript"><span class="keyword">if</span> (!<span class="built_in">Array</span>.prototype.find) {
+  <span class="built_in">Array</span>.prototype.find = <span class="function"><span class="keyword">function</span>(<span class="params">predicate</span>) </span>{
+    <span class="keyword">if</span> (<span class="keyword">this</span> === <span class="literal">null</span>) {
+      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Array.prototype.find called on null or undefined'</span>);
+    }
+    <span class="keyword">if</span> (<span class="keyword">typeof</span> predicate !== <span class="string">'function'</span>) {
+      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'predicate must be a function'</span>);
+    }
+    <span class="keyword">var</span> list = <span class="built_in">Object</span>(<span class="keyword">this</span>);
+    <span class="keyword">var</span> length = list.length &gt;&gt;&gt; <span class="number">0</span>;
+    <span class="keyword">var</span> thisArg = <span class="built_in">arguments</span>[<span class="number">1</span>];
+    <span class="keyword">var</span> value;
+
+    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; length; i++) {
+      value = list[i];
+      <span class="keyword">if</span> (predicate.call(thisArg, value, i, list)) {
+        <span class="keyword">return</span> value;
+      }
+    }
+    <span class="keyword">return</span> <span class="literal">undefined</span>;
+  };
+}</code></pre>
+<hr>
+<h3 id="proto-與-prototype-的關係"><a href="#proto-與-prototype-的關係" class="headerlink" title="proto 與 prototype 的關係"></a><strong>proto</strong> 與 prototype 的關係</h3></br>
+
+<p>在 JavaScript 每一個物件都會有它的原型物件 <code>[[prototype]]</code></p>
+<p>在過去，雖然 JavaScript 沒有提供標準方法讓我們直接對原型物件 <code>[[prototype]]</code> 來進行存取，不過大多數的瀏覽器 (精準一點  </p>
+<p>說，大多數的 JavaScript 引擎) 都有提供一種叫做 <code>__proto__</code> 的特殊屬性，來讓我們取得某個物件的原型物件。<br>自從 ES5 開  </p>
+<p>始，如果我們想要取得某個物件的原型物件時，也可以透過 <code>Object.getPrototypeOf( )</code> 這個標準方法。  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log( <span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Function</span>.prototype
+) === <span class="built_in">Object</span>.prototype ) <span class="comment">// true</span>
+
+<span class="comment">// 或是透過 __proto__</span>
+<span class="built_in">console</span>.log( <span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype ) <span class="comment">// true</span></code></pre>
+<p>簡單來說，不管是 <code>__proto__</code> 這個特殊屬性或者是 <code>Object.getPrototypeOf( )</code> 其實都是取得某個物件的原型物件  </p>
+<p><code>[[prototype]]</code> 的方式。所以，現在我們知道了 <code>__proto__</code> 其實是順著原型鏈向上取得原型物件的特殊屬性，那麼 <code>prototype</code>  </p>
+<p>呢？<br></br><br></br></p>
+<p>前面說過，「每一個函式被建立之後，都會自動產生一個 <code>prototype</code> 的屬性」，但這並 “不” 代表這個 <code>prototype</code> 屬性就是這  </p>
+<p>個函式的原型物件，而是透過 <code>new</code> 這個函式「建構」出來的物件會有個 <code>[[prototype]]</code> 的隱藏屬性，會指向建構函式的  </p>
+<p><code>prototype</code> 屬性。<br></br><br></br></p>
+<p>這也是大家在理解「原型」時最容易搞混的地方。  </p>
+<hr>
+<h3 id="參考來源"><a href="#參考來源" class="headerlink" title="參考來源"></a>參考來源</h3><ul>
+<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/find" target="_blank" rel="noopener">MDN</a>  </p>
+</li>
+<li><p><a href="https://pjchender.blogspot.com/2016/06/javascriptprototypeprototype.html" target="_blank" rel="noopener">[筆記] 了解JavaScript中原型(prototype)、原型鍊（prototype chain）和繼承 (inheritance)的概念</a>  </p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10194154" target="_blank" rel="noopener">重新認識 JavaScript: Day 24 物件與原型鏈</a>  </p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10194356" target="_blank" rel="noopener">重新認識 JavaScript: Day 25 原型與繼承</a>  </p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/javascript-%E7%89%B9%E8%A8%93/" rel="tag"># javascript 特訓</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/11/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-Promise-2/" rel="prev" title="JS特訓-DAY40-ES6 團戰關卡 Promise (2)">
+      <i class="fa fa-chevron-left"></i> JS特訓-DAY40-ES6 團戰關卡 Promise (2)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型鍊-（prototype-chain）"><span class="nav-number">2.</span> <span class="nav-text">原型鍊 （prototype chain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型-（prototype）"><span class="nav-number">3.</span> <span class="nav-text">原型 （prototype）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proto-與-prototype-的關係"><span class="nav-number">4.</span> <span class="nav-text">proto 與 prototype 的關係</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考來源"><span class="nav-number">5.</span> <span class="nav-text">參考來源</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

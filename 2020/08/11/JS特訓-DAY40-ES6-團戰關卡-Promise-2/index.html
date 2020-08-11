@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言本文將專注於解釋 Promise 的意義以及用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS特訓-DAY40-ES6 團戰關卡 Promise (2)">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/11/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-Promise-2/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言本文將專注於解釋 Promise 的意義以及用法">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/KYR0SU8.png">
+<meta property="article:published_time" content="2020-08-11T05:32:50.000Z">
+<meta property="article:modified_time" content="2020-08-11T06:55:02.640Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="javascript 特訓">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/KYR0SU8.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/11/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-Promise-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS特訓-DAY40-ES6 團戰關卡 Promise (2) | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/11/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-Promise-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS特訓-DAY40-ES6 團戰關卡 Promise (2)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-11 13:32:50 / عُدل: 14:55:02" itemprop="dateCreated datePublished" datetime="2020-08-11T13:32:50+08:00">2020-08-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文將專注於解釋 Promise 的意義以及用法</p>
+<a id="more"></a>  
+
+<h3 id="什麼是-Promise"><a href="#什麼是-Promise" class="headerlink" title="什麼是 Promise"></a>什麼是 Promise</h3><ul>
+<li>ES6 新增的建構函式，用來優化非同步的語法  </li>
+<li>解決 AJAX 的非同步問題，同時增加可讀性  </li>
+<li>常見例如 Axios、Fetch  </li>
+</ul>
+<hr>
+<h3 id="為什麼需要-Promise"><a href="#為什麼需要-Promise" class="headerlink" title="為什麼需要 Promise"></a>為什麼需要 Promise</h3><ul>
+<li>JavaScript 是屬於同步的程式語言，因此一次僅能做一件事情  </li>
+<li>遇到非同步的事件時，就會將非同步的事件移動到程式碼的最後方，等到所有的原始碼運行完以後才會執行非同步的事件  </li>
+</ul>
+<p>以下列的程式碼來說，在 <code>console</code> 中依序的會出現的順序為：</p>
+<p>開始 → 程式碼結束 → 非同步事件  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log(<span class="string">'開始'</span>);
+
+setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+  <span class="built_in">console</span>.log(<span class="string">'非同步事件'</span>);
+}, <span class="number">0</span>);
+
+<span class="built_in">console</span>.log(<span class="string">'程式碼結束'</span>);</code></pre>
+<p>原始碼中，<code>setTimeout</code> 所定義的時間為 <code>0</code>，但因為是屬於非同步事件，因此還是會在其他原始碼運行完以後才執行，而 Ajax 也是屬於非同步行為，當需要<strong>確保擷取到遠端資料才繼續往下執行時</strong>，如果程式碼是依序撰寫的方式，就會無法正確呈現資料  </p>
+<hr>
+<h3 id="Promise-的意義"><a href="#Promise-的意義" class="headerlink" title="Promise 的意義"></a>Promise 的意義</h3><p><code>Promise</code>，如字面的意思就代表承諾。<br></br><br><strong>承諾的未來</strong>  </p>
+<p>當你拿到一個 <code>Promise</code> 的時候，代表在未來中這個 <code>Promise</code> 可能會有幾種狀況發生  </p>
+<ul>
+<li>承諾 被兌現 (fulfilled)</li>
+</ul>
+<blockquote>
+<p>用 <code>resolve( )</code> 來兌現</p>
+</blockquote>
+<ul>
+<li>承諾 被打破 (rejected)</li>
+</ul>
+<blockquote>
+<p>用 <code>reject( )</code> 來表示失敗</p>
+</blockquote>
+<ul>
+<li>承諾 一直沒有回應 (pending)</li>
+</ul>
+<blockquote>
+<p>一直沒有回傳  </p>
+</blockquote>
+<p>也就是說，承諾代表的不見得是成功。<br></br><br><strong>未來之後</strong>  </p>
+<p>根據這三種結果，我們接下來的動作會有所不同，如果：  </p>
+<ul>
+<li>承諾被兌現 就 繼續做預定好的下一件事</li>
+</ul>
+<blockquote>
+<p>使用 <code>.then( )</code></p>
+</blockquote>
+<ul>
+<li>承諾被打破 就 根據這個原因去做對應的動作</li>
+</ul>
+<blockquote>
+<p>使用 <code>.catch( )</code>，或是 <code>.then</code> 的第二個參數</p>
+</blockquote>
+<ul>
+<li>承諾 一直都沒有回應 就 繼續等下去</li>
+</ul>
+<p><img src="https://imgur.com/KYR0SU8.png" alt=" ">  </p>
+<hr>
+<h3 id="Promise-用法"><a href="#Promise-用法" class="headerlink" title="Promise 用法"></a>Promise 用法</h3><p>首先要先了解到底要怎麼創建一個 <code>Promise</code>，很簡單，只要 <code>new</code> 一個 <code>Promise</code> 物件出來即可：</p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>{
+    <span class="comment">// sync or async codes</span>
+      <span class="comment">// if success, resolve</span>
+      <span class="comment">// if fail, reject</span>
+    });</code></pre>
+<p><code>Promise</code> 可以帶入一個函式，代表著要給予承諾的程式。  </p>
+<p>這個函式會被 <code>Promise</code> 傳入兩個參數，這兩個參數也是函式，他們分別代表：  </p>
+<ul>
+<li>兌現 (fulfilled)  </li>
+</ul>
+<blockquote>
+<p>通常以 <code>resolve</code> 命名該參數<br>當我們完成動作時，就呼叫 <code>resolve( )</code> 來兌現我們的承諾  </p>
+</blockquote>
+<ul>
+<li>拒絕 (rejected)  </li>
+</ul>
+<blockquote>
+<p>通常以 <code>reject</code> 命名該參數<br>當我們動作失敗時，就呼叫 <code>reject()</code> 來打破我們的承諾  </p>
+</blockquote>
+<hr>
+<h3 id="Promise-被兌現-fulfilled"><a href="#Promise-被兌現-fulfilled" class="headerlink" title="Promise 被兌現 (fulfilled)"></a>Promise 被兌現 (fulfilled)</h3><p>讓我們看看要怎麼兌現承諾，以及兌現之後要怎麼接續動作：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>{
+      setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        resolve(<span class="string">'hello world'</span>);
+      }, <span class="number">1000</span>);
+      });
+
+a.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>{
+  <span class="built_in">console</span>.log(a);            <span class="comment">// Promise {&lt;resolved&gt;: "hello world"}</span>
+  <span class="built_in">console</span>.log(value + <span class="string">'1'</span>);  <span class="comment">// "hello world1"</span>
+});
+a.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>{
+  <span class="built_in">console</span>.log(a);            <span class="comment">// Promise {&lt;resolved&gt;: "hello world"}</span>
+  <span class="built_in">console</span>.log(value + <span class="string">'2'</span>);  <span class="comment">// "hello world2"</span>
+});
+
+<span class="built_in">console</span>.log(a);              <span class="comment">// Promise {&lt;pending&gt;}</span></code></pre>
+<p>先來看我們非同步的函式 <code>setTimeout</code> 這邊。很清楚的可以看到，這個非同步會在 <code>1000</code> 毫秒後 兌現承諾 ( 因為呼叫了  </p>
+<p> <code>resolve( )</code> )。<br></br><br></br><br>那等待兌現承諾著這一秒期間發生了什麼事情呢？讓我們往後面的程式碼看。我們緊接著會看到兩句 <code>a.then</code>，還記得前面說過  </p>
+<p>的，<code>.then( )</code> 是代表承諾被實現之後才會去執行的，因此在這一秒內，我們都不會看到 <code>a.then</code> 會印出東西。<br></br><br></br><br>接著我們在看最後一句：<code>console.log(a)</code>，這句並沒有被 <code>then</code> 所包住，因此這並不會等待 <code>Promise</code> 完成後才執行，就像  </p>
+<p><strong>等餐的時候我們還是可以滑手機</strong>一樣，<code>console.log(a)</code> 這句就代表滑手機這個動作，因為它與 <code>Promise</code> 對先與否不相關，所以  </p>
+<p>可以先做。此時印出 <code>a</code> 會發現他的值是 <code>&quot;Promise {&lt;pending&gt;}&quot;</code> ，<strong>這就代表承諾還沒有回應，等待中</strong>。<br></br><br></br><br>一秒到了，<code>a.then</code> 就會緊接著被執行。可以注意到的是，<code>a</code> 的值是可以保留下來的，因此無論你接了幾個 <code>then</code>，他都可以偵  </p>
+<p>測到 <code>a</code> 這個承諾的完成狀況。因此我們接著就會印出 <code>Promise {&lt;resolved&gt;: &quot;hello world1&quot;}</code>、<code>&quot;hello world1&quot;</code> 與  </p>
+<p> <code>Promise {&lt;resolved&gt;: &quot;hello world2&quot;}</code>、<code>&quot;hello world2&quot;</code> 兩組。可以看到此時 <code>a</code> 的值變成了  </p>
+<p> <code>Promise {&lt;resolved&gt;: &quot;hello world&quot;}</code>，這代表此承諾已經被兌現，而兌現後他會給我們 <code>&quot;hello world&quot;</code> 這個值。  </p>
+<hr>
+<h3 id="Promise-被拒絕-rejected"><a href="#Promise-被拒絕-rejected" class="headerlink" title="Promise 被拒絕 (rejected)"></a>Promise 被拒絕 (rejected)</h3><pre><code class="javascript"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>{
+        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+          reject(<span class="string">'OOPS'</span>);
+        }, <span class="number">1000</span>);
+      });
+
+a.catch(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>{
+  <span class="built_in">console</span>.log(a);       <span class="comment">// Promise {&lt;reject&gt;: "OOPS"}</span>
+  <span class="built_in">console</span>.log(value);   <span class="comment">// "OOPS"</span>
+});</code></pre>
+<p>我們的非同步程式邏輯不變，只把 <code>resolve</code> 改成 <code>reject</code>  </p>
+<p>之後，我們使用 <code>.catch</code> 來抓住錯誤。過了一秒後，我們就可以得到 <code>Promise</code> 拒絕承諾的訊息了  </p>
+<hr>
+<h3 id="Promise-一直沒有回應-pending"><a href="#Promise-一直沒有回應-pending" class="headerlink" title="Promise 一直沒有回應 (pending)"></a>Promise 一直沒有回應 (pending)</h3><p>當我們並沒有成功 <code>resolve</code> 或是 <code>reject</code> 的時候，就會 <code>pending</code>，也就是說 <code>.then</code> 內的程式會一直等待，而 <code>.catch</code> 也不會抓到任何錯誤。  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>{});
+
+<span class="built_in">console</span>.log(a);       <span class="comment">// Promise {&lt;pending&gt;}</span></code></pre>
+<p>雖然這些例子都有點刻意，但是卻都很容易出現在日常中。像是當我們試圖去連到一個網站，而他卻一直沒有回應時，我們的 <code>Promise</code> 就會一直處於 <code>pending</code> 狀態。  </p>
+<hr>
+<h3 id="Promise-Chain"><a href="#Promise-Chain" class="headerlink" title="Promise Chain"></a>Promise Chain</h3><p>當你可以等待一個非同步動作完成後，再去執行下一個動作時，那接著你可能就會想說，如果有很多非同步動作要串接在一起的  </p>
+<p>話要怎麼辦呢？<br></br></p>
+<p>很幸運的，<code>.then</code> 可以串接非同步程式。講得更精確一點是，<code>.then</code> 不論是非同步或者同步的程式都可以串接，而 <code>then</code> 會回  </p>
+<p>傳一個 <code>Promise</code>。既然他又會回傳一個 <code>Promise</code> 就代表我們可以串接非同步程式。<br></br></p>
+<p>也許你會很疑惑的問，假如我們的 <code>.then</code> 執行的是一個同步程式的話，那他還會回傳 <code>Promise</code> 物件嗎 ( 畢竟非同步才需要  </p>
+<p>承諾 )？答案是會，<code>.then</code> 會把我們的 <code>return</code> 值包裹成一個 <code>Promise</code>，並回傳回去。<br></br></p>
+<p>讓我們來看看範例：</p>
+<pre><code class="javascript">asyncFn()
+.then(syncFn)
+.then(asyncFn);
+
+<span class="function"><span class="keyword">function</span> <span class="title">asyncFn</span>(<span class="params">data</span>) </span>{
+  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>{
+            <span class="built_in">console</span>.log(<span class="string">'Async received data:'</span>, data);
+        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        resolve(<span class="string">'async fn'</span>);
+        }, <span class="number">1000</span>);
+        });
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">syncFn</span>(<span class="params">data</span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'Sync received data:'</span>, data);
+  <span class="keyword">return</span> <span class="string">'sync fn'</span>;
+}
+
+<span class="comment">// "Async received data: undefined"</span>
+<span class="comment">// "Sync received data: async fn"</span>
+<span class="comment">// "Async received data: sync fn"</span></code></pre>
+<p>在這裡，我們先使用 <code>asyncFn</code> 回傳一個 <code>Promise</code> 回去。一秒後，<code>syncFn</code> 收到了來自 <code>asyncFn</code> 的兌現的承諾值 <code>&quot;async fn&quot;</code>，  </p>
+<p>在印出 <code>&quot;Sync received data: async fn&quot;</code> 之後，便 <code>return &#39;sync fn&#39;</code>。接著，JavaScript 會把 <code>&#39;sync fn&#39;</code> 包裹成一個  </p>
+<p><code>Promise</code>，因此我們可以再繼續 <code>Chain</code> 到下一個 <code>.then</code> 執行 <code>asyncFn</code>。</p>
+<p>這就證明了不論是非同步或者同步的程式都可以串接，而 <code>then</code> 會回傳一個 <code>Promise</code> 好讓我們繼續串接。</p>
+<hr>
+<h3 id="Promise-方法"><a href="#Promise-方法" class="headerlink" title="Promise 方法"></a>Promise 方法</h3><p>最後，介紹 <code>Promise</code> 中其它的方法，就 <code>Promise</code> 的物件下，展開後可以看到以下方法：</p>
+<h3 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h3><ul>
+<li>透過陣列的形式傳入多個 <code>promise</code> 函式  </li>
+<li>在全部執行完成後回傳陣列結果  </li>
+<li>陣列的結果順序與一開始傳入的一致  </li>
+<li>適合用在多支 API 要一起執行，並確保全部完成後才進行其他工作  </li>
+</ul>
+<pre><code class="javascript"><span class="built_in">Promise</span>.all([promise(<span class="number">1</span>), promise(<span class="number">2</span>), promise(<span class="number">3</span>)])
+    .then(<span class="function"><span class="params">res</span> =&gt;</span> {
+        <span class="built_in">console</span>.log(res) <span class="comment">// ["1", "2", "3"]</span>
+})</code></pre>
+<h3 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race"></a>Promise.race</h3><ul>
+<li>多個 <code>Promise</code> 同時執行，但僅回傳第一個完成的結果</li>
+</ul>
+<pre><code class="javascript"><span class="built_in">Promise</span>.race([promise(<span class="number">1</span>), promise(<span class="number">2</span>), promise(<span class="number">3</span>)])
+    .then(<span class="function"><span class="params">res</span> =&gt;</span> {
+        <span class="built_in">console</span>.log(res) <span class="comment">// "1"</span>
+})</code></pre>
+<h3 id="Promise-reject、Promise-resolve"><a href="#Promise-reject、Promise-resolve" class="headerlink" title="Promise.reject、Promise.resolve"></a>Promise.reject、Promise.resolve</h3><ul>
+<li>這兩個方法是直接定義 <code>Promise</code> 物件已經完成的狀態（<code>resolve</code>, <code>reject</code>）  </li>
+<li>與 <code>new Promise</code> 一樣會產生一個新的 <code>Promise</code> 物件，但結果是已經確定的  </li>
+</ul>
+<p>以下提供範例說明：  </p>
+<p>使用 <code>Promise.resolve</code> 產生一個新的 <code>Promise</code> 物件，此物件可以使用 <code>then</code> 取得 <code>resolve</code> 的結果。  </p>
+<pre><code class="javascript"><span class="keyword">var</span> result = <span class="built_in">Promise</span>.resolve(<span class="string">'result'</span>);
+result.then(<span class="function"><span class="params">res</span> =&gt;</span> {
+  <span class="built_in">console</span>.log(<span class="string">'resolved'</span>, res); <span class="comment">// 成功部分可以正確接收結果</span>
+}, res =&gt; {
+  <span class="built_in">console</span>.log(<span class="string">'rejected'</span>, res); <span class="comment">// 失敗部分不會取得結果</span>
+});</code></pre>
+<p>改為 <code>Promise.reject</code> 產生 <code>Promise</code> 物件，此物件必定呈現 <code>rejected</code> 的結果。</p>
+<pre><code class="javascript"><span class="keyword">var</span> result = <span class="built_in">Promise</span>.reject(<span class="string">'result'</span>);
+result.then(<span class="function"><span class="params">res</span> =&gt;</span> {
+  <span class="built_in">console</span>.log(res);
+}, res =&gt; {
+  <span class="built_in">console</span>.log(res); <span class="comment">// 只有此段會出現結果</span>
+});
+<span class="comment">// rejected result</span></code></pre>
+<blockquote>
+<p>注意：<code>Promise.reject</code>、<code>Promise.resolve</code> 是直接定義結果，無論傳入的是否為 <code>Promise</code> 物件。  </p>
+</blockquote>
+<hr>
+<h3 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h3><ul>
+<li><p><a href="https://wcc723.github.io/development/2020/02/16/all-new-promise/" target="_blank" rel="noopener">JavaScript Promise 全介紹</a>  </p>
+</li>
+<li><p><a href="https://cythilya.github.io/2018/10/31/promise/" target="_blank" rel="noopener">你懂 JavaScript 嗎？#24 Promise</a>  </p>
+</li>
+<li><p><a href="https://www.fooish.com/javascript/ES6/Promise.html" target="_blank" rel="noopener">JavaScript ES6 Promise Object 物件</a>  </p>
+</li>
+<li><p><a href="https://hackmd.io/5V8MhsKyStSmqiKaT2giQg" target="_blank" rel="noopener">Promise</a>  </p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10197529" target="_blank" rel="noopener">JavaScript - Promise (2)</a>  </p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/javascript-%E7%89%B9%E8%A8%93/" rel="tag"># javascript 特訓</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/10/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-Promise-1/" rel="prev" title="JS特訓-DAY40-ES6 團戰關卡 Promise (1)">
+      <i class="fa fa-chevron-left"></i> JS特訓-DAY40-ES6 團戰關卡 Promise (1)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/11/JS%E7%89%B9%E8%A8%93-DAY40-ES6-%E5%9C%98%E6%88%B0%E9%97%9C%E5%8D%A1-%E5%8E%9F%E5%9E%8B%E7%B9%BC%E6%89%BF-prototype/" rel="next" title="JS特訓-DAY40-ES6-團戰關卡-原型、原型鍊 和 繼承的概念">
+      JS特訓-DAY40-ES6-團戰關卡-原型、原型鍊 和 繼承的概念 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什麼是-Promise"><span class="nav-number">2.</span> <span class="nav-text">什麼是 Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#為什麼需要-Promise"><span class="nav-number">3.</span> <span class="nav-text">為什麼需要 Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-的意義"><span class="nav-number">4.</span> <span class="nav-text">Promise 的意義</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-用法"><span class="nav-number">5.</span> <span class="nav-text">Promise 用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-被兌現-fulfilled"><span class="nav-number">6.</span> <span class="nav-text">Promise 被兌現 (fulfilled)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-被拒絕-rejected"><span class="nav-number">7.</span> <span class="nav-text">Promise 被拒絕 (rejected)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-一直沒有回應-pending"><span class="nav-number">8.</span> <span class="nav-text">Promise 一直沒有回應 (pending)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-Chain"><span class="nav-number">9.</span> <span class="nav-text">Promise Chain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-方法"><span class="nav-number">10.</span> <span class="nav-text">Promise 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-all"><span class="nav-number">11.</span> <span class="nav-text">Promise.all</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-race"><span class="nav-number">12.</span> <span class="nav-text">Promise.race</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-reject、Promise-resolve"><span class="nav-number">13.</span> <span class="nav-text">Promise.reject、Promise.resolve</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考"><span class="nav-number">14.</span> <span class="nav-text">參考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
