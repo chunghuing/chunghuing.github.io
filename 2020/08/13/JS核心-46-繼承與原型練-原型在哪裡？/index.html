@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言介紹原型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(46)-繼承與原型練-原型在哪裡？">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/13/JS%E6%A0%B8%E5%BF%83-46-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E5%8E%9F%E5%9E%8B%E5%9C%A8%E5%93%AA%E8%A3%A1%EF%BC%9F/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言介紹原型">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/KKIIQLc.png">
+<meta property="og:image" content="https://imgur.com/whutgJq.png">
+<meta property="og:image" content="https://imgur.com/pD5sb7r.png">
+<meta property="og:image" content="https://imgur.com/0qT00Hf.png">
+<meta property="og:image" content="https://imgur.com/HbdZprI.png">
+<meta property="og:image" content="https://imgur.com/orjk9EQ.png">
+<meta property="og:image" content="https://imgur.com/KTAGNjz.png">
+<meta property="og:image" content="https://imgur.com/y2qG4Hz.png">
+<meta property="og:image" content="https://imgur.com/ImjKFhG.png">
+<meta property="og:image" content="https://imgur.com/lCp9yhd.png">
+<meta property="og:image" content="https://imgur.com/TBrBkkj.png">
+<meta property="og:image" content="https://imgur.com/Yg49EbA.png">
+<meta property="og:image" content="https://imgur.com/uCYnoyE.png">
+<meta property="og:image" content="https://imgur.com/tCssgmn.png">
+<meta property="article:published_time" content="2020-08-13T06:53:42.000Z">
+<meta property="article:modified_time" content="2020-08-13T11:25:10.345Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/KKIIQLc.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/13/JS%E6%A0%B8%E5%BF%83-46-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E5%8E%9F%E5%9E%8B%E5%9C%A8%E5%93%AA%E8%A3%A1%EF%BC%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(46)-繼承與原型練-原型在哪裡？ | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/13/JS%E6%A0%B8%E5%BF%83-46-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E5%8E%9F%E5%9E%8B%E5%9C%A8%E5%93%AA%E8%A3%A1%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(46)-繼承與原型練-原型在哪裡？
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-13 14:53:42 / عُدل: 19:25:10" itemprop="dateCreated datePublished" datetime="2020-08-13T14:53:42+08:00">2020-08-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>介紹原型</p>
+<a id="more"></a>  
+
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>在介紹原型之前，我們要先來複習物件的內容</p>
+<p><img src="https://imgur.com/KKIIQLc.png" alt=" ">  </p>
+<p>當我們要定義一隻狗的時候，我們會利用物件的資料結構，來對這隻狗進行描述，例如它的顏色、體型大小，以及可以吠叫的方  </p>
+<p>法。主要的原因就是因為 javascript 基本上都是由物件的方法去構成資料，而原型也是一樣的概念！  </p>
+<p>前一篇文章，java 類別繼承中我們有提到，如果我們要定義一個像是這樣的內容，我們會使用 <code>class</code> 來定義它，但是 javascript   </p>
+<p>中都是使用物件來定義，所以我們在定義原型的時候也是使用物件的方式來定義。  </p>
+<p><img src="https://imgur.com/whutgJq.png" alt=" ">  </p>
+<p>如果狗要透過這個原型來建立實體的話，也是透過繼承的方式繼承了原型的屬性跟方法，因此這就是兩個物件的概念。</p>
+<p>原型的狗就會有毛色、體型大小，以及可以吠叫的方法。而在實體的狗呢這些屬性就會有可以自定義的空間。</p>
+<p>那麼吠叫的部分就可以繼承原本原型的方法。</p>
+<p><img src="https://imgur.com/pD5sb7r.png" alt=" ">  </p>
+<p>實際上，當我們運行 javascript 的時候，新增一個物件實體的時候就會有屬於該實體的屬性，如左上圖的毛色、體型、吠叫</p>
+<p>那麼原型的部分(如右上圖)一樣也會有它自己的屬性，那這樣的結構上依然是屬於兩個物件。<br></br><br></br><br>另外，除了實體可以繼承一個原型之外，原型也可以繼承另外一個原型喔！  </p>
+<p>在另外一個原型的部分也可以擁有自己的屬性以及方法，那麼這樣的繼承關係可以一段一段的向上繼承，這樣的繼承狀態我們又  </p>
+<p>稱為<strong>原型鏈</strong>。在這個實體我們要取用其中的屬性的時候，會使用 <code>.</code> 點運算子的方法進行取用，例如 <code>obj.Prop1</code>、<code>obj.Prop2</code>  </p>
+<p>，而當我們要取用的屬性或是方法沒有在這個實體上的時候，就會透過原型鏈向上查找，直到找到這個原型鏈的頂端為止。  </p>
+<p><img src="https://imgur.com/0qT00Hf.png" alt=" ">  </p>
+<p>除此之外，原型還有另一個特色，就是  </p>
+<p>如果用同一個原型新增了兩個實體，這兩個實體就會共用同一個原型繼承，共用相同的屬性名稱以及相同的方法。  </p>
+<p><img src="https://imgur.com/HbdZprI.png" alt=" ">  </p>
+<h3 id="原型的特性"><a href="#原型的特性" class="headerlink" title="原型的特性"></a>原型的特性</h3><ul>
+<li>一樣具有物件的特性  </li>
+<li>向上查找  </li>
+<li>原型可共用方法及屬性  </li>
+</ul>
+<hr>
+<h3 id="觀念驗證"><a href="#觀念驗證" class="headerlink" title="觀念驗證"></a>觀念驗證</h3><p>再來就透過程式碼的運作來進行剛剛上面的觀念驗證  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="built_in">console</span>.log(a);</code></pre>
+<p>執行之後我們把這個陣列打開來看  </p>
+<p><img src="https://imgur.com/orjk9EQ.png" alt=" ">  </p>
+<p>可以看到裡面有對應 <code>0</code> <code>1</code> <code>2</code> 的屬性，因為我們知道陣列的本質其實也是物件，所以這裡的 <code>0</code> <code>1</code> <code>2</code> 其實也是這個陣列的物件  </p>
+<p>屬性，當然 <code>length</code> 也是。所以物件的屬性的話我們有兩種取值的方式，一個是 <code>[ ]</code> 一個是 <code>.</code></p>
+<pre><code class="javascript"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="built_in">console</span>.log(a, a[<span class="number">1</span>], a.length);</code></pre>
+<p><img src="https://imgur.com/KTAGNjz.png" alt=" ">  </p>
+<p>那麼這個陣列現在是屬於一個實體，我們可以透過 <code>__proto__</code> 的屬性來看看它陣列的原型  </p>
+<p><img src="https://imgur.com/y2qG4Hz.png" alt=" ">  </p>
+<p>可以看到陣列的原型中有許多的方法，我們剛剛也有提到可以透過 <code>.</code> 點運算子取用他的方法，這邊我們選用的是 <code>forEach</code> 的  </p>
+<p>方法，透過這個方法可以將陣列的每個值都遍歷過一遍。</p>
+<pre><code class="javascript"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="built_in">console</span>.log(a, a[<span class="number">1</span>], a.length);
+
+a.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>{
+  <span class="built_in">console</span>.log(i);
+})</code></pre>
+<p><img src="https://imgur.com/ImjKFhG.png" alt=" ">  </p>
+<p> 可以看到 <code>forEach</code> 就不是屬於 <code>a</code> 這個實體的方法，而是屬於陣列原型的屬性方法。</p>
+<p>還有我們剛剛也有講到原型是共用的，所以我們再來新增 <code>b</code> 這個新的陣列為 <code>[4, 5 , 6]</code>  </p>
+<p><code>__proto__</code> 的屬性是指向陣列的原型，所以我們照理說也可以用 <code>__proto__</code> 的屬性新增方法到陣列的原型上，讓 <code>b</code> 陣列也可  </p>
+<p>以取用到相同的方法。  </p>
+<blockquote>
+<p><code>__proto__</code> 的屬性雖然可以達成一樣的效果，但一般我們還是不建議這樣使用，後面的章節會教大家使用 <code>prototype</code> 的屬<br>性將要新增的 <code>function</code> 掛載到原型上，讓其他實體也可以取用到。  </p>
+</blockquote>
+<p>這邊我們把陣列最後一個值取出來的方法透過 <code>__proto__</code> 的屬性掛載到陣列的原型上。</p>
+<pre><code class="javascript"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="built_in">console</span>.log(a, a[<span class="number">1</span>], a.length);
+
+a.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>{
+  <span class="built_in">console</span>.log(i);
+})
+
+<span class="keyword">var</span> b = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];
+a.__proto__.getLast = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="keyword">return</span> <span class="keyword">this</span> [<span class="keyword">this</span>.length <span class="number">-1</span>];
+}
+
+<span class="built_in">console</span>.log(a, b);</code></pre>
+<p><img src="https://imgur.com/lCp9yhd.png" alt=" ">  </p>
+<p><img src="https://imgur.com/TBrBkkj.png" alt=" ">  </p>
+<p>另外我們就真的使用這個 <code>getLast</code> 的方法看是否有成功  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="built_in">console</span>.log(a, a[<span class="number">1</span>], a.length);
+
+a.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>{
+  <span class="built_in">console</span>.log(i);
+})
+
+<span class="keyword">var</span> b = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];
+a.__proto__.getLast = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="keyword">return</span> <span class="keyword">this</span> [<span class="keyword">this</span>.length <span class="number">-1</span>];
+}
+
+<span class="built_in">console</span>.log(a, b);
+<span class="built_in">console</span>.log(a.getLast(), b.getLast()); <span class="comment">// 3 , 6</span></code></pre>
+<p>很明顯就成功的印出我們想要的內容。  </p>
+<hr>
+<h3 id="原型的層級問題"><a href="#原型的層級問題" class="headerlink" title="原型的層級問題"></a>原型的層級問題</h3><p>剛剛說到，打開 <code>a</code> 或 <code>b</code> 的 <code>__proto__</code> 的屬性能夠找到陣列的原型。</p>
+<p>那麼繼續往下找又可以找到另一個 <code>__proto__</code> 的屬性，再把它打開以後會看到的是物件的原型，因此這個陣列的原型其實是繼  </p>
+<p>承了物件的原型，而繼續往下看就可以看到物件的一些方法，但到最底就沒有 <code>__proto__</code> 的屬性，代表說這個物件的原型就是  </p>
+<p>原型鏈的最頂層了 !<br></br><br>我們再來看一些 <code>code</code></p>
+<p><img src="https://imgur.com/Yg49EbA.png" alt=" ">  </p>
+<p>我們新增了一個新的物件，並且對該物件的物件原型上掛載 <code>getName</code> 的方法，而之後打開 <code>a</code> 跟 <code>b</code> 的原型鏈最頂端的物件原  </p>
+<p>型，也可以找到 <code>getName</code> 的方法的方法喔！  </p>
+<p><img src="https://imgur.com/uCYnoyE.png" alt=" ">  </p>
+<p>那麼接下來我們就試著在陣列中使用這個 <code>getName</code> 的方法。</p>
+<p>首先我們先對 <code>b</code> 這個陣列加入了 <code>name</code> 的屬性，之後我們預期用 <code>getName</code> 應該可以抓到我們剛剛設定的 <code>name</code> 的內容</p>
+<p><img src="https://imgur.com/tCssgmn.png" alt=" ">  </p>
+<p>果不其然成功了，但陣列上並沒有 <code>getName</code> 的方法，所以透過向上查找的方式，在物件的原型上找到了 <code>getName</code> 的方法並且  </p>
+<p>使用它。  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/13/JS%E6%A0%B8%E5%BF%83-45-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E5%8E%9F%E5%9E%8B%E9%8D%8A%E7%9A%84%E6%A6%82%E5%BF%B5-%E7%82%BA%E4%BB%80%E9%BA%BC%E6%9C%89%E5%8E%9F%E5%9E%8B/" rel="prev" title="JS核心-(45)-繼承與原型練-原型鍊的概念-為什麼有原型">
+      <i class="fa fa-chevron-left"></i> JS核心-(45)-繼承與原型練-原型鍊的概念-為什麼有原型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/13/JS%E6%A0%B8%E5%BF%83-47-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E4%BD%BF%E7%94%A8%E5%BB%BA%E6%A7%8B%E5%BC%8F%E8%87%AA%E5%AE%9A%E7%BE%A9%E5%8E%9F%E5%9E%8B/" rel="next" title="JS核心-(47)-繼承與原型練-使用建構式自定義原型">
+      JS核心-(47)-繼承與原型練-使用建構式自定義原型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型"><span class="nav-number">2.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型的特性"><span class="nav-number">3.</span> <span class="nav-text">原型的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#觀念驗證"><span class="nav-number">4.</span> <span class="nav-text">觀念驗證</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型的層級問題"><span class="nav-number">5.</span> <span class="nav-text">原型的層級問題</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

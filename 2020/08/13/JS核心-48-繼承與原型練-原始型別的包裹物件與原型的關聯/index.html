@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言純值及物件的關係">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(48)-繼承與原型練-原始型別的包裹物件與原型的關聯">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/13/JS%E6%A0%B8%E5%BF%83-48-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5%E7%9A%84%E5%8C%85%E8%A3%B9%E7%89%A9%E4%BB%B6%E8%88%87%E5%8E%9F%E5%9E%8B%E7%9A%84%E9%97%9C%E8%81%AF/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言純值及物件的關係">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/87qpLkD.png">
+<meta property="og:image" content="https://imgur.com/oHoVZ4q.png">
+<meta property="og:image" content="https://imgur.com/r2kdAqC.png">
+<meta property="og:image" content="https://imgur.com/EXw4Elb.png">
+<meta property="article:published_time" content="2020-08-13T06:53:56.000Z">
+<meta property="article:modified_time" content="2020-08-13T16:46:14.431Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/87qpLkD.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/13/JS%E6%A0%B8%E5%BF%83-48-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5%E7%9A%84%E5%8C%85%E8%A3%B9%E7%89%A9%E4%BB%B6%E8%88%87%E5%8E%9F%E5%9E%8B%E7%9A%84%E9%97%9C%E8%81%AF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(48)-繼承與原型練-原始型別的包裹物件與原型的關聯 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/13/JS%E6%A0%B8%E5%BF%83-48-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5%E7%9A%84%E5%8C%85%E8%A3%B9%E7%89%A9%E4%BB%B6%E8%88%87%E5%8E%9F%E5%9E%8B%E7%9A%84%E9%97%9C%E8%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(48)-繼承與原型練-原始型別的包裹物件與原型的關聯
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-08-13 14:53:56" itemprop="dateCreated datePublished" datetime="2020-08-13T14:53:56+08:00">2020-08-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-14 00:46:14" itemprop="dateModified" datetime="2020-08-14T00:46:14+08:00">2020-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>純值及物件的關係  </p>
+<a id="more"></a>  
+
+<h3 id="純值及物件的關係"><a href="#純值及物件的關係" class="headerlink" title="純值及物件的關係"></a>純值及物件的關係</h3><p>如果我們要定義一個純值的字串我們會這樣子做  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="string">'a'</span>;
+<span class="built_in">console</span>.log(a); <span class="comment">// a</span></code></pre>
+<p>如果我們需要把這個字串 <code>a</code> 轉換成大寫，我們通常會使用的方法就是  </p>
+<pre><code class="javascript"><span class="keyword">var</span> a = <span class="string">'a'</span>;
+<span class="built_in">console</span>.log(a.toUpperCase());  <span class="comment">// A</span></code></pre>
+<p> <code>toUpperCase()</code> 這個方法是源自於 <code>String</code> 這個原型的原型鏈上所掛載的方法。  </p>
+<p>同時我們可以使用建構式的方式，封裝出另一個 <code>b</code> 的字串，雖然不是純值而是物件型別，但其中就可以看到關於 <code>String</code> 這個  </p>
+<p>原型上的方法有哪些  </p>
+<pre><code class="javascript"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'b'</span>);
+<span class="built_in">console</span>.log(b);</code></pre>
+<p><img src="https://imgur.com/87qpLkD.png" alt=" ">  </p>
+<p>上一篇文章也有提到，這個 <code>String</code> 其實它的本質是一個函式，搭配 <code>new</code> 這個運算子的使用才能夠建構出一個實體的物件。</p>
+<p>那麼這邊我們利用 <code>console.dir</code> 的方法來檢查 <code>String</code> 這個函式  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.dir(<span class="built_in">String</span>);</code></pre>
+<p><img src="https://imgur.com/oHoVZ4q.png" alt=" ">  </p>
+<p>結果會發現他有一個 <code>prototype</code> 的屬性，展開以後這個屬性其實跟我們剛剛用建構式宣告出來的  </p>
+<p> <code>b</code> 的物件實體裡面的 <code>__proto__</code> 屬性展開來是一樣的。也就是說 <code>b</code> 的物件實體裡面的 <code>__proto__</code> 屬性會跟他的原型  </p>
+<p> <code>(String)</code> 的 <code>prototype</code> 是一樣的，所以我們也可以在 <code>String</code> 這個原型函式上新增別的原型方法是不是也是很 OK 的呢？<br></br>  </p>
+<p>我們來新增一個可以取出最後一個字元的原型方法，叫做 <code>lastText</code> 好了！  </p>
+<pre><code class="javascript"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'bcde'</span>);
+<span class="built_in">console</span>.log(b);
+<span class="built_in">console</span>.dir(<span class="built_in">String</span>);
+
+<span class="built_in">String</span>.prototype.lastText = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>[<span class="keyword">this</span>.length - <span class="number">1</span>]
+}
+
+<span class="built_in">console</span>.log(b.lastText());</code></pre>
+<p>透過這樣的修改之後，我們就可以利用 <code>b.lastText( )</code> 的調用方式，來取得最後一個字元  </p>
+<p><img src="https://imgur.com/r2kdAqC.png" alt=" ">  </p>
+<p>再來看另一個例子 <code>Number</code>  </p>
+<pre><code class="javascript"><span class="built_in">Number</span>.prototype.secondPower = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="keyword">return</span> <span class="keyword">this</span> * <span class="keyword">this</span>
+};
+
+<span class="keyword">var</span> num = <span class="number">5</span>;
+
+<span class="built_in">console</span>.log(num.secondPower()); <span class="comment">// 25</span></code></pre>
+<p>運行之後，我們一樣可以得到數字的平方結果。  </p>
+<hr>
+<p><strong>但為什麼純值以及建構式建構出來的物件都可以使用建構函式的方法(String/Number)呢？</strong>  </p>
+<p>因為在 Javascript 中，純值有一個對應的包裹物件<code>(String/Number)</code>，以數值來說就是對應 <code>Number</code> 。</p>
+<p>那麼因為原型是共用的，不論是純值還是建構式建構出來的物件實體都會指向同一個原型，也可以取用同一個包裹物件  </p>
+<p><code>(String/Number)</code> 原型鏈上的方法。<br></br><br>除了純值之外， Javascript 還有很多建構式可以使用，例如 <code>Date</code> 可以取用時間  </p>
+<pre><code class="javascript"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();
+<span class="built_in">console</span>.log(date);
+<span class="built_in">console</span>.dir(<span class="built_in">Date</span>);</code></pre>
+<p><code>Date</code> 是一個可以用來取用目前瀏覽器時間的建構函式。同樣的可以使用 <code>console.dir</code> 查看該函式的屬性以及方法。  </p>
+<p><img src="https://imgur.com/EXw4Elb.png" alt=" ">  </p>
+<p>但這樣輸出的結果通常不會是我們要的格式，所以我們可以透過自定義的方式，將需要的時間格式重組成我們要的樣子，回傳。  </p>
+<p>並將這個方法掛載在 <code>Date</code> 這個建構函式的原型上。  </p>
+<pre><code class="javascript"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();
+<span class="built_in">console</span>.log(date);
+<span class="built_in">console</span>.dir(<span class="built_in">Date</span>);
+
+<span class="built_in">Date</span>.prototype.getFullDate = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="keyword">var</span> dd = <span class="built_in">String</span>(<span class="keyword">this</span>.getDate());
+    <span class="keyword">var</span> mm = <span class="built_in">String</span>(<span class="keyword">this</span>.getMonth() + <span class="number">1</span>);
+    <span class="keyword">var</span> yyyy = <span class="keyword">this</span>.getFullYear();
+
+    <span class="keyword">var</span> today = yyyy + <span class="string">'/'</span> + mm + <span class="string">'/'</span> + dd;
+    <span class="keyword">return</span> today;
+};
+
+<span class="keyword">var</span> today = date.getFullDate();
+<span class="built_in">console</span>.log(today); <span class="comment">// 2020/8/14</span></code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/13/JS%E6%A0%B8%E5%BF%83-47-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E4%BD%BF%E7%94%A8%E5%BB%BA%E6%A7%8B%E5%BC%8F%E8%87%AA%E5%AE%9A%E7%BE%A9%E5%8E%9F%E5%9E%8B/" rel="prev" title="JS核心-(47)-繼承與原型練-使用建構式自定義原型">
+      <i class="fa fa-chevron-left"></i> JS核心-(47)-繼承與原型練-使用建構式自定義原型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/13/JS%E6%A0%B8%E5%BF%83-49-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E4%BD%BF%E7%94%A8-Object-create-%E5%BB%BA%E7%AB%8B%E5%A4%9A%E5%B1%A4%E7%B9%BC%E6%89%BF/" rel="next" title="JS核心-(49)-繼承與原型練-使用 Object.create 建立多層繼承">
+      JS核心-(49)-繼承與原型練-使用 Object.create 建立多層繼承 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#純值及物件的關係"><span class="nav-number">2.</span> <span class="nav-text">純值及物件的關係</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
