@@ -27,12 +27,21 @@
 <meta property="og:site_name" content="Renee&#39;s Blog">
 <meta property="og:description" content="前言">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/LFeCg1O.png">
+<meta property="og:image" content="https://imgur.com/ZPuaLXM.png">
+<meta property="og:image" content="https://imgur.com/wyY608I.png">
+<meta property="og:image" content="https://imgur.com/kqTTXR2.png">
+<meta property="og:image" content="https://imgur.com/A0GDDud.png">
+<meta property="og:image" content="https://imgur.com/EEAPY4D.png">
+<meta property="og:image" content="https://imgur.com/N1GTh8w.png">
+<meta property="og:image" content="https://imgur.com/pg7Itna.png">
 <meta property="article:published_time" content="2020-08-13T06:54:18.000Z">
-<meta property="article:modified_time" content="2020-08-15T15:52:33.097Z">
+<meta property="article:modified_time" content="2020-08-16T07:14:09.797Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="JavaScript 核心篇">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/LFeCg1O.png">
 
 <link rel="canonical" href="http://chunghuing.github.io/2020/08/13/JS%E6%A0%B8%E5%BF%83-51-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E8%AA%B2%E5%BE%8C%E7%B7%B4%E7%BF%92/">
 
@@ -193,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-08-15 23:52:33" itemprop="dateModified" datetime="2020-08-15T23:52:33+08:00">2020-08-15</time>
+                <time title="عُدل: 2020-08-16 15:14:09" itemprop="dateModified" datetime="2020-08-16T15:14:09+08:00">2020-08-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -217,6 +226,188 @@
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><a id="more"></a>  
+
+<h3 id="第一題"><a href="#第一題" class="headerlink" title="第一題"></a>第一題</h3><p>我們了解原型的概念，那麼請問在 JavaScript 中是否所有「物件」、「陣列」以及「函式」都有原型屬性?  </p>
+<ol>
+<li>全都有  </li>
+<li>全都沒有  </li>
+<li>只有 「物件」、「陣列」 有  </li>
+<li>我不確定  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 1
+</code></pre>
+</details>  
+
+<hr>
+<h3 id="第二題"><a href="#第二題" class="headerlink" title="第二題"></a>第二題</h3><p>請問 console.log( ) 將會出現什麼？  </p>
+<p><img src="https://imgur.com/LFeCg1O.png" alt=" ">  </p>
+<ol>
+<li>王小明</li>
+<li>隔壁老王</li>
+<li>daddyName is not defined</li>
+<li>undefined</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 2  
+這個問題主要與 this 的指向與呼叫有關係，因此當我們在 person.returnName.daddy 其實是在 returnName: function() {} 底下新增一個屬性叫做隔壁老王  
+接下來 daddyName() 是在 returnName 呼叫的，因此 this 會指向到 returnName 剛剛新增的隔壁老王唷~
+</code></pre>
+</details>  
+
+<hr>
+<h3 id="第三題"><a href="#第三題" class="headerlink" title="第三題"></a>第三題</h3><p>請問 console.log( ) 將會出現什麼？  </p>
+<p><img src="https://imgur.com/ZPuaLXM.png" alt=" ">  </p>
+<ol>
+<li>Casper</li>
+<li>Hello</li>
+<li>hello is not defined</li>
+<li>undefined</li>
+<li>sayHi</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 1  
+這一題真的是一個很陷阱的陷阱題，透過 var name = 'Hello'; 讓你誤解，此外這一題還有一個陰險處在於，因為 name 這個變數其實是瀏覽器的變數，所以你可以在瀏覽器上面直接輸入 name 你會發現出現一個空字串。  
+
+<p>因此 name 在瀏覽器的初始環境下就是一個空字串，才會導致 console.log(name) 不是一個 undeinfed。  </p>
+<p>function sayHi (name){<br> var name = ‘Casper’;<br> this.name = name;<br> return this.name;<br>}</p>
+<p>sayHi.<strong>proto</strong>.hello = function(name) {<br> console.log(name); // 空字串<br> console.log(typeof name) // string<br> return this(name);<br>}<br>console.log(sayHi.hello(name));<br>var name = ‘Hello’;  </p>
+<p>最後 name 這個屬性還有一個很大的問題在於它不會因為你重新整理瀏覽器而釋放掉，因為這個變數本身就是瀏覽器的變數，所以當你執行兩次時，就會發生原本的空字串變成有值而且無法清除該變數，只有完整關閉瀏覽器才能夠清除，因此助教這邊會建議不要使用 name 當作變數名稱。<br></code></pre></p>
+</details>  
+
+<hr>
+<h3 id="第四題"><a href="#第四題" class="headerlink" title="第四題"></a>第四題</h3><p>一般狀況下我們執行 person.getName( ) 會得到 HexSchool 1&amp;&amp; HexSchool 2  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+ firstName:<span class="string">'HexSchool 1'</span>,
+ lastName:<span class="string">'HexSchool 2'</span>,
+ getName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">' &amp;&amp; '</span>+ <span class="keyword">this</span>.lastName;
+ }
+}</code></pre>
+<p>但如果將 person 加入原型並透過 protoName 來呼叫 person 的原型會得到什麼結果？  </p>
+<pre><code class="javascript"><span class="keyword">var</span> protoName = {
+ firstName: <span class="string">'John'</span>,
+ lastName: <span class="string">'Doe'</span>,
+}
+protoName.__proto__ = person;
+protoName.getName(); <span class="comment">// 答案是甚麼?</span>
+<span class="built_in">console</span>.log(protoName, protoName.getName());</code></pre>
+<ol>
+<li>HexSchool 1 &amp;&amp; HexSchool 2</li>
+<li>John &amp;&amp; HexSchool 2</li>
+<li>HexSchool 1 &amp;&amp; Doe</li>
+<li>John &amp;&amp; Doe</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 4  
+
+<p>因為這題 protoName 裡面的原型 <strong>proto</strong> 和 protoName 物件屬性是一樣名<br> firstName 和 lastName ，也就是「如果原型與物件內的屬性同名」，那麼會以物件內的屬性優先，原型的屬性權重則較低<br>若把 protoName 物件內屬性註解則會得到 “HexSchool 1 &amp;&amp; HexSchool 2”<br></code></pre></p>
+</details>  
+
+<hr>
+<h3 id="第五題"><a href="#第五題" class="headerlink" title="第五題"></a>第五題</h3><p>我們可以利用建構式原型來建立家人與年齡，請問 console.log( ) 將會出現什麼？  </p>
+<p><img src="https://imgur.com/wyY608I.png" alt=" ">  </p>
+<ol>
+<li>{name: “漂亮阿姨”, age: “25”}</li>
+<li>{name: “媽媽”, age: “30”}</li>
+<li>{name: “爸爸”, age: “45”}</li>
+<li>mom is not defined</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 1
+</code></pre>
+</details>  
+
+<hr>
+<h3 id="第六題"><a href="#第六題" class="headerlink" title="第六題"></a>第六題</h3><p>我們可以利用建構式原型來建立家人與年齡，請問 console.log( ) 將會出現什麼？  </p>
+<p><img src="https://imgur.com/kqTTXR2.png" alt=" ">  </p>
+<ol>
+<li>undefined</li>
+<li>joun</li>
+<li>default</li>
+<li>以上皆非</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 3
+</code></pre>
+</details>  
+
+<hr>
+<h3 id="第七題"><a href="#第七題" class="headerlink" title="第七題"></a>第七題</h3><p>請問 console.log( ) 將會出現什麼？  </p>
+<p><img src="https://imgur.com/A0GDDud.png" alt=" ">  </p>
+<ol>
+<li>你呼叫了我</li>
+<li>TypeError: Cannot set property ‘callFu’ of undefined</li>
+<li>100</li>
+<li>b.callFu is not a function</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 1
+</code></pre>
+</details>  
+
+<hr>
+<h3 id="第八題"><a href="#第八題" class="headerlink" title="第八題"></a>第八題</h3><p>請問 console.log( ) 將會出現什麼？  </p>
+<p><img src="https://imgur.com/EEAPY4D.png" alt=" ">  </p>
+<ol>
+<li>{ name: ‘爸爸’, age: 28 }</li>
+<li>{ }</li>
+<li>undefined</li>
+<li>以上皆非</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 2
+</code></pre>
+</details>  
+
+<hr>
+<h3 id="第九題"><a href="#第九題" class="headerlink" title="第九題"></a>第九題</h3><p>承上題，當若變成 family.name 請問 console會出現什麼？  </p>
+<p><img src="https://imgur.com/N1GTh8w.png" alt=" ">  </p>
+<ol>
+<li>爸爸</li>
+<li>undefined</li>
+<li>name is not define</li>
+<li>{ }</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 1
+</code></pre>
+</details>  
+
+<hr>
+<h3 id="第十題"><a href="#第十題" class="headerlink" title="第十題"></a>第十題</h3><p>當執行該原型函式後將會回傳什麼？  </p>
+<p><img src="https://imgur.com/pg7Itna.png" alt=" ">  </p>
+<ol>
+<li>Casper</li>
+<li>Mark</li>
+<li>sayHi</li>
+<li>hello</li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 3
+</code></pre>
+</details>  
+
     </div>
 
     
@@ -297,7 +488,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一題"><span class="nav-number">2.</span> <span class="nav-text">第一題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二題"><span class="nav-number">3.</span> <span class="nav-text">第二題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三題"><span class="nav-number">4.</span> <span class="nav-text">第三題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四題"><span class="nav-number">5.</span> <span class="nav-text">第四題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五題"><span class="nav-number">6.</span> <span class="nav-text">第五題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六題"><span class="nav-number">7.</span> <span class="nav-text">第六題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七題"><span class="nav-number">8.</span> <span class="nav-text">第七題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八題"><span class="nav-number">9.</span> <span class="nav-text">第八題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第九題"><span class="nav-number">10.</span> <span class="nav-text">第九題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第十題"><span class="nav-number">11.</span> <span class="nav-text">第十題</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
