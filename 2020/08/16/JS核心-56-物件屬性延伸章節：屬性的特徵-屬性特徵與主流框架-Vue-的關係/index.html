@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言這篇將利用第七單元所學到的內容來檢視主流框架(Vue)的撰寫技巧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(56)-物件屬性延伸章節：屬性的特徵-屬性特徵與主流框架(Vue)的關係">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-56-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E5%B1%AC%E6%80%A7%E7%89%B9%E5%BE%B5%E8%88%87%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6-Vue-%E7%9A%84%E9%97%9C%E4%BF%82/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言這篇將利用第七單元所學到的內容來檢視主流框架(Vue)的撰寫技巧">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/SRjMJJK.png">
+<meta property="og:image" content="https://imgur.com/gYRRaYS.png">
+<meta property="og:image" content="https://imgur.com/bfXybn1.png">
+<meta property="og:image" content="https://imgur.com/zfmioI3.png">
+<meta property="og:image" content="https://imgur.com/XNuKp3T.png">
+<meta property="og:image" content="https://imgur.com/psH5rxl.png">
+<meta property="og:image" content="https://imgur.com/gQ01hM1.png">
+<meta property="og:image" content="https://imgur.com/zwOrLE2.png">
+<meta property="og:image" content="https://imgur.com/mMiuhj7.png">
+<meta property="og:image" content="https://imgur.com/lfpoMLX.png">
+<meta property="og:image" content="https://imgur.com/DDPO7Pq.png">
+<meta property="og:image" content="https://imgur.com/8V4Gk9a.png">
+<meta property="og:image" content="https://imgur.com/x5VlpAX.png">
+<meta property="og:image" content="https://imgur.com/uzEvDUv.png">
+<meta property="article:published_time" content="2020-08-16T08:56:11.000Z">
+<meta property="article:modified_time" content="2020-08-17T09:00:27.656Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/SRjMJJK.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-56-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E5%B1%AC%E6%80%A7%E7%89%B9%E5%BE%B5%E8%88%87%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6-Vue-%E7%9A%84%E9%97%9C%E4%BF%82/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(56)-物件屬性延伸章節：屬性的特徵-屬性特徵與主流框架(Vue)的關係 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-56-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E5%B1%AC%E6%80%A7%E7%89%B9%E5%BE%B5%E8%88%87%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6-Vue-%E7%9A%84%E9%97%9C%E4%BF%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(56)-物件屬性延伸章節：屬性的特徵-屬性特徵與主流框架(Vue)的關係
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-08-16 16:56:11" itemprop="dateCreated datePublished" datetime="2020-08-16T16:56:11+08:00">2020-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-17 17:00:27" itemprop="dateModified" datetime="2020-08-17T17:00:27+08:00">2020-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>這篇將利用第七單元所學到的內容來檢視主流框架(Vue)的撰寫技巧  </p>
+<a id="more"></a>  
+
+<hr>
+<p>首先我們先來看到 <code>Vue</code> <a href="https://github.com/vuejs/vue" target="_blank" rel="noopener"> 原始碼 </a>  </p>
+<p>因為 <code>Vue</code> 的原始碼包含了許多 ES6 的寫法，所以需要經過編譯才能運用。</p>
+<p>大部分未被編譯的原始碼都包含在 <code>/src</code> 的目錄中，所以這裡我們先點開 <code>src</code> 的目錄  </p>
+<p><img src="https://imgur.com/SRjMJJK.png" alt=" ">  </p>
+<p>點進來以後可以看到有很多不同的目錄，其實也就是把 <code>Vue</code> 的功能進行分裝  </p>
+<p><img src="https://imgur.com/gYRRaYS.png" alt=" ">  </p>
+<p>那我們就進入到這個路徑，看一下檔案裡面的內容  </p>
+<p><img src="https://imgur.com/bfXybn1.png" alt=" ">  </p>
+<p>看到 <code>Object.defineProperty</code> 以及 <code>Getter</code> 的用法，是不是很熟悉呢 ！  </p>
+<p>再來我們先回到最上層，如果你要找編譯後的程式碼，可以到 <code>/dist</code> 的資料夾</p>
+<p><img src="https://imgur.com/zfmioI3.png" alt=" ">  </p>
+<p>進來之後可以看到 <code>vue.js</code> (未壓縮版本) 以及 <code>vue.min.js</code> (壓縮後版本)，那我們進入未壓縮的版本  </p>
+<p><img src="https://imgur.com/XNuKp3T.png" alt=" ">  </p>
+<p>你可以看到，裡面有很多寫法你已經有學過或看得懂的，其中比較特別的技巧就是，如果我們要一個空物件，  </p>
+<p>可以利用 <code>freeze</code> 來產生。  </p>
+<pre><code class="javascript"><span class="keyword">var</span> emptyObject = <span class="built_in">Object</span>.freeze({});</code></pre>
+<p>要確保該物件真的是空的！再來我們來看範例是怎麼運行的。  </p>
+<pre><code class="javascript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({
+    el: <span class="string">'#app'</span>,
+    data:{
+        num: <span class="number">1</span>,
+        obj: {
+            objnum: <span class="number">1</span>
+        }
+    },
+    methods: {
+        add: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+            <span class="keyword">this</span>.num += <span class="number">1</span>;
+        }
+    },
+    mounted: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+        <span class="built_in">console</span>.log(<span class="keyword">this</span>);
+    }
+});</code></pre>
+<p> <code>Vue</code> 本身就是一個建構函式的名稱，並且傳入很多的參數，我們透過在 <code>console</code> 找尋 <code>app</code> 的字樣，就可以發現 <code>Vue</code> 的整體，  </p>
+<p> 以及我們剛剛傳入的資料  </p>
+<p><img src="https://imgur.com/psH5rxl.png" alt=" ">  </p>
+<p>而且你可以看到有 <code>(...)</code> 的樣子，就代表這個資料的取得是一個 <code>Getter</code>，然後把它們點開就可以得到下面的資料顯示：  </p>
+<p><img src="https://imgur.com/gQ01hM1.png" alt=" ">  </p>
+<p>在最後面也可以看到  </p>
+<p><img src="https://imgur.com/zwOrLE2.png" alt=" ">  </p>
+<p>而利用 <code>Getter</code> 以及 <code>Setter</code> 所製作出來的最大特色，就是雙向綁定的響應式原理，也就是不論更動畫面上的資料，  </p>
+<p>還是更動 <code>js</code> 中對應的資料，另一邊都會跟著改變  </p>
+<p><img src="https://imgur.com/mMiuhj7.png" alt=" ">  </p>
+<p><img src="https://imgur.com/lfpoMLX.png" alt=" ">  </p>
+<p><img src="https://imgur.com/DDPO7Pq.png" alt=" ">  </p>
+<p><img src="https://imgur.com/8V4Gk9a.png" alt=" ">  </p>
+<p>來看看 <a href="https://cn.vuejs.org/v2/guide/reactivity.html#%E5%A6%82%E4%BD%95%E8%BF%BD%E8%B8%AA%E5%8F%98%E5%8C%96" target="_blank" rel="noopener">Vue</a> 的官方文件說法:  </p>
+<p><img src="https://imgur.com/x5VlpAX.png" alt=" ">  </p>
+<p>也就是說，每當 <code>getter</code> 或 <code>setter</code> 被執行處發的時候， <code>Vue</code> 會把取出來或存進去的值重新檢查看看是否有做更動，  </p>
+<p>有的話則會去判斷哪些 <code>DOM</code> 會受到影響，並且重新 <code>render</code> 一次。  </p>
+<p><img src="https://imgur.com/uzEvDUv.png" alt=" ">  </p>
+<p>以上就是概略的介紹 Vue 有運用到的技巧  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/16/JS%E6%A0%B8%E5%BF%83-55-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-Getter-%E8%88%87-Setter%EF%BC%8C%E8%B3%A6%E5%80%BC%E9%81%8B%E7%AE%97%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%87%BD%E5%BC%8F/" rel="prev" title="JS核心-(55)-物件屬性延伸章節：屬性的特徵-Getter 與 Setter，賦值運算不使用函式">
+      <i class="fa fa-chevron-left"></i> JS核心-(55)-物件屬性延伸章節：屬性的特徵-Getter 與 Setter，賦值運算不使用函式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/16/JS%E6%A0%B8%E5%BF%83-57-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80-%E7%B7%B4%E7%BF%92/" rel="next" title="JS核心-(57)-物件屬性延伸章節：屬性的特徵-物件屬性延伸章節-練習">
+      JS核心-(57)-物件屬性延伸章節：屬性的特徵-物件屬性延伸章節-練習 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

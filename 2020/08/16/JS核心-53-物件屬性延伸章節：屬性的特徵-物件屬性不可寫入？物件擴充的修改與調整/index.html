@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言針對整個物件進行調整的三種方法，防止擴充 preventExtensions、封裝 seal 、凍結 Freeze">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(53)-物件屬性延伸章節：屬性的特徵-物件屬性不可寫入？物件擴充的修改與調整">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-53-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%AF%AB%E5%85%A5%EF%BC%9F%E7%89%A9%E4%BB%B6%E6%93%B4%E5%85%85%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%87%E8%AA%BF%E6%95%B4/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言針對整個物件進行調整的三種方法，防止擴充 preventExtensions、封裝 seal 、凍結 Freeze">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/sU2dXX6.png">
+<meta property="og:image" content="https://imgur.com/UpKxmqZ.png">
+<meta property="og:image" content="https://imgur.com/RRMM4NN.png">
+<meta property="og:image" content="https://imgur.com/1wgEzPz.png">
+<meta property="article:published_time" content="2020-08-16T08:55:46.000Z">
+<meta property="article:modified_time" content="2020-08-16T15:58:59.094Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/sU2dXX6.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-53-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%AF%AB%E5%85%A5%EF%BC%9F%E7%89%A9%E4%BB%B6%E6%93%B4%E5%85%85%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%87%E8%AA%BF%E6%95%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(53)-物件屬性延伸章節：屬性的特徵-物件屬性不可寫入？物件擴充的修改與調整 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-53-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%AF%AB%E5%85%A5%EF%BC%9F%E7%89%A9%E4%BB%B6%E6%93%B4%E5%85%85%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%87%E8%AA%BF%E6%95%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(53)-物件屬性延伸章節：屬性的特徵-物件屬性不可寫入？物件擴充的修改與調整
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-16 16:55:46 / عُدل: 23:58:59" itemprop="dateCreated datePublished" datetime="2020-08-16T16:55:46+08:00">2020-08-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>針對整個物件進行調整的三種方法，防止擴充 preventExtensions、封裝 seal 、凍結 Freeze  </p>
+<a id="more"></a>  
+
+<p>上一篇文章我們提到了針對物件<strong>個別屬性</strong>進行調整的 <code>Object.defineProperty</code> 以及 <code>Object.defineProperties</code> 方法。  </p>
+<p>此篇是針對<strong>整個物件</strong>進行調整，這是需要特別注意的地方。  </p>
+<hr>
+<h3 id="防止擴充-preventExtensions"><a href="#防止擴充-preventExtensions" class="headerlink" title="防止擴充 preventExtensions"></a>防止擴充 preventExtensions</h3><p>如同字面上的意義，就是要防止物件進行屬性的擴充 (新增屬性) ，但是刪除或是重新賦予值都還是可以的。  </p>
+<p>我們實際來看看怎麼應用：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+        a: <span class="number">1</span>,
+        b: <span class="number">2</span>,
+        c: {}
+    };
+
+<span class="comment">// preventExtensions</span>
+<span class="built_in">Object</span>.preventExtensions(person);
+
+<span class="comment">// 針對物件是否可以被擴充進行檢查，回傳布林值</span>
+<span class="built_in">console</span>.log(<span class="string">'是否可被擴充'</span>, <span class="built_in">Object</span>.isExtensible(person));
+
+<span class="comment">// 用於確認物件中特定的屬性是甚麼，回傳物屬性的4個特徵</span>
+<span class="built_in">console</span>.log(<span class="string">'person物件的 a 屬性特徵'</span>, <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">'a'</span>));
+
+<span class="comment">// 調整屬性</span>
+person.a = <span class="string">'a'</span>;
+
+<span class="comment">// 新增屬性</span>
+person.d = <span class="string">'d'</span>;
+
+<span class="comment">// 巢狀屬性調整</span>
+person.c.a = <span class="string">'ca'</span>;
+
+<span class="comment">// 調整特徵</span>
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    configurable: <span class="literal">false</span>
+});
+
+<span class="comment">// 刪除屬性</span>
+<span class="keyword">delete</span> person.b;
+
+<span class="comment">// 結果</span>
+<span class="built_in">console</span>.log(<span class="string">'person物件'</span>, person);
+<span class="built_in">console</span>.log(<span class="string">'person a 屬性(嘗試修改後)'</span>, <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">'a'</span>));</code></pre>
+<p>首先，我們利用 <code>Object.preventExtensions(person);</code> 對 <code>person</code> 這個物件進行防止擴充的動作。  </p>
+<p>所以我們可以利用 <code>Object.isExtensible(person)</code> 來檢查他是否可以擴充，這邊會回傳布林值來確認是否可以被擴充。<br></br>  </p>
+<p>同時，如果我們想要知道某個物件的某個屬性的特徵的話，可以利用 <code>Object.getOwnPropertyDescriptor(物件, 屬性名稱)</code> 的方式  </p>
+<p>來查看，就會回傳一個物件包含該屬性的 <code>4</code> 個特徵。<br></br>  </p>
+<p>所以這邊我們也可以在進行防止擴充的動作後檢查看看任一個該物件的屬性是否有被改變，再來就進行一連串的調整以及刪除之  </p>
+<p>後，把最後 <code>person</code> 物件以及 <code>person</code> <code>a</code> 屬性印出來看看。  </p>
+<p>結果就如同下面所示：  </p>
+<p><img src="https://imgur.com/sU2dXX6.png" alt=" ">  </p>
+<p>可以看到，因為執行了防止擴充的動作，所以是否可以被擴充的地方回傳的是 <code>false</code>，而 <code>person</code> 物件的 <code>a</code> 屬性特徵則照實顯  </p>
+<p>示，並且除了 <code>value</code> 以外其他三個都是<code>true</code>。<br></br>  </p>
+<p>但經過一連串的修改以後可以發現，<code>person</code>物件中，<code>a</code> 屬性的值被賦予成字串 <code>a</code>，<code>b</code> 屬性成功被刪除，<code>c</code> 屬性的巢狀賦值  </p>
+<p>有成功，<code>person</code>物件的 <code>a</code> 屬性特徵其中 <code>configurable</code> 也成功被改為 <code>false</code>。唯獨新增 <code>d</code> 屬性是失敗的。  </p>
+<p>所以就如同一開始所描述的，防止擴充的動作其實就是在防止屬性的新增而已。  </p>
+<hr>
+<h3 id="封裝-seal"><a href="#封裝-seal" class="headerlink" title="封裝 seal"></a>封裝 seal</h3><p><code>seal</code> 的效果是讓物件的屬性無法新增刪除，也無法重新配置特徵，但是可以調整前屬性值 <code>(value)</code> 。</p>
+<p>同時，物件預設加上 <code>preventExtensions</code> 。  </p>
+<pre><code class="javascript"><span class="comment">// Seal</span>
+<span class="keyword">var</span> person = {
+        a: <span class="number">1</span>,
+        b: <span class="number">2</span>,
+        c: {}
+    };
+
+<span class="built_in">Object</span>.seal(person);
+
+<span class="comment">// 針對物件是否被封裝進行檢查，回傳布林值</span>
+<span class="built_in">console</span>.log(<span class="string">'是否可被封裝'</span>, <span class="built_in">Object</span>.isSealed(person));
+
+<span class="comment">// 用於確認物件中特定的屬性是甚麼，回傳物屬性的4個特徵</span>
+<span class="built_in">console</span>.log(<span class="string">'person物件的 a 屬性性質'</span>, <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">'a'</span>));
+
+<span class="comment">// 調整屬性</span>
+person.a = <span class="string">'a'</span>;
+
+<span class="comment">// 新增屬性</span>
+person.d = <span class="string">'d'</span>;
+
+<span class="comment">// 巢狀屬性調整</span>
+person.c.a = <span class="string">'ca'</span>;
+
+<span class="comment">// 調整特徵</span>
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    writable: <span class="literal">false</span>
+});
+
+<span class="comment">// 刪除屬性</span>
+<span class="keyword">delete</span> person.b;
+
+<span class="comment">// 結果</span>
+<span class="built_in">console</span>.log(<span class="string">'person物件'</span>, person);
+<span class="built_in">console</span>.log(<span class="string">'person a 屬性(嘗試修改後)'</span>, <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">'a'</span>));</code></pre>
+<p>結果如下：  </p>
+<p><img src="https://imgur.com/UpKxmqZ.png" alt=" ">  </p>
+<p>所以在執行了封裝的動作之後，利用 <code>Object.isSealed(person)</code> 來檢查是否被封裝，當然就是 <code>true</code> 。</p>
+<p>而你可以看到，還在還沒進行屬性的調整之前， <code>a</code> 屬性的特徵， <code>configurable</code> 就已經是 <code>false</code> 了，這也符合一開始說的  </p>
+<p> <code>seal</code> 的效果是讓物件的屬性無法新增刪除，也無法重新配置特徵。<br></br>  </p>
+<p><code>b</code>的屬性也還存在著。同時，無法重新配置特徵就代表，利用 <code>Object.defineProperty</code> 將 <code>a</code> 屬性的 <code>writable</code> 改為<code>false</code> 也是不成功的，結果也的確如此，<code>a</code>屬性的 <code>writable</code> 還是維持在 <code>true</code> 的結果。<br></br>  </p>
+<p><code>d</code>的屬性還是無法被新增，但巢狀賦值的執行還是成功的，<code>c</code>屬性的物件中還是有 <code>a</code> 屬性對應字串 <code>ca</code> 的值，而且<code>a</code>屬性還  </p>
+<p>是成功賦值成字串 <code>a</code> 的值。<br></br>  </p>
+<p>以上就是關於 <code>seal</code> 的介紹。  </p>
+<hr>
+<h3 id="凍結-Freeze"><a href="#凍結-Freeze" class="headerlink" title="凍結 Freeze"></a>凍結 Freeze</h3><p>跟 <code>seal</code> 很像，<code>freeze</code> 的物件無法新增刪除、不可以調整前屬性值<code>(value)</code>，當然也也無法重新配置特徵。  </p>
+<p>同時，物件預設加上<code>seal</code>。  </p>
+<pre><code class="javascript"><span class="comment">// Freeze</span>
+<span class="keyword">var</span> person = {
+        a: <span class="number">1</span>,
+        b: <span class="number">2</span>,
+        c: {}
+    };
+
+<span class="built_in">Object</span>.freeze(person);
+
+<span class="comment">// 針對物件是否被凍結進行檢查，回傳布林值</span>
+<span class="built_in">console</span>.log(<span class="string">'是否有被凍結'</span>, <span class="built_in">Object</span>.isFrozen(person));
+
+<span class="comment">// 用於確認物件中特定的屬性是甚麼，回傳物屬性的4個特徵</span>
+<span class="built_in">console</span>.log(<span class="string">'person物件的 a 屬性性質'</span>, <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">'a'</span>));
+
+<span class="comment">// 調整屬性</span>
+person.a = <span class="string">'a'</span>;
+
+<span class="comment">// 新增屬性</span>
+person.d = <span class="string">'d'</span>;
+
+<span class="comment">// 巢狀屬性調整</span>
+person.c.a = <span class="string">'ca'</span>;
+
+<span class="comment">// 調整特徵</span>
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    enumerable: <span class="literal">false</span>
+});
+
+<span class="comment">// 刪除屬性</span>
+<span class="keyword">delete</span> person.b;
+
+<span class="comment">// 結果</span>
+<span class="built_in">console</span>.log(<span class="string">'person物件'</span>, person);
+<span class="built_in">console</span>.log(<span class="string">'person a 屬性(嘗試修改後)'</span>, <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">'a'</span>));</code></pre>
+<p>結果如下：  </p>
+<p><img src="https://imgur.com/RRMM4NN.png" alt=" ">  </p>
+<p>你會發現怎麼出錯了？  </p>
+<p>原因就在於因為 <code>person</code> 物件被 <code>freeze</code> 了，所以這時候再進行 <code>Object.defineProperty</code> 的話就會直接抱錯，所以這邊我們要記  </p>
+<p>得先把 <code>Object.defineProperty</code> 給註解調才能在正常運行。  </p>
+<pre><code class="javascript"><span class="comment">// 調整特徵</span>
+<span class="comment">// Object.defineProperty(person, 'a', {</span>
+<span class="comment">//     enumerable: false</span>
+<span class="comment">// });</span></code></pre>
+<p>註解後的結果：  </p>
+<p><img src="https://imgur.com/1wgEzPz.png" alt=" ">  </p>
+<p>我們來看，利用 <code>Object.isFrozen(person)</code> 來檢查是否有被凍結？當然是 <code>true</code>。</p>
+<p>再來 <code>a</code> 屬性的值不能被重新賦值，並且在 <code>freeze</code> 之後，只能夠被列舉， <code>writable</code> 以及 <code>configurable</code> 都是 <code>false</code> 。</p>
+<p>當然 <code>b</code> 屬性也無法被刪除， <code>d</code> 屬性無法被新增。但巢狀賦值的 <code>c</code> 屬性還是可以不受限制。<br></br>  </p>
+<p>以上就是關於 <code>freeze</code> 的介紹。<br></br>  </p>
+<p>這邊要再次強調！  </p>
+<p><strong>以上三個方法跟之前介紹的 <code>Object.defineProperty</code> 不同，是針對整個物件進行設定，但無法針對物件中的物件(巢狀物件)進行</strong>  </p>
+<p><strong>設定，要的話也是分別設定。</strong>  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/16/JS%E6%A0%B8%E5%BF%83-52-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E5%B1%AC%E6%80%A7%E7%89%B9%E5%BE%B5%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F/" rel="prev" title="JS核心-(52)-物件屬性延伸章節：屬性的特徵-屬性特徵是什麼？">
+      <i class="fa fa-chevron-left"></i> JS核心-(52)-物件屬性延伸章節：屬性的特徵-屬性特徵是什麼？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/16/JS%E6%A0%B8%E5%BF%83-54-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E5%B1%AC%E6%80%A7%E5%88%97%E8%88%89%E8%88%87%E5%8E%9F%E5%9E%8B%E7%9A%84%E9%97%9C%E4%BF%82/" rel="next" title="JS核心-(54)-物件屬性延伸章節：屬性的特徵-屬性列舉與原型的關係">
+      JS核心-(54)-物件屬性延伸章節：屬性的特徵-屬性列舉與原型的關係 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止擴充-preventExtensions"><span class="nav-number">2.</span> <span class="nav-text">防止擴充 preventExtensions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封裝-seal"><span class="nav-number">3.</span> <span class="nav-text">封裝 seal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#凍結-Freeze"><span class="nav-number">4.</span> <span class="nav-text">凍結 Freeze</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言這篇主要會解析物件屬性的特徵，解釋原生的原形以及我們自己定義的原形有什麼不一樣的地方，   以及框架是如何利用物件屬性的特徵來開發出特別的功能！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(52)-物件屬性延伸章節：屬性的特徵-屬性特徵是什麼？">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-52-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E5%B1%AC%E6%80%A7%E7%89%B9%E5%BE%B5%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言這篇主要會解析物件屬性的特徵，解釋原生的原形以及我們自己定義的原形有什麼不一樣的地方，   以及框架是如何利用物件屬性的特徵來開發出特別的功能！">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/unxdshr.png">
+<meta property="og:image" content="https://imgur.com/tePz2iI.png">
+<meta property="og:image" content="https://imgur.com/HYpBiui.png">
+<meta property="og:image" content="https://imgur.com/xULGHb8.png">
+<meta property="og:image" content="https://imgur.com/zoirRWF.png">
+<meta property="og:image" content="https://imgur.com/2LoILy0.png">
+<meta property="og:image" content="https://imgur.com/tTfsX4K.png">
+<meta property="og:image" content="https://imgur.com/SuEkOmy.png">
+<meta property="article:published_time" content="2020-08-16T08:55:42.000Z">
+<meta property="article:modified_time" content="2020-08-16T12:28:51.199Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/unxdshr.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-52-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E5%B1%AC%E6%80%A7%E7%89%B9%E5%BE%B5%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(52)-物件屬性延伸章節：屬性的特徵-屬性特徵是什麼？ | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/16/JS%E6%A0%B8%E5%BF%83-52-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E5%B1%AC%E6%80%A7%E7%89%B9%E5%BE%B5%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(52)-物件屬性延伸章節：屬性的特徵-屬性特徵是什麼？
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-16 16:55:42 / عُدل: 20:28:51" itemprop="dateCreated datePublished" datetime="2020-08-16T16:55:42+08:00">2020-08-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>這篇主要會解析物件屬性的特徵，解釋原生的原形以及我們自己定義的原形有什麼不一樣的地方，  </p>
+<p>以及框架是如何利用物件屬性的特徵來開發出特別的功能！  </p>
+<a id="more"></a>  
+
+<h3 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty"></a>Object.defineProperty</h3><p>我們先看範例：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p>印出來之後可以得到下面的結果  </p>
+<p><img src="https://imgur.com/unxdshr.png" alt=" ">  </p>
+<p>可以看到 <code>person</code> 這個物件裡面的屬性 <code>a</code>、<code>b</code>、<code>c</code> 以及對應的值，還有物件的原形連結到哪裡。<br></br>  </p>
+<p>我們都知道，修改物件裡面屬性的值可以是 <code>person.a = 4</code> 或是 <code>person[&#39;a&#39;] = 4</code>，這兩種方法都可以。  </p>
+<p>今天就要教大家另外一種進階的方法，叫做 <code>Object.defineProperty</code><br></br>  </p>
+<p>這個方法除了可以調整屬性的值 <code>value</code> 之外，還可以調整屬性的特徵  </p>
+<p>而上述的兩種方法都只能調整屬性的其中一個特徵，也就是屬性對應的值 <code>value</code><br></br>  </p>
+<p><strong>屬性到底有那些特徵？</strong>  </p>
+<ul>
+<li>值 <code>value</code> → 對應的值是甚麼</li>
+<li>可否寫入 <code>writable</code> → 可否進行屬性質的修改</li>
+<li>可否被刪除 <code>configurable</code>  → 可否可以用 <code>delete</code> 刪除屬性</li>
+<li>可否被列舉 <code>enumerable</code>  → 可否利用 <code>for...in</code> 迴圈 將物件屬性列舉出來，可以限制特定的屬性是否被列舉出來</li>
+</ul>
+<hr>
+<h3 id="Object-defineProperty-實際運用"><a href="#Object-defineProperty-實際運用" class="headerlink" title="Object.defineProperty 實際運用"></a>Object.defineProperty 實際運用</h3><p>先看一下 <code>Object.defineProperty</code> 語法的用法：  </p>
+<pre><code class="javascript"><span class="built_in">Object</span>.defineProperty( 物件的變數，或是物件本人, 要修改的屬性名稱(字串), {
+
+    value: 要修改或是賦予甚麼值,
+    writable: 布林值,
+    configurable: 布林值,
+    enumerable: 布林值
+});
+
+<span class="built_in">Object</span>.defineProperty( person, <span class="string">'a'</span>, {
+    value: <span class="number">4</span>,
+    writable: <span class="literal">true</span>,
+    configurable: <span class="literal">true</span>,
+    enumerable: <span class="literal">true</span>
+});</code></pre>
+<p>不一定每次每個屬性特徵都要列出來，也可以只修改一種：  </p>
+<pre><code class="javascript"><span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    configurable: <span class="literal">false</span>,
+});</code></pre>
+<p>那我們實際來操作看看：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    value: <span class="number">4</span>,
+    writable: <span class="literal">true</span>,
+    configurable: <span class="literal">true</span>,
+    enumerable: <span class="literal">true</span>
+});
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p><img src="https://imgur.com/tePz2iI.png" alt=" ">  </p>
+<p>我們會發現，一開始 <code>a</code> 的值是 <code>1</code> ，但是展開後 <code>a</code> 的值是 <code>4</code>，所以他會顯示已經變化過後的值。  </p>
+<p>我們再來修改其他的屬性看看 ~  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    value: <span class="number">4</span>,
+    writable: <span class="literal">false</span>,
+    configurable: <span class="literal">true</span>,
+    enumerable: <span class="literal">true</span>
+});
+
+person.a = <span class="number">5</span>;
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p>我們把 <code>writable</code> 改成 <code>false</code>，代表我們沒有辦法再重新修改 <code>a</code> 屬性的 <code>value</code>  </p>
+<p><img src="https://imgur.com/HYpBiui.png" alt=" ">  </p>
+<p>所以我們利用 <code>Object.defineProperty</code> 把 <code>a</code> 的屬性改成 <code>4</code> 之後，並且把 <code>writable</code> 改成 <code>false</code> ，後面的 <code>person.a = 5;</code>  </p>
+<p>就沒辦法再進行修改的動作了。<br></br>  </p>
+<p>但其實這樣的狀況會是一個靜默的錯誤！  </p>
+<p>也就是在非嚴格模式下<code>(Sloppy mode)</code>，不會顯示錯誤紅字，但是如果切換到嚴格模式的話，就會有錯誤訊息產生。  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    writable: <span class="literal">false</span>,
+    configurable: <span class="literal">true</span>,
+    value: <span class="number">4</span>,
+    enumerable: <span class="literal">true</span>
+});
+
+person.a = <span class="number">5</span>;
+
+(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+<span class="meta">    'use strict'</span>;
+    person.a = <span class="number">5</span>;
+})();
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p><img src="https://imgur.com/xULGHb8.png" alt=" ">  </p>
+<p>同時也會導致最後面的 <code>console.log</code> 不會執行，所以在嚴格模式的時候要特別注意。  </p>
+<hr>
+<p>接著我們針對 <code>b</code> 的屬性來試試看不同的屬性操作  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    value: <span class="number">4</span>,
+    writable: <span class="literal">false</span>,
+    configurable: <span class="literal">true</span>,
+    enumerable: <span class="literal">true</span>
+});
+
+person.a = <span class="number">5</span>;
+
+<span class="comment">// (function () {</span>
+<span class="comment">//     'use strict';</span>
+<span class="comment">//     person.a = 5;</span>
+<span class="comment">// })();</span>
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'b'</span>, {
+    configurable: <span class="literal">false</span>,
+});
+
+<span class="keyword">delete</span> person.a;
+<span class="keyword">delete</span> person.b;
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p><img src="https://imgur.com/zoirRWF.png" alt=" ">  </p>
+<p>在這邊我設定 <code>b</code> 的 <code>configurable</code> 屬性為 <code>false</code> 後， <code>b</code> 的屬性就無法被 <code>delete</code> 語法給刪除，但 <code>a</code> 可以成功被刪除  </p>
+<p>最後介紹一個 <code>enumerable</code> 的屬性套用在屬性 <code>c</code> 身上，並且我們先不刪除 <code>a</code> 屬性，透過 <code>for in</code> 的迴圈顯示物件 <code>person</code> 的  </p>
+<p>屬性名稱：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    writable: <span class="literal">false</span>,
+    configurable: <span class="literal">true</span>,
+    value: <span class="number">4</span>,
+    enumerable: <span class="literal">true</span>
+});
+
+person.a = <span class="number">5</span>;
+
+<span class="comment">// (function () {</span>
+<span class="comment">//     'use strict';</span>
+<span class="comment">//     person.a = 5;</span>
+<span class="comment">// })();</span>
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'b'</span>, {
+    configurable: <span class="literal">false</span>,
+});
+
+<span class="comment">// delete person.a;</span>
+<span class="keyword">delete</span> person.b;
+
+<span class="comment">// Object.defineProperty(person, 'c', {</span>
+<span class="comment">//     enumerable: false,</span>
+<span class="comment">// });</span>
+
+<span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> person) {
+    <span class="built_in">console</span>.log(<span class="string">'列舉: '</span> + key);
+}
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p><img src="https://imgur.com/2LoILy0.png" alt=" ">  </p>
+<p>最後我們再把註解拿掉  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    writable: <span class="literal">false</span>,
+    configurable: <span class="literal">true</span>,
+    value: <span class="number">4</span>,
+    enumerable: <span class="literal">true</span>
+});
+
+person.a = <span class="number">5</span>;
+
+<span class="comment">// (function () {</span>
+<span class="comment">//     'use strict';</span>
+<span class="comment">//     person.a = 5;</span>
+<span class="comment">// })();</span>
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'b'</span>, {
+    configurable: <span class="literal">false</span>,
+});
+
+<span class="keyword">delete</span> person.a;
+<span class="keyword">delete</span> person.b;
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'c'</span>, {
+    enumerable: <span class="literal">false</span>,
+});
+
+<span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> person) {
+    <span class="built_in">console</span>.log(<span class="string">'列舉: '</span> + key);
+}
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p><img src="https://imgur.com/tTfsX4K.png" alt=" ">  </p>
+<p>可以看到， <code>a</code> 因為被刪掉了無法被列舉，<code>b</code> 可以被列舉但不能寫入，<code>c</code> 還在但不能被列舉，  </p>
+<p>所以被列舉出來的只有 <code>b</code> 屬性。</p>
+<hr>
+<h3 id="Object-defineProperty-除了修改以外，也可以做到新增"><a href="#Object-defineProperty-除了修改以外，也可以做到新增" class="headerlink" title="Object.defineProperty 除了修改以外，也可以做到新增"></a>Object.defineProperty 除了修改以外，也可以做到新增</h3><pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    writable: <span class="literal">false</span>,
+    configurable: <span class="literal">true</span>,
+    value: <span class="number">4</span>,
+    enumerable: <span class="literal">true</span>
+});
+
+person.a = <span class="number">5</span>;
+
+<span class="comment">// (function () {</span>
+<span class="comment">//     'use strict';</span>
+<span class="comment">//     person.a = 5;</span>
+<span class="comment">// })();</span>
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'b'</span>, {
+    configurable: <span class="literal">false</span>,
+});
+
+<span class="keyword">delete</span> person.a;
+<span class="keyword">delete</span> person.b;
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'c'</span>, {
+    enumerable: <span class="literal">false</span>,
+});
+
+<span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> person) {
+    <span class="built_in">console</span>.log(<span class="string">'列舉: '</span> + key);
+}
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'d'</span>, {
+    writable: <span class="literal">false</span>,
+    value: {},
+});
+
+person.d = <span class="number">6</span>;
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p>在這邊我們新增了屬性 <code>&#39;d&#39;</code> 到 <code>person</code> 這個物件裡面，並且給予不可寫入的特徵，他的值我們給予空物件。</p>
+<p>當然 <code>person.d = 6;</code> 就又會是一個靜默錯誤並且不能夠進行修改。但是當我們今天是針對它裡面的值做額外的設定的話，  </p>
+<p>還是有辦法賦予到內層物件的值喔！  </p>
+<pre><code class="javascript"><span class="keyword">var</span> person = {
+    a: <span class="number">1</span>,
+    b: <span class="number">2</span>,
+    c: <span class="number">3</span>
+};
+
+<span class="built_in">console</span>.log(person);
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'a'</span>, {
+    writable: <span class="literal">false</span>,
+    configurable: <span class="literal">true</span>,
+    value: <span class="number">4</span>,
+    enumerable: <span class="literal">true</span>
+});
+
+person.a = <span class="number">5</span>;
+
+<span class="comment">// (function () {</span>
+<span class="comment">//     'use strict';</span>
+<span class="comment">//     person.a = 5;</span>
+<span class="comment">// })();</span>
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'b'</span>, {
+    configurable: <span class="literal">false</span>,
+});
+
+<span class="keyword">delete</span> person.a;
+<span class="keyword">delete</span> person.b;
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'c'</span>, {
+    enumerable: <span class="literal">false</span>,
+});
+
+<span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> person) {
+    <span class="built_in">console</span>.log(<span class="string">'列舉: '</span> + key);
+}
+
+<span class="built_in">Object</span>.defineProperty(person, <span class="string">'d'</span>, {
+    writable: <span class="literal">false</span>,
+    value: {},
+});
+
+person.d = <span class="number">6</span>;
+
+person.d.a = <span class="number">6</span>;
+
+<span class="built_in">console</span>.log(person);</code></pre>
+<p><img src="https://imgur.com/SuEkOmy.png" alt=" ">  </p>
+<p>這也是特別要注意的點，就是以上這4個物件的特徵，都是屬於淺層的控制，深層的控制則需要另外再進行設定喔！  </p>
+<hr>
+<h3 id="Object-defineProperties"><a href="#Object-defineProperties" class="headerlink" title="Object.defineProperties"></a>Object.defineProperties</h3><p>剛剛我們都是一個一個屬性設定，有些人會覺得這樣很麻煩，我設定一個屬性就要寫一長串，這裡就要介紹可以同時設定很多  </p>
+<p>屬性的方法，那就是 <code>Object.defineProperties</code>  </p>
+<pre><code class="javascript"><span class="built_in">Object</span>.defineProperties(物件變數或物件本人, {
+    物件屬性名稱<span class="number">1</span>: {
+        特徵<span class="number">1</span>: xx
+        特徵<span class="number">2</span>: xx
+        特徵<span class="number">3</span>: xx
+        特徵<span class="number">4</span>: xx
+
+    },
+    物件屬性名稱<span class="number">2</span>: {
+        特徵<span class="number">1</span>: xx
+        特徵<span class="number">2</span>: xx
+        特徵<span class="number">3</span>: xx
+        特徵<span class="number">4</span>: xx
+
+    },...
+});
+
+<span class="built_in">Object</span>.defineProperties(person, {
+    a: {
+        writable: <span class="literal">false</span>,
+        configurable: <span class="literal">true</span>,
+        value: <span class="number">4</span>,
+        enumerable: <span class="literal">true</span>
+    },
+    b: {
+        configurable: <span class="literal">false</span>,
+    },
+    c: {
+        enumerable: <span class="literal">false</span>,
+    },
+    d : {
+        writable: <span class="literal">false</span>,
+        value: {}
+    }
+});</code></pre>
+<p>上方程式碼的就是依照這篇文章剛剛練習的內容一次進行設定的寫法，大家也可以試試看設定不同的屬性。  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/13/JS%E6%A0%B8%E5%BF%83-51-%E7%B9%BC%E6%89%BF%E8%88%87%E5%8E%9F%E5%9E%8B%E7%B7%B4-%E8%AA%B2%E5%BE%8C%E7%B7%B4%E7%BF%92/" rel="prev" title="JS核心-(51)-繼承與原型練-課後練習">
+      <i class="fa fa-chevron-left"></i> JS核心-(51)-繼承與原型練-課後練習
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/16/JS%E6%A0%B8%E5%BF%83-53-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E5%BB%B6%E4%BC%B8%E7%AB%A0%E7%AF%80%EF%BC%9A%E5%B1%AC%E6%80%A7%E7%9A%84%E7%89%B9%E5%BE%B5-%E7%89%A9%E4%BB%B6%E5%B1%AC%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%AF%AB%E5%85%A5%EF%BC%9F%E7%89%A9%E4%BB%B6%E6%93%B4%E5%85%85%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%87%E8%AA%BF%E6%95%B4/" rel="next" title="JS核心-(53)-物件屬性延伸章節：屬性的特徵-物件屬性不可寫入？物件擴充的修改與調整">
+      JS核心-(53)-物件屬性延伸章節：屬性的特徵-物件屬性不可寫入？物件擴充的修改與調整 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-defineProperty"><span class="nav-number">2.</span> <span class="nav-text">Object.defineProperty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-defineProperty-實際運用"><span class="nav-number">3.</span> <span class="nav-text">Object.defineProperty 實際運用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-defineProperty-除了修改以外，也可以做到新增"><span class="nav-number">4.</span> <span class="nav-text">Object.defineProperty 除了修改以外，也可以做到新增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-defineProperties"><span class="nav-number">5.</span> <span class="nav-text">Object.defineProperties</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
