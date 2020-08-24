@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言箭頭函式實際運用的情況，介紹哪些變化以及應用是比較常使用到的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(66)-ES6 章節：箭頭函式-箭頭函式實戰用法">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-66-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E5%AF%A6%E6%88%B0%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言箭頭函式實際運用的情況，介紹哪些變化以及應用是比較常使用到的">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/iEW8VNW.png">
+<meta property="article:published_time" content="2020-08-23T01:51:43.000Z">
+<meta property="article:modified_time" content="2020-08-23T06:08:58.696Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/iEW8VNW.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-66-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E5%AF%A6%E6%88%B0%E7%94%A8%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(66)-ES6 章節：箭頭函式-箭頭函式實戰用法 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-66-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E5%AF%A6%E6%88%B0%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(66)-ES6 章節：箭頭函式-箭頭函式實戰用法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-23 09:51:43 / عُدل: 14:08:58" itemprop="dateCreated datePublished" datetime="2020-08-23T09:51:43+08:00">2020-08-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+                  ، 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">JavaScript 核心篇</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>箭頭函式實際運用的情況，介紹哪些變化以及應用是比較常使用到的  </p>
+<a id="more"></a>  
+
+<hr>
+<h3 id="搭配陣列的方法-陣列雙倍"><a href="#搭配陣列的方法-陣列雙倍" class="headerlink" title="搭配陣列的方法 (陣列雙倍)"></a>搭配陣列的方法 (陣列雙倍)</h3><p>關於陣列處理的方法有很多種，這邊提供這篇 <a href="https://wcc723.github.io/javascript/2017/06/29/es6-native-array/" target="_blank" rel="noopener">文章</a> 給大家參考看看。  </p>
+<p>這邊就直接進入主題不贅述原理以及使用方法  </p>
+<pre><code class="javascript"><span class="keyword">const</span> arr = [<span class="number">15</span>, <span class="number">33</span>, <span class="number">89</span>, <span class="number">1546</span>, <span class="number">32555</span>, <span class="number">78</span>, <span class="number">5</span>, <span class="number">90</span>, <span class="number">449</span>, <span class="number">1069</span>, <span class="number">45</span>];
+<span class="keyword">const</span> arrDouble = arr.map(<span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>{
+    <span class="keyword">return</span> num * <span class="number">2</span>
+});
+<span class="built_in">console</span>.log(arrDouble);</code></pre>
+<p><img src="https://imgur.com/iEW8VNW.png" alt=" ">  </p>
+<p>這邊利用傳統函式傳入 <code>map</code>，並且將每個數字 <code>(num)</code> <code>double</code> 以後再回傳組成一個新的陣列。<br></br>  </p>
+<p><strong>如果使用箭頭函式改寫的話呢？</strong>  </p>
+<pre><code class="javascript"><span class="keyword">const</span> arr = [<span class="number">15</span>, <span class="number">33</span>, <span class="number">89</span>, <span class="number">1546</span>, <span class="number">32555</span>, <span class="number">78</span>, <span class="number">5</span>, <span class="number">90</span>, <span class="number">449</span>, <span class="number">1069</span>, <span class="number">45</span>];
+<span class="keyword">const</span> arrDouble = arr.map(<span class="function"><span class="params">num</span> =&gt;</span> num * <span class="number">2</span>);
+<span class="built_in">console</span>.log(arrDouble);</code></pre>
+<ol>
+<li><p>因為只有 <code>num</code> 一個參數，所以可以去掉 <code>( )</code>  </p>
+</li>
+<li><p>因為只有一行表達式，並且是要回傳的，可以去掉 <code>return</code> 的字眼以及 <code>{ }</code>  </p>
+</li>
+</ol>
+<p>這樣縮寫完以後，程式碼不但更精簡，而且效果也是一樣的  </p>
+<hr>
+<h3 id="搭配陣列的方法-平均數"><a href="#搭配陣列的方法-平均數" class="headerlink" title="搭配陣列的方法 (平均數)"></a>搭配陣列的方法 (平均數)</h3><pre><code class="javascript"><span class="keyword">const</span> average = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="keyword">const</span> nums = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>);
+    <span class="keyword">const</span> total = nums.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">acc, val</span>) </span>{
+        <span class="keyword">return</span> acc + val;
+    }, <span class="number">0</span>);
+
+    <span class="built_in">console</span>.log(<span class="string">'total'</span>, total);
+    <span class="keyword">return</span> total / nums.length;
+};
+
+<span class="built_in">console</span>.log(average(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">99</span>,<span class="number">5</span>));</code></pre>
+<p>這段程式碼主要就是將傳入的參數全部加起來 <code>(reduce)</code>，再除與總數得到平均值。</p>
+<p>我們利用 <code>Array.from</code> 將類陣列 <code>average(1,2,3,4,99,5)</code> 轉換成陣列，屬於 <code>ES6</code> 的新增語法。</p>
+<p><code>nums.reduce</code> 的 <code>function</code> ，首先 <code>acc</code> 會先帶入 <code>0</code> ， <code>val</code> 帶入 <code>average(1,2,3,4,99,5)</code> 裡的 <code>1</code> ，之後  <code>return acc + val</code>  </p>
+<p>也就是 <code>0</code> + <code>1</code> 等於 <code>1</code>。<br></br>  </p>
+<p>接著 <code>return</code> 的這個 <code>1</code> 再繼續帶入 <code>function</code> 的 <code>acc</code> ， <code>val</code> 帶入<code>average(1,2,3,4,99,5)</code> 裡的第二個參數 <code>2</code> ，  </p>
+<p>之後  <code>return acc + val</code> 也就是 <code>1</code> + <code>2</code> 等於 <code>3</code>。 以此方式接續到最後。<br></br>  </p>
+<p> <code>reduce</code> 的用法可以參考剛剛上面的文章。<br></br>  </p>
+<p><strong>那麼如果使用箭頭函式改寫的話呢？</strong>  </p>
+<pre><code class="javascript"><span class="keyword">const</span> average = <span class="function">(<span class="params">...nums</span>) =&gt;</span> nums.reduce(<span class="function">(<span class="params">acc, val</span>) =&gt;</span> acc + val, <span class="number">0</span>) / nums.length;
+
+<span class="built_in">console</span>.log(average(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">99</span>,<span class="number">5</span>));</code></pre>
+<p>直接就只縮寫成一行，原本的 <code>nums</code> 可以利用之前介紹的其餘參數運算子 <code>(...nums)</code> 進行展開，重新變成陣列。  </p>
+<p>再套用 <code>reduce</code> 的方法，同樣 <code>reduce</code> 的內部也使用箭頭函式改寫，去掉 <code>return</code> 及 <code>{ }</code> ，但因為參數有兩個，  </p>
+<p>所以不能省略 <code>( )</code> 。最後再除上陣列的長度，就可以直接回傳平均數了。  </p>
+<p>透過上面兩個範例可以了解到，箭頭函式對於精簡程式碼的部分有著非常強大的功用。  </p>
+<hr>
+<h3 id="物件內的-This"><a href="#物件內的-This" class="headerlink" title="物件內的 This"></a>物件內的 This</h3><pre><code class="javascript"><span class="keyword">const</span> person = {
+    data: {
+
+    },
+    getData: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+        <span class="keyword">const</span> vm = <span class="keyword">this</span>;
+        $.ajax({
+            url: <span class="string">'https:randomuser.me/api/'</span>,
+            dataType: <span class="string">'json'</span>,
+            success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>{
+                <span class="built_in">console</span>.log(<span class="string">'data'</span>, data);
+                vm.data = data.results[<span class="number">0</span>];
+                <span class="built_in">console</span>.log(<span class="string">'person.data'</span>, person.data);
+            }
+        });
+    }
+};
+person.getData();</code></pre>
+<p>這是一個蠻常見的應用，我們首先用 <code>ajax</code> 跟遠端要資料，之後再把資料放入物件裡面的 <code>data</code> 中。</p>
+<p>其中為了不讓 <code>this</code> 跑掉，所以特別使用 <code>const vm = this;</code> 來存取 <code>this</code> 的指向，除了 <code>vm</code> 之外，  </p>
+<p>也常見到使用 <code>that</code> / <code>self</code> 等變數來取代。<br></br>  </p>
+<p><strong>箭頭函式要如何在這裡派上用場呢？</strong>  </p>
+<pre><code class="javascript"><span class="keyword">const</span> person = {
+    data: {
+
+    },
+    getData: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+        <span class="comment">// const vm = this;</span>
+        $.ajax({
+            url: <span class="string">'https:randomuser.me/api/'</span>,
+            dataType: <span class="string">'json'</span>,
+            success: <span class="function"><span class="params">data</span> =&gt;</span> {
+                <span class="built_in">console</span>.log(<span class="string">'data'</span>, data);
+                <span class="keyword">this</span>.data = data.results[<span class="number">0</span>];
+                <span class="built_in">console</span>.log(<span class="string">'person.data'</span>, person.data);
+            }
+        });
+    }
+};
+person.getData();</code></pre>
+<p>我們可以把 <code>suceess</code> 的函式改為箭頭函式，雖然箭頭函式並沒有自己的 <code>this</code>，但它會取用外層的 <code>this</code> 當成自己的 <code>this</code>，  </p>
+<p>以這樣的狀況來說它就是取用了 <code>getData</code> 的 <code>this</code>。  </p>
+<p>也就是 <code>person</code> 這個物件，所以我們也就可以把 <code>const vm = this;</code> 給註解掉，讓程式碼更為精簡。  </p>
+<hr>
+<p>最後介紹一個小工具：<a href="https://30secondsofknowledge.com/" target="_blank" rel="noopener">https://30secondsofknowledge.com/</a>  </p>
+<p>把這個小工具加到 <code>chrome</code> 以後，只要在非無痕模式下新增頁籤，就會有不同主題的片段程式碼，並且這些程式碼片段大多都是  </p>
+<p>使用箭頭函式撰寫的。有特別喜歡的話也可以加入收藏，只要在右下角的地方打開就可以找到有收藏了那些程式碼囉！  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-65-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C/" rel="prev" title="JS核心-(65)-ES6 章節：箭頭函式-常見問題">
+      <i class="fa fa-chevron-left"></i> JS核心-(65)-ES6 章節：箭頭函式-常見問題
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-67-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC%EF%BC%88Template-literals%EF%BC%89%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/" rel="next" title="JS核心-(67)-ES6 章節：Template Literial-樣板字面值（Template literals）基本介紹">
+      JS核心-(67)-ES6 章節：Template Literial-樣板字面值（Template literals）基本介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭配陣列的方法-陣列雙倍"><span class="nav-number">2.</span> <span class="nav-text">搭配陣列的方法 (陣列雙倍)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭配陣列的方法-平均數"><span class="nav-number">3.</span> <span class="nav-text">搭配陣列的方法 (平均數)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件內的-This"><span class="nav-number">4.</span> <span class="nav-text">物件內的 This</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

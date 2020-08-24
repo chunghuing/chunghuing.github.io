@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言進階的用法：標籤樣板字面值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(70)-ES6 章節：Template Literial-標籤樣板字面值">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-70-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%99%E7%B1%A4%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言進階的用法：標籤樣板字面值">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/WBvv1Gb.png">
+<meta property="og:image" content="https://imgur.com/XdyhQUm.png">
+<meta property="og:image" content="https://imgur.com/t3hzaAT.png">
+<meta property="og:image" content="https://imgur.com/xejeamk.png">
+<meta property="og:image" content="https://imgur.com/QgP09Tr.png">
+<meta property="og:image" content="https://imgur.com/rCPHxXe.png">
+<meta property="og:image" content="https://imgur.com/mcVXHEH.png">
+<meta property="og:image" content="https://imgur.com/cIh6snQ.png">
+<meta property="og:image" content="https://imgur.com/VQhsD5b.png">
+<meta property="og:image" content="https://imgur.com/td1NkoI.png">
+<meta property="article:published_time" content="2020-08-23T06:30:43.000Z">
+<meta property="article:modified_time" content="2020-08-24T07:08:41.843Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/WBvv1Gb.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-70-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%99%E7%B1%A4%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(70)-ES6 章節：Template Literial-標籤樣板字面值 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-70-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%99%E7%B1%A4%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(70)-ES6 章節：Template Literial-標籤樣板字面值
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-08-23 14:30:43" itemprop="dateCreated datePublished" datetime="2020-08-23T14:30:43+08:00">2020-08-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-24 15:08:41" itemprop="dateModified" datetime="2020-08-24T15:08:41+08:00">2020-08-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>進階的用法：標籤樣板字面值  </p>
+<a id="more"></a>  
+
+<hr>
+<h3 id="標籤樣板字面值"><a href="#標籤樣板字面值" class="headerlink" title="標籤樣板字面值"></a>標籤樣板字面值</h3><p>先用一個簡單的範例來帶大家了解什麼是標籤樣板字面值。  </p>
+<p><code>showConsole</code> 這個函式會顯示接收到的字串以及參數，下方也有定義好的變數，以及事先準備好的樣板字面值字串。  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">showConsole</span>(<span class="params">strings, arg1</span>) </span>{
+    <span class="built_in">console</span>.log(strings, arg1);
+}
+
+<span class="keyword">const</span> myName = <span class="string">'Bob'</span>;
+<span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕!`</span></code></pre>
+</br>  
+
+<p>所謂的標籤樣板字面值，就是  </p>
+<pre><code class="javascript">showConsole<span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕!`</span>;</code></pre>
+<p>直接將函式名稱 <code>showConsole</code> 接在樣板字面值之前，存檔執行以後如下  </p>
+<p><img src="https://imgur.com/WBvv1Gb.png" alt=" "><br></br><br></br>  </p>
+<p>這樣的原理到底是怎麼運作的呢？  </p>
+<p>這邊解釋一下，我們傳入第一個參數 <code>strings</code> 是由樣板字面值拆解而來的，那麼拆解的規則就是依據我們在樣板字面值中的  </p>
+<p><code>${ }</code> 作為分段點，所以可以看到這邊就被拆成了兩段，並且放入一個陣列中。  </p>
+<p><img src="https://imgur.com/XdyhQUm.png" alt=" ">  </p>
+<p>另外， <code>arg</code> 則是 <code>${ }</code> 所傳入的變數，如果現在樣板字面值中的變數有多個的話，也會傳入多個。  </p>
+<pre><code class="javascript"><span class="comment">// 標籤樣板字面值</span>
+<span class="function"><span class="keyword">function</span> <span class="title">showConsole</span>(<span class="params">strings, arg1, arg2, arg3</span>) </span>{
+    <span class="built_in">console</span>.log(strings, arg1, arg2, arg3);
+}
+
+<span class="keyword">const</span> myName = <span class="string">'Bob'</span>;
+showConsole<span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕! <span class="subst">${<span class="number">2</span>}</span> <span class="subst">${<span class="number">3</span>}</span>`</span>;</code></pre>
+<p><img src="https://imgur.com/t3hzaAT.png" alt=" ">  </p>
+<p>眼尖的人可以發現，只要參數變多，我手動設定的 <code>arg</code> 變數也要跟著變多，但有時候就是不知道會傳幾個參數。  </p>
+<p>這個時候就要使用前面章節也使用過的其餘參數運算子 <code>(...)</code> ，來盛裝這些傳入的參數內容。  </p>
+<pre><code class="javascript"><span class="comment">// 標籤樣板字面值</span>
+<span class="function"><span class="keyword">function</span> <span class="title">showConsole</span>(<span class="params">strings, ...arg</span>) </span>{
+    <span class="built_in">console</span>.log(strings, arg);
+}
+
+<span class="keyword">const</span> myName = <span class="string">'Bob'</span>;
+showConsole<span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕! <span class="subst">${<span class="number">2</span>}</span> <span class="subst">${<span class="number">3</span>}</span>`</span>;</code></pre>
+<p><img src="https://imgur.com/xejeamk.png" alt=" ">  </p>
+<hr>
+</br>  
+
+<p>接下來我們就透過一個小範例來讓大家更了解要怎麼用運用標籤樣板字面值：  </p>
+<p><strong>範例1</strong>  </p>
+<p>情境：我們現在希望得到一個組好的字串  </p>
+<pre><code class="javascript"><span class="string">`您好 &lt;span&gt; Bob &lt;/span&gt; ，餐點已經準備好嚕~!`</span></code></pre>
+<p>那我們剛剛依據所學得，先做出第一部的程式碼來看看  </p>
+<pre><code class="javascript"><span class="keyword">const</span> myName = <span class="string">'Bob'</span>;
+<span class="keyword">const</span> sentence = <span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕!`</span>;
+
+<span class="built_in">console</span>.log(sentence);</code></pre>
+<p><img src="https://imgur.com/QgP09Tr.png" alt=" "><br></br>  </p>
+<p>那麼我們要針對變數加上 <code>span</code> 的標籤的話，就要使用標籤樣板字面值，為此我們得先定義一個函式。  </p>
+<pre><code class="javascript"><span class="keyword">const</span> myName = <span class="string">'Bob'</span>;
+<span class="keyword">const</span> highlight = <span class="function">(<span class="params">strings, ...arg</span>) =&gt;</span>(
+    strings.map(<span class="function">(<span class="params">str, i</span>) =&gt;</span> <span class="string">`<span class="subst">${str}</span>`</span>)
+);
+<span class="keyword">const</span> sentence = highlight<span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕!`</span>;
+
+<span class="built_in">console</span>.log(sentence);</code></pre>
+<p>定義好之後，我們針對 <code>strings</code> 進行 <code>map</code> 的迴圈，最後會回傳一個新的陣列。並且先把 <code>str</code> 印出來，  </p>
+<p>看看是不是被拆解的字串  </p>
+<p><img src="https://imgur.com/rCPHxXe.png" alt=" ">  </p>
+<p>如我們預期的，只有先是字串的陣列，那麼這個時候我們再使用 <code>join</code>，將陣列轉為字串，同時去除掉逗號。  </p>
+<pre><code class="javascript"><span class="keyword">const</span> myName = <span class="string">'Bob'</span>;
+<span class="keyword">const</span> highlight = <span class="function">(<span class="params">strings, ...arg</span>) =&gt;</span>( 
+    strings.map(<span class="function">(<span class="params">str, i</span>) =&gt;</span> <span class="string">`<span class="subst">${str}</span>`</span>).join(<span class="string">''</span>)
+);
+<span class="keyword">const</span> sentence = highlight<span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕!`</span>;
+
+<span class="built_in">console</span>.log(sentence);</code></pre>
+<p><img src="https://imgur.com/mcVXHEH.png" alt=" ">  </p>
+<p>到這邊已經準備得差不多，字串也組好了，接著下一步就是加入傳入的變數。  </p>
+<pre><code class="javascript"><span class="keyword">const</span> myName = <span class="string">'Bob'</span>;
+<span class="keyword">const</span> highlight = <span class="function">(<span class="params">strings, ...arg</span>) =&gt;</span>( 
+    strings.map(<span class="function">(<span class="params">str, i</span>) =&gt;</span> <span class="string">`<span class="subst">${str}</span> &lt;span&gt;<span class="subst">${arg[i]}</span>&lt;/span&gt;`</span>).join(<span class="string">''</span>)
+);
+<span class="keyword">const</span> sentence = highlight<span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕!`</span>;
+
+<span class="built_in">console</span>.log(sentence);</code></pre>
+<p><img src="https://imgur.com/cIh6snQ.png" alt=" ">  </p>
+<p>只差一點點了，為什麼最後面會出現 <code>undefined</code> 呢？  </p>
+<p>原因是因為，<code>strings</code> 的陣列有兩個內容，但是 <code>arg</code> 的陣列只有一個參數傳入，所以當他找 <code>arg[1]</code> 的時候取不到值，  </p>
+<p>只好回傳 <code>undefind</code><br></br>  </p>
+<p>這個時候該怎麼辦呢？  </p>
+<p>這個時候我們就可以透過<strong>三元運算子</strong>來判斷這個值存不存在  </p>
+<pre><code class="javascript"><span class="keyword">const</span> myName = <span class="string">'Bob'</span>;
+<span class="keyword">const</span> highlight = <span class="function">(<span class="params">strings, ...arg</span>) =&gt;</span>( 
+    strings.map(<span class="function">(<span class="params">str, i</span>) =&gt;</span> <span class="string">`<span class="subst">${str}</span> <span class="subst">${arg[i] ? <span class="string">`&lt;span&gt;<span class="subst">${arg[i]}</span>&lt;/span&gt;`</span> : <span class="string">''</span> }</span>`</span>).join(<span class="string">''</span>)
+);
+<span class="keyword">const</span> sentence = highlight<span class="string">`您好 <span class="subst">${myName}</span> ，餐點已經準備好嚕!`</span>;
+
+<span class="built_in">console</span>.log(sentence);</code></pre>
+<p><img src="https://imgur.com/VQhsD5b.png" alt=" ">  </p>
+<p>這樣子就可以完成我們想要的結果囉！你可能會想說，為什麼需要這麼麻煩，一開始加上去不就好了嗎？  </p>
+<p>的確是這樣沒錯，但當變數一多的時候，直接套用就會比較方便喔！  </p>
+<hr>
+<p><strong>範例2</strong>  </p>
+<p>現在我們是一個應用程式的開發者，現在有很多使用者會來傳入訊息。  </p>
+<pre><code class="javascript">&lt;div id=<span class="string">"message"</span>&gt;&lt;<span class="regexp">/div&gt;</span>
+<span class="regexp"></span>
+<span class="regexp">const messageName = '小明';</span>
+<span class="regexp">document.querySelector('#message').innerHTML = `&lt;p&gt;${messageName}&lt;/</span>p&gt;傳來一則訊息!<span class="string">`</span></code></pre>
+<p>但是這樣的情況很容易造成 <a href="https://forum.gamer.com.tw/Co.php?bsn=60292&sn=11267" target="_blank" rel="noopener">XSS</a> 攻擊，簡單來說就是透過自定義的內容插入一些惡意的 <code>js</code> 程式，竊取用戶的個資或其他非開  </p>
+<p>發者預期的行為。  </p>
+<pre><code class="javascript"><span class="comment">// const messageName = '小明';</span>
+<span class="keyword">const</span> messageName = <span class="string">'&lt;img onload="fetch(\'https://randomuser.me/api/\')" src="https://images.unsplash.com/photo-1587613842352-3022a317a088?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80" alt=""/&gt;'</span>
+<span class="built_in">document</span>.querySelector(<span class="string">'#message'</span>).innerHTML = <span class="string">`&lt;p&gt;<span class="subst">${messageName}</span>&lt;/p&gt;傳來一則訊息!`</span></code></pre>
+<p><img src="https://imgur.com/td1NkoI.png" alt=" ">  </p>
+<p>原本應該是出現人名的地方卻傳來了一張圖片！  </p>
+<p>更可怕的是使用 <code>onload</code> 的屬性，有可能使用 <code>ajax</code> 或是把資料傳送給第三方的網站。  </p>
+<p>這個時候我們就可以使用標籤樣板字面值來把因為變數傳進來的有惡意的字串給換掉，防止 <code>XSS</code> 攻擊  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">convertHTMLXSS</span>(<span class="params">strings, ...keys</span>) </span>{
+    <span class="keyword">return</span> strings.map(<span class="function">(<span class="params">str, i</span>) =&gt;</span> (
+        <span class="string">`<span class="subst">${str}</span><span class="subst">${keys[i] ? <span class="string">`<span class="subst">${keys[i]</span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst">                .replace(<span class="regexp">/&amp;/g</span>, <span class="string">'&amp;'</span>)</span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst">                .replace(<span class="regexp">/&lt;/g</span>, <span class="string">'&lt;'</span>)</span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst">                .replace(<span class="regexp">/&gt;/g</span>, <span class="string">'&gt;'</span>)</span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst">                .replace(<span class="regexp">/"/g</span>, <span class="string">'"'</span>)</span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst">                .replace(<span class="regexp">/'/g</span>, <span class="string">''</span><span class="string">')</span></span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst"><span class="string">                .replace(/\//g, '</span><span class="regexp">/')</span></span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst"><span class="regexp">                }` : ''}`</span></span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst"><span class="regexp">    )).join('');</span></span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst"><span class="regexp">}</span></span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst"><span class="regexp"></span></span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst"><span class="regexp">const messageName = '&lt;img onload="fetch(\'https:/</span><span class="regexp">/randomuser.me/</span>api<span class="regexp">/\')" src="https:/</span><span class="regexp">/images.unsplash.com/</span>photo<span class="number">-1587613842352</span><span class="number">-3022</span>a317a088?ixlib=rb<span class="number">-1.2</span><span class="number">.1</span>&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=<span class="number">634</span>&amp;q=<span class="number">80</span><span class="string">" alt="</span><span class="string">"/&gt;'</span></span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst"><span class="string"></span></span></span></span></span>
+<span class="string"><span class="subst"><span class="string"><span class="subst"><span class="string">document.querySelector('#message').innerHTML = convertHTMLXSS`&lt;p&gt;${messageName}&lt;/p&gt;傳來一則訊息!`</span></span></span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-69-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E5%B7%A2%E7%8B%80%E7%B5%90%E6%A7%8B/" rel="prev" title="JS核心-(69)-ES6 章節：Template Literial-巢狀結構">
+      <i class="fa fa-chevron-left"></i> JS核心-(69)-ES6 章節：Template Literial-巢狀結構
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-71-Promise-%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81-Promise/" rel="next" title="JS核心-(71)-Promise-為什麼需要 Promise">
+      JS核心-(71)-Promise-為什麼需要 Promise <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#標籤樣板字面值"><span class="nav-number">2.</span> <span class="nav-text">標籤樣板字面值</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

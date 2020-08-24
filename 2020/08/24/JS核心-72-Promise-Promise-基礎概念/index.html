@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言介紹 Promise 的運行概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS核心-(72)-Promise-Promise 基礎概念">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/24/JS%E6%A0%B8%E5%BF%83-72-Promise-Promise-%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言介紹 Promise 的運行概念">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/gZScUL7.png">
+<meta property="og:image" content="https://imgur.com/M6gnhXR.png">
+<meta property="og:image" content="https://imgur.com/q61eQHo.png">
+<meta property="og:image" content="https://imgur.com/jkMTkdj.png">
+<meta property="article:published_time" content="2020-08-24T08:10:24.000Z">
+<meta property="article:modified_time" content="2020-08-24T09:29:14.319Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="JavaScript 核心篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/gZScUL7.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/24/JS%E6%A0%B8%E5%BF%83-72-Promise-Promise-%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>JS核心-(72)-Promise-Promise 基礎概念 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/24/JS%E6%A0%B8%E5%BF%83-72-Promise-Promise-%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS核心-(72)-Promise-Promise 基礎概念
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-24 16:10:24 / عُدل: 17:29:14" itemprop="dateCreated datePublished" datetime="2020-08-24T16:10:24+08:00">2020-08-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>介紹 Promise 的運行概念  </p>
+<a id="more"></a>  
+
+<h3 id="Promise-運行"><a href="#Promise-運行" class="headerlink" title="Promise 運行"></a>Promise 運行</h3><p><code>Promise</code> 在運行非同步事件的時候都會有幾個狀態，我們透過下方的圖示來解說一下  </p>
+<p><img src="https://imgur.com/gZScUL7.png" alt=" ">  </p>
+<p>首先不論如何，一開始都會有 <code>pending</code> 的狀態，也就是非同步行為還沒有確定結果，以 <code>ajax</code> 的範例來說，就是你送出了請  </p>
+<p>求，但對方還沒回應，或是資料正在傳輸的等待時間段。<br></br>  </p>
+<p>再來，因應資料回傳的結果，就有分為「成功」以及「失敗」。</p>
+<p>成功就是會讓 <code>Promise</code> 走到 <code>fullfilled</code> 的狀態，代表連線跟其他設定都沒問題，並且成功取回請求的資料。  </p>
+<p>那麼成功時所告訴 <code>Promise</code> 成功的語法就是 <code>resolve</code> (帶入成功要回傳的資訊);<br></br>  </p>
+<p>失敗就是 <code>rejected</code> 的狀態，有可能是伺服器有問題，資料庫有問題，連線有問題等等等的，反正就沒有拿到你想要的資料。  </p>
+<p>失敗的話則是 <code>reject</code> (帶入失敗要回傳的資訊)<br></br>  </p>
+<p>而不論成功或是失敗，都是屬於已經有結果的狀態，這樣的分類也同時稱作 <code>settled</code> 的狀態。  </p>
+<p>接著透過下面的簡單範例，來跟大家說明一 <code>Promise</code> 的狀態及運行順序。  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">promiseFn</span> (<span class="params">num</span>) </span>{
+    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> {
+        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+            <span class="keyword">if</span> (num) {
+                resolve(<span class="string">'成功'</span>);
+            } <span class="keyword">else</span> {
+                reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'失敗'</span>));
+            }
+        }, <span class="number">0</span>);
+    });
+}
+
+promiseFn(<span class="number">1</span>)
+    .then(<span class="function">(<span class="params">res</span>) =&gt;</span> {
+        <span class="built_in">console</span>.log(res);
+    })
+    .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> {
+        <span class="built_in">console</span>.error(err);
+    });</code></pre>
+<p>我們先宣告了一個 <code>promiseFn</code> 的函式，裡面就是 <code>return</code> 了 <code>Promise</code> 的物件，而這個物件裡面包著的是 <code>setTimeout</code> 的非同步  </p>
+<p>事件。並且在非同步事件中，我們判斷傳進來的數字是否為 <code>falsy</code> 或是 <code>truthy</code> 進行成功以及失敗字樣的回傳。  </p>
+<p>下方就是執行的內容，而如果是成功的狀態，我們可以使用 <code>then</code> 去承接成功的狀態所回傳的資料，以這邊來說就是成功的字  </p>
+<p>串。而失敗的話，則是利用 <code>catch</code> 的語法去承接失敗的資料。</p>
+<p>實際執行以後的結果：  </p>
+<p><img src="https://imgur.com/M6gnhXR.png" alt=" ">  </p>
+<p>可以看到因為我們傳入的是 <code>1</code>，所以被判斷為 <code>truthy</code>，最後回傳成功。  </p>
+<p>那麼現在改成 <code>0</code> 的話呢！  </p>
+<pre><code class="javascript">promiseFn(<span class="number">0</span>)
+    .then(<span class="function">(<span class="params">res</span>) =&gt;</span> {
+        <span class="built_in">console</span>.log(res);
+    })
+    .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> {
+        <span class="built_in">console</span>.error(err);
+    });</code></pre>
+<p><img src="https://imgur.com/q61eQHo.png" alt=" ">  </p>
+<p><img src="https://imgur.com/jkMTkdj.png" alt=" ">  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/JavaScript-%E6%A0%B8%E5%BF%83%E7%AF%87/" rel="tag"># JavaScript 核心篇</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-71-Promise-%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81-Promise/" rel="prev" title="JS核心-(71)-Promise-為什麼需要 Promise">
+      <i class="fa fa-chevron-left"></i> JS核心-(71)-Promise-為什麼需要 Promise
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-73-Promise-%E5%89%B5%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84-Promise/" rel="next" title="JS核心-(73)-Promise-創立自己的 Promise">
+      JS核心-(73)-Promise-創立自己的 Promise <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-運行"><span class="nav-number">2.</span> <span class="nav-text">Promise 運行</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
