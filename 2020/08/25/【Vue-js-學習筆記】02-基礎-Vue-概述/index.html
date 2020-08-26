@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://imgur.com/0zbrD7R.png">
 <meta property="og:image" content="https://imgur.com/nYb6LZN.png">
 <meta property="article:published_time" content="2020-08-25T08:05:09.000Z">
-<meta property="article:modified_time" content="2020-08-26T16:03:42.462Z">
+<meta property="article:modified_time" content="2020-08-26T16:07:17.038Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
@@ -91,7 +91,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -121,22 +121,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -188,22 +188,22 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2020-08-25 16:05:09" itemprop="dateCreated datePublished" datetime="2020-08-25T16:05:09+08:00">2020-08-25</time>
+              <time title="أُنشأ: 2020-08-25 16:05:09" itemprop="dateCreated datePublished" datetime="2020-08-25T16:05:09+08:00">2020-08-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2020-08-27 00:03:42" itemprop="dateModified" datetime="2020-08-27T00:03:42+08:00">2020-08-27</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-27 00:07:17" itemprop="dateModified" datetime="2020-08-27T00:07:17+08:00">2020-08-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
                 </span>
@@ -293,6 +293,7 @@
 <p><code>Model</code> 即可。在資料變動的同時 <code>VM</code> 就會去控制視圖的話，反之，若從 <code>UI</code> 更改相關資料， <code>VM</code> 則會通知 <code>Model</code> 改寫資料。<br></br><br></br>  </p>
 <p>將 <code>data</code> 中的字串綁定至 <code>DOM</code> 上可使用下列方法：  </p>
 <p><strong>1. Mustache 語法：</strong>  </p>
+<p>在中間插入顯示資料。例如：。  </p>
 <p><strong>2. v-text：</strong>  </p>
 <p><code>v-text</code> 和 <code>Mustache</code> 語法的效果是一樣的。同樣的，動態修改對象名稱的值時，渲染結果也會有對應的變化。  </p>
 <p>例如：<code>&lt;div v-text=&quot;text&quot;&gt;&lt;/div&gt;</code>。</p>
@@ -793,10 +794,10 @@ methods: {
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Inhaltsverzeichnis
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Übersicht
+          عام
         </li>
       </ul>
 
@@ -817,20 +818,20 @@ methods: {
           <a href="/archives/">
         
           <span class="site-state-item-count">105</span>
-          <span class="site-state-item-name">Artikel</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">Kategorien</span></a>
+        <span class="site-state-item-name">التصنيفات</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">schlagwörter</span></a>
+        <span class="site-state-item-name">الوسوم</span></a>
       </div>
   </nav>
 </div>
@@ -862,7 +863,7 @@ methods: {
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
