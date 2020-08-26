@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言在六角學院購買了《Vue 出一個電商網站》課程，針對這門課程做讀書筆記。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Vue.js 學習筆記】00. 目錄">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/25/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9100-%E7%9B%AE%E9%8C%84/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言在六角學院購買了《Vue 出一個電商網站》課程，針對這門課程做讀書筆記。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-08-25T08:03:27.000Z">
+<meta property="article:modified_time" content="2020-08-25T15:45:31.312Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="Vue.js">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/25/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9100-%E7%9B%AE%E9%8C%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【Vue.js 學習筆記】00. 目錄 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/25/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9100-%E7%9B%AE%E9%8C%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Vue.js 學習筆記】00. 目錄
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              <time title="Erstellt: 2020-08-25 16:03:27 / Geändert am: 23:45:31" itemprop="dateCreated datePublished" datetime="2020-08-25T16:03:27+08:00">2020-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在六角學院購買了《Vue 出一個電商網站》課程，針對這門課程做讀書筆記。  </p>
+<a id="more"></a>  
+</br>  
+
+<h3 id="01-相關資源與工具設置"><a href="#01-相關資源與工具設置" class="headerlink" title="01. 相關資源與工具設置"></a>01. 相關資源與工具設置</h3><ol>
+<li><p><a href="">Vue 官方文件</a>  </p>
+</li>
+<li><p><a href="">開發工具</a>  </p>
+</li>
+<li><p><a href="">網頁除錯工具</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="02-基礎-Vue-概述"><a href="#02-基礎-Vue-概述" class="headerlink" title="02. 基礎 Vue 概述"></a>02. 基礎 Vue 概述</h3><ul>
+<li><p><a href="">應用程式建立</a>  </p>
+</li>
+<li><p><a href="">雙向綁定的資料 與 MVVM 的概念</a>  </p>
+</li>
+<li><p><a href="">v-bind 動態屬性指令</a>  </p>
+</li>
+<li><p><a href="">v-for 動態產生多筆資料於畫面上</a>  </p>
+</li>
+<li><p><a href="">使用 v-on 來操作頁面行為</a>  </p>
+</li>
+<li><p><a href="">預先定義資料狀態的重要性</a>  </p>
+</li>
+<li><p><a href="">透過修飾符，讓 v-on 操作更簡單</a>  </p>
+</li>
+<li><p><a href="">:class 動態切換 className</a>  </p>
+</li>
+<li><p><a href="">computed 運算功能</a>  </p>
+</li>
+<li><p><a href="">Vue 表單與資料的綁定</a>  </p>
+</li>
+<li><p><a href="">元件基礎概念</a>  </p>
+</li>
+<li><p><a href="">練習測驗 1：基礎章節測驗</a>  </p>
+</br>  
+
+</li>
+</ul>
+<h3 id="03-製作一個-Todo-List-來小試身手吧"><a href="#03-製作一個-Todo-List-來小試身手吧" class="headerlink" title="03. 製作一個 Todo List 來小試身手吧"></a>03. 製作一個 Todo List 來小試身手吧</h3><ol>
+<li><p><a href="">套用版型及建立代辦事項列表的資料</a>  </p>
+</li>
+<li><p><a href="">刪除陣列上的特定資料</a>  </p>
+</li>
+<li><p><a href="">製作頁籤分類的功能</a>  </p>
+</li>
+<li><p><a href="">雙擊修改資料內容</a>  </p>
+</li>
+<li><p><a href="">刪除項目補充說明</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="04-進階模板語法介紹"><a href="#04-進階模板語法介紹" class="headerlink" title="04. 進階模板語法介紹"></a>04. 進階模板語法介紹</h3><ol>
+<li><p><a href="">模板資料細節說明</a>  </p>
+</li>
+<li><p><a href="">動態切換 ClassName 及 Style 多種方法</a>  </p>
+</li>
+<li><p><a href="">v-for 與其使用細節</a>  </p>
+</li>
+<li><p><a href="">v-if 與其使用細節</a>  </p>
+</li>
+<li><p><a href="">Computed 與 Watch</a>  </p>
+</li>
+<li><p><a href="">表單細節操作</a>  </p>
+</li>
+<li><p><a href="">v-on 的頁面操作細節</a>  </p>
+</li>
+<li><p><a href="">章節作業</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="05-Vue-的生命週期"><a href="#05-Vue-的生命週期" class="headerlink" title="05. Vue 的生命週期"></a>05. Vue 的生命週期</h3><ol>
+<li><p><a href="">Vue 生命週期</a>  </p>
+</li>
+<li><p><a href="">練習測驗 2：生命週期章節小測驗</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="06-Vue-js-元件"><a href="#06-Vue-js-元件" class="headerlink" title="06. Vue.js 元件"></a>06. Vue.js 元件</h3><ol>
+<li><p><a href="">元件概念介紹</a>  </p>
+</li>
+<li><p><a href="">使用 x-template 建立元件</a>  </p>
+</li>
+<li><p><a href="">使用 function return 建構資料格式</a>  </p>
+</li>
+<li><p><a href="">props 基本觀念</a>  </p>
+</li>
+<li><p><a href="">props 使用上的注意事項</a>  </p>
+</li>
+<li><p><a href="">props 型別及預設值</a>  </p>
+</li>
+<li><p><a href="">emit 向外層傳遞事件</a>  </p>
+</li>
+<li><p><a href="">Slot 元件插槽</a>  </p>
+</li>
+<li><p><a href="">使用 is 動態切換元件</a>  </p>
+</li>
+<li><p><a href="">元件 章節作業</a>  </p>
+</li>
+<li><p><a href="">測驗：Vue 元件測驗</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="07-JavaScript-ES6"><a href="#07-JavaScript-ES6" class="headerlink" title="07. JavaScript ES6"></a>07. JavaScript ES6</h3><ol>
+<li><p><a href="">使用 let 與 const 宣告變數</a>  </p>
+</li>
+<li><p><a href="">展開與其餘參數</a>  </p>
+</li>
+<li><p><a href="">解構</a>  </p>
+</li>
+<li><p><a href="">縮寫</a>  </p>
+</li>
+<li><p><a href="">箭頭函式與傳統函式</a>  </p>
+</li>
+<li><p><a href="">字串模板 Template String</a>  </p>
+</li>
+<li><p><a href="">常用陣列方法</a>  </p>
+</li>
+<li><p><a href="">測驗 2： ES6 小測驗</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="08-Vue-常用-API"><a href="#08-Vue-常用-API" class="headerlink" title="08. Vue 常用 API"></a>08. Vue 常用 API</h3><ol>
+<li><p><a href="">使用 Extend 避免重複造輪子</a>  </p>
+</li>
+<li><p><a href="">Filter 自訂畫面資料呈現格式</a>  </p>
+</li>
+<li><p><a href="">無法寫入的資料，用 set 搞定他</a>  </p>
+</li>
+<li><p><a href="">Mixin 混合其它的元件內容</a>  </p>
+</li>
+<li><p><a href="">使用 Directive 開發自己的互動 UI</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="09-Vue-Cli-的建置與運作原理"><a href="#09-Vue-Cli-的建置與運作原理" class="headerlink" title="09. Vue Cli 的建置與運作原理"></a>09. Vue Cli 的建置與運作原理</h3><ol>
+<li><p><a href="">為什麼要學 Vue Cli</a>  </p>
+</li>
+<li><p><a href="">Vue Cli 2.x 與 Vue Cli 3.x 課程說明</a>  </p>
+</li>
+<li><p><a href="">如何使用 Vue Cli</a>  </p>
+</li>
+<li><p><a href="">Vue Cli 所產生的資料夾結構說明</a>  </p>
+</li>
+<li><p><a href="">Webpack 腳本介紹 及 自定義環境變數</a>  </p>
+</li>
+<li><p><a href="">安裝套件在 Vue Webpack 中</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="10-Vue-Router"><a href="#10-Vue-Router" class="headerlink" title="10. Vue Router"></a>10. Vue Router</h3><ol>
+<li><p><a href="">使用 Vue Router 及配置路由文件</a>  </p>
+</li>
+<li><p><a href="">新增路由路徑及連結</a>  </p>
+</li>
+<li><p><a href="">製作巢狀路由頁面</a>  </p>
+</li>
+<li><p><a href="">使用動態路由切換頁面 Ajax 結果</a>  </p>
+</li>
+<li><p><a href="">命名路由，同一個路徑載入兩個頁面元件</a>  </p>
+</li>
+<li><p><a href="">Vue Router 參數設定</a>  </p>
+</li>
+<li><p><a href="">自定義切換路由方法</a>  </p>
+</br>  
+
+</li>
+</ol>
+<h3 id="11-Vue-出一個電商網站"><a href="#11-Vue-出一個電商網站" class="headerlink" title="11. Vue 出一個電商網站"></a>11. Vue 出一個電商網站</h3></br>  
+
+<h3 id="12-Vue-Cli-3-0"><a href="#12-Vue-Cli-3-0" class="headerlink" title="12. Vue Cli 3.0"></a>12. Vue Cli 3.0</h3></br>  
+
+<h3 id="13-Vuex-管理大型網站資料狀態"><a href="#13-Vuex-管理大型網站資料狀態" class="headerlink" title="13. Vuex 管理大型網站資料狀態"></a>13. Vuex 管理大型網站資料狀態</h3></br>  
+
+<h3 id="14-線上問答會實戰內容"><a href="#14-線上問答會實戰內容" class="headerlink" title="14. 線上問答會實戰內容"></a>14. 線上問答會實戰內容</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-76-Promise-Promise-%E8%88%87-Ajax/" rel="prev" title="JS核心-(76)-Promise-Promise 與 Ajax">
+      <i class="fa fa-chevron-left"></i> JS核心-(76)-Promise-Promise 與 Ajax
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/25/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9101-%E7%9B%B8%E9%97%9C%E8%B3%87%E6%BA%90%E8%88%87%E5%B7%A5%E5%85%B7%E8%A8%AD%E7%BD%AE/" rel="next" title="【Vue.js 學習筆記】01. 相關資源與工具設置">
+      【Vue.js 學習筆記】01. 相關資源與工具設置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Inhaltsverzeichnis
+        </li>
+        <li class="sidebar-nav-overview">
+          Übersicht
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#01-相關資源與工具設置"><span class="nav-number">2.</span> <span class="nav-text">01. 相關資源與工具設置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02-基礎-Vue-概述"><span class="nav-number">3.</span> <span class="nav-text">02. 基礎 Vue 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#03-製作一個-Todo-List-來小試身手吧"><span class="nav-number">4.</span> <span class="nav-text">03. 製作一個 Todo List 來小試身手吧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#04-進階模板語法介紹"><span class="nav-number">5.</span> <span class="nav-text">04. 進階模板語法介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-Vue-的生命週期"><span class="nav-number">6.</span> <span class="nav-text">05. Vue 的生命週期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#06-Vue-js-元件"><span class="nav-number">7.</span> <span class="nav-text">06. Vue.js 元件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#07-JavaScript-ES6"><span class="nav-number">8.</span> <span class="nav-text">07. JavaScript ES6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#08-Vue-常用-API"><span class="nav-number">9.</span> <span class="nav-text">08. Vue 常用 API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#09-Vue-Cli-的建置與運作原理"><span class="nav-number">10.</span> <span class="nav-text">09. Vue Cli 的建置與運作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Vue-Router"><span class="nav-number">11.</span> <span class="nav-text">10. Vue Router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Vue-出一個電商網站"><span class="nav-number">12.</span> <span class="nav-text">11. Vue 出一個電商網站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-Vue-Cli-3-0"><span class="nav-number">13.</span> <span class="nav-text">12. Vue Cli 3.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-Vuex-管理大型網站資料狀態"><span class="nav-number">14.</span> <span class="nav-text">13. Vuex 管理大型網站資料狀態</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-線上問答會實戰內容"><span class="nav-number">15.</span> <span class="nav-text">14. 線上問答會實戰內容</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">Artikel</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">Kategorien</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">schlagwörter</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
