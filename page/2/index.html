@@ -81,7 +81,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -111,22 +111,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -156,6 +156,388 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/24/JS%E6%A0%B8%E5%BF%83-74-Promise-Promise-Chain-%E9%8F%88%E6%8E%A5%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-74-Promise-Promise-Chain-%E9%8F%88%E6%8E%A5%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">JS核心-(74)-Promise-Promise Chain 鏈接技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-24 16:10:35 / عُدل: 19:48:05" itemprop="dateCreated datePublished" datetime="2020-08-24T16:10:35+08:00">2020-08-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>介紹 Promise Chain  </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-74-Promise-Promise-Chain-%E9%8F%88%E6%8E%A5%E6%8A%80%E5%B7%A7/#more" rel="contents">
+                تابع القراءة &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/24/JS%E6%A0%B8%E5%BF%83-73-Promise-%E5%89%B5%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84-Promise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-73-Promise-%E5%89%B5%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84-Promise/" class="post-title-link" itemprop="url">JS核心-(73)-Promise-創立自己的 Promise</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-24 16:10:30 / عُدل: 18:05:57" itemprop="dateCreated datePublished" datetime="2020-08-24T16:10:30+08:00">2020-08-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如何建立自己的 Promise  </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-73-Promise-%E5%89%B5%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84-Promise/#more" rel="contents">
+                تابع القراءة &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/24/JS%E6%A0%B8%E5%BF%83-72-Promise-Promise-%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-72-Promise-Promise-%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">JS核心-(72)-Promise-Promise 基礎概念</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-24 16:10:24 / عُدل: 17:29:14" itemprop="dateCreated datePublished" datetime="2020-08-24T16:10:24+08:00">2020-08-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>介紹 Promise 的運行概念  </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-72-Promise-Promise-%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5/#more" rel="contents">
+                تابع القراءة &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/24/JS%E6%A0%B8%E5%BF%83-71-Promise-%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81-Promise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-71-Promise-%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81-Promise/" class="post-title-link" itemprop="url">JS核心-(71)-Promise-為什麼需要 Promise</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-08-24 16:10:21 / عُدل: 17:07:49" itemprop="dateCreated datePublished" datetime="2020-08-24T16:10:21+08:00">2020-08-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Promise 的使用時機就是適合來解決非同步的事件，非同步的事件通常都是 ajax 的事件，  </p>
+<p>但其實除了 ajax 以外還有其他的方式。  </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/24/JS%E6%A0%B8%E5%BF%83-71-Promise-%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81-Promise/#more" rel="contents">
+                تابع القراءة &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-70-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%99%E7%B1%A4%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-70-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%99%E7%B1%A4%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC/" class="post-title-link" itemprop="url">JS核心-(70)-ES6 章節：Template Literial-標籤樣板字面值</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-08-23 14:30:43" itemprop="dateCreated datePublished" datetime="2020-08-23T14:30:43+08:00">2020-08-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-24 15:08:41" itemprop="dateModified" datetime="2020-08-24T15:08:41+08:00">2020-08-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>進階的用法：標籤樣板字面值  </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-70-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%99%E7%B1%A4%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC/#more" rel="contents">
+                تابع القراءة &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-69-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E5%B7%A2%E7%8B%80%E7%B5%90%E6%A7%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -178,16 +560,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
               
 
-              <time title="Erstellt: 2020-08-23 14:30:36 / Geändert am: 20:14:22" itemprop="dateCreated datePublished" datetime="2020-08-23T14:30:36+08:00">2020-08-23</time>
+              <time title="أُنشأ: 2020-08-23 14:30:36 / عُدل: 20:14:22" itemprop="dateCreated datePublished" datetime="2020-08-23T14:30:36+08:00">2020-08-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -208,7 +590,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-69-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E5%B7%A2%E7%8B%80%E7%B5%90%E6%A7%8B/#more" rel="contents">
-                Weiterlesen &raquo;
+                تابع القراءة &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -253,16 +635,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
               
 
-              <time title="Erstellt: 2020-08-23 14:30:30 / Geändert am: 16:33:06" itemprop="dateCreated datePublished" datetime="2020-08-23T14:30:30+08:00">2020-08-23</time>
+              <time title="أُنشأ: 2020-08-23 14:30:30 / عُدل: 16:33:06" itemprop="dateCreated datePublished" datetime="2020-08-23T14:30:30+08:00">2020-08-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -283,7 +665,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-68-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC%E6%8A%80%E5%B7%A7%EF%BC%9AVSCode-%E6%90%AD%E9%85%8D-Emmet-%E6%92%B0%E5%AF%AB/#more" rel="contents">
-                Weiterlesen &raquo;
+                تابع القراءة &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -328,16 +710,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
               
 
-              <time title="Erstellt: 2020-08-23 14:30:26 / Geändert am: 15:53:40" itemprop="dateCreated datePublished" datetime="2020-08-23T14:30:26+08:00">2020-08-23</time>
+              <time title="أُنشأ: 2020-08-23 14:30:26 / عُدل: 15:53:40" itemprop="dateCreated datePublished" datetime="2020-08-23T14:30:26+08:00">2020-08-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -358,7 +740,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-67-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ATemplate-Literial-%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC%EF%BC%88Template-literals%EF%BC%89%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/#more" rel="contents">
-                Weiterlesen &raquo;
+                تابع القراءة &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -403,22 +785,22 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2020-08-23 09:51:43" itemprop="dateCreated datePublished" datetime="2020-08-23T09:51:43+08:00">2020-08-23</time>
+              <time title="أُنشأ: 2020-08-23 09:51:43" itemprop="dateCreated datePublished" datetime="2020-08-23T09:51:43+08:00">2020-08-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2020-08-27 08:50:59" itemprop="dateModified" datetime="2020-08-27T08:50:59+08:00">2020-08-27</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-27 08:50:59" itemprop="dateModified" datetime="2020-08-27T08:50:59+08:00">2020-08-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -439,7 +821,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-66-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E5%AF%A6%E6%88%B0%E7%94%A8%E6%B3%95/#more" rel="contents">
-                Weiterlesen &raquo;
+                تابع القراءة &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -484,16 +866,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
               
 
-              <time title="Erstellt: 2020-08-23 09:51:36 / Geändert am: 13:21:38" itemprop="dateCreated datePublished" datetime="2020-08-23T09:51:36+08:00">2020-08-23</time>
+              <time title="أُنشأ: 2020-08-23 09:51:36 / عُدل: 13:21:38" itemprop="dateCreated datePublished" datetime="2020-08-23T09:51:36+08:00">2020-08-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
@@ -514,388 +896,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-65-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-64-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E8%88%87%E5%82%B3%E7%B5%B1%E5%87%BD%E5%BC%8F%E4%B8%8D%E5%90%8C%E4%B9%8B%E8%99%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Renee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Renee's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-64-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E8%88%87%E5%82%B3%E7%B5%B1%E5%87%BD%E5%BC%8F%E4%B8%8D%E5%90%8C%E4%B9%8B%E8%99%95/" class="post-title-link" itemprop="url">JS核心-(64)-ES6 章節：箭頭函式-與傳統函式不同之處</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              <time title="Erstellt: 2020-08-23 09:51:31 / Geändert am: 11:27:34" itemprop="dateCreated datePublished" datetime="2020-08-23T09:51:31+08:00">2020-08-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">in</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>介紹箭頭函式跟傳統函式的差別  </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-64-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E8%88%87%E5%82%B3%E7%B5%B1%E5%87%BD%E5%BC%8F%E4%B8%8D%E5%90%8C%E4%B9%8B%E8%99%95/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/23/JS%E6%A0%B8%E5%BF%83-63-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E7%B0%A1%E4%BB%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Renee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Renee's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-63-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E7%B0%A1%E4%BB%8B/" class="post-title-link" itemprop="url">JS核心-(63)-ES6 章節：箭頭函式-箭頭函式簡介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              <time title="Erstellt: 2020-08-23 09:51:27 / Geändert am: 10:20:32" itemprop="dateCreated datePublished" datetime="2020-08-23T09:51:27+08:00">2020-08-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">in</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>ES6 的新增語法，讓原有 JS 撰寫更為精簡 (語法糖)，觀念更為直覺簡便 (新方法)  </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/23/JS%E6%A0%B8%E5%BF%83-63-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9A%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E7%B0%A1%E4%BB%8B/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/22/JS%E6%A0%B8%E5%BF%83-62-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-%E8%AA%B2%E5%BE%8C%E7%B7%B4%E7%BF%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Renee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Renee's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/22/JS%E6%A0%B8%E5%BF%83-62-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-%E8%AA%B2%E5%BE%8C%E7%B7%B4%E7%BF%92/" class="post-title-link" itemprop="url">JS核心-(62)-ES6 章節：Let 及 Const-課後練習</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-
-              <time title="Erstellt: 2020-08-22 13:41:51" itemprop="dateCreated datePublished" datetime="2020-08-22T13:41:51+08:00">2020-08-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2020-08-23 00:18:20" itemprop="dateModified" datetime="2020-08-23T00:18:20+08:00">2020-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">in</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>課後練習  </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/22/JS%E6%A0%B8%E5%BF%83-62-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-%E8%AA%B2%E5%BE%8C%E7%B7%B4%E7%BF%92/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/22/JS%E6%A0%B8%E5%BF%83-61-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-%E5%AD%B8%E5%A5%BD-ES6-%E4%BD%BF%E7%94%A8-ESlint-%E5%B7%A5%E5%85%B7%E8%BC%94%E5%8A%A9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Renee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Renee's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/22/JS%E6%A0%B8%E5%BF%83-61-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-%E5%AD%B8%E5%A5%BD-ES6-%E4%BD%BF%E7%94%A8-ESlint-%E5%B7%A5%E5%85%B7%E8%BC%94%E5%8A%A9/" class="post-title-link" itemprop="url">JS核心-(61)-ES6 章節：Let 及 Const-學好 ES6-使用 ESlint 工具輔助</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              <time title="Erstellt: 2020-08-22 13:41:45 / Geändert am: 17:43:49" itemprop="dateCreated datePublished" datetime="2020-08-22T13:41:45+08:00">2020-08-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">in</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>團隊開發使用 ESlint 風格規範，就可以讓團隊的程式碼有一致性，並且有助於日後的維護  </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/22/JS%E6%A0%B8%E5%BF%83-61-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-%E5%AD%B8%E5%A5%BD-ES6-%E4%BD%BF%E7%94%A8-ESlint-%E5%B7%A5%E5%85%B7%E8%BC%94%E5%8A%A9/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/22/JS%E6%A0%B8%E5%BF%83-60-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-Let-%E6%9C%89%E6%B2%92%E6%9C%89-Hoisting%EF%BC%9F%E6%9A%AB%E6%99%82%E6%80%A7%E6%AD%BB%E5%8D%80%E4%BB%8B%E7%B4%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Renee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Renee's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/22/JS%E6%A0%B8%E5%BF%83-60-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-Let-%E6%9C%89%E6%B2%92%E6%9C%89-Hoisting%EF%BC%9F%E6%9A%AB%E6%99%82%E6%80%A7%E6%AD%BB%E5%8D%80%E4%BB%8B%E7%B4%B9/" class="post-title-link" itemprop="url">JS核心-(60)-ES6 章節：Let 及 Const-Let 有沒有 Hoisting？暫時性死區介紹</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              <time title="Erstellt: 2020-08-22 13:41:38 / Geändert am: 15:50:49" itemprop="dateCreated datePublished" datetime="2020-08-22T13:41:38+08:00">2020-08-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">in</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>探討 Let 有沒有 Hoisting  </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/22/JS%E6%A0%B8%E5%BF%83-60-ES6-%E7%AB%A0%E7%AF%80%EF%BC%9ALet-%E5%8F%8A-Const-Let-%E6%9C%89%E6%B2%92%E6%9C%89-Hoisting%EF%BC%9F%E6%9A%AB%E6%99%82%E6%80%A7%E6%AD%BB%E5%8D%80%E4%BB%8B%E7%B4%B9/#more" rel="contents">
-                Weiterlesen &raquo;
+                تابع القراءة &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -917,7 +918,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Vorherige Seite"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="الصفحة السابقة"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="الصفحة التالية"></i></a>
   </nav>
 
 
@@ -961,10 +962,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Inhaltsverzeichnis
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Übersicht
+          عام
         </li>
       </ul>
 
@@ -983,21 +984,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">105</span>
-          <span class="site-state-item-name">Artikel</span>
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">Kategorien</span></a>
+        <span class="site-state-item-name">التصنيفات</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">schlagwörter</span></a>
+        <span class="site-state-item-name">الوسوم</span></a>
       </div>
   </nav>
 </div>
@@ -1029,7 +1030,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         

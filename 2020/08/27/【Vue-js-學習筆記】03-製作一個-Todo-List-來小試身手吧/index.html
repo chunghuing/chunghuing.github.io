@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言解了一些 Vue.js 基本的概念，那麼就繼續往下做一些簡單的應用吧！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Vue.js 學習筆記】03. 製作一個 Todo List 來小試身手吧">
+<meta property="og:url" content="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9103-%E8%A3%BD%E4%BD%9C%E4%B8%80%E5%80%8B-Todo-List-%E4%BE%86%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B%E5%90%A7/index.html">
+<meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言解了一些 Vue.js 基本的概念，那麼就繼續往下做一些簡單的應用吧！">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/JVlc3FK.png">
+<meta property="article:published_time" content="2020-08-27T11:27:26.000Z">
+<meta property="article:modified_time" content="2020-08-30T09:03:56.216Z">
+<meta property="article:author" content="Renee">
+<meta property="article:tag" content="Vue.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/JVlc3FK.png">
+
+<link rel="canonical" href="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9103-%E8%A3%BD%E4%BD%9C%E4%B8%80%E5%80%8B-Todo-List-%E4%BE%86%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B%E5%90%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【Vue.js 學習筆記】03. 製作一個 Todo List 來小試身手吧 | Renee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Renee's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Coding life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9103-%E8%A3%BD%E4%BD%9C%E4%B8%80%E5%80%8B-Todo-List-%E4%BE%86%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B%E5%90%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Renee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Renee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Vue.js 學習筆記】03. 製作一個 Todo List 來小試身手吧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-08-27 19:27:26" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:26+08:00">2020-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-30 17:03:56" itemprop="dateModified" datetime="2020-08-30T17:03:56+08:00">2020-08-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>解了一些 Vue.js 基本的概念，那麼就繼續往下做一些簡單的應用吧！  </p>
+<a id="more"></a>  
+
+<p>本節內容包含下述子章節：</p>
+<ol>
+<li><a href="#id1">套用版型及建立代辦事項列表的資料</a>  </li>
+<li><a href="#id2">刪除陣列上的特定資料</a>  </li>
+<li><a href="#id3">製作頁籤分類的功能</a>  </li>
+<li><a href="#id4">雙擊修改資料內容</a>  </li>
+<li><a href="#id5">刪除項目補充說明</a>  </br>  
+
+</li>
+</ol>
+<p>先來看看成品長怎樣  </p>
+<p><img src="https://imgur.com/JVlc3FK.png" alt=" ">  </p>
+</br>  
+
+<h3 id="套用版型及建立代辦事項列表的資料"><a href="#套用版型及建立代辦事項列表的資料" class="headerlink" title="套用版型及建立代辦事項列表的資料"></a><a id="id1">套用版型及建立代辦事項列表的資料</a></h3><p>作業模板：<a href="https://codepen.io/Wcc723/pen/VXRWyg" target="_blank" rel="noopener">傳送門</a>  </p>
+<h4 id="1-新增變數與函式"><a href="#1-新增變數與函式" class="headerlink" title="1. 新增變數與函式"></a>1. 新增變數與函式</h4><ul>
+<li><code>newTodo</code>：字串，用於新增新的代辦事項內容  </li>
+<li><code>todos</code>：陣列，紀錄代辦事項，裡面為 <code>key</code> / <code>value</code> ，包含 <code>id</code>、<code>title</code> 與 <code>completed</code> （完成狀況）  </li>
+<li><code>addTodo</code>：<code>methods function</code>，當點擊新增按鈕時，會被觸發的函式。  </li>
+</ul>
+</br>  
+
+<h4 id="2-輸入框與變數雙向綁定"><a href="#2-輸入框與變數雙向綁定" class="headerlink" title="2. 輸入框與變數雙向綁定"></a>2. 輸入框與變數雙向綁定</h4><p>&emsp;將變數 <code>newTodo</code> 使用 <code>v-model</code> 與 <code>input</code> 建立雙向綁定。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"準備要做的任務"</span> <span class="attr">v-model</span>=<span class="string">"newTodo"</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="3-按鈕點擊事件與函式綁定"><a href="#3-按鈕點擊事件與函式綁定" class="headerlink" title="3. 按鈕點擊事件與函式綁定"></a>3. 按鈕點擊事件與函式綁定</h4><p>&emsp;將 <code>addTodo</code> 與 <code>button</code> 使用 <code>v-on:click</code> / <code>@click</code> 進行綁定。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"準備要做的任務"</span> <span class="attr">v-model</span>=<span class="string">"newTodo"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"input-group-append"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">v-on:click</span>=<span class="string">"addTodo"</span>&gt;</span>新增<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="4-將-todos-顯示在-UI-上"><a href="#4-將-todos-顯示在-UI-上" class="headerlink" title="4. 將 todos 顯示在 UI 上"></a>4. 將 todos 顯示在 UI 上</h4><p>&emsp;這邊打算用 <code>label</code> 來顯示文字，且因每筆代辦事項之前，想會加入一個核選方塊，因此使用一個區塊標籤 <code>div</code>，  </p>
+<p>&emsp;包覆住 <code>label</code> 與 <code>checkbox</code>，並在 <code>&lt;li&gt;</code> 標籤上使用 <code>v-for=&#39;item in todos&#39;</code> 進行綁定。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"a1"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"a1"</span>&gt;</span>
+              Cras justo odio
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="5-將上述綁定的項目加到-vue-原始碼"><a href="#5-將上述綁定的項目加到-vue-原始碼" class="headerlink" title="5. 將上述綁定的項目加到 vue 原始碼"></a>5. 將上述綁定的項目加到 vue 原始碼</h4><p>&emsp;在 <code>data</code> 裡面新增 <code>newTodo</code> 及 <code>todos</code> ，還有新增一個 <code>methods</code> 放入要新增代辦事項的 <code>addTodo</code> 的 <code>function</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [],   <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<h4 id="6-在-todos-裡面先試寫一份內容"><a href="#6-在-todos-裡面先試寫一份內容" class="headerlink" title="6. 在 todos 裡面先試寫一份內容"></a>6. 在 todos 裡面先試寫一份內容</h4><p>&emsp;<code>todos</code> 陣列裡，新增一個物件 <code>{ }</code> ，物件裡面需定義  </p>
+<ul>
+<li><code>id</code> ，這個 <code>id</code> 是要讓 <code>checkbox</code> 能夠跟代辦事項內容作對應的。  </li>
+<li><code>title</code>，代辦事項的內容。  </li>
+<li><code>completed</code>，代表完成的狀態。  </li>
+</ul>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<h4 id="7-將取出的代辦事項內容呈現在-UI-上"><a href="#7-將取出的代辦事項內容呈現在-UI-上" class="headerlink" title="7. 將取出的代辦事項內容呈現在 UI 上"></a>7. 將取出的代辦事項內容呈現在 UI 上</h4><p>&emsp;將 <code>item.title</code> 使用兩個大括弧 <code>Mustache</code> 語法包覆在 <code>label</code> 標籤中顯示於 <code>UI</code> 上。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"a1"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"a1"</span>&gt;</span>
+                <span class="comment">{{ item.title }}</span>
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+<h4 id="8-將每筆代辦事項的-label-和-checkbox-綁定"><a href="#8-將每筆代辦事項的-label-和-checkbox-綁定" class="headerlink" title="8. 將每筆代辦事項的 label 和 checkbox 綁定"></a>8. 將每筆代辦事項的 label 和 checkbox 綁定</h4><ul>
+<li>將所取出的 <code>item</code> 的 <code>id</code> 與 <code>checkbox</code> 使用 <code>v-bind</code> 進行綁定，可使用縮寫 <code>:id</code> 來表示  </li>
+<li>將所取出的 <code>item</code> 的 <code>id</code> 與 <code>label</code> 使用 <code>v-bind</code> 進行綁定，可使用縮寫 <code>:for</code> 來表示  </li>
+</ul>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                <span class="comment">{{ item.title }}</span>
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="9-將-checkbox-狀態與-item-的完成狀況進行綁定"><a href="#9-將-checkbox-狀態與-item-的完成狀況進行綁定" class="headerlink" title="9. 將 checkbox 狀態與 item 的完成狀況進行綁定"></a>9. 將 checkbox 狀態與 item 的完成狀況進行綁定</h4><p>&emsp;將 <code>item.completed</code> 與 <code>checkbox</code> 使用 <code>v-model</code> 建立雙向綁定。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                <span class="comment">{{ item.title }}</span>
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+<h4 id="10-實做-addTodo-函式，將-input-新增的內容加入-todos-的列表裡面"><a href="#10-實做-addTodo-函式，將-input-新增的內容加入-todos-的列表裡面" class="headerlink" title="10. 實做 addTodo 函式，將 input 新增的內容加入 todos 的列表裡面"></a>10. 實做 addTodo 函式，將 input 新增的內容加入 todos 的列表裡面</h4><ul>
+<li>先宣告一個變數 <code>value</code> 儲存 <code>newTodo</code> 的內容  </li>
+<li>宣告一個變數 <code>timestamp</code> 做為 <code>item</code> 的 <code>id</code>，做為 <code>title</code> 的 <code>id</code> 使用。這邊使用時間 <code>Date.now</code> 轉為數字的一種格式，  </li>
+</ul>
+<p>&emsp;&emsp;再透過 <code>Math.floor</code> 轉為正整數。</p>
+<ul>
+<li>接下來要將 <code>todos</code>內容，使用 <code>array.push</code> 將新的 <code>Object</code> 加入 <code>todos</code> 陣列尾端。</li>
+<li>最後記得清空輸入欄， <code>this.newTodo = &#39;&#39;;</code>  </li>
+</ul>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo;</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="11-支援-enter-新增"><a href="#11-支援-enter-新增" class="headerlink" title="11. 支援 enter 新增"></a>11. 支援 enter 新增</h4><p>&emsp;除了點擊新增的按鈕外，也可以透過按鍵行為把資料內容新增上去，使用 <code>@keyup.enter=&quot;addTodo&quot;</code> ，讓輸入欄可以  </p>
+<p>&emsp;支援按 <code>enter</code> 提交。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"準備要做的任務"</span> <span class="attr">v-model</span>=<span class="string">"newTodo"</span> @<span class="attr">keyup.enter</span>=<span class="string">"addTodo"</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="12-避免加入空的任務"><a href="#12-避免加入空的任務" class="headerlink" title="12. 避免加入空的任務"></a>12. 避免加入空的任務</h4><p>&emsp;建議可以針對輸入的內容去刪除前後的空格，在變數 <code>value = this.newTodo;</code> 後面加上 <code>.trim()</code> 。  </p>
+<p>&emsp;並判斷是否為空字串，避免加入空字串，加上 <code>if</code> 的判斷式。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="刪除陣列上的特定資料"><a href="#刪除陣列上的特定資料" class="headerlink" title="刪除陣列上的特定資料"></a><a id="id2">刪除陣列上的特定資料</a></h3><h4 id="1-新增函式並與刪除按鈕綁定"><a href="#1-新增函式並與刪除按鈕綁定" class="headerlink" title="1.新增函式並與刪除按鈕綁定"></a>1.新增函式並與刪除按鈕綁定</h4><p>&emsp;接著我們要在能夠在 <code>todos</code> 代辦事項列表的右方能夠刪除資料，找到程式碼 <code>button</code> 的區塊，  </p>
+<p>&emsp;利用 <code>@click=&quot;removeTodo&quot;</code> 綁定。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                <span class="comment">{{ item.title }}</span>
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+<p>&emsp;綁定按鈕後，在 <code>vue</code> 的 <code>methods</code> 下方建立所需函式 <code>removeTodo</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="2-實做-removeTodo-函式"><a href="#2-實做-removeTodo-函式" class="headerlink" title="2. 實做 removeTodo 函式"></a>2. 實做 removeTodo 函式</h4><p>&emsp;當我們點擊刪除時，還無法得知是按了哪一個項目的刪除，所以在點擊按鈕後必須把相關的參數傳回來。<br>這邊我們可以調整  </p>
+<p>&emsp;<code>&lt;li&gt;</code> 裡面的 <code>v-for</code> ，將 <code>v-for</code> 調整為 <code>v-for=&quot;(item, key) in todos&quot;</code> ，這邊的 <code>key</code> 是陣列的索引位置。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in todos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                <span class="comment">{{ item.title }}</span>
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+<p>在傳送參數的同時會將 <code>key</code> 傳到 <code>button</code> 所綁定的 <code>removeTodo</code> 函式中，所以程式碼須調整為 <code>@click=&quot;removeTodo(key)&quot;</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in todos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                <span class="comment">{{ item.title }}</span>
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo(key)"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+<p>而函式 <code>removeTodo function</code> 中也包含了 <code>key</code> ，在移除陣列中的值可以使用 <code>array.splice</code> 刪除陣列中某一筆資料，但其指定  </p>
+<p>方式是使用 <code>index</code> ，也就是我們這邊的變數 <code>key</code> ，而 <code>(key, 1)</code> 中的 <code>1</code> 是代表要刪除幾筆資料的意思。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">(key)</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="製作頁籤分類的功能"><a href="#製作頁籤分類的功能" class="headerlink" title="製作頁籤分類的功能"></a><a id="id3">製作頁籤分類的功能</a></h3><h4 id="刪除線效果"><a href="#刪除線效果" class="headerlink" title="刪除線效果"></a>刪除線效果</h4><p>在顯示任務名稱的 <code>label</code> 標籤上添加 <code>class</code> 的動態切換，也就是 <code>:class=&quot;{&#39;completed&#39;: item.completed}&quot;</code> ，物件中的  </p>
+<p><code>&#39;completed&#39;</code> 放的是要套用的 <code>class</code> 名稱， <code>item.completed</code> 則是條件。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in todos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:class</span>=<span class="string">"{'completed': item.completed }"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                <span class="comment">{{ item.title }}</span>
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo(key)"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="頁籤切換功能"><a href="#頁籤切換功能" class="headerlink" title="頁籤切換功能"></a>頁籤切換功能</h4><p>頁籤功能分成兩部份來實做，一是上方頁籤切換，二是下方資料切換。<br></br>  </p>
+<h5 id="先實做上方頁簽切換的部份"><a href="#先實做上方頁簽切換的部份" class="headerlink" title="先實做上方頁簽切換的部份"></a>先實做上方頁簽切換的部份</h5><h4 id="1-新增變數"><a href="#1-新增變數" class="headerlink" title="1. 新增變數"></a>1. 新增變數</h4><p>&emsp;先在 <code>data</code> 裡面新增一個變數 <code>visibility</code> ，此變數用來紀錄目前使用者正在查看的頁簽，並將該值初始化為 <code>allItem</code>。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+<span class="actionscript">    visibility: <span class="string">'all'</span></span>
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">(key)</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>新增三個變數 <code>allItem</code> 、 <code>processing</code> 與 <code>done</code>，分別對應到 <code>card-header</code> 的三個分頁：全部、進行中、已完成。</p>
+</br>  
+</br>  
+
+<h4 id="2-頁簽渲染"><a href="#2-頁簽渲染" class="headerlink" title="2. 頁簽渲染"></a>2. 頁簽渲染</h4><p>&emsp;為了突顯目前正在查看的頁簽，會將該頁簽進行渲染。在各個頁籤加上 <code>class</code> 的動態切換，當 <code>visibility</code> 指向該頁時，  </p>
+<p>&emsp;就加上 <code>active class</code> 的渲染效果。例如 <code>:class=&quot;{&#39;active&#39;: visibility == &#39;allItem&#39;}&quot;</code> ，物件中的 <code>&#39;active&#39;</code> 放的是  </p>
+<p>&emsp;<code>class</code> 的名稱，冒號 <code>:</code> 後方是條件，當 <code>visibility</code> 指向全部時，所以這邊的 <code>==</code> 後面就要放剛才所宣告的變數 <code>allItem</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"card-header"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav nav-tabs card-header-tabs"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">:class</span>=<span class="string">"{'active': visibility == 'allItem'}"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>全部<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link "</span> <span class="attr">:class</span>=<span class="string">"{'active': visibility == 'processing'}"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>進行中<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">:class</span>=<span class="string">"{'active': visibility == 'done'}"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>已完成<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h4 id="3-頁簽切換效果"><a href="#3-頁簽切換效果" class="headerlink" title="3. 頁簽切換效果"></a>3. 頁簽切換效果</h4><p>&emsp;為實做為點擊切換的效果，因此當點擊頁籤時需將 <code>visibility</code> 指向自己，例如： <code>@click=&quot;visibility = &#39;allItem&#39;&quot;</code> ，  </p>
+<p>&emsp;一旦 <code>visibility</code> 指向自己，<code>:class</code> 的判斷式就會為真，因此就會為該頁簽加上渲染效果。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"card-header"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav nav-tabs card-header-tabs"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">:class</span>=<span class="string">"{'active': visibility == 'allItem'}"</span> @<span class="attr">click</span>=<span class="string">"visibility = 'allItem'"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>全部<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link "</span> <span class="attr">:class</span>=<span class="string">"{'active': visibility == 'processing'}"</span> @<span class="attr">click</span>=<span class="string">"visibility = 'processing'"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>進行中<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">:class</span>=<span class="string">"{'active': visibility == 'done'}"</span> @<span class="attr">click</span>=<span class="string">"visibility = 'done'"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>已完成<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h5 id="下方資料切換"><a href="#下方資料切換" class="headerlink" title="下方資料切換"></a>下方資料切換</h5><h4 id="1-動態過濾陣列內容"><a href="#1-動態過濾陣列內容" class="headerlink" title="1. 動態過濾陣列內容"></a>1. 動態過濾陣列內容</h4><p>&emsp;因為我們不希望修改原始 <code>todos</code> 中的資料，因此實做時會希望回傳一個新過濾後的陣列。且因為我們希望在不同頁籤會  </p>
+<p>&emsp;回傳不同的陣列，因此我們會在 <code>methods</code> 下方新增 <code>computed</code> 並實作名為 <code>filteredTodos</code> 的函式。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+<span class="actionscript">    visibility: <span class="string">'allItem'</span></span>
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">(key)</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+    }
+  },
+  computed:{
+<span class="actionscript">    filteredTodos: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">return</span> <span class="keyword">this</span>.todos;</span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h4 id="2-使用回傳陣列取代原始陣列"><a href="#2-使用回傳陣列取代原始陣列" class="headerlink" title="2. 使用回傳陣列取代原始陣列"></a>2. 使用回傳陣列取代原始陣列</h4><p>&emsp;使用 <code>filteredTodos</code> 取代掉先 <code>v-for</code> 中所使用的 <code>todos</code>。</p>
+<p>&emsp;<code>PS.</code> 如果為確認 <code>filteredTodos</code> 與 <code>v-for</code> 的搭配是否正常運作，可以在 <code>filteredTodos</code> 中直接回傳 <code>todos</code> 做為測試。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filteredTodos"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:class</span>=<span class="string">"{'completed': item.completed }"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                <span class="comment">{{ item.title }}</span>
+            <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo(key)"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h4 id="3-實作-filteredTodos-函數"><a href="#3-實作-filteredTodos-函數" class="headerlink" title="3. 實作 filteredTodos 函數"></a>3. 實作 filteredTodos 函數</h4><p>&emsp;依照 <code>visibility</code> 的內容回不同的過濾結果。實作如下，課程影片中老師是用 <code>forEach</code> 的方式，  </p>
+<p>&emsp;不過也可以用 <code>filter</code> 的做法。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+<span class="actionscript">    visibility: <span class="string">'allItem'</span></span>
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">(key)</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+    }
+  },
+  computed:{
+<span class="actionscript">    filteredTodos: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'allItem'</span>) {</span>
+<span class="actionscript">          <span class="keyword">return</span> <span class="keyword">this</span>.todos;</span>
+
+<span class="actionscript">      } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'processing'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (!item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+
+<span class="actionscript">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'done'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+        }
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="雙擊修改資料內容"><a href="#雙擊修改資料內容" class="headerlink" title="雙擊修改資料內容"></a><a id="id4">雙擊修改資料內容</a></h3><h4 id="1-在-UI-上實做輸入框架"><a href="#1-在-UI-上實做輸入框架" class="headerlink" title="1. 在 UI 上實做輸入框架"></a>1. 在 UI 上實做輸入框架</h4><p>&emsp;準備好一個 input text 元件，並與目前顯示內容的元件 - 也就是剛剛包住 label 與 checkbox 的 div - 放置在同一層。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group list-group-flush text-left"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filteredTodos"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:class</span>=<span class="string">"{'completed': item.completed }"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                  <span class="comment">{{ item.title }}</span>
+              <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+          <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo(key)"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+              <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+
+  <span class="comment">&lt;!-- &lt;li class="list-group-item"&gt;</span>
+<span class="comment">    &lt;input type="text" class="form-control"&gt;</span>
+<span class="comment">  &lt;/li&gt; --&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="2-雙擊事件"><a href="#2-雙擊事件" class="headerlink" title="2. 雙擊事件"></a>2. 雙擊事件</h4><p>&emsp;這邊希望點擊代辦事件兩下後，可以進入修入模式。因此我們在 <code>&lt;li&gt;</code> 標籤建立一個雙擊事件， <code>@dblclick=&quot;editTodo(item)&quot;</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group list-group-flush text-left"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filteredTodos"</span> @<span class="attr">dblclick</span>=<span class="string">"editTodo(item)"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:class</span>=<span class="string">"{'completed': item.completed }"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                  <span class="comment">{{ item.title }}</span>
+              <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+          <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo(key)"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+              <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+
+  <span class="comment">&lt;!-- &lt;li class="list-group-item"&gt;</span>
+<span class="comment">    &lt;input type="text" class="form-control"&gt;</span>
+<span class="comment">  &lt;/li&gt; --&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="3-實做-editTask-函數"><a href="#3-實做-editTask-函數" class="headerlink" title="3. 實做 editTask 函數"></a>3. 實做 editTask 函數</h4><p>&emsp;將剛才新增的雙擊事件 <code>editTodo function</code> 加入 <code>methods</code> ，並將 <code>function</code> 裡的 <code>item</code> 另外存起來，目的是要讓我們知道  </p>
+<p>&emsp;哪一筆資料是目前正在編輯中的，所以在資料的部分需要做一些調整，<br>我們在 <code>data</code> 裡面新宣告變數 <code>cacheTodo</code> ( 用於：暫  </p>
+<p>&emsp;時存放<code>todo</code>的地方)、 <code>cacheTitle</code> (用於：編輯標題時預存的地方)。<br></br>  </p>
+<p>&emsp;新增完後回到 <code>editTodo function</code> ，將 <code>this.cacheTodo</code> 指向我們傳入的 <code>item</code> ，並且把預存的 <code>this.cacheTitle</code> 指向剛才  </p>
+<p>&emsp;我們傳入的 <code>item.title</code> </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+    cacheTodo: {},
+<span class="actionscript">    cacheTitle: <span class="string">''</span>,</span>
+<span class="actionscript">    visibility: <span class="string">'allItem'</span>,</span>
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">(key)</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+    },
+<span class="actionscript">    editTodo: <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+<span class="javascript">      <span class="built_in">console</span>.log(item);</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = item;</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTitle = item.title;</span>
+    }
+  },
+  computed:{
+<span class="actionscript">    filteredTodos: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'allItem'</span>) {</span>
+<span class="actionscript">          <span class="keyword">return</span> <span class="keyword">this</span>.todos;</span>
+
+<span class="actionscript">      } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'processing'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (!item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+
+<span class="actionscript">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'done'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+        }
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="4-顯示編輯框"><a href="#4-顯示編輯框" class="headerlink" title="4. 顯示編輯框"></a>4. 顯示編輯框</h4><p>&emsp;畫面中我們原本的 <code>todos</code> 項目與 <code>input</code> 修改框，兩者只會出現其中一個，所以我們要在剛剛包住 <code>label</code> 與 <code>checkbox</code> 的  </p>
+<p>&emsp;<code>div</code> 裡加入判斷式， <code>v-if=&quot;item.id !== cacheTodo.id&quot;</code> ，此段意指：假設 <code>item.id</code> 不等於 <code>cacheTodo.id</code> 就讓它顯示出  </p>
+<p>&emsp;來。  </p>
+</br>  
+
+<p>&emsp;相反的在 <code>input</code> 加入判斷式 <code>v-if=&quot;item.id === cacheTodo.id&quot;</code> ，假設 <code>input</code> 的 <code>item.id</code> 等於 <code>cacheTodo.id</code> 就會顯示  </p>
+<p>&emsp;<code>input</code> ，並且把原本資料內容隱藏起來。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group list-group-flush text-left"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filteredTodos"</span> @<span class="attr">dblclick</span>=<span class="string">"editTodo(item)"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span> <span class="attr">v-if</span>=<span class="string">"item.id !== cacheTodo.id"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:class</span>=<span class="string">"{'completed': item.completed }"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                  <span class="comment">{{ item.title }}</span>
+              <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+          <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo(key)"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+              <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-if</span>=<span class="string">"item.id === cacheTodo.id"</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+
+  <span class="comment">&lt;!-- &lt;li class="list-group-item"&gt;</span>
+<span class="comment">    &lt;input type="text" class="form-control"&gt;</span>
+<span class="comment">  &lt;/li&gt; --&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="5-將相關事件加入-input"><a href="#5-將相關事件加入-input" class="headerlink" title="5. 將相關事件加入 input"></a>5. 將相關事件加入 input</h4><ul>
+<li>使用 <code>v-model</code> 綁定 <code>text</code> 與 <code>cacheTitle</code> 紀錄編輯中的內容。  </li>
+<li>使用 <code>@keyup.esc=&quot;cancelEdit()&quot;</code> 取消編輯，並回到 <code>methods</code> 裡面新增 <code>cancelEdit function</code>  </li>
+<li>使用 <code>@keyup.enter=&quot;doneEdit(item)&quot;</code> 將編輯內容存進去，並回到 <code>methods</code> 裡面新增 <code>doneEdit function</code>，將 <code>item</code> 的  </li>
+</ul>
+<p>&emsp;&emsp;<code>title</code> 指向剛才預存的標題。另外預存的標題 <code>this.cacheTitle</code> 清空，最後將 <code>this.cacheTodo = {};</code> 替換回來。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group list-group-flush text-left"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filteredTodos"</span> @<span class="attr">dblclick</span>=<span class="string">"editTodo(item)"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span> <span class="attr">v-if</span>=<span class="string">"item.id !== cacheTodo.id"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:class</span>=<span class="string">"{'completed': item.completed }"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                  <span class="comment">{{ item.title }}</span>
+              <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+          <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo(key)"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+              <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-if</span>=<span class="string">"item.id === cacheTodo.id"</span> <span class="attr">v-model</span>=<span class="string">"cacheTitle"</span> @<span class="attr">keyup.esc</span>=<span class="string">"cancelEdit()"</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+
+  <span class="comment">&lt;!-- &lt;li class="list-group-item"&gt;</span>
+<span class="comment">    &lt;input type="text" class="form-control"&gt;</span>
+<span class="comment">  &lt;/li&gt; --&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+    cacheTodo: {},
+<span class="actionscript">    cacheTitle: <span class="string">''</span>,</span>
+<span class="actionscript">    visibility: <span class="string">'allItem'</span>,</span>
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">(key)</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+    },
+<span class="actionscript">    editTodo: <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+<span class="javascript">      <span class="built_in">console</span>.log(item);</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = item;</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTitle = item.title;</span>
+    },
+<span class="actionscript">    cancelEdit: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = {};</span>
+    },
+<span class="actionscript">    doneEdit: <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+<span class="actionscript">      item.title = <span class="keyword">this</span>.cacheTitle;</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTitle = <span class="string">''</span>; <span class="comment">//預存的標題清空</span></span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = {};</span>
+    }
+  },
+  computed:{
+<span class="actionscript">    filteredTodos: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'allItem'</span>) {</span>
+<span class="actionscript">          <span class="keyword">return</span> <span class="keyword">this</span>.todos;</span>
+
+<span class="actionscript">      } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'processing'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (!item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+
+<span class="actionscript">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'done'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+        }
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="刪除項目補充說明"><a href="#刪除項目補充說明" class="headerlink" title="刪除項目補充說明"></a><a id="id5">刪除項目補充說明</a></h3><p>之前實做刪除時，是採用傳入陣列 <code>index</code>、並刪除所傳入 <code>index</code> 元素，但在 <code>filtered</code> 後的陣列中內容元素所在 <code>index</code> 與之  </p>
+<p>在原始陣列中的 <code>index</code> 有異。如果直接刪除所傳入 <code>index</code> 會出現誤刪的情況，因此改利用傳入 <code>id</code> 反查該筆資料在原始陣列  </p>
+<p>中正確的位置，然後在進行刪除。  </p>
+</br>  
+
+<p>課程中在實做時方法有二  </p>
+<ul>
+<li>一是使用 <code>array.forEach</code> ，當遇到 <code>id</code> 同時就紀錄下目前的 <code>index</code>，最後在刪除所紀錄下的 <code>index</code>：  </li>
+</ul>
+<p>首先在 <code>removeTodo function</code> 裡先宣告 <code>var newIndex = &#39;&#39;;</code> 等於一個空的值，並且透過 <code>forEach</code> 的方式來確保我們取得的是  </p>
+<p>相同的值，這邊原本傳入的是 <code>key</code> ，我們把它改為是 <code>todo</code> 本身，在 <code>html</code> 程式碼 <code>button</code> 也需要調整，  </p>
+<p>在 <code>@click=&quot;removeTodo(key)&quot;</code> 原本傳入的是 <code>key</code> ，改為 <code>item</code> 本身，變成 <code>@click=&quot;removeTodo(item)&quot;</code> 。  </p>
+</br>  
+
+<p>再回到 <code>removeTodo function</code> ，宣告 <code>var vm = this</code> ， <code>vm.todos.forEach(function(item, key){})</code> ，這邊的 <code>key</code> 是等一下我  </p>
+<p>們要使用的正確位置，而 <code>item</code> 用來比對所有的 <code>id</code> 有沒有和 <code>todo</code> 的 <code>id</code> 是一樣的。</p>
+</br>  
+
+<p>再來 <code>forEach</code> 裡面加入判式 <code>if (todo.id === item.id) {newIndex = key;}</code> 並且將 <code>newIndex</code> 替換至  </p>
+<p><code>this.todos.splice(key, 1)</code> 的 <code>key</code> ，所以變成  <code>this.todos.splice(newIndex, 1)</code> </p>
+</br>  
+
+<p>這邊跑 <code>for</code> 迴圈的目的是為了確認我們要刪除的物件 <code>todo</code> 跟所有物件的 id 是要相符合的，如果式符合的狀態就把 <code>key</code> 值  </p>
+<p>索引位置取出來，並且放到要刪除的位置上</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+    cacheTodo: {},
+<span class="actionscript">    cacheTitle: <span class="string">''</span>,</span>
+<span class="actionscript">    visibility: <span class="string">'allItem'</span>,</span>
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">(todo)</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">var</span> newIndex = <span class="string">''</span>;</span>
+<span class="actionscript">      <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="actionscript">      vm.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item, key)</span> </span>{</span>
+        if (todo.id === item.id) {
+          newIndex = key;
+        }
+      })
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+    },
+<span class="actionscript">    editTodo: <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+<span class="javascript">      <span class="built_in">console</span>.log(item);</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = item;</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTitle = item.title;</span>
+    },
+<span class="actionscript">    cancelEdit: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = {};</span>
+    },
+<span class="actionscript">    doneEdit: <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+<span class="actionscript">      item.title = <span class="keyword">this</span>.cacheTitle;</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTitle = <span class="string">''</span>; <span class="comment">//預存的標題清空</span></span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = {};</span>
+    }
+  },
+  computed:{
+<span class="actionscript">    filteredTodos: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'allItem'</span>) {</span>
+<span class="actionscript">          <span class="keyword">return</span> <span class="keyword">this</span>.todos;</span>
+
+<span class="actionscript">      } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'processing'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (!item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+
+<span class="actionscript">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'done'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+        }
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group list-group-flush text-left"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filteredTodos"</span> @<span class="attr">dblclick</span>=<span class="string">"editTodo(item)"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span> <span class="attr">v-if</span>=<span class="string">"item.id !== cacheTodo.id"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">v-model</span>=<span class="string">"item.completed"</span> <span class="attr">:id</span>=<span class="string">"item.id"</span>&gt;</span>
+
+              <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">:class</span>=<span class="string">"{'completed': item.completed }"</span> <span class="attr">:for</span>=<span class="string">"item.id"</span>&gt;</span>
+                  <span class="comment">{{ item.title }}</span>
+              <span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+          <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close ml-auto"</span> @<span class="attr">click</span>=<span class="string">"removeTodo(item)"</span> <span class="attr">aria-label</span>=<span class="string">"Close"</span>&gt;</span>
+              <span class="tag">&lt;<span class="name">span</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-if</span>=<span class="string">"item.id === cacheTodo.id"</span> <span class="attr">v-model</span>=<span class="string">"cacheTitle"</span> @<span class="attr">keyup.esc</span>=<span class="string">"cancelEdit()"</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+
+  <span class="comment">&lt;!-- &lt;li class="list-group-item"&gt;</span>
+<span class="comment">    &lt;input type="text" class="form-control"&gt;</span>
+<span class="comment">  &lt;/li&gt; --&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ul>
+<li><p>第二種方法使用 <code>findIndex</code> ：  </p>
+<p><code>findIndex</code> 是比較簡單找到索引的方式，它會把回傳為 <code>true</code> 的索引位置存到前方的變數 <code>newIndex</code> 裡</p>
+</li>
+</ul>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    newTodo: <span class="string">''</span>, <span class="comment">// 新增代辦事項</span></span>
+<span class="actionscript">    todos: [     <span class="comment">// 紀錄代辦事項有哪些內容</span></span>
+      {
+<span class="actionscript">        id: <span class="string">'123'</span>,</span>
+<span class="actionscript">        title: <span class="string">'妳好'</span>,</span>
+<span class="actionscript">        completed: <span class="literal">false</span></span>
+      }
+    ],
+    cacheTodo: {},
+<span class="actionscript">    cacheTitle: <span class="string">''</span>,</span>
+<span class="actionscript">    visibility: <span class="string">'allItem'</span>,</span>
+  },
+<span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
+<span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">var</span> value = <span class="keyword">this</span>.newTodo.trim();</span>
+<span class="javascript">        <span class="keyword">var</span> timestamp = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now());</span>
+
+        if (!value) {
+<span class="actionscript">          <span class="keyword">return</span>;</span>
+        }
+
+<span class="actionscript">        <span class="keyword">this</span>.todos.push({</span>
+            id: timestamp,
+            title: value,
+<span class="actionscript">            completed: <span class="literal">false</span></span>
+        });
+
+<span class="actionscript">        <span class="keyword">this</span>.newTodo = <span class="string">''</span>;</span>
+    },
+<span class="actionscript">    removeTodo: <span class="function"><span class="keyword">function</span> <span class="params">(todo)</span> </span>{</span>
+<span class="actionscript">      <span class="comment">// var newIndex = '';</span></span>
+<span class="actionscript">      <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="actionscript">      <span class="keyword">var</span> newIndex = vm.todos.findIndex(<span class="function"><span class="keyword">function</span> <span class="params">(item, key)</span> </span>{</span>
+<span class="actionscript">        <span class="keyword">return</span> todo.id === item.id;</span>
+      })
+
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+    },
+<span class="actionscript">    editTodo: <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+<span class="javascript">      <span class="built_in">console</span>.log(item);</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = item;</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTitle = item.title;</span>
+    },
+<span class="actionscript">    cancelEdit: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = {};</span>
+    },
+<span class="actionscript">    doneEdit: <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+<span class="actionscript">      item.title = <span class="keyword">this</span>.cacheTitle;</span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTitle = <span class="string">''</span>; <span class="comment">//預存的標題清空</span></span>
+<span class="actionscript">      <span class="keyword">this</span>.cacheTodo = {};</span>
+    }
+  },
+  computed:{
+<span class="actionscript">    filteredTodos: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'allItem'</span>) {</span>
+<span class="actionscript">          <span class="keyword">return</span> <span class="keyword">this</span>.todos;</span>
+
+<span class="actionscript">      } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'processing'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (!item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+
+<span class="actionscript">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.visibility == <span class="string">'done'</span>) {</span>
+<span class="actionscript">          <span class="keyword">var</span> newTodos = [];</span>
+
+<span class="actionscript">          <span class="keyword">this</span>.todos.forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
+
+              if (item.completed) {
+                newTodos.push(item);
+              }
+
+          })
+<span class="actionscript">          <span class="keyword">return</span> newTodos;</span>
+        }
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/25/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9102-%E5%9F%BA%E7%A4%8E-Vue-%E6%A6%82%E8%BF%B0/" rel="prev" title="【Vue.js 學習筆記】02. 基礎 Vue 概述">
+      <i class="fa fa-chevron-left"></i> 【Vue.js 學習筆記】02. 基礎 Vue 概述
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9104-%E9%80%B2%E9%9A%8E%E6%A8%A1%E6%9D%BF%E8%AA%9E%E6%B3%95%E4%BB%8B%E7%B4%B9/" rel="next" title="【Vue.js 學習筆記】04. 進階模板語法介紹">
+      【Vue.js 學習筆記】04. 進階模板語法介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#套用版型及建立代辦事項列表的資料"><span class="nav-number">2.</span> <span class="nav-text">套用版型及建立代辦事項列表的資料</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增變數與函式"><span class="nav-number">2.1.</span> <span class="nav-text">1. 新增變數與函式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-輸入框與變數雙向綁定"><span class="nav-number">2.2.</span> <span class="nav-text">2. 輸入框與變數雙向綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-按鈕點擊事件與函式綁定"><span class="nav-number">2.3.</span> <span class="nav-text">3. 按鈕點擊事件與函式綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-將-todos-顯示在-UI-上"><span class="nav-number">2.4.</span> <span class="nav-text">4. 將 todos 顯示在 UI 上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-將上述綁定的項目加到-vue-原始碼"><span class="nav-number">2.5.</span> <span class="nav-text">5. 將上述綁定的項目加到 vue 原始碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-在-todos-裡面先試寫一份內容"><span class="nav-number">2.6.</span> <span class="nav-text">6. 在 todos 裡面先試寫一份內容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-將取出的代辦事項內容呈現在-UI-上"><span class="nav-number">2.7.</span> <span class="nav-text">7. 將取出的代辦事項內容呈現在 UI 上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-將每筆代辦事項的-label-和-checkbox-綁定"><span class="nav-number">2.8.</span> <span class="nav-text">8. 將每筆代辦事項的 label 和 checkbox 綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-將-checkbox-狀態與-item-的完成狀況進行綁定"><span class="nav-number">2.9.</span> <span class="nav-text">9. 將 checkbox 狀態與 item 的完成狀況進行綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-實做-addTodo-函式，將-input-新增的內容加入-todos-的列表裡面"><span class="nav-number">2.10.</span> <span class="nav-text">10. 實做 addTodo 函式，將 input 新增的內容加入 todos 的列表裡面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-支援-enter-新增"><span class="nav-number">2.11.</span> <span class="nav-text">11. 支援 enter 新增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-避免加入空的任務"><span class="nav-number">2.12.</span> <span class="nav-text">12. 避免加入空的任務</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刪除陣列上的特定資料"><span class="nav-number">3.</span> <span class="nav-text">刪除陣列上的特定資料</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增函式並與刪除按鈕綁定"><span class="nav-number">3.1.</span> <span class="nav-text">1.新增函式並與刪除按鈕綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-實做-removeTodo-函式"><span class="nav-number">3.2.</span> <span class="nav-text">2. 實做 removeTodo 函式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#製作頁籤分類的功能"><span class="nav-number">4.</span> <span class="nav-text">製作頁籤分類的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#刪除線效果"><span class="nav-number">4.1.</span> <span class="nav-text">刪除線效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#頁籤切換功能"><span class="nav-number">4.2.</span> <span class="nav-text">頁籤切換功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#先實做上方頁簽切換的部份"><span class="nav-number">4.2.1.</span> <span class="nav-text">先實做上方頁簽切換的部份</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增變數"><span class="nav-number">4.3.</span> <span class="nav-text">1. 新增變數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-頁簽渲染"><span class="nav-number">4.4.</span> <span class="nav-text">2. 頁簽渲染</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-頁簽切換效果"><span class="nav-number">4.5.</span> <span class="nav-text">3. 頁簽切換效果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下方資料切換"><span class="nav-number">4.5.1.</span> <span class="nav-text">下方資料切換</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-動態過濾陣列內容"><span class="nav-number">4.6.</span> <span class="nav-text">1. 動態過濾陣列內容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-使用回傳陣列取代原始陣列"><span class="nav-number">4.7.</span> <span class="nav-text">2. 使用回傳陣列取代原始陣列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-實作-filteredTodos-函數"><span class="nav-number">4.8.</span> <span class="nav-text">3. 實作 filteredTodos 函數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#雙擊修改資料內容"><span class="nav-number">5.</span> <span class="nav-text">雙擊修改資料內容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在-UI-上實做輸入框架"><span class="nav-number">5.1.</span> <span class="nav-text">1. 在 UI 上實做輸入框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-雙擊事件"><span class="nav-number">5.2.</span> <span class="nav-text">2. 雙擊事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-實做-editTask-函數"><span class="nav-number">5.3.</span> <span class="nav-text">3. 實做 editTask 函數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-顯示編輯框"><span class="nav-number">5.4.</span> <span class="nav-text">4. 顯示編輯框</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-將相關事件加入-input"><span class="nav-number">5.5.</span> <span class="nav-text">5. 將相關事件加入 input</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刪除項目補充說明"><span class="nav-number">6.</span> <span class="nav-text">刪除項目補充說明</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Renee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Renee</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

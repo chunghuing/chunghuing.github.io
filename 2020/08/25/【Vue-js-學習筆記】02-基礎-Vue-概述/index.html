@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://imgur.com/1r8eaHN.png">
 <meta property="og:image" content="https://imgur.com/nYb6LZN.png">
 <meta property="article:published_time" content="2020-08-25T08:05:09.000Z">
-<meta property="article:modified_time" content="2020-08-27T09:09:29.814Z">
+<meta property="article:modified_time" content="2020-08-27T11:11:39.195Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
@@ -89,7 +89,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -119,22 +119,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -186,22 +186,22 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2020-08-25 16:05:09" itemprop="dateCreated datePublished" datetime="2020-08-25T16:05:09+08:00">2020-08-25</time>
+              <time title="أُنشأ: 2020-08-25 16:05:09" itemprop="dateCreated datePublished" datetime="2020-08-25T16:05:09+08:00">2020-08-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2020-08-27 17:09:29" itemprop="dateModified" datetime="2020-08-27T17:09:29+08:00">2020-08-27</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-08-27 19:11:39" itemprop="dateModified" datetime="2020-08-27T19:11:39+08:00">2020-08-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
                 </span>
@@ -244,7 +244,7 @@
 <pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
 <span class="actionscript">  <span class="keyword">var</span> app = <span class="keyword">new</span> Vue({ });</span>
 <span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
-<p>裡面會是一個物件，接著我們就要綁定網頁上的 <code>DOM</code> 元素，綁定時不定要用 <code>id</code> 綁定，可綁定 <code>class</code> ，但建議使用 <code>id</code> ，  </p>
+<p>裡面會是一個物件，接著我們就要綁定網頁上的 <code>DOM</code> 元素，綁定時不一定要用 <code>id</code> 綁定，可綁定 <code>class</code> ，但建議使用 <code>id</code> ，  </p>
 <p>這時候頁面上的程式碼會變成如下:</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
@@ -337,7 +337,8 @@
 
 <span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
 <p>這時候就會發現，<code>console</code> 會跳錯誤出來，原因是因為 <code>Vue</code> 的應用程式是不可以使用巢狀的方式去建立的。</p>
-<p>另外需要特別注意的是，我們再建立 <code>Vue</code> 的應用程式通常只會建立一個，但是你要建立兩個在同一個頁面上是可行的，只要注意不能建立巢狀的應用程式。  </p>
+<p>另外需要特別注意的是，我們在建立 <code>Vue</code> 的應用程式通常只會建立一個，但是你要建立兩個在同一個頁面上是可行的，  </p>
+<p>只要注意不能建立巢狀的應用程式。  </p>
 </br>  
 
 <h3 id="雙向綁定的資料-與-MVVM-的概念"><a href="#雙向綁定的資料-與-MVVM-的概念" class="headerlink" title="雙向綁定的資料 與 MVVM 的概念"></a><a id="id2">雙向綁定的資料 與 MVVM 的概念</a></h3><p>上面我們建立應用程式的時候把資料呈現在頁面上的方法是使用兩個大括號包覆的方式，如下：  </p>
@@ -659,7 +660,7 @@
 <p>再額外補充一點，按鈕元素有時候我們會用 <code>a</code> 標籤來撰寫</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span> @<span class="attr">click</span>=<span class="string">"reverseText"</span>&gt;</span>反轉字串<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
 <p>但會發現 <code>a</code> 有預設 <code>href</code> 這個屬性的行為，當我們想要取消這個預設行為時，我們可以直接在 <code>@click</code> 後面加上 <code>.prevent</code>  </p>
-<p>意即 <code>@click.prevent=&quot;reverseText&quot;</code><br>這時候就會取消預設行為了。</p>
+<p>意即 <code>@click.prevent=&quot;reverseText&quot;</code> 這時候就會取消預設行為了。</p>
 <p>關於 <code>v-on</code> 所提供的事件修飾符詳見 <a href="https://vuejs.org/v2/guide/events.html#Event-Modifiers" target="_blank" rel="noopener">官網文件</a> ，除了事件修飾符外還有 <a href="https://vuejs.org/v2/guide/events.html#Key-Modifiers" target="_blank" rel="noopener">鍵盤修飾符</a> 與 <a href="https://vuejs.org/v2/guide/events.html#Mouse-Button-Modifiers" target="_blank" rel="noopener">滑鼠按鈕修飾符</a> … 等。  </p>
 </br>  
 
@@ -686,8 +687,8 @@
     <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span>&gt;</span>選轉物件<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
 <p>動態加上 <code>class</code> 的方式，如上  </p>
-<p>用 <code>v-bind</code> 綁上 <code>class</code> 屬性，接著裡面用物件的形式 <code>{ &#39;要加入的 class 名字&#39; : 判斷式 }</code><br>我們先在裡面放置 <code>true</code> 就會發現  </p>
-<p><code>.box</code> 已經加上 <code>.rotate</code> 了  </p>
+<p>用 <code>v-bind</code> 綁上 <code>class</code> 屬性，接著裡面用物件的形式 <code>{ &#39;要加入的 class 名字&#39; : 判斷式 }</code></p>
+<p>我們先在裡面放置 <code>true</code> 就會發現 <code>.box</code> 已經加上 <code>.rotate</code> 了  </p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
     <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:class</span>=<span class="string">"{ 'rotate' : isTransform }"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
     <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span>&gt;</span>選轉物件<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
@@ -956,7 +957,7 @@
 
   <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Select<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
   <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"selected"</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"請選擇"</span> <span class="attr">disabled</span>&gt;</span>--請選擇--<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">disabled</span>&gt;</span>--請選擇--<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
     <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"小明"</span>&gt;</span>小明<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
     <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"小美"</span>&gt;</span>小美<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
   <span class="tag">&lt;/<span class="name">select</span>&gt;</span>
@@ -1119,7 +1120,10 @@
     <a href="/2020/08/25/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9101-%E7%9B%B8%E9%97%9C%E8%B3%87%E6%BA%90%E8%88%87%E5%B7%A5%E5%85%B7%E8%A8%AD%E7%BD%AE/" rel="prev" title="【Vue.js 學習筆記】01. 相關資源與工具設置">
       <i class="fa fa-chevron-left"></i> 【Vue.js 學習筆記】01. 相關資源與工具設置
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9103-%E8%A3%BD%E4%BD%9C%E4%B8%80%E5%80%8B-Todo-List-%E4%BE%86%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B%E5%90%A7/" rel="next" title="【Vue.js 學習筆記】03. 製作一個 Todo List 來小試身手吧">
+      【Vue.js 學習筆記】03. 製作一個 Todo List 來小試身手吧 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -1169,10 +1173,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Inhaltsverzeichnis
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Übersicht
+          عام
         </li>
       </ul>
 
@@ -1192,21 +1196,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">105</span>
-          <span class="site-state-item-name">Artikel</span>
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">Kategorien</span></a>
+        <span class="site-state-item-name">التصنيفات</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">schlagwörter</span></a>
+        <span class="site-state-item-name">الوسوم</span></a>
       </div>
   </nav>
 </div>
@@ -1238,7 +1242,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
