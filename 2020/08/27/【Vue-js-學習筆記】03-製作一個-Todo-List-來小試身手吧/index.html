@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://imgur.com/JVlc3FK.png">
 <meta property="article:published_time" content="2020-08-27T11:27:26.000Z">
-<meta property="article:modified_time" content="2020-08-30T09:19:02.919Z">
+<meta property="article:modified_time" content="2020-08-31T08:01:00.994Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-08-30 17:19:02" itemprop="dateModified" datetime="2020-08-30T17:19:02+08:00">2020-08-30</time>
+                <time title="عُدل: 2020-08-31 16:01:00" itemprop="dateModified" datetime="2020-08-31T16:01:00+08:00">2020-08-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -621,7 +621,7 @@
 <span class="actionscript">        completed: <span class="literal">false</span></span>
       }
     ],
-<span class="actionscript">    visibility: <span class="string">'all'</span></span>
+<span class="actionscript">    visibility: <span class="string">'allItem'</span></span>
   },
 <span class="actionscript">  methods: {     <span class="comment">//新增代辦事項到 list</span></span>
 <span class="actionscript">    addTodo: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
@@ -882,11 +882,11 @@
 <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
 </br>  
 
-<h4 id="3-實做-editTask-函數"><a href="#3-實做-editTask-函數" class="headerlink" title="3. 實做 editTask 函數"></a>3. 實做 editTask 函數</h4><p>&emsp;將剛才新增的雙擊事件 <code>editTodo function</code> 加入 <code>methods</code> ，並將 <code>function</code> 裡的 <code>item</code> 另外存起來，目的是要讓我們知道  </p>
-<p>&emsp;哪一筆資料是目前正在編輯中的，所以在資料的部分需要做一些調整，<br>我們在 <code>data</code> 裡面新宣告變數 <code>cacheTodo</code> ( 用於：暫  </p>
+<h4 id="3-實做-editTodo-函數"><a href="#3-實做-editTodo-函數" class="headerlink" title="3. 實做 editTodo 函數"></a>3. 實做 editTodo 函數</h4><p>&emsp;將剛才新增的雙擊事件 <code>editTodo function</code> 加入 <code>methods</code> ，並將 <code>function</code> 裡的 <code>item</code> 另外存起來，目的是要讓我們知道  </p>
+<p>&emsp;哪一筆資料是目前正在編輯中的，所以在資料的部分需要做一些調整，我們在 <code>data</code> 裡面新宣告變數 <code>cacheTodo</code> ( 用於：暫  </p>
 <p>&emsp;時存放<code>todo</code>的地方)、 <code>cacheTitle</code> (用於：編輯標題時預存的地方)。<br></br>  </p>
 <p>&emsp;新增完後回到 <code>editTodo function</code> ，將 <code>this.cacheTodo</code> 指向我們傳入的 <code>item</code> ，並且把預存的 <code>this.cacheTitle</code> 指向剛才  </p>
-<p>&emsp;我們傳入的 <code>item.title</code> </p>
+<p>&emsp;我們傳入的 <code>item.title</code>  </p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
 <span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
 <span class="actionscript">  el: <span class="string">'#app'</span>,</span>
@@ -998,11 +998,26 @@
 </br>  
 
 <h4 id="5-將相關事件加入-input"><a href="#5-將相關事件加入-input" class="headerlink" title="5. 將相關事件加入 input"></a>5. 將相關事件加入 input</h4><ul>
-<li>使用 <code>v-model</code> 綁定 <code>text</code> 與 <code>cacheTitle</code> 紀錄編輯中的內容。  </li>
-<li>使用 <code>@keyup.esc=&quot;cancelEdit()&quot;</code> 取消編輯，並回到 <code>methods</code> 裡面新增 <code>cancelEdit function</code>  </li>
+<li><p>使用 <code>v-model</code> 綁定 <code>text</code> 與 <code>cacheTitle</code> 紀錄編輯中的內容。  </p>
+</li>
+<li><p>使用 <code>@keyup.esc=&quot;cancelEdit()&quot;</code> 取消編輯，並回到 <code>methods</code> 裡面新增 <code>cancelEdit function</code> ，  </p>
+</li>
+</ul>
+<p>&emsp;&emsp;並且將空物件指向給 <code>this.cacheTodo</code> 即為： <code>this.cacheTodo = {};</code> 。  </p>
+<blockquote>
+<p>因此當使用者按下 <code>ESC</code> 就會把預存的資料清空，清空後達成 <code>v-if=&quot;item.id !== cache.id&quot;</code> ，因此會顯示原本的 <code>div</code> ，並把 <code>input</code> 隱藏起來  </p>
+</blockquote>
+</br>  
+
+<ul>
 <li>使用 <code>@keyup.enter=&quot;doneEdit(item)&quot;</code> 將編輯內容存進去，並回到 <code>methods</code> 裡面新增 <code>doneEdit function</code>，將 <code>item</code> 的  </li>
 </ul>
-<p>&emsp;&emsp;<code>title</code> 指向剛才預存的標題。另外預存的標題 <code>this.cacheTitle</code> 清空，最後將 <code>this.cacheTodo = {};</code> 替換回來。</p>
+<p>&emsp;&emsp;<code>title</code> 指向剛才預存的標題。另外預存的標題 <code>this.cacheTitle</code> 清空，最後將 <code>this.cacheTodo = {};</code> 替換回來。  </p>
+<blockquote>
+<p><code>doneEdit(item)</code> 這邊，因為在編輯時會更改 <code>cacheTitle</code> 原本預存的資料，所以把 <code>this.cacheTitle</code> 指向給 <code>item.title</code> ，把原本的 <code>title</code> 更改為使用者想更改的 <code>title</code> ，只有變動 <code>title</code> ， <code>id</code> 、 <code>completed</code> 不會變動，之後把 <code>this.cacheTitle</code> 的值清空，因為不需要了已經把他丟給原本的 <code>item.title</code> ，並且也把 <code>this.cacheTodo</code> 清空，這樣才會達到 <code>v-if=&quot;item.id !== cache.id&quot;</code> ，把原本的 <code>div</code> 顯示出來  </p>
+</blockquote>
+</br>  
+
 <pre><code class="html"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group list-group-flush text-left"</span>&gt;</span>
   <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filteredTodos"</span> @<span class="attr">dblclick</span>=<span class="string">"editTodo(item)"</span>&gt;</span>
       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"d-flex"</span> <span class="attr">v-if</span>=<span class="string">"item.id !== cacheTodo.id"</span>&gt;</span>
@@ -1020,7 +1035,7 @@
           <span class="tag">&lt;/<span class="name">button</span>&gt;</span>
       <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
 
-      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-if</span>=<span class="string">"item.id === cacheTodo.id"</span> <span class="attr">v-model</span>=<span class="string">"cacheTitle"</span> @<span class="attr">keyup.esc</span>=<span class="string">"cancelEdit()"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-if</span>=<span class="string">"item.id === cacheTodo.id"</span> <span class="attr">v-model</span>=<span class="string">"cacheTitle"</span> @<span class="attr">keyup.esc</span>=<span class="string">"cancelEdit()"</span> @<span class="attr">keyup.enter</span>=<span class="string">"doneEdit(item)"</span>&gt;</span>
   <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
 
   <span class="comment">&lt;!-- &lt;li class="list-group-item"&gt;</span>
@@ -1135,7 +1150,7 @@
 <p><code>this.todos.splice(key, 1)</code> 的 <code>key</code> ，所以變成  <code>this.todos.splice(newIndex, 1)</code> </p>
 </br>  
 
-<p>這邊跑 <code>for</code> 迴圈的目的是為了確認我們要刪除的物件 <code>todo</code> 跟所有物件的 id 是要相符合的，如果式符合的狀態就把 <code>key</code> 值  </p>
+<p>這邊跑 <code>for</code> 迴圈的目的是為了確認我們要刪除的物件 <code>todo</code> 跟所有物件的 <code>id</code> 是要相符合的，如果式符合的狀態就把 <code>key</code> 值  </p>
 <p>索引位置取出來，並且放到要刪除的位置上</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
 <span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
@@ -1178,7 +1193,7 @@
           newIndex = key;
         }
       })
-<span class="actionscript">      <span class="keyword">this</span>.todos.splice(key, <span class="number">1</span>)</span>
+<span class="actionscript">      <span class="keyword">this</span>.todos.splice(newIndex, <span class="number">1</span>)</span>
     },
 <span class="actionscript">    editTodo: <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> </span>{</span>
 <span class="javascript">      <span class="built_in">console</span>.log(item);</span>
@@ -1431,7 +1446,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#套用版型及建立代辦事項列表的資料"><span class="nav-number">2.</span> <span class="nav-text">套用版型及建立代辦事項列表的資料</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增變數與函式"><span class="nav-number">2.1.</span> <span class="nav-text">1. 新增變數與函式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-輸入框與變數雙向綁定"><span class="nav-number">2.2.</span> <span class="nav-text">2. 輸入框與變數雙向綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-按鈕點擊事件與函式綁定"><span class="nav-number">2.3.</span> <span class="nav-text">3. 按鈕點擊事件與函式綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-將-todos-顯示在-UI-上"><span class="nav-number">2.4.</span> <span class="nav-text">4. 將 todos 顯示在 UI 上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-將上述綁定的項目加到-vue-原始碼"><span class="nav-number">2.5.</span> <span class="nav-text">5. 將上述綁定的項目加到 vue 原始碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-在-todos-裡面先試寫一份內容"><span class="nav-number">2.6.</span> <span class="nav-text">6. 在 todos 裡面先試寫一份內容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-將取出的代辦事項內容呈現在-UI-上"><span class="nav-number">2.7.</span> <span class="nav-text">7. 將取出的代辦事項內容呈現在 UI 上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-將每筆代辦事項的-label-和-checkbox-綁定"><span class="nav-number">2.8.</span> <span class="nav-text">8. 將每筆代辦事項的 label 和 checkbox 綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-將-checkbox-狀態與-item-的完成狀況進行綁定"><span class="nav-number">2.9.</span> <span class="nav-text">9. 將 checkbox 狀態與 item 的完成狀況進行綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-實做-addTodo-函式，將-input-新增的內容加入-todos-的列表裡面"><span class="nav-number">2.10.</span> <span class="nav-text">10. 實做 addTodo 函式，將 input 新增的內容加入 todos 的列表裡面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-支援-enter-新增"><span class="nav-number">2.11.</span> <span class="nav-text">11. 支援 enter 新增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-避免加入空的任務"><span class="nav-number">2.12.</span> <span class="nav-text">12. 避免加入空的任務</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刪除陣列上的特定資料"><span class="nav-number">3.</span> <span class="nav-text">刪除陣列上的特定資料</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增函式並與刪除按鈕綁定"><span class="nav-number">3.1.</span> <span class="nav-text">1.新增函式並與刪除按鈕綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-實做-removeTodo-函式"><span class="nav-number">3.2.</span> <span class="nav-text">2. 實做 removeTodo 函式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#製作頁籤分類的功能"><span class="nav-number">4.</span> <span class="nav-text">製作頁籤分類的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#刪除線效果"><span class="nav-number">4.1.</span> <span class="nav-text">刪除線效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#頁籤切換功能"><span class="nav-number">4.2.</span> <span class="nav-text">頁籤切換功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#先實做上方頁簽切換的部份"><span class="nav-number">4.2.1.</span> <span class="nav-text">先實做上方頁簽切換的部份</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增變數"><span class="nav-number">4.3.</span> <span class="nav-text">1. 新增變數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-頁簽渲染"><span class="nav-number">4.4.</span> <span class="nav-text">2. 頁簽渲染</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-頁簽切換效果"><span class="nav-number">4.5.</span> <span class="nav-text">3. 頁簽切換效果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下方資料切換"><span class="nav-number">4.5.1.</span> <span class="nav-text">下方資料切換</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-動態過濾陣列內容"><span class="nav-number">4.6.</span> <span class="nav-text">1. 動態過濾陣列內容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-使用回傳陣列取代原始陣列"><span class="nav-number">4.7.</span> <span class="nav-text">2. 使用回傳陣列取代原始陣列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-實作-filteredTodos-函數"><span class="nav-number">4.8.</span> <span class="nav-text">3. 實作 filteredTodos 函數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#雙擊修改資料內容"><span class="nav-number">5.</span> <span class="nav-text">雙擊修改資料內容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在-UI-上實做輸入框架"><span class="nav-number">5.1.</span> <span class="nav-text">1. 在 UI 上實做輸入框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-雙擊事件"><span class="nav-number">5.2.</span> <span class="nav-text">2. 雙擊事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-實做-editTask-函數"><span class="nav-number">5.3.</span> <span class="nav-text">3. 實做 editTask 函數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-顯示編輯框"><span class="nav-number">5.4.</span> <span class="nav-text">4. 顯示編輯框</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-將相關事件加入-input"><span class="nav-number">5.5.</span> <span class="nav-text">5. 將相關事件加入 input</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刪除項目補充說明"><span class="nav-number">6.</span> <span class="nav-text">刪除項目補充說明</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#套用版型及建立代辦事項列表的資料"><span class="nav-number">2.</span> <span class="nav-text">套用版型及建立代辦事項列表的資料</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增變數與函式"><span class="nav-number">2.1.</span> <span class="nav-text">1. 新增變數與函式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-輸入框與變數雙向綁定"><span class="nav-number">2.2.</span> <span class="nav-text">2. 輸入框與變數雙向綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-按鈕點擊事件與函式綁定"><span class="nav-number">2.3.</span> <span class="nav-text">3. 按鈕點擊事件與函式綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-將-todos-顯示在-UI-上"><span class="nav-number">2.4.</span> <span class="nav-text">4. 將 todos 顯示在 UI 上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-將上述綁定的項目加到-vue-原始碼"><span class="nav-number">2.5.</span> <span class="nav-text">5. 將上述綁定的項目加到 vue 原始碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-在-todos-裡面先試寫一份內容"><span class="nav-number">2.6.</span> <span class="nav-text">6. 在 todos 裡面先試寫一份內容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-將取出的代辦事項內容呈現在-UI-上"><span class="nav-number">2.7.</span> <span class="nav-text">7. 將取出的代辦事項內容呈現在 UI 上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-將每筆代辦事項的-label-和-checkbox-綁定"><span class="nav-number">2.8.</span> <span class="nav-text">8. 將每筆代辦事項的 label 和 checkbox 綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-將-checkbox-狀態與-item-的完成狀況進行綁定"><span class="nav-number">2.9.</span> <span class="nav-text">9. 將 checkbox 狀態與 item 的完成狀況進行綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-實做-addTodo-函式，將-input-新增的內容加入-todos-的列表裡面"><span class="nav-number">2.10.</span> <span class="nav-text">10. 實做 addTodo 函式，將 input 新增的內容加入 todos 的列表裡面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-支援-enter-新增"><span class="nav-number">2.11.</span> <span class="nav-text">11. 支援 enter 新增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-避免加入空的任務"><span class="nav-number">2.12.</span> <span class="nav-text">12. 避免加入空的任務</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刪除陣列上的特定資料"><span class="nav-number">3.</span> <span class="nav-text">刪除陣列上的特定資料</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增函式並與刪除按鈕綁定"><span class="nav-number">3.1.</span> <span class="nav-text">1.新增函式並與刪除按鈕綁定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-實做-removeTodo-函式"><span class="nav-number">3.2.</span> <span class="nav-text">2. 實做 removeTodo 函式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#製作頁籤分類的功能"><span class="nav-number">4.</span> <span class="nav-text">製作頁籤分類的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#刪除線效果"><span class="nav-number">4.1.</span> <span class="nav-text">刪除線效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#頁籤切換功能"><span class="nav-number">4.2.</span> <span class="nav-text">頁籤切換功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#先實做上方頁簽切換的部份"><span class="nav-number">4.2.1.</span> <span class="nav-text">先實做上方頁簽切換的部份</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新增變數"><span class="nav-number">4.3.</span> <span class="nav-text">1. 新增變數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-頁簽渲染"><span class="nav-number">4.4.</span> <span class="nav-text">2. 頁簽渲染</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-頁簽切換效果"><span class="nav-number">4.5.</span> <span class="nav-text">3. 頁簽切換效果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下方資料切換"><span class="nav-number">4.5.1.</span> <span class="nav-text">下方資料切換</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-動態過濾陣列內容"><span class="nav-number">4.6.</span> <span class="nav-text">1. 動態過濾陣列內容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-使用回傳陣列取代原始陣列"><span class="nav-number">4.7.</span> <span class="nav-text">2. 使用回傳陣列取代原始陣列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-實作-filteredTodos-函數"><span class="nav-number">4.8.</span> <span class="nav-text">3. 實作 filteredTodos 函數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#雙擊修改資料內容"><span class="nav-number">5.</span> <span class="nav-text">雙擊修改資料內容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在-UI-上實做輸入框架"><span class="nav-number">5.1.</span> <span class="nav-text">1. 在 UI 上實做輸入框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-雙擊事件"><span class="nav-number">5.2.</span> <span class="nav-text">2. 雙擊事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-實做-editTodo-函數"><span class="nav-number">5.3.</span> <span class="nav-text">3. 實做 editTodo 函數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-顯示編輯框"><span class="nav-number">5.4.</span> <span class="nav-text">4. 顯示編輯框</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-將相關事件加入-input"><span class="nav-number">5.5.</span> <span class="nav-text">5. 將相關事件加入 input</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刪除項目補充說明"><span class="nav-number">6.</span> <span class="nav-text">刪除項目補充說明</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
