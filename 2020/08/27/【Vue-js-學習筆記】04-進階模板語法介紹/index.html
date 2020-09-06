@@ -20,17 +20,54 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="前言進階模板語法詳細介紹">
+<meta property="og:type" content="article">
 <meta property="og:title" content="【Vue.js 學習筆記】04. 進階模板語法介紹">
 <meta property="og:url" content="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9104-%E9%80%B2%E9%9A%8E%E6%A8%A1%E6%9D%BF%E8%AA%9E%E6%B3%95%E4%BB%8B%E7%B4%B9/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言進階模板語法詳細介紹">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/pp1hlxP.png">
+<meta property="og:image" content="https://imgur.com/mwhSF3u.png">
+<meta property="og:image" content="https://imgur.com/0H2jJfB.png">
+<meta property="og:image" content="https://imgur.com/UsYP8CL.png">
+<meta property="og:image" content="https://imgur.com/0Yx35ZL.png">
+<meta property="og:image" content="https://imgur.com/OSc21Wz.png">
+<meta property="og:image" content="https://imgur.com/1Suf0go.png">
+<meta property="og:image" content="https://imgur.com/TmlnL2I.png">
+<meta property="og:image" content="https://imgur.com/wucRu8z.png">
+<meta property="og:image" content="https://imgur.com/phbTS0P.png">
+<meta property="og:image" content="https://imgur.com/e0DaidV.png">
+<meta property="og:image" content="https://imgur.com/wBxtOho.png">
+<meta property="og:image" content="https://imgur.com/wBxtOho.png">
+<meta property="og:image" content="https://imgur.com/mJpeI0l.png">
+<meta property="og:image" content="https://imgur.com/r6hWSnb.png">
+<meta property="og:image" content="https://imgur.com/SCoYSTP.png">
+<meta property="og:image" content="https://imgur.com/Kx0ltcD.png">
+<meta property="og:image" content="https://imgur.com/RmTXR1G.png">
+<meta property="og:image" content="https://imgur.com/OLZksb5.png">
+<meta property="og:image" content="https://imgur.com/eU8bTCp.png">
+<meta property="og:image" content="https://imgur.com/XU4QOcx.png">
+<meta property="og:image" content="https://imgur.com/XOLWruX.png">
+<meta property="og:image" content="https://imgur.com/nHqQWiL.png">
+<meta property="og:image" content="https://imgur.com/fjeEKtC.png">
+<meta property="og:image" content="https://imgur.com/vTPChLQ.png">
+<meta property="og:image" content="https://imgur.com/hhkEhld.png">
+<meta property="og:image" content="https://imgur.com/VSKiz13.png">
+<meta property="og:image" content="https://imgur.com/UPzfYIg.png">
+<meta property="og:image" content="https://imgur.com/kTwFlpt.png">
+<meta property="og:image" content="https://imgur.com/FJ7W8OX.png">
+<meta property="og:image" content="https://imgur.com/7MhUfHc.png">
+<meta property="og:image" content="https://imgur.com/i4676Az.png">
+<meta property="og:image" content="https://imgur.com/t6BcTpd.png">
+<meta property="og:image" content="https://imgur.com/IaYmo7p.png">
+<meta property="og:image" content="https://imgur.com/TvXrhhl.png">
 <meta property="article:published_time" content="2020-08-27T11:27:29.000Z">
-<meta property="article:modified_time" content="2020-08-27T11:27:29.809Z">
+<meta property="article:modified_time" content="2020-09-06T11:36:39.741Z">
 <meta property="article:author" content="Renee">
-<meta property="article:tag" content="tag1">
-<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/pp1hlxP.png">
 
 <link rel="canonical" href="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9104-%E9%80%B2%E9%9A%8E%E6%A8%A1%E6%9D%BF%E8%AA%9E%E6%B3%95%E4%BB%8B%E7%B4%B9/">
 
@@ -186,17 +223,20 @@
 
               <time title="أُنشأ: 2020-08-27 19:27:29" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:29+08:00">2020-08-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-09-06 19:36:39" itemprop="dateModified" datetime="2020-09-06T19:36:39+08:00">2020-09-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/" itemprop="url" rel="index"><span itemprop="name">tag1</span></a>
-                </span>
-                  ، 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/tag2/" itemprop="url" rel="index"><span itemprop="name">tag2</span></a>
+                  <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
                 </span>
             </span>
 
@@ -211,7 +251,1607 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>進階模板語法詳細介紹  </p>
+<a id="more"></a>  
+
+<p>本節內容包含下述子章節：</p>
+<ol>
+<li><a href="#id1">模板資料細節說明</a>  </li>
+<li><a href="#id2">動態切換 ClassName 及 Style 多種方法</a>  </li>
+<li><a href="#id3">v-for 與其使用細節</a>  </li>
+<li><a href="#id4">v-if 與其使用細節</a>  </li>
+<li><a href="#id5">Computed 與 Watch</a>  </li>
+<li><a href="#id6">表單細節操作</a>  </li>
+<li><a href="#id7">v-on 的頁面操作細節</a>  </li>
+<li><a href="#id8">章節作業</a>  </li>
+</ol>
+</br>  
+</br>  
+
+<h3 id="模板資料細節說明"><a href="#模板資料細節說明" class="headerlink" title="模板資料細節說明"></a><a id="id1">模板資料細節說明</a></h3><ol>
+<li>在 <code>UI</code> 上顯示變數內容，可在直接使用兩個花括號包覆變數即可顯示，  </li>
+</ol>
+<p>&emsp;&emsp;並且在 <code>input</code> 使用 <code>v-model=&quot;text&quot;</code> 進行雙向綁定。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>字串<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="comment">{{ text }}</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"text"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    text: <span class="string">'這是一段文字'</span>,</span>
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ol start="2">
+<li>在 <code>Vue</code> 中無法直接使用兩個花括號插入一段 <code>HTML</code> 語法，  </li>
+</ol>
+<p>&emsp;&emsp;如： <code>data</code> 裡 <code>rawHtml: &#39;&lt;span class=&quot;text-danger&quot;&gt;紅色文字&lt;/span&gt;&#39;</code> ，再將 <code></code> 放在 <code>html</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>原始 HTML<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="comment">{{ rawHtml }}</span>
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="handlebars"><span class="xml">    rawHtml: `<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"text-danger"</span>&gt;</span>紅色文字<span class="tag">&lt;/<span class="name">span</span>&gt;</span>`,</span></span>
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+
+<p>該語法會直接轉成純文字後顯示，像這樣  </p>
+<p><img src="https://imgur.com/pp1hlxP.png" alt=" ">  </p>
+</br>  
+
+<p>若要插入 <code>HTML</code> 語法請使用 <code>v-html</code> 再將變數 <code>rawHtml</code> 帶入，即 <code>v-html=&quot;rawHtml&quot;</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>原始 HTML<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-html</span>=<span class="string">"rawHtml"</span>&gt;</span>請在此加入原始 HTML 結構<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="handlebars"><span class="xml">    rawHtml: `<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"text-danger"</span>&gt;</span>紅色文字<span class="tag">&lt;/<span class="name">span</span>&gt;</span>`,</span></span>
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>結果就會是這樣  </p>
+</br>  
+
+<p><img src="https://imgur.com/mwhSF3u.png" alt=" ">  </p>
+<blockquote>
+<p>注意！<br>在網站上動態渲染任意 <code>HTML</code> 是非常危險的，因為容易導致 <code>XSS</code> 攻擊。因此只在可信內容上使用 <code>v-html</code>，<br>永不用在使用者提交的內容（例如：使用者留言）上。  </p>
+</blockquote>
+<blockquote>
+<p>跨網站指令碼 (英語：<code>Cross-site scripting</code>，通常簡稱為：<code>XSS</code> ) 是一種網站應用程式的安全漏洞攻擊，是代碼注入的一種。它允許惡意使用者將程式碼注入到網頁上，其他使用者在觀看網頁時就會受到影響。  </p>
+</blockquote>
+</br>  
+</br>  
+
+<ol start="3">
+<li>字串除了雙向綁定之外，也可以進行單向綁定，只需要在標籤上新增 <code>v-once</code> ，這樣就只會輸出一次。  </li>
+</ol>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>單次綁定<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-text</span>=<span class="string">"text"</span> <span class="attr">v-once</span> &gt;</span>請將此欄位改為單次綁定<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    text: <span class="string">'這是一段文字'</span>,</span>
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ol start="4">
+<li>在兩個花括號裡也可以輸入表達式，也就是說可以撰寫 <code>javascript</code> 讓它回傳一個值。  </li>
+</ol>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>表達式<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>練習不同的表達式<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="comment">{{ text + rawHtml }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>  <span class="comment">&lt;!-- 文字相加 --&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="comment">{{ text.split('').reverse().join('') }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>  <span class="comment">&lt;!-- 文字反轉 --&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="comment">{{ number1 + number2 }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>  <span class="comment">&lt;!-- 數字相加 --&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    text: <span class="string">'這是一段文字'</span>,</span>
+<span class="handlebars"><span class="xml">    rawHtml: `<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"text-danger"</span>&gt;</span>紅色文字<span class="tag">&lt;/<span class="name">span</span>&gt;</span>`,</span></span>
+    number1: 100,
+    number2: 300,
+<span class="actionscript">    htmlId: <span class="string">'HTMLID'</span>,</span>
+<span class="actionscript">    isDisabled: <span class="literal">true</span></span>
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ol start="5">
+<li>透過資料狀態來操作 <code>HTML</code> 屬性，使用 <code>v-bind</code> 綁定 <code>id</code> ，即 <code>v-bind:id=&quot;htmlId&quot;</code> ，也可縮寫 <code>:id=&quot;htmlId&quot;</code> 。  </li>
+</ol>
+<p>&emsp;&emsp;除了可以動態操作 <code>class</code> <code>id</code> 之外，也可以操作 <code>input</code> 的狀態，使用 <code>v-bind</code> 綁定 <code>disabled</code> 。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>HTML 屬性<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-bind:id</span>=<span class="string">"htmlId"</span>&gt;</span>請綁定上 ID<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">:disabled</span>=<span class="string">"isDisabled"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"請在此加上動態 disabled"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    text: <span class="string">'這是一段文字'</span>,</span>
+<span class="handlebars"><span class="xml">    rawHtml: `<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"text-danger"</span>&gt;</span>紅色文字<span class="tag">&lt;/<span class="name">span</span>&gt;</span>`,</span></span>
+    number1: 100,
+    number2: 300,
+<span class="actionscript">    htmlId: <span class="string">'HTMLID'</span>,</span>
+<span class="actionscript">    isDisabled: <span class="literal">true</span></span>
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/0H2jJfB.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<h3 id="動態切換-ClassName-及-Style-多種方法"><a href="#動態切換-ClassName-及-Style-多種方法" class="headerlink" title="動態切換 ClassName 及 Style 多種方法"></a><a id="id2">動態切換 ClassName 及 Style 多種方法</a></h3><ol>
+<li>直接傳入物件  </li>
+</ol>
+<p>&emsp;假設我們要為一個 <code>box</code> 加入動態的 <code>class name</code> ，並且 <code>class name</code> 可以做切換，我們可以使用 <code>:class</code> 後面插入  </p>
+<p>&emsp;一個物件 <code>{ }</code> ，物件前方的值放 <code>class name</code>，後方放可以切換的值，即 <code>:class=&quot;{ &#39;rotate&#39; : isTransform}&quot;</code></p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span>
+<span class="css"><span class="selector-class">.box</span> {</span>
+<span class="css">  <span class="selector-tag">transition</span>: <span class="selector-tag">all</span> <span class="selector-class">.5s</span>;  <span class="comment">/* 漸變效果 */</span></span>
+}
+<span class="css"><span class="selector-class">.box</span><span class="selector-class">.rotate</span> {</span>
+<span class="css">  <span class="selector-tag">transform</span>: <span class="selector-tag">rotate</span>(45<span class="selector-tag">deg</span>)  <span class="comment">/* 旋轉 */</span></span>
+}
+<span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>物件寫法<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:class</span>=<span class="string">"{ 'rotate' : isTransform}"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>請為此元素加上動態 className<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> <span class="attr">v-on:click</span>=<span class="string">"isTransform = !isTransform"</span>&gt;</span>選轉物件<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"classToggle1"</span> <span class="attr">v-model</span>=<span class="string">"boxColor"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"classToggle1"</span>&gt;</span>切換色彩<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isTransform: <span class="literal">false</span>,</span>
+<span class="actionscript">    boxColor: <span class="literal">false</span>,</span>
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+
+<p>當然它因為是物件的關係我們可以插入一個以上的值，所以我們可以再將 <code>&#39;bg-danger&#39; : boxColor</code> 插入  </p>
+<p><code>&#39;rotate&#39; : isTransform</code> 後方，即 <code>:class=&quot;{ &#39;rotate&#39; : isTransform, &#39;bg-danger&#39; : boxColor}&quot;</code> ，  </p>
+<p>這時候就可以同時旋轉物件以及變換顏色。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span>
+<span class="css"><span class="selector-class">.box</span> {</span>
+<span class="css">  <span class="selector-tag">transition</span>: <span class="selector-tag">all</span> <span class="selector-class">.5s</span>;  <span class="comment">/* 漸變效果 */</span></span>
+}
+<span class="css"><span class="selector-class">.box</span><span class="selector-class">.rotate</span> {</span>
+<span class="css">  <span class="selector-tag">transform</span>: <span class="selector-tag">rotate</span>(45<span class="selector-tag">deg</span>)  <span class="comment">/* 旋轉 */</span></span>
+}
+<span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>物件寫法<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:class</span>=<span class="string">"{ 'rotate' : isTransform, 'bg-danger' : boxColor}"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>請為此元素加上動態 className<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> <span class="attr">v-on:click</span>=<span class="string">"isTransform = !isTransform"</span>&gt;</span>選轉物件<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"classToggle1"</span> <span class="attr">v-model</span>=<span class="string">"boxColor"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"classToggle1"</span>&gt;</span>切換色彩<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isTransform: <span class="literal">false</span>,</span>
+<span class="actionscript">    boxColor: <span class="literal">false</span>,</span>
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ol start="2">
+<li>傳入物件變數  </li>
+</ol>
+<p>&emsp;將欲傳入 <code>class</code> 的物件，定義為一個物件變數，再將變數傳入 <code>class</code> 中。  </p>
+<p>&emsp;首先我們在 <code>vue</code> 的 <code>data</code> 裡先將 <code>&#39;rotate&#39;: false,</code> 及 <code>&#39;bg-danger&#39;: false,</code> 用物件的方式定義好名稱 <code>objectClass</code> ，  </p>
+<p>&emsp;再將 <code>objectClass</code> 名稱綁定在 <code>html</code> 的 <code>class</code> 上，即 <code>:class=&quot;objectClass&quot;</code> 。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span>
+<span class="css"><span class="selector-class">.box</span> {</span>
+<span class="css">  <span class="selector-tag">transition</span>: <span class="selector-tag">all</span> <span class="selector-class">.5s</span>;  <span class="comment">/* 漸變效果 */</span></span>
+}
+<span class="css"><span class="selector-class">.box</span><span class="selector-class">.rotate</span> {</span>
+<span class="css">  <span class="selector-tag">transform</span>: <span class="selector-tag">rotate</span>(45<span class="selector-tag">deg</span>)  <span class="comment">/* 旋轉 */</span></span>
+}
+<span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h5</span>&gt;</span>物件寫法 2<span class="tag">&lt;/<span class="name">h5</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:class</span>=<span class="string">"objectClass"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span>&gt;</span>選轉物件<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"classToggle2"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"classToggle2"</span>&gt;</span>切換色彩<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isTransform: <span class="literal">false</span>,</span>
+<span class="actionscript">    boxColor: <span class="literal">false</span>,</span>
+    objectClass: {
+<span class="actionscript">      <span class="string">'rotate'</span>: <span class="literal">false</span>,</span>
+<span class="actionscript">      <span class="string">'bg-danger'</span>: <span class="literal">false</span>,</span>
+    },
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+
+<p>可是現在遇到一個問題，我們雖然將樣式套用了，那要怎麼切換它？  </p>
+<ul>
+<li><p>切換旋轉可以在 <code>button</code> 標籤用 <code>v-on</code> 綁定 <code>click</code> 事件，即 <code>v-on:click=&quot;objectClass.rotate = !objectClass.rotate&quot;</code> 。  </p>
+</li>
+<li><p>切換顏色可以在 <code>input</code> 標籤用 <code>v-model</code> 綁定，即 <code>v-model=&quot;objectClass.bg-danger&quot;</code>，但是這邊要注意 <code>console</code> 可能會跳  </p>
+</li>
+</ul>
+<p>&emsp;&emsp;錯，顯示 <code>danger is not defined</code> ，原因是因為我們不能使用 <code>dash</code> 符號 <code>-</code> 來做為物件選取的名稱，我們必須用中括號  </p>
+<p>&emsp;&emsp;<code>[ ]</code> 的方式來選取 <code>bg-danger</code> ，即 <code>v-model=&quot;objectClass[&#39;bg-danger&#39;]&quot;</code> 。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span>
+<span class="css"><span class="selector-class">.box</span> {</span>
+<span class="css">  <span class="selector-tag">transition</span>: <span class="selector-tag">all</span> <span class="selector-class">.5s</span>;  <span class="comment">/* 漸變效果 */</span></span>
+}
+<span class="css"><span class="selector-class">.box</span><span class="selector-class">.rotate</span> {</span>
+<span class="css">  <span class="selector-tag">transform</span>: <span class="selector-tag">rotate</span>(45<span class="selector-tag">deg</span>)  <span class="comment">/* 旋轉 */</span></span>
+}
+<span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h5</span>&gt;</span>物件寫法 2<span class="tag">&lt;/<span class="name">h5</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:class</span>=<span class="string">"objectClass"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> <span class="attr">v-on:click</span>=<span class="string">"objectClass.rotate = !objectClass.rotate"</span>&gt;</span>選轉物件<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"classToggle2"</span> <span class="attr">v-model</span>=<span class="string">"objectClass['bg-danger']"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"classToggle2"</span>&gt;</span>切換色彩<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isTransform: <span class="literal">false</span>,</span>
+<span class="actionscript">    boxColor: <span class="literal">false</span>,</span>
+    objectClass: {
+<span class="actionscript">      <span class="string">'rotate'</span>: <span class="literal">false</span>,</span>
+<span class="actionscript">      <span class="string">'bg-danger'</span>: <span class="literal">false</span>,</span>
+    },
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ol start="3">
+<li>陣列寫法  </li>
+</ol>
+<p>&emsp;適用於 <code>class name</code> 長度比較不確定的狀況。  </p>
+<p>&emsp;在套用 <code>class name</code> 時有很多可以寫入，例如：<code>btn-outline-primary</code> 、 <code>active</code> ，接下來我們動態加上 <code>class</code>可以用陣列的  </p>
+<p>&emsp;方式，用中括號 <code>[ ]</code> 將 <code>btn-outline-primary</code> 和 <code>active</code>放入，即 <code>:class=&quot;[&#39;btn-outline-primary&#39;, &#39;active&#39;]&quot;</code> 這個就是  </p>
+<p>&emsp;陣列的形式。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>陣列寫法<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn"</span> <span class="attr">:class</span>=<span class="string">"['btn-outline-primary', 'active']"</span>&gt;</span>請操作本元件<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"classToggle3"</span> &gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"classToggle3"</span>&gt;</span>切換樣式<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"classToggle4"</span> &gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"classToggle4"</span>&gt;</span>啟用元素狀態<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isTransform: <span class="literal">false</span>,</span>
+<span class="actionscript">    boxColor: <span class="literal">false</span>,</span>
+    objectClass: {
+<span class="actionscript">      <span class="string">'rotate'</span>: <span class="literal">false</span>,</span>
+<span class="actionscript">      <span class="string">'bg-danger'</span>: <span class="literal">false</span>,</span>
+    },
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>我們也可以把 <code>array</code> 的部份拉出拉獨立成為一個變數。  </p>
+<p>先在 <code>Vue</code> 定義好 <code>arrayClass</code> 的空陣列，將 <code>arrayClass</code> 名稱加入 <code>button</code> 的動態 <code>class</code> ，即 <code>:class=&quot;arrayClass&quot;</code> 。  </p>
+<p>接下來我們透過下方的 <code>check box</code> 一個一個把 <code>class</code> 加上。  </p>
+<ul>
+<li><p>切換樣式：<br>在 <code>input</code> 標籤加上 <code>v-model=&quot;arrayClass&quot;</code> 及 <code>value=&quot;btn-outline-primary&quot;</code>  </p>
+</li>
+<li><p>啟用元素狀態<br>在 <code>input</code> 標籤加上 <code>v-model=&quot;arrayClass&quot;</code> 及 <code>value=&quot;active&quot;</code>  </p>
+</li>
+</ul>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>陣列寫法<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn"</span> <span class="attr">:class</span>=<span class="string">"arrayClass"</span>&gt;</span>請操作本元件<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"classToggle3"</span> <span class="attr">v-model</span>=<span class="string">"arrayClass"</span> <span class="attr">value</span>=<span class="string">"btn-outline-primary"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"classToggle3"</span>&gt;</span>切換樣式<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"classToggle4"</span> <span class="attr">v-model</span>=<span class="string">"arrayClass"</span> <span class="attr">value</span>=<span class="string">"active"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"classToggle4"</span>&gt;</span>啟用元素狀態<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isTransform: <span class="literal">false</span>,</span>
+<span class="actionscript">    boxColor: <span class="literal">false</span>,</span>
+    objectClass: {
+<span class="actionscript">      <span class="string">'rotate'</span>: <span class="literal">false</span>,</span>
+<span class="actionscript">      <span class="string">'bg-danger'</span>: <span class="literal">false</span>,</span>
+    },
+
+<span class="actionscript">    <span class="comment">// Array 操作</span></span>
+    arrayClass: [],
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ol start="4">
+<li>綁定行內樣式  </li>
+</ol>
+<p>&emsp;插入行內樣式我們是使用冒號 <code>：</code> 加上 <code>style</code> ，接著使用物件 <code>{ }</code> 的方式，前面放「樣式屬性」，後方放「樣式的值」，  </p>
+<p>&emsp;即 <code>:style=&quot;{backgroundColor: &#39;red&#39; }&quot;</code>  </p>
+<blockquote>
+<p>注意原先 <code>CSS</code> 是使用中線命名規則，要改成駝峰式，例如 <code>background-color</code> 改成 <code>backgroundColor</code>  </p>
+</blockquote>
+</br>  
+
+<p>&emsp;物件也可以存為變數來使用，我們在 <code>Vue</code> 裡面定義了 <code>class name</code> <code>styleObject</code>，將這個 <code>styleObject</code> 直接綁定在  </p>
+<p>&emsp;<code>style</code> 即可。<br></br>  </p>
+<p>&emsp;接著我們還可以使用陣列的方式來撰寫，在 <code>[ ]</code> 裡面我們要插入完整的物件，像這樣  </p>
+<p>&emsp;<code>:style=&quot;[{backgroundColor: &#39;red&#39; }, {borderWidth: &#39;5px&#39; }]&quot;</code> 或是 <code>:style=&quot;[styleObject, styleObject2]&quot;</code></p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>綁定行內樣式<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:style</span>=<span class="string">"{backgroundColor: 'red' }"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:style</span>=<span class="string">"styleObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:style</span>=<span class="string">"[styleObject, styleObject2]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isTransform: <span class="literal">false</span>,</span>
+<span class="actionscript">    boxColor: <span class="literal">false</span>,</span>
+    objectClass: {
+<span class="actionscript">      <span class="string">'rotate'</span>: <span class="literal">false</span>,</span>
+<span class="actionscript">      <span class="string">'bg-danger'</span>: <span class="literal">false</span>,</span>
+    },
+
+<span class="actionscript">    <span class="comment">// Array 操作</span></span>
+    arrayClass: [],
+
+<span class="actionscript">    <span class="comment">// 行內樣式</span></span>
+<span class="actionscript">    <span class="comment">// 使用駝峰式命名</span></span>
+    styleObject: {
+<span class="actionscript">      backgroundColor: <span class="string">'red'</span>,</span>
+<span class="actionscript">      borderWidth: <span class="string">'5px'</span></span>
+    },
+    styleObject2: {
+<span class="actionscript">      boxShadow: <span class="string">'3px 3px 5px rgba(0, 0, 0, 0.16)'</span></span>
+    },
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ol start="5">
+<li>Prefix  </li>
+</ol>
+<p>&emsp;<code>vue</code> 在動態加上這些樣式時，我們是不需要手動加上 <code>Prefix</code> ，它會自動依照每個瀏覽器版本需求自動加上。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h5</span>&gt;</span>自動加上 Prefix (每個版本結果不同)<span class="tag">&lt;/<span class="name">h5</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:style</span>=<span class="string">"styleObject3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isTransform: <span class="literal">false</span>,</span>
+<span class="actionscript">    boxColor: <span class="literal">false</span>,</span>
+    objectClass: {
+<span class="actionscript">      <span class="string">'rotate'</span>: <span class="literal">false</span>,</span>
+<span class="actionscript">      <span class="string">'bg-danger'</span>: <span class="literal">false</span>,</span>
+    },
+
+<span class="actionscript">    <span class="comment">// Array 操作</span></span>
+    arrayClass: [],
+
+<span class="actionscript">    <span class="comment">// 行內樣式</span></span>
+<span class="actionscript">    <span class="comment">// 使用駝峰式命名</span></span>
+    styleObject: {
+<span class="actionscript">      backgroundColor: <span class="string">'red'</span>,</span>
+<span class="actionscript">      borderWidth: <span class="string">'5px'</span></span>
+    },
+    styleObject2: {
+<span class="actionscript">      boxShadow: <span class="string">'3px 3px 5px rgba(0, 0, 0, 0.16)'</span></span>
+    },
+    styleObject3: {
+<span class="actionscript">      userSelect: <span class="string">'none'</span></span>
+    }
+  },
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/UsYP8CL.png" alt=" ">  </p>
+<p><img src="https://imgur.com/0Yx35ZL.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<h3 id="v-for-與其使用細節"><a href="#v-for-與其使用細節" class="headerlink" title="v-for 與其使用細節"></a><a id="id3">v-for 與其使用細節</a></h3><p>在前面我們有稍微提到了 <code>v-for</code>，現在來複習一下，一樣先建構 <code>Vue</code> 的基本結構和資料：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    arrayData: [
+      {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        age: 16
+      },
+      {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        age: 24
+      },
+      {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        age: 20
+      }
+    ],
+    objectData: {
+      ming: {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        age: 16
+      },
+      auntie: {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        age: 24
+      },
+      jay: {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        age: 20
+      }
+    },
+    filterArray: [],
+<span class="actionscript">    filterText: <span class="string">''</span></span>
+  },
+  methods: {
+<span class="actionscript">      reverseArray: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="keyword">this</span>.arrayData.reverse();</span>
+      },
+<span class="actionscript">      filterData: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="actionscript">          vm.filterArray = vm.arrayData.filter(<span class="function"><span class="keyword">function</span><span class="params">(item)</span></span>{</span>
+<span class="actionscript">              <span class="keyword">return</span> item.name.match(vm.filterText);</span>
+          });
+      },
+<span class="actionscript">      cantWork: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="comment">//this.arrayData.length = 0;</span></span>
+<span class="actionscript">          <span class="comment">//this.arrayData[0] = {</span></span>
+<span class="actionscript">          <span class="comment">//    name: '小強',</span></span>
+<span class="actionscript">          <span class="comment">//    age: 99</span></span>
+<span class="actionscript">          <span class="comment">//}</span></span>
+<span class="actionscript">          Vue.set(<span class="keyword">this</span>.arrayData, <span class="number">0</span>,{</span>
+<span class="actionscript">            name: <span class="string">'小強'</span>,</span>
+            age: 99
+          })
+      }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<h4 id="1-陣列與物件（key-value-pair）"><a href="#1-陣列與物件（key-value-pair）" class="headerlink" title="1. 陣列與物件（key value pair）"></a>1. 陣列與物件（key value pair）</h4><p>都可以使用 <code>v-for</code> 來執行。但兩者取出索引指略有不同，在陣列取出索引的是 <code>index</code>，而物件的取出索引是 <code>key</code> 值，  </p>
+<p>或稱物件的屬性。  </p>
+<p>先來複習一下基本使用 <code>v-for</code> 的方法：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in arrayData"</span>&gt;</span>
+      <span class="comment">{{ key }}</span> - <span class="comment">{{ item.name }}</span> <span class="comment">{{ item.age }}</span> 歲
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+<p>這樣就會把 <code>arrayData</code> 內的每筆資料撈出來  </p>
+</br>  
+
+<h4 id="2-Key"><a href="#2-Key" class="headerlink" title="2. Key"></a>2. Key</h4><p>接著如果我們的資料是帶有 <code>input</code> 元素時，就會產生一些問題，假設我們要反轉陣列，先在 <code>button</code> 元素內  </p>
+<p>新增點擊會反轉陣列的 <code>reverseArray function</code>  </p>
+<pre><code class="html"> <span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in arrayData"</span>&gt;</span>
+      <span class="comment">{{ key }}</span> - <span class="comment">{{ item.name }}</span> <span class="comment">{{ item.age }}</span> 歲 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+ <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> @<span class="attr">click</span>=<span class="string">"reverseArray"</span>&gt;</span>反轉陣列<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    arrayData: [
+      {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        age: 16
+      },
+      {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        age: 24
+      },
+      {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        age: 20
+      }
+    ],
+    objectData: {
+      ming: {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        age: 16
+      },
+      auntie: {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        age: 24
+      },
+      jay: {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        age: 20
+      }
+    },
+    filterArray: [],
+<span class="actionscript">    filterText: <span class="string">''</span></span>
+  },
+  methods: {
+<span class="actionscript">      reverseArray: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="keyword">this</span>.arrayData.reverse();</span>
+      },
+<span class="actionscript">      filterData: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="actionscript">          vm.filterArray = vm.arrayData.filter(<span class="function"><span class="keyword">function</span><span class="params">(item)</span></span>{</span>
+<span class="actionscript">              <span class="keyword">return</span> item.name.match(vm.filterText);</span>
+          });
+      },
+<span class="actionscript">      cantWork: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="comment">//this.arrayData.length = 0;</span></span>
+<span class="actionscript">          <span class="comment">//this.arrayData[0] = {</span></span>
+<span class="actionscript">          <span class="comment">//    name: '小強',</span></span>
+<span class="actionscript">          <span class="comment">//    age: 99</span></span>
+<span class="actionscript">          <span class="comment">//}</span></span>
+<span class="actionscript">          Vue.set(<span class="keyword">this</span>.arrayData, <span class="number">0</span>,{</span>
+<span class="actionscript">            name: <span class="string">'小強'</span>,</span>
+            age: 99
+          })
+      }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>這時候如果我們可以在 <code>input</code> 內輸入一些內容，會發現 <code>input</code> 內的資料並沒有辦法做反轉，僅只有 <code>arrayData</code> 的資料  </p>
+<p>在做反轉，這時候我們要增加 <code>key</code> 屬性來讓 <code>Vue</code> 重新做渲染。根據 <code>Vue</code> 的官方 <a href="https://cn.vuejs.org/v2/guide/list.html#%E7%BB%B4%E6%8A%A4%E7%8A%B6%E6%80%81" target="_blank" rel="noopener">文件</a> 表示，<code>v-for</code> 正在更新已渲染過的  </p>
+<p>元素列表時，需要特別注意它默認用「就地複用」策略。  </p>
+<blockquote>
+<p>所謂的就地複用指的是，如果數據項的順序被改變，<code>Vue</code> 不會移動 <code>DOM</code> 元素來匹配數據項的順序，<br>而是直接重複使用原本位置上的元素。  </p>
+</blockquote>
+</br>  
+
+<p>舉例來說，下圖是資料反轉前後的對照圖，可以看到資料反轉，但輸入框不會隨數據項順序改變而一起變動：  </p>
+<p><img src="https://imgur.com/OSc21Wz.png" alt=" ">  </p>
+<p>一般來說，這樣的默認模式效能較好，且在資料展示的場景中並不會有這個困擾。但若子元素間存在相依性、  </p>
+<p>存在與使用者互動的場景、或是依賴臨時的 <code>DOM</code> 狀態，則不推薦使用就地複用模式。</p>
+<p>例如：上例中可以讓使用對所要輸入的表單進行重新排序，那麼建議在 <code>v-for</code> 為每個節點加上 <code>key</code> 值，  </p>
+<p>它能方便 <code>Vue</code> 跟蹤每個節點，從而重用和重新排序現有元素。  </p>
+</br>  
+
+<p>那這裡就先用 <code>item.age</code> 來做 <code>:key</code> 屬性的值，這時候 <code>input</code> 元素也會跟著做反轉了。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in arrayData"</span> <span class="attr">:key</span>=<span class="string">"item.age"</span>&gt;</span>
+     <span class="comment">{{ key }}</span> - <span class="comment">{{ item.name }}</span> <span class="comment">{{ item.age }}</span> 歲 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span>
+   <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+ <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+ <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> @<span class="attr">click</span>=<span class="string">"reverseArray"</span>&gt;</span>反轉陣列<span class="tag">&lt;/<span class="name">button</span>&gt;</span></code></pre>
+</br>  
+
+<p>假設我們現在要在 <code>v-for</code> 做過濾資料，要在欄位內輸入資料的名字，並把那筆資料撈出來：  </p>
+<p>分別先把定義好的資料 <code>filterText</code> 和 <code>filterArray</code> 綁上去 <code>input</code> 元素和 <code>v-for</code> 內，  </p>
+<p>並在 <code>input</code> 元素內按下 <code>Enter</code> 鍵時，執行 <code>filterData</code> 這個 <code>function</code>  </p>
+<pre><code class="html">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"filterText"</span> @<span class="attr">keyup.enter</span>=<span class="string">"filterData"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filterArray"</span> <span class="attr">:key</span>=<span class="string">"item.age"</span>&gt;</span>
+      <span class="comment">{{ key }}</span> - <span class="comment">{{ item.name }}</span> <span class="comment">{{ item.age }}</span> 歲 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">  <span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">    el: <span class="string">'#app'</span>,</span>
+    data: {
+      arrayData: [
+        {
+<span class="actionscript">          name: <span class="string">'小明'</span>,</span>
+          age: 16
+        },
+        {
+<span class="actionscript">          name: <span class="string">'漂亮阿姨'</span>,</span>
+          age: 24
+        },
+        {
+<span class="actionscript">          name: <span class="string">'杰倫'</span>,</span>
+          age: 20
+        }
+      ],
+      objectData: {
+        ming: {
+<span class="actionscript">          name: <span class="string">'小明'</span>,</span>
+          age: 16
+        },
+        auntie: {
+<span class="actionscript">          name: <span class="string">'漂亮阿姨'</span>,</span>
+          age: 24
+        },
+        jay: {
+<span class="actionscript">          name: <span class="string">'杰倫'</span>,</span>
+          age: 20
+        }
+      },
+      filterArray: [],
+<span class="actionscript">      filterText: <span class="string">''</span></span>
+    },
+    methods: {
+<span class="actionscript">        reverseArray: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">            <span class="keyword">this</span>.arrayData.reverse();</span>
+        },
+<span class="actionscript">        filterData: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">            <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="actionscript">            vm.filterArray = vm.arrayData.filter(<span class="function"><span class="keyword">function</span><span class="params">(item)</span></span>{</span>
+<span class="actionscript">                <span class="keyword">return</span> item.name.match(vm.filterText);</span>
+            });
+        },
+<span class="actionscript">        cantWork: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">            <span class="comment">//this.arrayData.length = 0;</span></span>
+<span class="actionscript">            <span class="comment">//this.arrayData[0] = {</span></span>
+<span class="actionscript">            <span class="comment">//    name: '小強',</span></span>
+<span class="actionscript">            <span class="comment">//    age: 99</span></span>
+<span class="actionscript">            <span class="comment">//}</span></span>
+<span class="actionscript">            Vue.set(<span class="keyword">this</span>.arrayData, <span class="number">0</span>,{</span>
+<span class="actionscript">              name: <span class="string">'小強'</span>,</span>
+              age: 99
+            })
+        }
+    }
+  });
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p><code>filterData</code> 裡面使用 <code>vm = this</code> 是因為可避免內部有其他函式呼叫導致 <code>this</code> 運作不如預期，所以若是  </p>
+<p>有要在函式裡面使用 <code>data</code> 內宣告的變數，盡量用 <code>vm = this</code> 確保存取的變數是 <code>Vue</code> <code>data</code> 宣告的變數。  </p>
+<p>這裡值得一提的是運用了 <code>.filter()</code> 和 <code>.match()</code> 這兩個方法：  </p>
+<ul>
+<li><code>filter( )</code> 會建立一個經指定之函式運算後，由原陣列中通過該函式檢驗之元素所構成的新陣列。把傳入的函式  </li>
+</ul>
+<p>依次作用於每個元素，然後根據返回值是 <code>true</code> 還是<code>false</code> 決定保留還是丟棄該元素。很適合用在搜尋符合條件的資料。</p>
+<ul>
+<li><code>match( )</code> 是找尋是否有符合的字串，所以輸入部分文字，若是有符合內容就會顯示結果。</li>
+</ul>
+</br>  
+</br>  
+
+<p>這邊可能會有一個疑問，在一開始 <code>input</code> 尚未輸入文字時， <code>filterText</code> 是空的，所以使用 <code>item.name == vm.filterText</code>  </p>
+<p>一開始自然是撈不到資料。但是為什麼 <code>item.name.mach(vm.filterText)</code> 可以一開始 <code>filterText</code> 是空的時候便撈到全部的  </p>
+<p>資料？  </p>
+</br>  
+
+<p>那是因為空值時也會有回傳結果，空的陣列也會被視為真值，而 <code>null</code> 才會被視為假值。而 <code>filter</code> 內容只要回傳的是真值就  </p>
+<p>會將該資料回傳，所以空的欄位一樣會回傳全部資料。(另外，在此實際上並非「空陣列」，只有 <code>null</code> 才不會回傳內容)</p>
+<p>以這個範例來說：  </p>
+<p><img src="https://imgur.com/1Suf0go.png" alt=" ">  </p>
+<p>可以把 <code>index</code> 想成是符合字串的索引位置， <code>input</code> 是來源值，也就是 <code>str</code> 。  </p>
+</br>  
+
+<p>回到本章節範例，而 <code>match( )</code> 完得到的結果是 <code>return null</code> ， <code>filter( )</code> 的條件 <code>true</code> 所以會將所有資料 <code>return</code> 給  </p>
+<p><code>filterArray</code> 變數。  </p>
+</br>  
+
+<p>那資料是從哪裡被傳入給 <code>filter( )</code> 的呢？  </p>
+<p>回到 <code>item.name.match(vm.filterText)</code> ， <code>vm.vm.filterText</code> 就是自己傳入的值，當這個值為空值時，  </p>
+<p>則會輸出一個陣列如下(可以不思考內容為何)：  </p>
+<p><img src="https://imgur.com/TmlnL2I.png" alt=" ">  </p>
+<p>在 <code>filter</code> 中，只要 <code>return</code> 為 <code>true</code> 就會回傳該筆資料。上述中有回傳一個陣列，陣列是被判斷為真值，因此就會回傳  </p>
+<p>該筆資料，所以與陣列的資料內容沒有關聯性喔！  </p>
+</br>  
+
+<p>再來，你會不會有疑問當 <code>arrayData</code> 替換成 <code>filterArray</code> 的時候，一開始 <code>filterArray</code> 裡面沒有資料，是等到過濾後才會  </p>
+<p>回傳結果，那畫面一開始預設的三筆資料是從哪裡來的？  </p>
+</br>  
+
+<p>原因是 <code>match( )</code> 這個功能會檢索指定字串是否符合內容，是的話便回傳該字串， <code>vm.filterText</code> 在不輸入值的情況下  </p>
+<p>是 <code>&quot;&quot;</code> ，但因為 <code>item.name</code> 是字串型別所以他們天生就會帶有 <code>&quot;&quot;</code> ，而 “小明”、”漂亮阿姨”、”杰倫”這三個字串在  </p>
+<p><code>match( )</code> 判斷下是符合的，因此會將三個內容都傳到 <code>filterArray</code> 上， <code>v-for</code> 再去跑 <code>filterArray</code> 三筆資料都會顯示囉！</p>
+<p>所以 <code>filterArray</code> <code>return</code> 的陣列是長這樣：  </p>
+<pre><code class="javascript">[
+ {
+ name: <span class="string">'小明'</span>,
+ age: <span class="number">16</span>
+ },
+ {
+ name: <span class="string">'漂亮阿姨'</span>,
+ age: <span class="number">24</span>
+ },
+ {
+ name: <span class="string">'杰倫'</span>,
+ age: <span class="number">20</span>
+ }
+],</code></pre>
+</br>  
+</br>  
+
+<h4 id="3-純數字的迴圈"><a href="#3-純數字的迴圈" class="headerlink" title="3. 純數字的迴圈"></a>3. 純數字的迴圈</h4><p>另外，我們也可以輸出純數字的迴圈：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+<span class="comment">&lt;!-- &lt;li v-for="item in 輸入數字範圍"&gt; --&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in 10"</span>&gt;</span>
+      <span class="comment">{{ item }}</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+<p>如果我們是 <code>in</code> 一個數字就是繞出一個數字的迴圈  </p>
+</br>  
+</br>  
+
+<h4 id="4-Template-的運用"><a href="#4-Template-的運用" class="headerlink" title="4. Template 的運用"></a>4. Template 的運用</h4><p>當輸出的有特定之格式，我們可以使用 <code>&lt;template&gt;</code> 書寫，搭配 <code>v-for</code> 來做使用，<code>template</code> 在最後產生 <code>HTML</code> 時  </p>
+<p>並不會被渲染出來，但它可以用放上 <code>Vue</code> 的指令。  </p>
+<p>假設我們的目的是一次輸出兩個 <code>&lt;tr&gt;</code> :  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in arrayData"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ item.age }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ item.name }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">template</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">table</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h4 id="5-v-for-與-v-if"><a href="#5-v-for-與-v-if" class="headerlink" title="5. v-for 與 v-if"></a>5. v-for 與 v-if</h4><p>在 <code>v-for</code> 內，有時候我們會搭配 <code>v-if</code> 來做使用，撈出符合判斷式的資料：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in arrayData"</span> <span class="attr">v-if</span>=<span class="string">"item.age &lt;= 20"</span>&gt;</span>
+    <span class="comment">{{ key }}</span> - <span class="comment">{{ item.name }}</span> <span class="comment">{{ item.age }}</span> 歲
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+<p>上面我們就新增了一個 <code>v-if</code> 並只顯示出年齡小於等於 <code>20</code> 歲的資料  </p>
+</br>  
+</br>  
+
+<h4 id="6-不能運作的狀況"><a href="#6-不能運作的狀況" class="headerlink" title="6. 不能運作的狀況"></a>6. 不能運作的狀況</h4><p>在 <code>Vue</code> 裡面，有些狀況會無法運作，注意！不要直接更動 <code>array</code> 的內容，即便透過 <code>console.log</code> 和 <code>Vue</code> 工具看資料  </p>
+<p>都是修改過的，但畫面依然顯示舊資料，因為視圖無更新。</p>
+<p>我們一樣先把 <code>arrayData</code> 內的資料撈出來，並新增一個 <code>cantWork</code> 的 <code>function</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> @<span class="attr">click</span>=<span class="string">"cantWork"</span>&gt;</span>無法運行<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+<span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in arrayData"</span> <span class="attr">:key</span>=<span class="string">"item.age"</span>&gt;</span>
+    <span class="comment">{{ key }}</span> - <span class="comment">{{ item.name }}</span> <span class="comment">{{ item.age }}</span> 歲 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">  <span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">    el: <span class="string">'#app'</span>,</span>
+    data: {
+      arrayData: [
+        {
+<span class="actionscript">          name: <span class="string">'小明'</span>,</span>
+          age: 16
+        },
+        {
+<span class="actionscript">          name: <span class="string">'漂亮阿姨'</span>,</span>
+          age: 24
+        },
+        {
+<span class="actionscript">          name: <span class="string">'杰倫'</span>,</span>
+          age: 20
+        }
+      ],
+      objectData: {
+        ming: {
+<span class="actionscript">          name: <span class="string">'小明'</span>,</span>
+          age: 16
+        },
+        auntie: {
+<span class="actionscript">          name: <span class="string">'漂亮阿姨'</span>,</span>
+          age: 24
+        },
+        jay: {
+<span class="actionscript">          name: <span class="string">'杰倫'</span>,</span>
+          age: 20
+        }
+      },
+      filterArray: [],
+<span class="actionscript">      filterText: <span class="string">''</span></span>
+    },
+    methods: {
+<span class="actionscript">        reverseArray: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">            <span class="keyword">this</span>.arrayData.reverse();</span>
+        },
+<span class="actionscript">        filterData: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">            <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="actionscript">            vm.filterArray = vm.arrayData.filter(<span class="function"><span class="keyword">function</span><span class="params">(item)</span></span>{</span>
+<span class="actionscript">                <span class="keyword">return</span> item.name.match(vm.filterText);</span>
+            });
+        },
+<span class="actionscript">        cantWork: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">            <span class="comment">//情境一：直接修改陣列長度（在一般 js 中，表示刪除所有資料）</span></span>
+<span class="actionscript">            <span class="comment">//this.arrayData.length = 0;</span></span>
+
+<span class="actionscript">            <span class="comment">//情境二：透過索引來取代資料</span></span>
+<span class="actionscript">            <span class="comment">//this.arrayData[0] = {</span></span>
+<span class="actionscript">            <span class="comment">//    name: '小強',</span></span>
+<span class="actionscript">            <span class="comment">//    age: 99</span></span>
+<span class="actionscript">            <span class="comment">//}</span></span>
+
+<span class="actionscript">            Vue.set(<span class="keyword">this</span>.arrayData, <span class="number">0</span>,{</span>
+<span class="actionscript">              name: <span class="string">'小強'</span>,</span>
+              age: 99
+            })
+        }
+    }
+  });
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>第一種不能運作的情況是當我們把 <code>arrayData</code> 的長度改為 <code>0</code> 的時候，照理說資料就會被刪光，可是當我們點擊 <code>button</code> 元素  </p>
+<p>時，資料並沒有不見。  </p>
+</br>  
+
+<p>第二種不能運作的情況是當我們把 <code>arrayData</code> 內的某筆資料進行改寫時，也會無效，因為 <code>Vue</code> 無法探測普通的新增屬性，它必  </p>
+<p>須用於向響應式對像上添加新屬性，針對這種情況有另外一種做法，這個在官方文件中有提到，我們可以使用 <code>Vue.set( )</code> 強制  </p>
+<p>改寫某筆資料，上述我也改寫了第一筆資料，以上就是無法運作的情況。  </p>
+</br>  
+</br>  
+</br>  
+
+<h3 id="v-if-與其使用細節"><a href="#v-if-與其使用細節" class="headerlink" title="v-if 與其使用細節"></a><a id="id4">v-if 與其使用細節</a></h3><p>在前面提到 <code>v-if</code> 都是搭配 <code>v-for</code> 來做使用，但 <code>v-if</code> 也可以單獨的做使用<br>一樣先給 <code>Vue</code> 的架構和資料：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    isSuccess: <span class="literal">true</span>,</span>
+<span class="actionscript">    showTemplate: <span class="literal">true</span>,</span>
+<span class="actionscript">    link: <span class="string">'a'</span>,</span>
+<span class="actionscript">    loginType: <span class="string">'username'</span></span>
+  },
+  methods: {
+<span class="actionscript">    toggleLoginType: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">return</span> <span class="keyword">this</span>.loginType = <span class="keyword">this</span>.loginType === <span class="string">'username'</span> ? <span class="string">'email'</span> : <span class="string">'username'</span></span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<h4 id="1-v-if、v-else、v-else-if"><a href="#1-v-if、v-else、v-else-if" class="headerlink" title="1. v-if、v-else、v-else-if"></a>1. v-if、v-else、v-else-if</h4><p>接著就來基本的使用 <code>v-if</code>，我們有兩個元件，分別可以跟著 <code>input</code> 的 <code>checkbox</code> 的勾選，來呈現不同的元件。  </p>
+<p>當 <code>isSuccess</code> 的資料狀態為 <code>true</code> 就出現成功，為 <code>false</code> 就出現失敗，這時候 <code>.alert</code> 元素都綁著 <code>v-if</code> 的指令  </p>
+<p>判斷式就是 <code>isSuccess</code> 這個資料狀態，而 <code>input</code> 的 <code>checkbox</code> 綁著 <code>isSuccess</code> 隨著勾選會切換資料狀態  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert-success"</span> <span class="attr">v-if</span>=<span class="string">"isSuccess"</span>&gt;</span>成功!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert-danger"</span> <span class="attr">v-if</span>=<span class="string">"!isSuccess"</span>&gt;</span>失敗!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"isSuccess"</span> <span class="attr">v-model</span>=<span class="string">"isSuccess"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"isSuccess"</span>&gt;</span>啟用元素狀態<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>在 <code>JS</code> 裡面 <code>if</code> 判斷式常常搭配 <code>else</code> 來做使用，所以在 <code>Vue</code> 裡面當然也有 <code>v-else</code> 這個指令，所以在上面的程式碼，我們可以把﹝失敗的元件﹞改為 <code>v-else</code>，如下：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert-success"</span> <span class="attr">v-if</span>=<span class="string">"isSuccess"</span>&gt;</span>成功!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert-danger"</span> <span class="attr">v-else</span>&gt;</span>失敗!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"isSuccess"</span> <span class="attr">v-model</span>=<span class="string">"isSuccess"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"isSuccess"</span>&gt;</span>啟用元素狀態<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>兩種寫法都是一樣的。  </p>
+<p>當然，我們也可以搭配 <code>&lt;template&gt;</code> 來做使用，舉一種情境，假設我們的表格資料，都要隨著 <code>checkbox</code> 的勾選來顯示或隱藏，這樣我們勢必就要在每個 <code>&lt;tr&gt;</code> 內下 <code>v-if</code> 的判斷式，假設有很多 <code>&lt;tr&gt;</code> 呢？那是不是太累了？  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table"</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">thead</span>&gt;</span>
+     <span class="tag">&lt;<span class="name">th</span>&gt;</span>編號<span class="tag">&lt;/<span class="name">th</span>&gt;</span>
+     <span class="tag">&lt;<span class="name">th</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">th</span>&gt;</span>
+   <span class="tag">&lt;/<span class="name">thead</span>&gt;</span>
+     <span class="tag">&lt;<span class="name">tr</span> <span class="attr">v-if</span>=<span class="string">"showTemplate"</span>&gt;</span>
+       <span class="tag">&lt;<span class="name">td</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+       <span class="tag">&lt;<span class="name">td</span>&gt;</span>安妮<span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+     <span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+     <span class="tag">&lt;<span class="name">tr</span> <span class="attr">v-if</span>=<span class="string">"showTemplate"</span>&gt;</span>
+       <span class="tag">&lt;<span class="name">td</span>&gt;</span>2<span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+       <span class="tag">&lt;<span class="name">td</span>&gt;</span>小明<span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+     <span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+ <span class="tag">&lt;/<span class="name">table</span>&gt;</span>
+ <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"showTemplate"</span> <span class="attr">v-model</span>=<span class="string">"showTemplate"</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"showTemplate"</span>&gt;</span>啟用元素狀態<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+ <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>這時候就可以使用 <code>&lt;template&gt;</code> 了，使用之後寫法會如下，而 <code>v-if</code> 的指令只需要下在 <code>&lt;template&gt;</code> 內，而 <code>&lt;template&gt;</code> 是不會被輸出的  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">th</span>&gt;</span>編號<span class="tag">&lt;/<span class="name">th</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">th</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">th</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">thead</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">"showTemplate"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tr</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">td</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">td</span>&gt;</span>安妮<span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tr</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">td</span>&gt;</span>2<span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">td</span>&gt;</span>小明<span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">template</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="name">table</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"showTemplate"</span> <span class="attr">v-model</span>=<span class="string">"showTemplate"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"showTemplate"</span>&gt;</span>啟用元素狀態<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>接下來，我們來做頁籤切換內容的功能，如下：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav nav-tabs"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">:class</span>=<span class="string">"{'active': link == 'a'}"</span> @<span class="attr">click.prevent</span>=<span class="string">"link = 'a'"</span>&gt;</span>標題一<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">:class</span>=<span class="string">"{'active': link == 'b'}"</span> @<span class="attr">click.prevent</span>=<span class="string">"link = 'b'"</span>&gt;</span>標題二<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">:class</span>=<span class="string">"{'active': link == 'c'}"</span> @<span class="attr">click.prevent</span>=<span class="string">"link = 'c'"</span>&gt;</span>標題三<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">"link == 'a'"</span>&gt;</span>Ａ<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">"link == 'b'"</span>&gt;</span>Ｂ<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">"link == 'c'"</span>&gt;</span>Ｃ<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>比較不一樣的是多了 <code>v-else-if</code> 這個指令，這個就等於 <code>JS</code> 內的 <code>else if</code>，而顯示跟隱藏的方式，我們是採用 <code>link</code> 這個字串資料內容。  </p>
+</br>  
+</br>  
+
+<h4 id="2-emsp-v-if-emsp-v-s-emsp-v-show"><a href="#2-emsp-v-if-emsp-v-s-emsp-v-show" class="headerlink" title="2.&emsp; v-if &emsp; v.s &emsp; v-show"></a>2.&emsp; v-if &emsp; v.s &emsp; v-show</h4><p>根據 <a href="https://v1-cn.vuejs.org/guide/conditional.html" target="_blank" rel="noopener">教學文章</a> 說明，因為 <code>v-if</code> 是真實的條件渲染，在切換 <code>v-if</code> 區域時，<code>Vue.js</code> 有一個局部編譯/卸載過程，  </p>
+<p>它會確保該區域在切換過程中能合適地銷毀與重建條件塊內的事件監聽器和子組件。  </p>
+</br>  
+
+<p>且 <code>v-if</code> 是惰性的：如果在初始渲染時條件不成立，就什麼也不做，直到在條件第一次變為成立後才開始局部編譯  </p>
+<p>（編譯會被暫存起來）。<code>v-if</code> 在資料狀態改變時，是採用移除 <code>DOM</code> 元素的方式。  </p>
+</br>  
+
+<p>相比之下，<code>v-show</code> 元素則是全部會被編譯並保留，只是簡單地基於 <code>CSS</code> 切換，採用 <code>display</code> 的屬性來做元素的隱藏跟顯示，  </p>
+<p>亦即資料狀態為 <code>true</code> 時，<code>display</code> 為 <code>block</code>，資料狀態為 <code>false</code> 時，<code>display</code> 為 <code>none</code> 。  </p>
+</br>  
+
+<p><img src="https://imgur.com/wucRu8z.png" alt=" ">  </p>
+</br>  
+
+<p>一般來說，<code>v-if</code> 有更高的切換消耗而 <code>v-show</code> 有更高的初始渲染消耗。因此，如果需要頻繁切換，則使用 <code>v-show</code> 較好；  </p>
+<p>如果在運行時條件不大可能改變，則使用 <code>v-if</code> 較好。  </p>
+</br>  
+</br>  
+
+<h4 id="3-Key"><a href="#3-Key" class="headerlink" title="3. Key"></a>3. Key</h4><p><code>Vue</code> 會盡可能高效地渲染元素，通常會重複用已有元素而不是從頭開始渲染。但這種方式可能會造成了畫面資訊  </p>
+<p>不一致的狀況，舉例來說：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">"loginType === 'username'"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">label</span>&gt;</span>Username<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"Enter your username"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">template</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">template</span> <span class="attr">v-else</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">label</span>&gt;</span>Email<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"Enter your email address"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">template</span>&gt;</span></code></pre>
+<p>因為兩個模板使用了相同的元素，<code>input</code> 不會被替換掉，僅僅是替換了它的 <code>placeholder</code> 。但是一旦你在輸入框輸入文字，  </p>
+<p>就會出現下面的情況：  </p>
+<p><img src="https://imgur.com/phbTS0P.png" alt=" ">  </p>
+<p>你會發現點擊了切換狀態後，<code>&lt;label&gt;</code> 內容已經變換，但是剛才在 <code>&lt;input&gt;</code> 輸入的內容卻沒有消失。  </p>
+<p>為了使完整渲染，可在輸入框元素加上 <code>key</code> ，一旦 <code>key</code> 不同就會重新渲染。注意這邊 <code>key</code> 只加在輸入框上，  </p>
+<p>因此 <code>label</code> 依舊會被重複使用。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">"loginType === 'username'"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">label</span>&gt;</span>Username<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"Enter your username"</span> <span class="attr">key</span>=<span class="string">"username"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">template</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">template</span> <span class="attr">v-else</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">label</span>&gt;</span>Email<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"Enter your email address"</span> <span class="attr">key</span>=<span class="string">"email"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">template</span>&gt;</span></code></pre>
+</br>  
+</br>  
+</br>  
+
+<h3 id="Computed-與-Watch"><a href="#Computed-與-Watch" class="headerlink" title="Computed 與 Watch"></a><a id="id5">Computed 與 Watch</a></h3><p>接下來要來介紹 <code>Vue</code> 裡面的 <code>computed</code>(計算) &amp; <code>watch</code>(監聽)。  </p>
+<ul>
+<li><p><code>Method</code>：這是需要主動觸發，且可以多次重複觸發。</p>
+</li>
+<li><p><code>Computed</code>：是針對我們要輸入到畫面的內容，在輸出前需要做前處理。簡單來說，當資料出現  </p>
+</li>
+</ul>
+<p>&emsp;&emsp;變化需要改變畫面的 <code>function</code> 放這裡 。</p>
+<ul>
+<li><code>Watch</code>：監控特定變數，當該變數產生變化時，可執行特定事件。  </li>
+</ul>
+<p>舉個例子，一樣先建構 <code>Vue</code> 的架構跟資料狀態：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    arrayData: [
+      {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        age: 16
+      },
+      {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        age: 24
+      },
+      {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        age: 20
+      }
+    ],
+<span class="actionscript">    filterText: <span class="string">''</span>,</span>
+<span class="actionscript">    trigger: <span class="literal">false</span>,</span>
+    newDate: 0
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>我們一樣來過濾資料，但這次不採用點擊任何按鈕的方式，我們要在 <code>input</code> 欄位內輸入文字時，就可以把那筆資料撈出來：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in arrayData"</span> <span class="attr">:key</span>=<span class="string">"item.age"</span>&gt;</span>
+    <span class="comment">{{ key }}</span> - <span class="comment">{{ item.name }}</span> <span class="comment">{{ item.age }}</span> 歲 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></code></pre>
+<p>正常這樣寫，我們就可以把每筆資料都顯示出來，但是為了要做到過濾功能，我們就可以使用 <code>computed</code> 功能來幫忙，我們先在  </p>
+<p><code>input</code> 元素上綁定先定義好的 <code>filterText</code> 資料，接著把 <code>arrayData</code> 換成 <code>filterArray</code> ，不同於前面的是，這次 <code>filterArray</code>  </p>
+<p>已經不是我們先定義好的變數了，我們要藉由 <code>computed</code> 來產生，完成之後會如下：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"filterText"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in filterArray"</span> <span class="attr">:key</span>=<span class="string">"item.age"</span>&gt;</span>
+    <span class="comment">{{ key }}</span> - <span class="comment">{{ item.name }}</span> <span class="comment">{{ item.age }}</span> 歲 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">ul</span>&gt;</span> </code></pre>
+<p>接著我們要在 <code>Vue</code> 裡面的 <code>data</code> 下方，增加一個 <code>computed</code> ，並把要呈現的 <code>filterArray</code> 寫成一個 <code>function</code> 接著我們會  </p>
+<p><code>return</code> 我們要的值，而要 <code>return</code> 的值，就是符合 <code>filterText</code> 的文字的資料，這時候一樣可以用到 <code>.filter( )</code> 和  </p>
+<p><code>.match( )</code> 如下：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({
+    el: <span class="string">'#app'</span>,
+    data: {},
+    computed: {
+        filterArray: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+            <span class="keyword">var</span> vm = <span class="keyword">this</span>;
+            <span class="keyword">return</span> vm.arrayData.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>{
+                <span class="keyword">return</span> item.name.match(vm.filterText);
+            });
+        }
+    }
+});</code></pre>
+<p>這個時候就會發現，功能已經如我們預期的完成了。  </p>
+</br>  
+</br>  
+
+<p>接下來我們要使用 <code>Computed</code> 來呈現時間格式  </p>
+<p>首先在 <code>Vue</code> 裡面新增 <code>mounted function</code> ，當我們畫面運行完畢之後，執行 <code>newDate</code> ，而 <code>Math.floor(Date.now() / 1000);</code>  </p>
+<p>這段是 <code>timestamp</code> 格式。  </p>
+</br>  
+
+<p>我們將 <code>newDate</code> 以兩個花括弧盛裝，放入 <code>html</code> 裡面，畫面上會呈現一串數字，例如： 1523930859，這其實是 <code>timestamp</code>  </p>
+<p>格式，它可以透過 <code>javascript</code> 再轉換為我們平常看到的時間格式。</p>
+</br>  
+
+<p>這時候我們用 <code>Computed</code> 將這個數值改成我們常看到的時間格式更為方便。  </p>
+<p>我們在 <code>Vue</code> 裡面再新增一個 <code>formatTime function</code> ， <code>function</code> 最後的數值都是透過 <code>return</code> 出來的，而 <code>timestamp</code> 我們在  </p>
+<p>使用的時候，可以直接用 <code>newDate</code> 的方式將它的值轉回原本的時間格式，若時間長度不足的時候，可以直接用乘於 <code>*</code> <code>1000</code> 或  </p>
+<p><code>10000</code> 的方式把它的時間補回原本的長度，接下來可以透過 <code>year</code> 、 <code>month</code> 、 <code>date</code> …等方式，將原本的時間取出來，再將  </p>
+<p>時間格式拼湊出來 <code>${year}/${month}/${date} ${hours}:${minutes}:${seconds}</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>使用 Computed 來呈現時間格式。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="comment">{{ newDate }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">    el: <span class="string">'#app'</span>,</span>
+    data: {},
+    computed: {
+<span class="actionscript">      filterArray: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="actionscript">          <span class="keyword">return</span> vm.arrayData.filter(<span class="function"><span class="keyword">function</span><span class="params">(item)</span></span>{</span>
+<span class="actionscript">              <span class="keyword">return</span> item.name.match(vm.filterText);</span>
+          });
+      },
+<span class="actionscript">      formatTime: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="javascript">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.newDate)</span>
+<span class="javascript">        <span class="keyword">var</span> dates = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.newDate * <span class="number">1000</span>);</span>
+<span class="actionscript">        <span class="keyword">var</span> year = dates.getFullYear();</span>
+<span class="actionscript">        <span class="keyword">var</span> month = dates.getMonth() + <span class="number">1</span>;</span>
+<span class="actionscript">        <span class="keyword">var</span> date = dates.getDate() + <span class="number">1</span>;</span>
+<span class="actionscript">        <span class="keyword">var</span> hours = dates.getHours();</span>
+<span class="actionscript">        <span class="keyword">var</span> minutes = dates.getMinutes();</span>
+<span class="actionscript">        <span class="keyword">var</span> seconds = dates.getSeconds();</span>
+<span class="javascript">        <span class="keyword">return</span> <span class="string">`<span class="subst">${year}</span>/<span class="subst">${month}</span>/<span class="subst">${date}</span> <span class="subst">${hours}</span>:<span class="subst">${minutes}</span>:<span class="subst">${seconds}</span>`</span></span>
+      }
+    },
+<span class="actionscript">    mounted: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="javascript">      <span class="keyword">this</span>.newDate = <span class="built_in">Math</span>.floor(<span class="built_in">Date</span>.now() / <span class="number">1000</span>);</span>
+    }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>最後我們將剛才 <code>html</code> 的 <code></code> ，替換成 <code></code> ，畫面上就會看到目前的時間，  </p>
+<p>例如：2018/4/18 10:10:46  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>使用 Computed 來呈現時間格式。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="comment">{{ formatTime }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<p>接下來是 <code>watch</code>，<code>watch</code> 的運用上，是當我們監聽某個資料，當有變動時就會執行 <code>function</code>，  </p>
+<p><img src="https://imgur.com/e0DaidV.png" alt=" ">  </p>
+<p>一樣來個例子：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:class</span>=<span class="string">"{'rotate': trigger }"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> @<span class="attr">click</span>=<span class="string">"trigger = 'true'"</span>&gt;</span>Counter<span class="tag">&lt;/<span class="name">button</span>&gt;</span></code></pre>
+<p>前面我們已經有先定義好 <code>trigger</code> 這個變數了，當我們點擊按鈕時，<code>trigger</code> 會變成 <code>true</code> 且 <code>.box</code> 會增加 <code>.rotate</code> 這個  </p>
+<p><code>class</code> ，而我們要監聽的就是 <code>trigger</code> 這個變數資料，我希望 <code>3</code> 秒之後，他的資料狀態回到 <code>false</code> 狀態。  </p>
+</br>  
+
+<p>這時候在 <code>Vue</code> 裡面除了先前的 <code>data</code> 和 <code>computed</code> 之外，也需要增加一個 <code>watch</code> 了，而我們要監聽的就是 <code>trigger</code> ，  </p>
+<p>所以寫一個當 <code>trigger</code> 資料變動時要執行的 <code>function</code> 。  </p>
+<pre><code class="javascript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({
+    el: <span class="string">'#app'</span>,
+    data: {},
+    computed: {},
+    watch: {
+        trigger: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+            <span class="keyword">var</span> vm = <span class="keyword">this</span>;
+            setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+                vm.trigger = <span class="literal">false</span>
+            },<span class="number">3000</span>);
+        }
+    }
+});</code></pre>
+<p>這時候當我們第一次點擊按鈕時， <code>trigger</code> 的資料狀態會變為 <code>true</code> 而 <code>3</code> 秒之後就會變回去 <code>false</code> 了。  </p>
+</br>  
+</br>  
+
+<h3 id="表單細節操作"><a href="#表單細節操作" class="headerlink" title="表單細節操作"></a><a id="id6">表單細節操作</a></h3><p>在先前已經有講過表單的運用，這邊來補充表單其餘的使用方式，一樣先定義好 <code>Vue</code> 資料結構：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">  <span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">    el: <span class="string">'#app'</span>,</span>
+    data: {
+<span class="actionscript">      singleRadio: <span class="string">''</span>,</span>
+<span class="actionscript">      selected: <span class="string">''</span>,</span>
+<span class="actionscript">      selectData: [<span class="string">'小美'</span>, <span class="string">'可愛小妞'</span>, <span class="string">'漂亮阿姨'</span>],</span>
+<span class="actionscript">      selected2: <span class="string">''</span>,</span>
+      multiSelected: [],
+<span class="actionscript">      sex: <span class="string">'男生'</span>,</span>
+
+<span class="actionscript">      <span class="comment">// 修飾符</span></span>
+<span class="actionscript">      lazyMsg: <span class="string">''</span>,</span>
+<span class="actionscript">      age: <span class="string">''</span>,</span>
+<span class="actionscript">      trimMsg: <span class="string">''</span></span>
+    },
+  });
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<ol>
+<li>在寫 <code>selected</code> 時候我們可以透過 <code>v-model</code> ，以及 <code>option</code> 裡面的 <code>value</code> 將值帶進去  </li>
+</ol>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Select<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"selected"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>請選擇<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"小美"</span>&gt;</span>小美<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"可愛小妞"</span>&gt;</span>可愛小妞<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"漂亮阿姨"</span>&gt;</span>漂亮阿姨<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">select</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>小明喜歡的女生是 <span class="comment">{{ selected }}</span>。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/wBxtOho.png" alt=" ">  </p>
+</br>  
+
+<ol start="2">
+<li>我們怎麼透過 <code>v-for</code> 來製作 <code>selected</code> 裡面的資料，我們可以直接使用 <code>option</code> ，在 <code>option</code> 裡面使用 <code>v-for</code> 再將值  </li>
+</ol>
+<p><code>&quot;item in selectData&quot;</code> 帶入，那 <code>value</code> 的部份我們可以直接用 <code>item</code> 去繪製，但是這邊需要注意 <code>value</code> 是動態的屬性，  </p>
+<p>所以在 <code>value</code> 前面要加上冒號 <code>:</code> ，最後將 <code></code> 插入<code>&lt;option&gt;</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"selected2"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>請選擇<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">:value</span>=<span class="string">"item"</span> <span class="attr">v-for</span>=<span class="string">"item in selectData"</span>&gt;</span><span class="comment">{{ item }}</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">select</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>小明喜歡的女生是 <span class="comment">{{ selected2 }}</span>。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>結果會跟上方一樣。  </p>
+<p><img src="https://imgur.com/wBxtOho.png" alt=" ">  </p>
+</br>  
+
+<ol start="3">
+<li>除了上方的單選之外還可以做多選，我們可以透過 <code>HTML</code> 特性將資料改為多選。只要在 <code>select</code> 標籤內增加  </li>
+</ol>
+<p><code>multiple</code> 屬性，加上這個屬係性之後畫面上就會長這樣：  </p>
+<p><img src="https://imgur.com/mJpeI0l.png" alt=" ">  </p>
+<blockquote>
+<p>補充：可透過 <code>shift</code> 或 <code>cmd</code> 來多選， <code>windows</code> 則是 <code>shift</code> 或 <code>ctrl</code>  </p>
+</blockquote>
+<p><img src="https://imgur.com/r6hWSnb.png" alt=" ">  </p>
+</br>  
+
+<ol start="4">
+<li>接下來介紹複選框，首先畫面上的值目前點選後只能顯示 <code>true</code> 或 <code>false</code> </li>
+</ol>
+<p><img src="https://imgur.com/SCoYSTP.png" alt=" ">  </p>
+<p>但是我們希望它呈現的時候是顯示男生或女生話，要怎麼製作呢？  </p>
+<p>我們可以在 <code>input</code> 標籤裡面加上 <code>true-value=&quot;男生&quot;</code> ，意思是當它在 <code>true</code> 的狀態時後就會顯示男生，相反的，  </p>
+<p>加上 <code>false-value=&quot;女生&quot;</code> ，當它在 <code>false</code> 的狀態時後就會顯示女生。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>複選框<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"sex"</span> <span class="attr">v-model</span>=<span class="string">"sex"</span> <span class="attr">true-value</span>=<span class="string">"男生"</span> <span class="attr">false-value</span>=<span class="string">"女生"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"sex"</span>&gt;</span><span class="comment">{{ sex }}</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>新增後的畫面長這樣：  </p>
+<p><img src="https://imgur.com/Kx0ltcD.png" alt=" ">  </p>
+</br>  
+
+<ol start="5">
+<li>接下來介紹修飾符，在 <code>v-model</code> 裡面有一些修飾符可以使用，主要有 <code>3</code> 個。  </li>
+</ol>
+<p>(1) <code>lazy</code>  </p>
+<p>在畫面上可以看到我們在 <code>input</code> 裡面輸入值，它會直接反應在上方。  </p>
+<p><img src="https://imgur.com/RmTXR1G.png" alt=" ">  </p>
+<p>現在改變值的方式接近於 <code>keyup</code> 但是我們要改成 <code>onchange</code> 的方式，就可以將 <code>.lazy</code> 加在 <code>v-model</code> 後方，  </p>
+<p>即 <code>v-model.lazy=&quot;lazyMsg&quot;</code> ，加入後我們可以看到畫面上在 <code>input</code> 裡面輸入值，上方是不會有反應的，  </p>
+<p>直到我們點即外框才會顯示。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>修飾符<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="comment">{{ lazyMsg }}</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model.lazy</span>=<span class="string">"lazyMsg"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>這個方式就是類似於我們用 <code>onchange</code> 方式在監控 <code>input</code> 。  </p>
+<p><img src="https://imgur.com/OLZksb5.png" alt=" ">  </p>
+</br>  
+
+<p>(2) <code>number</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="comment">{{ typeof(age) }}</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"age"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>可以看到目前我們將 <code>input</code> 的 <code>type</code> 設定為 <code>number</code> ，但實際上輸出的值不一定是純數值的屬性，我們可以在標籤裡  </p>
+<p>輸入 <code>typeof(age)</code> 看一下目前 <code>age</code> 的格式是什麼？結果是 <code>string</code> 。  </p>
+<p><img src="https://imgur.com/eU8bTCp.png" alt=" ">  </p>
+<p>我們可以在 <code>v-model</code> 後方加上 <code>.number</code> ，透過 <code>number</code> 這個修飾符將所輸入的數值轉為純數值的格式，  </p>
+<p>最後將 <code></code> 一起放入標籤，看一下畫面。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="comment">{{ typeof(age) }}</span> <span class="comment">{{ age }}</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model.number</span>=<span class="string">"age"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/XU4QOcx.png" alt=" ">  </p>
+</br>  
+
+<p>(3) <code>trim</code>  </p>
+<p>我們輸入值的時候有時文字的前後會有空白鍵。  </p>
+<p><img src="https://imgur.com/XOLWruX.png" alt=" ">  </p>
+<p>這時候我們可以使用修飾符 <code>trim</code> ，加入這個修飾符後它會自動將多餘的空白去除掉。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="comment">{{ trimMsg }}</span>緊黏的文字
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model.trim</span>=<span class="string">"trimMsg"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/nHqQWiL.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<h3 id="v-on-的頁面操作細節"><a href="#v-on-的頁面操作細節" class="headerlink" title="v-on 的頁面操作細節"></a><a id="id7">v-on 的頁面操作細節</a></h3><p>這邊要介紹在動元素上操作 <code>v-on</code> 有哪些額外的技巧。  </p>
+</br>  
+
+<h4 id="1-切換-box-樣式"><a href="#1-切換-box-樣式" class="headerlink" title="1. 切換 box 樣式"></a>1. 切換 <code>box</code> 樣式</h4><p>前面有介紹過在一個動元素上加上 <code>v-on:click</code> ，後面加上方法的名稱 <code>changeRotate</code> ，這樣就可以對一個動元素做操作。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span>
+<span class="css"><span class="selector-class">.box</span> {</span>
+  display: block;
+<span class="css">  <span class="selector-tag">transition</span>: <span class="selector-tag">all</span> <span class="selector-class">.5s</span>;</span>
+}
+<span class="css"><span class="selector-class">.box</span><span class="selector-class">.rotate</span> {</span>
+  transform: rotate(45deg)
+}
+<span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>請切換下方 box 的 className<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">:class</span>=<span class="string">"{'rotate': isRotate }"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span> <span class="attr">v-on:click</span>=<span class="string">"changeRotate"</span>&gt;</span>切換 box 樣式<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    arrayData: [
+      {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        age: 16,
+        cash: 500
+      },
+      {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        age: 24,
+        cash: 1000
+      },
+      {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        age: 20,
+        cash: 5000
+      }
+    ],
+<span class="actionscript">    isRotate: <span class="literal">false</span>,</span>
+<span class="actionscript">    text: <span class="string">''</span></span>
+  },
+  methods: {
+<span class="actionscript">    changeRotate: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.isRotate = !<span class="keyword">this</span>.isRotate;</span>
+    },
+<span class="actionscript">    storeMoney: <span class="function"><span class="keyword">function</span><span class="params">(item)</span> </span>{</span>
+      item.cash = item.cash + 500;
+    },
+<span class="actionscript">    trigger: <span class="function"><span class="keyword">function</span><span class="params">(name)</span> </span>{</span>
+<span class="javascript">      <span class="built_in">console</span>.log(name, <span class="string">'此事件被觸發了'</span>)</span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/fjeEKtC.png" alt=" ">  </p>
+</br>  
+
+<h4 id="2-帶入參數"><a href="#2-帶入參數" class="headerlink" title="2. 帶入參數"></a>2. 帶入參數</h4><p>可以看到 <code>v-for</code> 裡面的 <code>arrayData</code> 是 <code>Vue</code> <code>data</code> 已定義好的物件，裡面包含名稱 <code></code> 及多少錢  </p>
+<p><code></code> ，這個地方是要介紹怎麼把資料透過參數傳到 <code>methods</code> 裡面，我們可以在 <code>button</code> 標籤裡增加  </p>
+<p><code>@click=&quot;storeMoney(item)&quot;</code> ，而這邊的參數 <code>item</code> 會傳到 <code>storeMoney function</code> 裡面，所以每次點擊按鈕就會加 <code>500</code> 元。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>帶入參數<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">ul</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in arrayData"</span> <span class="attr">class</span>=<span class="string">"my-2"</span>&gt;</span>
+      <span class="comment">{{ item.name }}</span> 有 <span class="comment">{{ item.cash }}</span> 元 
+      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-sm btn-outline-primary"</span> @<span class="attr">click</span>=<span class="string">"storeMoney(item)"</span>&gt;</span>儲值<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    arrayData: [
+      {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        age: 16,
+        cash: 500
+      },
+      {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        age: 24,
+        cash: 1000
+      },
+      {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        age: 20,
+        cash: 5000
+      }
+    ],
+<span class="actionscript">    isRotate: <span class="literal">false</span>,</span>
+<span class="actionscript">    text: <span class="string">''</span></span>
+  },
+  methods: {
+<span class="actionscript">    changeRotate: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.isRotate = !<span class="keyword">this</span>.isRotate;</span>
+    },
+<span class="actionscript">    storeMoney: <span class="function"><span class="keyword">function</span><span class="params">(item)</span> </span>{</span>
+      item.cash = item.cash + 500;
+    },
+<span class="actionscript">    trigger: <span class="function"><span class="keyword">function</span><span class="params">(name)</span> </span>{</span>
+<span class="javascript">      <span class="built_in">console</span>.log(name, <span class="string">'此事件被觸發了'</span>)</span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>我們看一下結果：  </p>
+<p><img src="https://imgur.com/vTPChLQ.png" alt=" ">  </p>
+<blockquote>
+<p>這邊點擊儲值按鈕是不會互相影響到其他物件的。  </p>
+</blockquote>
+</br>  
+
+<h4 id="3-介紹動元素上面的事件修飾符"><a href="#3-介紹動元素上面的事件修飾符" class="headerlink" title="3. 介紹動元素上面的事件修飾符"></a>3. 介紹動元素上面的事件修飾符</h4><h5 id="stop-調用-event-stopPropagation-冒泡事件"><a href="#stop-調用-event-stopPropagation-冒泡事件" class="headerlink" title="- .stop - 調用 event.stopPropagation( ) 冒泡事件"></a>- <code>.stop</code> - 調用 <code>event.stopPropagation( )</code> 冒泡事件</h5><p>假設我點擊了 <code>box</code> ，它會傳送 <code>box</code> 的訊息。點擊了 <code>div</code> ，它會傳送 <code>div</code> 的訊息。  </p>
+<p>我們打開開發者工具來檢視，當我點擊了 <code>box</code> ，它跳出了兩個訊息(如下圖)，可以看到 <code>box</code> 在裡面 <code>div</code> 在外面。</p>
+<p><img src="https://imgur.com/hhkEhld.png" alt=" ">  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span>&gt;</span>將此範例加上 stopPropagation<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p-3 bg-primary"</span> @<span class="attr">click</span>=<span class="string">"trigger('div')"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"box"</span> @<span class="attr">click</span>=<span class="string">"trigger('box')"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    arrayData: [
+      {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        age: 16,
+        cash: 500
+      },
+      {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        age: 24,
+        cash: 1000
+      },
+      {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        age: 20,
+        cash: 5000
+      }
+    ],
+<span class="actionscript">    isRotate: <span class="literal">false</span>,</span>
+<span class="actionscript">    text: <span class="string">''</span></span>
+  },
+  methods: {
+<span class="actionscript">    changeRotate: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">      <span class="keyword">this</span>.isRotate = !<span class="keyword">this</span>.isRotate;</span>
+    },
+<span class="actionscript">    storeMoney: <span class="function"><span class="keyword">function</span><span class="params">(item)</span> </span>{</span>
+      item.cash = item.cash + 500;
+    },
+<span class="actionscript">    trigger: <span class="function"><span class="keyword">function</span><span class="params">(name)</span> </span>{</span>
+<span class="javascript">      <span class="built_in">console</span>.log(name, <span class="string">'此事件被觸發了'</span>)</span>
+    }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>若點擊外面的話當然只有顯示 <code>div</code> 會被觸發，因為我們在觸發動元素的時候是由內而外的傳播，  </p>
+<p>雖然我們點擊了裡面的 <code>box</code> 但是也會觸發到外面的 <code>div</code> 。  </p>
+<p><img src="https://imgur.com/VSKiz13.png" alt=" ">  </p>
+<p>要避免這個狀況發生，我們可以使用 <code>.stop</code> 加在 <code>box</code> 及 <code>div</code> 的 <code>click</code> 事件上，  </p>
+<p>這樣在傳播訊息的時候就不會向外地不斷觸發。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span>&gt;</span>將此範例加上 stopPropagation<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p-3 bg-primary"</span> @<span class="attr">click.stop</span>=<span class="string">"trigger('div')"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"box"</span> @<span class="attr">click.stop</span>=<span class="string">"trigger('box')"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+
+<h5 id="capture-添加事件偵聽器時使用-capture-模式"><a href="#capture-添加事件偵聽器時使用-capture-模式" class="headerlink" title="- .capture - 添加事件偵聽器時使用 capture 模式"></a>- <code>.capture</code> - 添加事件偵聽器時使用 <code>capture</code> 模式</h5><p>我們先點擊「按我」這個按鈕，打開開發者工具，你可以發現它觸發了三個事件分別是由內而外的 <code>button</code> 、 <code>box</code> 、 <code>div</code> </p>
+<p><img src="https://imgur.com/UPzfYIg.png" alt=" ">  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>事件偵聽器時使用 capture 模式<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p-3 bg-primary"</span> @<span class="attr">click</span>=<span class="string">"trigger('div')"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"box d-flex align-items-center justify-content-center"</span> @<span class="attr">click</span>=<span class="string">"trigger('box')"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-secondary"</span> @<span class="attr">click</span>=<span class="string">"trigger('button')"</span>&gt;</span>按我<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>現在我們在程式碼 <code>@click</code> 加上 <code>.capture</code> 後，再次點擊「按我」這個按鈕，你會發現事件觸發的順序相反了，變成 <code>div</code>  </p>
+<p>、 <code>box</code> 、 <code>button</code> ，這個 <code>capture</code> 其實有點像 <code>Propagation</code> 相反的版本， <code>capture</code> 是由外而內的傳播。  </p>
+<p><img src="https://imgur.com/kTwFlpt.png" alt=" ">  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>事件偵聽器時使用 capture 模式<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p-3 bg-primary"</span> @<span class="attr">click.capture</span>=<span class="string">"trigger('div')"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"box d-flex align-items-center justify-content-center"</span> @<span class="attr">click.capture</span>=<span class="string">"trigger('box')"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-secondary"</span> @<span class="attr">click.capture</span>=<span class="string">"trigger('button')"</span>&gt;</span>按我<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+
+<h5 id="self-只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。"><a href="#self-只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。" class="headerlink" title="- .self - 只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。"></a>- <code>.self</code> - 只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。</h5><p> <code>.self</code> 就是指會觸發它自己這個元素，我們在 <code>@click</code> 上都加上 <code>.self</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>事件偵聽器時使用 self 模式<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p-3 bg-primary"</span> @<span class="attr">click.self</span>=<span class="string">"trigger('div')"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"box d-flex align-items-center justify-content-center"</span> @<span class="attr">click.self</span>=<span class="string">"trigger('box')"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-secondary"</span> @<span class="attr">click.self</span>=<span class="string">"trigger('button')"</span>&gt;</span>按我<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>可以看到當我們點及元素時它就不會觸發其他的元素。  </p>
+<p><img src="https://imgur.com/FJ7W8OX.png" alt=" ">  </p>
+</br>  
+
+<p><img src="https://imgur.com/7MhUfHc.png" alt=" ">  </p>
+</br>  
+
+<p><img src="https://imgur.com/i4676Az.png" alt=" ">  </p>
+</br>  
+
+<h5 id="once-只觸發一次回調。"><a href="#once-只觸發一次回調。" class="headerlink" title="- .once - 只觸發一次回調。"></a>- <code>.once</code> - 只觸發一次回調。</h5><p>我們在 <code>@click</code> 後方加上 <code>.once</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>事件偵聽器只觸發一次<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p-3 bg-primary"</span> @<span class="attr">click.once</span>=<span class="string">"trigger('div')"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"box d-flex align-items-center justify-content-center"</span> @<span class="attr">click.once</span>=<span class="string">"trigger('box')"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-secondary"</span> @<span class="attr">click.once</span>=<span class="string">"trigger('button')"</span>&gt;</span>按我<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>點擊後可以看到事件被觸發，當再一次點擊事件就不會再觸發了，因為 <code>.once</code> 只會被觸發一次。  </p>
+<p><img src="https://imgur.com/t6BcTpd.png" alt=" ">  </p>
+</br>  
+
+<h4 id="4-按鍵修飾符"><a href="#4-按鍵修飾符" class="headerlink" title="4. 按鍵修飾符"></a>4. 按鍵修飾符</h4><p>按鍵修飾符就是我們在按下鍵盤的按鈕時，它會觸發特定的事件。  </p>
+<h5 id="keyCode"><a href="#keyCode" class="headerlink" title="- .keyCode"></a>- <code>.keyCode</code></h5><p>只當事件是從特定鍵觸發時才觸發回調。例如：<code>@keyup.13</code>，<code>13</code> 為 <code>enter</code> 的 <code>keyCode</code> 。  </p>
+<blockquote>
+<p>鍵盤上的每個按鈕都會有編號，而這個編號可稱為 <code>keyCode</code> ，想知道按鍵代表的 <code>keyCode</code> 是多少可以查閱 <a href="https://gist.github.com/lbj96347/2567917" target="_blank" rel="noopener">文件</a>  </p>
+</blockquote>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>keyCode<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"text"</span> @<span class="attr">keyup.13</span>=<span class="string">"trigger(13)"</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/IaYmo7p.png" alt=" ">  </p>
+</br>  
+
+<h5 id="別名修飾"><a href="#別名修飾" class="headerlink" title="- 別名修飾"></a>- 別名修飾</h5><p>別名修飾，例如：<code>.enter</code>, <code>.tab</code>, <code>.delete</code>, <code>.esc</code>, <code>.space</code>, <code>.up</code>, <code>.down</code>, <code>.left</code>, <code>.right</code> 。  </p>
+<p>我們試著在 <code>@keyup</code> 後面加上 <code>.space</code> ，在畫面上 <code>input</code> 欄位輸入內容後，按下鍵盤 <code>enter</code> 或其他案件都不會觸發事件，  </p>
+<p>只有按下 <code>.space</code> 事件才會被觸發。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>別名修飾<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"text"</span> @<span class="attr">keyup.space</span>=<span class="string">"trigger('space')"</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/TvXrhhl.png" alt=" ">  </p>
+</br>  
+
+<h5 id="相應按鍵時才觸發的監聽器"><a href="#相應按鍵時才觸發的監聽器" class="headerlink" title="- 相應按鍵時才觸發的監聽器"></a>- 相應按鍵時才觸發的監聽器</h5><p><code>.ctrl</code>, <code>.alt</code>, <code>.shift</code>, <code>.meta</code>。 例如：<code>@keyup.shift.enter</code>，必須同時按下 <code>shift</code> 及 <code>enter</code> 才會觸發。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>相應按鍵時才觸發的監聽器<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"text"</span> @<span class="attr">keyup.shift.enter</span>=<span class="string">"trigger('shift + Enter')"</span>&gt;</span></code></pre>
+</br>  
+
+<h4 id="5-滑鼠修飾符"><a href="#5-滑鼠修飾符" class="headerlink" title="5. 滑鼠修飾符"></a>5. 滑鼠修飾符</h4><p>我們可以針對滑鼠的特定按鍵觸發事件。  </p>
+<p>方法有這些：  </p>
+<ul>
+<li><code>.left</code> - 只當點擊鼠標左鍵時觸發。  </li>
+<li><code>.right</code> - 只當點擊鼠標右鍵時觸發。  </li>
+<li><code>.middle</code> - 只當點擊鼠標中鍵時觸發。  </li>
+</ul>
+<p>舉例，在 <code>@click</code> 後方加上 <code>.right</code> ，在畫面上用滑鼠點擊右鍵後就會觸發事件了。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>滑鼠修飾符<span class="tag">&lt;/<span class="name">h6</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p-3 bg-primary"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"box"</span> @<span class="attr">click.right</span>=<span class="string">"trigger('Right button')"</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="章節作業"><a href="#章節作業" class="headerlink" title="章節作業"></a><a id="id8">章節作業</a></h3><p><a href="https://codepen.io/chunghuing/pen/eYZyBLx?editors=1010" target="_blank" rel="noopener">codepen</a>  </p>
+
     </div>
 
     
@@ -220,8 +1860,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/tag1/" rel="tag"># tag1</a>
-              <a href="/tags/tag2/" rel="tag"># tag2</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
           </div>
 
         
@@ -295,6 +1934,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板資料細節說明"><span class="nav-number">2.</span> <span class="nav-text">模板資料細節說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#動態切換-ClassName-及-Style-多種方法"><span class="nav-number">3.</span> <span class="nav-text">動態切換 ClassName 及 Style 多種方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-for-與其使用細節"><span class="nav-number">4.</span> <span class="nav-text">v-for 與其使用細節</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-陣列與物件（key-value-pair）"><span class="nav-number">4.1.</span> <span class="nav-text">1. 陣列與物件（key value pair）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Key"><span class="nav-number">4.2.</span> <span class="nav-text">2. Key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-純數字的迴圈"><span class="nav-number">4.3.</span> <span class="nav-text">3. 純數字的迴圈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Template-的運用"><span class="nav-number">4.4.</span> <span class="nav-text">4. Template 的運用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-v-for-與-v-if"><span class="nav-number">4.5.</span> <span class="nav-text">5. v-for 與 v-if</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-不能運作的狀況"><span class="nav-number">4.6.</span> <span class="nav-text">6. 不能運作的狀況</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-if-與其使用細節"><span class="nav-number">5.</span> <span class="nav-text">v-if 與其使用細節</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-v-if、v-else、v-else-if"><span class="nav-number">5.1.</span> <span class="nav-text">1. v-if、v-else、v-else-if</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-emsp-v-if-emsp-v-s-emsp-v-show"><span class="nav-number">5.2.</span> <span class="nav-text">2.&amp;emsp; v-if &amp;emsp; v.s &amp;emsp; v-show</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Key"><span class="nav-number">5.3.</span> <span class="nav-text">3. Key</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Computed-與-Watch"><span class="nav-number">6.</span> <span class="nav-text">Computed 與 Watch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表單細節操作"><span class="nav-number">7.</span> <span class="nav-text">表單細節操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-on-的頁面操作細節"><span class="nav-number">8.</span> <span class="nav-text">v-on 的頁面操作細節</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-切換-box-樣式"><span class="nav-number">8.1.</span> <span class="nav-text">1. 切換 box 樣式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-帶入參數"><span class="nav-number">8.2.</span> <span class="nav-text">2. 帶入參數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-介紹動元素上面的事件修飾符"><span class="nav-number">8.3.</span> <span class="nav-text">3. 介紹動元素上面的事件修飾符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#stop-調用-event-stopPropagation-冒泡事件"><span class="nav-number">8.3.1.</span> <span class="nav-text">- .stop - 調用 event.stopPropagation( ) 冒泡事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#capture-添加事件偵聽器時使用-capture-模式"><span class="nav-number">8.3.2.</span> <span class="nav-text">- .capture - 添加事件偵聽器時使用 capture 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#self-只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。"><span class="nav-number">8.3.3.</span> <span class="nav-text">- .self - 只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#once-只觸發一次回調。"><span class="nav-number">8.3.4.</span> <span class="nav-text">- .once - 只觸發一次回調。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-按鍵修飾符"><span class="nav-number">8.4.</span> <span class="nav-text">4. 按鍵修飾符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#keyCode"><span class="nav-number">8.4.1.</span> <span class="nav-text">- .keyCode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#別名修飾"><span class="nav-number">8.4.2.</span> <span class="nav-text">- 別名修飾</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#相應按鍵時才觸發的監聽器"><span class="nav-number">8.4.3.</span> <span class="nav-text">- 相應按鍵時才觸發的監聽器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-滑鼠修飾符"><span class="nav-number">8.5.</span> <span class="nav-text">5. 滑鼠修飾符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#章節作業"><span class="nav-number">9.</span> <span class="nav-text">章節作業</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
