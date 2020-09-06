@@ -63,7 +63,7 @@
 <meta property="og:image" content="https://imgur.com/IaYmo7p.png">
 <meta property="og:image" content="https://imgur.com/TvXrhhl.png">
 <meta property="article:published_time" content="2020-08-27T11:27:29.000Z">
-<meta property="article:modified_time" content="2020-09-06T11:36:39.741Z">
+<meta property="article:modified_time" content="2020-09-06T11:37:56.405Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-09-06 19:36:39" itemprop="dateModified" datetime="2020-09-06T19:36:39+08:00">2020-09-06</time>
+                <time title="عُدل: 2020-09-06 19:37:56" itemprop="dateModified" datetime="2020-09-06T19:37:56+08:00">2020-09-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1566,11 +1566,11 @@
   <span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="comment">{{ typeof(age) }}</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span>
   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model</span>=<span class="string">"age"</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
-<p>可以看到目前我們將 <code>input</code> 的 <code>type</code> 設定為 <code>number</code> ，但實際上輸出的值不一定是純數值的屬性，我們可以在標籤裡  </p>
+<p>可以看到目前我們將 <code>input</code> 的 <code>type</code> 設定為 <code>number</code> ，但實際上輸出的值不一定是純數值的屬性，我們可以在 <code>&lt;pre&gt;</code>  </p>
 <p>輸入 <code>typeof(age)</code> 看一下目前 <code>age</code> 的格式是什麼？結果是 <code>string</code> 。  </p>
 <p><img src="https://imgur.com/eU8bTCp.png" alt=" ">  </p>
 <p>我們可以在 <code>v-model</code> 後方加上 <code>.number</code> ，透過 <code>number</code> 這個修飾符將所輸入的數值轉為純數值的格式，  </p>
-<p>最後將 <code></code> 一起放入標籤，看一下畫面。  </p>
+<p>最後將 <code></code> 一起放入 <code>&lt;pre&gt;</code> ，看一下畫面。  </p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
   <span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="comment">{{ typeof(age) }}</span> <span class="comment">{{ age }}</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span>
   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">v-model.number</span>=<span class="string">"age"</span>&gt;</span>
