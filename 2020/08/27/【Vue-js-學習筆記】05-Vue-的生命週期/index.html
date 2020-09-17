@@ -20,17 +20,21 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="前言了解 Vue 的生命週期對後面的課程會更有幫助">
+<meta property="og:type" content="article">
 <meta property="og:title" content="【Vue.js 學習筆記】05. Vue 的生命週期">
 <meta property="og:url" content="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9105-Vue-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言了解 Vue 的生命週期對後面的課程會更有幫助">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/oFHhVOD.png">
+<meta property="og:image" content="https://imgur.com/6gU5wy3.png">
 <meta property="article:published_time" content="2020-08-27T11:27:36.000Z">
-<meta property="article:modified_time" content="2020-08-27T11:27:36.691Z">
+<meta property="article:modified_time" content="2020-09-07T05:18:33.963Z">
 <meta property="article:author" content="Renee">
-<meta property="article:tag" content="tag1">
-<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/oFHhVOD.png">
 
 <link rel="canonical" href="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9105-Vue-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F/">
 
@@ -85,7 +89,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -115,22 +119,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
 
   </li>
   </ul>
@@ -182,21 +186,24 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-              <time title="أُنشأ: 2020-08-27 19:27:36" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:36+08:00">2020-08-27</time>
+              <time title="Erstellt: 2020-08-27 19:27:36" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:36+08:00">2020-08-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-09-07 13:18:33" itemprop="dateModified" datetime="2020-09-07T13:18:33+08:00">2020-09-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/" itemprop="url" rel="index"><span itemprop="name">tag1</span></a>
-                </span>
-                  ، 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/tag2/" itemprop="url" rel="index"><span itemprop="name">tag2</span></a>
+                  <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
                 </span>
             </span>
 
@@ -211,7 +218,116 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>了解 Vue 的生命週期對後面的課程會更有幫助  </p>
+<a id="more"></a>  
+
+<p>本節內容包含下述子章節：</p>
+<ol>
+<li><a href="#id1">Vue 生命週期</a>  </li>
+<li><a href="#id2">練習測驗 2：生命週期章節小測驗</a>  </li>
+</ol>
+</br>  
+</br>  
+
+<h3 id="Vue-生命週期"><a href="#Vue-生命週期" class="headerlink" title="Vue 生命週期"></a><a id="id1">Vue 生命週期</a></h3><p><img src="https://imgur.com/oFHhVOD.png" alt="Lifecycle-Diagram（圖片來源: Vue.js）">  </p>
+<p>每個 <code>Vue instance</code> 在被創建時都要經過一系列的初始化過程，在這個過程中 <code>Vue</code> 也會運行 <code>lifecycle hooks</code> 的函數，  </p>
+<p>提供使者者在不同階段添加自己的操作。  </p>
+</br>  
+
+<p>上圖中，紅色圓角框的文字，都屬於 <code>Vue</code> 所提供的 <code>lifecycle hooks</code>，呼叫方式如下：  </p>
+<pre><code class="javascript">data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> {...}
+},
+beforeCreate(){
+  <span class="built_in">console</span>.log(<span class="string">'beforeCreate! ${this.text}'</span>);
+},
+created(){
+  alert(<span class="string">'created! ${this.text}'</span>);
+},
+beforeMount(){
+  alert(<span class="string">'beforeMount! ${this.text}'</span>);
+},</code></pre>
+<blockquote>
+<p>注意：<br>不要在選項屬性上使用箭頭函數！  </p>
+</blockquote>
+<p>例如：  </p>
+<pre><code class="javascript">created：() =&gt; <span class="built_in">console</span>.log(<span class="keyword">this</span>.a)
+
+或
+
+vm.$watch(<span class="string">'a'</span>，newValue =&gt; <span class="keyword">this</span>.myMethod())</code></pre>
+<p>因為箭頭函數並沒有 <code>this</code> ， <code>this</code> 會作為變量一直向查找，直到找到，因此經常導致  </p>
+<pre><code class="javascript">Uncaught <span class="built_in">TypeError</span>: Cannot read property <span class="keyword">of</span> <span class="literal">undefined</span>
+
+或
+
+Uncaught <span class="built_in">TypeError</span>: <span class="keyword">this</span>.myMethod is not a <span class="function"><span class="keyword">function</span>`</span></code></pre>
+<p>之類的錯誤。  </p>
+</br>  
+</br>  
+
+<h3 id="各階段介紹"><a href="#各階段介紹" class="headerlink" title="各階段介紹"></a>各階段介紹</h3><h3 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h3><p>剛完成初始化，此階段資料尚未產生，理論上此階段別再操作資料，但也不是沒辦法啦 → <a href="https://segmentfault.com/q/1010000012331476" target="_blank" rel="noopener">vue怎么在beforeCreate里获取data</a>。  </p>
+<p>不過人家最後也說了 <strong>…實際情況中從來沒遇到過需要在組件還沒初始化就去拿 data 的…</strong>  </p>
+</br>  
+
+<h3 id="created"><a href="#created" class="headerlink" title="created"></a>created</h3><p>數據觀測後所產生的 <code>hook</code> ，從此階段開始才能對資料做操作。  </p>
+</br>  
+
+<h3 id="beforeMount"><a href="#beforeMount" class="headerlink" title="beforeMount"></a>beforeMount</h3><p>編譯完模板後會被觸發，但此階段尚未將模板掛載到 <code>HTML</code> 的 <code>DOM</code> 元素上。  </p>
+</br>  
+
+<h3 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h3><p>直到此階段才將 <code>template</code> 整個掛載到 <code>HTML</code> 上，這時候才能進行一些 <code>HTML</code> 的操作。假如有載入 <code>jQuery</code> ，要到這步驟才能操作 <code>HTML</code> 的 <code>DOM</code> 元素。  </p>
+</br>  
+
+<h3 id="beforeUpdate"><a href="#beforeUpdate" class="headerlink" title="beforeUpdate"></a>beforeUpdate</h3><p>在元件建立起來後，它會因為資料變動的關係而觸發 <code>beforeUpdate</code> 並進行重新繪製。  </p>
+</br>  
+
+<h3 id="updated"><a href="#updated" class="headerlink" title="updated"></a>updated</h3><p>直到資料重新繪製完成後，會再觸發 <code>updated</code> 。  </p>
+</br>  
+
+<h3 id="beforeDestroy-與-destroyed"><a href="#beforeDestroy-與-destroyed" class="headerlink" title="beforeDestroy 與 destroyed"></a>beforeDestroy 與 destroyed</h3><p>分別會在銷毀元件前後觸發。  </p>
+</br>  
+
+<h3 id="deactivated-與-activated"><a href="#deactivated-與-activated" class="headerlink" title="deactivated 與 activated"></a>deactivated 與 activated</h3><p>一般元件，如：<code>v-if</code>，不想每次切換條件判斷式就被 <code>destroy</code> 並摧毀該元件上所紀錄的資料，導致下次更改判斷式後就必須  </p>
+<p>重新走一次 <code>created</code> 流程。</p>
+</br>  
+
+<p>此時就可以使用 <code>&lt;keep-alive&gt;</code> 來維持資料狀態，避免被 <code>destroy</code> 。當組件在 <code>&lt;keep-alive&gt;</code> 內被切換，它的 <code>deactivated</code> 和  </p>
+<p><code>activated</code> 這兩個 <code>lifecycle hooks</code> 函數將會被對應執行。  </p>
+</br>  
+
+<h3 id="Vue-生命週期的簡報說明圖"><a href="#Vue-生命週期的簡報說明圖" class="headerlink" title="Vue 生命週期的簡報說明圖"></a><code>Vue</code> 生命週期的簡報說明圖</h3><p><img src="https://imgur.com/6gU5wy3.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<h3 id="練習測驗-2：生命週期章節小測驗"><a href="#練習測驗-2：生命週期章節小測驗" class="headerlink" title="練習測驗 2：生命週期章節小測驗"></a><a id="id2">練習測驗 2：生命週期章節小測驗</a></h3><p>問題 1：生命週期中，如果我們要透過 <code>Ajax</code> 讀取資料，至少到哪個階段才能正確運作？  </p>
+<ol>
+<li><code>beforeCreate</code>  </li>
+<li><code>init</code>  </li>
+<li><code>Created</code>  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 3
+</code></pre>
+</details>  
+
+<hr>
+<p>問題 2： <code>keep-alive</code> 標籤內的元件描述，以下何者為對？  </p>
+<ol>
+<li><code>v-if</code> 判斷隱藏後，一樣會觸發 <code>destroyed</code> 的生命週期。  </li>
+<li>在 <code>v-if</code> 判斷隱藏後，資料也不會消失。  </li>
+<li>重複切換出現的時候，一樣會進入 <code>create</code> 的生命週期。  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 2
+</code></pre>
+</details>  
+
+
     </div>
 
     
@@ -220,8 +336,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/tag1/" rel="tag"># tag1</a>
-              <a href="/tags/tag2/" rel="tag"># tag2</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
           </div>
 
         
@@ -286,15 +401,16 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          Inhaltsverzeichnis
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          Übersicht
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-生命週期"><span class="nav-number">2.</span> <span class="nav-text">Vue 生命週期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各階段介紹"><span class="nav-number">3.</span> <span class="nav-text">各階段介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beforeCreate"><span class="nav-number">4.</span> <span class="nav-text">beforeCreate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#created"><span class="nav-number">5.</span> <span class="nav-text">created</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beforeMount"><span class="nav-number">6.</span> <span class="nav-text">beforeMount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mounted"><span class="nav-number">7.</span> <span class="nav-text">mounted</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beforeUpdate"><span class="nav-number">8.</span> <span class="nav-text">beforeUpdate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#updated"><span class="nav-number">9.</span> <span class="nav-text">updated</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beforeDestroy-與-destroyed"><span class="nav-number">10.</span> <span class="nav-text">beforeDestroy 與 destroyed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deactivated-與-activated"><span class="nav-number">11.</span> <span class="nav-text">deactivated 與 activated</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-生命週期的簡報說明圖"><span class="nav-number">12.</span> <span class="nav-text">Vue 生命週期的簡報說明圖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#練習測驗-2：生命週期章節小測驗"><span class="nav-number">13.</span> <span class="nav-text">練習測驗 2：生命週期章節小測驗</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -309,20 +425,20 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">110</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-name">Artikel</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">التصنيفات</span></a>
+        <span class="site-state-item-name">Kategorien</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">الوسوم</span></a>
+        <span class="site-state-item-name">schlagwörter</span></a>
       </div>
   </nav>
 </div>
@@ -354,7 +470,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         

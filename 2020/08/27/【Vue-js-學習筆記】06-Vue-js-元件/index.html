@@ -20,17 +20,43 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="前言">
+<meta property="og:type" content="article">
 <meta property="og:title" content="【Vue.js 學習筆記】06. Vue.js 元件">
 <meta property="og:url" content="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9106-Vue-js-%E5%85%83%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/y3wbGdk.png">
+<meta property="og:image" content="https://imgur.com/8xpIoYh.png">
+<meta property="og:image" content="https://imgur.com/YzCI1jo.png">
+<meta property="og:image" content="https://imgur.com/etaGh3F.png">
+<meta property="og:image" content="https://imgur.com/A7yN99T.png">
+<meta property="og:image" content="https://imgur.com/EX0VItW.png">
+<meta property="og:image" content="https://imgur.com/RlpRVEK.png">
+<meta property="og:image" content="https://imgur.com/2zZUls6.png">
+<meta property="og:image" content="https://imgur.com/xucWgC4.png">
+<meta property="og:image" content="https://imgur.com/X2kTuWj.png">
+<meta property="og:image" content="https://imgur.com/91b4PHa.png">
+<meta property="og:image" content="https://imgur.com/Ph0NDqH.png">
+<meta property="og:image" content="https://imgur.com/GVngFSK.png">
+<meta property="og:image" content="https://imgur.com/tR58ebE.png">
+<meta property="og:image" content="https://imgur.com/52ktUcw.png">
+<meta property="og:image" content="https://imgur.com/gDkzohm.png">
+<meta property="og:image" content="https://imgur.com/G47b2Yz.png">
+<meta property="og:image" content="https://imgur.com/ctwNsVu.png">
+<meta property="og:image" content="https://imgur.com/Ouy2Vfj.png">
+<meta property="og:image" content="https://imgur.com/JBozGSc.png">
+<meta property="og:image" content="https://imgur.com/Ypwa9KS.png">
+<meta property="og:image" content="https://imgur.com/b5CCYDp.png">
+<meta property="og:image" content="https://imgur.com/XDOrfeL.png">
+<meta property="og:image" content="https://imgur.com/6mw2y9D.png">
 <meta property="article:published_time" content="2020-08-27T11:27:43.000Z">
-<meta property="article:modified_time" content="2020-08-27T11:27:43.381Z">
+<meta property="article:modified_time" content="2020-09-09T09:42:32.476Z">
 <meta property="article:author" content="Renee">
-<meta property="article:tag" content="tag1">
-<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/y3wbGdk.png">
 
 <link rel="canonical" href="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9106-Vue-js-%E5%85%83%E4%BB%B6/">
 
@@ -85,7 +111,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -115,22 +141,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
 
   </li>
   </ul>
@@ -182,21 +208,24 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-              <time title="أُنشأ: 2020-08-27 19:27:43" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:43+08:00">2020-08-27</time>
+              <time title="Erstellt: 2020-08-27 19:27:43" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:43+08:00">2020-08-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-09-09 17:42:32" itemprop="dateModified" datetime="2020-09-09T17:42:32+08:00">2020-09-09</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/" itemprop="url" rel="index"><span itemprop="name">tag1</span></a>
-                </span>
-                  ، 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/tag2/" itemprop="url" rel="index"><span itemprop="name">tag2</span></a>
+                  <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
                 </span>
             </span>
 
@@ -211,7 +240,1200 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><a id="more"></a>  
+
+<p>本節內容包含下述子章節：  </p>
+<ol>
+<li><a href="#id1">元件概念介紹</a>  </li>
+<li><a href="#id2">使用 x-template 建立元件</a>  </li>
+<li><a href="#id3">使用 function return 建構資料格式</a>  </li>
+<li><a href="#id4">props 基本觀念</a>  </li>
+<li><a href="#id5">props 使用上的注意事項</a>  </li>
+<li><a href="#id6">props 型別及預設值</a>  </li>
+<li><a href="#id7">emit 向外層傳遞事件</a>  </li>
+<li><a href="#id8">Slot 元件插槽</a>  </li>
+<li><a href="#id9">使用 is 動態切換元件</a>  </li>
+<li><a href="#id10">元件章節作業</a>  </li>
+<li><a href="#id11">Vue 元件測驗</a>  </li>
+</ol>
+</br>  
+</br>  
+
+<h3 id="元件概念介紹"><a href="#元件概念介紹" class="headerlink" title="元件概念介紹"></a><a id="id1">元件概念介紹</a></h3><p><img src="https://imgur.com/y3wbGdk.png" alt=" ">  </p>
+<p><img src="https://imgur.com/8xpIoYh.png" alt=" ">  </p>
+<ol>
+<li><p>元件可獨立運作且可重複使用。  </p>
+</li>
+<li><p>元件中的資料皆為獨立的。  </p>
+</li>
+<li><p>父元件傳遞資料給子元件，使用 <code>props</code> 傳遞。父元件更新資料時， <code>props</code> 會即時將資料更新到內層元件。  </p>
+</li>
+<li><p>子元件若要傳遞給父元件，是使用 <code>emit</code> ，必須透過 <code>e</code> 觸發事件 <code>mit</code> 才會能將資料傳到父元件，  </p>
+</li>
+</ol>
+<p>&emsp;&emsp;相對 <code>props</code> 來說它並非即時的。  </p>
+<ol start="5">
+<li><code>SPA（single page application）</code> 也是透過元件製作。  </li>
+</ol>
+</br>  
+</br>  
+
+<h3 id="使用-x-template-建立元件"><a href="#使用-x-template-建立元件" class="headerlink" title="使用 x-template 建立元件"></a><a id="id2">使用 x-template 建立元件</a></h3><p>在 <code>Vue</code> 裡面，我們可以使用元件來動態掛載 <code>HTML</code> ，而元件到底是什麼？  </p>
+<p>如果以 <code>HTML</code> 來說的話，就會類似像是 <code>Header</code> 、 <code>Content</code> 這樣一個區塊一個區塊，區塊裡面當然還可以包覆區塊，  </p>
+<p>所以元件內也可以包覆元件。  </p>
+<p>接下來來個基本的 <code>HTML</code> 表格：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">tr</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in data"</span> <span class="attr">:key</span>=<span class="string">"key"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ item.name }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ item.cash }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ item.icash }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">table</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>然後基本的 <code>Vue</code> 架構和資料：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    data: [
+      {
+<span class="actionscript">        name: <span class="string">'小明'</span>,</span>
+        cash: 100,
+        icash: 500,
+      },
+      {
+<span class="actionscript">        name: <span class="string">'杰倫'</span>,</span>
+        cash: 10000,
+        icash: 5000,
+      },
+      {
+<span class="actionscript">        name: <span class="string">'漂亮阿姨'</span>,</span>
+        cash: 500,
+        icash: 500,
+      },
+      {
+<span class="actionscript">        name: <span class="string">'老媽'</span>,</span>
+        cash: 10000,
+        icash: 100,
+      },
+    ]
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>接下來 <code>&lt;tbody&gt;</code> 下的 <code>&lt;tr&gt;</code> 是可以重複使用的，所以我們選擇這部分來改寫成元件，<br>在 <code>Vue</code> 裡面要新增元件時，要在外面寫  </p>
+<p>上 <code>Vue.component(&#39;&#39;,{});</code> 裡面兩個參數，分別是自訂義的元件名稱，和元件的物件內容：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'row-component'</span>,{</span>
+<span class="actionscript">    template: <span class="string">'#rowComponentTemplate'</span></span>
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+ ....
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>我們在 <code>row-component</code> 元件內有多一個 <code>template</code> 的屬性，這是用來等一下新增 <code>x-template</code> 與其 <code>id</code> 綁定的名字(可自訂義)，  </p>
+<p>至於 <code>x-template</code> 是什麼? 簡單來說就是一個封裝我們的 <code>HTML</code> 模板的 <code>&lt;script&gt;</code> 。所以這時候，我們再新增一個 <code>&lt;script&gt;</code> 而  </p>
+<p><code>type</code> 屬性需改成 <code>text/x-template</code> 且記得給予 <code>id</code> ，而 <code>id</code> 就是剛剛 <code>template</code> 屬性自訂義的值，且把需要做成元件的  </p>
+<p><code>HTML</code> 部分放在裡面：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"rowComponentTemplate"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ item.name }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ item.cash }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ item.icash }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'row-component'</span>,{</span>
+<span class="actionscript">    template: <span class="string">'#rowComponentTemplate'</span></span>
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+ ....
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>這時候我們就可以把我們的元件用標籤的方式寫在 <code>HTML</code> 表格內：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">row-component</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in data"</span> <span class="attr">:key</span>=<span class="string">"key"</span>&gt;</span><span class="tag">&lt;/<span class="name">row-component</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">table</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>會發現頁面上還是沒有資料顯示出來，這是因為每個元件的資料都是獨立的，所以<code>row-component</code> 內的 <code>item</code> 是空的，這時候  </p>
+<p>如果我們想要把資料傳遞給 <code>row-component</code> 接收，就要在剛剛新增元件的地方，新增一個 <code>props</code> 屬性：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'row-component'</span>,{</span>
+<span class="actionscript">    props: [<span class="string">'person'</span>],</span>
+<span class="actionscript">    template: <span class="string">'#rowComponentTemplate'</span></span>
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+ ....
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p><code>props</code> 屬性放的是一個陣列，這裡我們先自定義為 <code>person</code> ，並動態把它綁在 <code>row-component</code> 上，即 <code>:person=&quot;item&quot;</code> ：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">row-component</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in data"</span> <span class="attr">:person</span>=<span class="string">"item"</span> <span class="attr">:key</span>=<span class="string">"key"</span>&gt;</span><span class="tag">&lt;/<span class="name">row-component</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">table</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>並且 <code>x-template</code> 的地方， <code>item</code> 的部分也要改成 <code>person</code> ：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"rowComponentTemplate"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ person.name }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ person.cash }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="comment">{{ person.icash }}</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>會發現資料呈現上去了，可是會有跑版的情況，這是 <code>&lt;table&gt;</code> 的特性，在 <code>&lt;tbody&gt;</code> 後面都是接 <code>&lt;tr&gt;</code> 而我們卻接了我們新建的  </p>
+<p>元件，如果這時候檢查元件<code>(F12)</code>，會發現 <code>HTML</code> 結構會如下：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">table</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">table</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>這跟我們原先預期的情況不一樣，因為我們要把 <code>&lt;tr&gt;</code> 掛在 <code>&lt;table&gt;</code> 內的 <code>&lt;tbody&gt;</code> 下，這時候我們可以把 <code>HTML</code> 的部分  </p>
+<p>改成如下：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">tr</span> <span class="attr">is</span>=<span class="string">"row-component"</span> <span class="attr">v-for</span>=<span class="string">"(item, key) in data"</span> <span class="attr">:person</span>=<span class="string">"item"</span> <span class="attr">:key</span>=<span class="string">"key"</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">table</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>會發現新增了一個 <code>is</code> 屬性，值就是我們新增的元件，這時候跑版問題就會解決了。  </p>
+<hr>
+</br>  
+
+<p>在前面講了很長篇幅的元件，那元件可以分為「局部註冊」跟「全域註冊」，前面的方式我們都是採用全域註冊，而所謂的全域  </p>
+<p>就是指，當我在新增一個 <code>Vue</code> 的應用程式時，它也可以使用這個元件，那局部的意思就是指，我們只想給當前這個應用程式做  </p>
+<p>使用，如果要這樣使用，我們就要改寫如下：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> child = {</span>
+<span class="actionscript">    props: [<span class="string">'person'</span>],</span>
+<span class="actionscript">    template: <span class="string">'#rowComponentTemplate'</span></span>
+}
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+ data: {},
+ components: {
+<span class="actionscript">     <span class="string">'row-component'</span>: child</span>
+ }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>不同於前面的是，我們新增了一個 <code>child</code> 變數為物件，裡面放置的就是我們本來 <code>Vue.component()</code> 內的內容，而我們在當前的  </p>
+<p><code>Vue</code> 應用程式內在 <code>data</code> 後面，新增了一個 <code>components</code> 屬性，左邊放置新增的元件名字，右邊放置我們在上層新增的 <code>child</code>  </p>
+<p>變數，這時後我們的元件就會變成局部的了。  </p>
+</br>  
+</br>  
+
+<h3 id="使用-function-return-建構資料格式"><a href="#使用-function-return-建構資料格式" class="headerlink" title="使用 function return 建構資料格式"></a><a id="id3">使用 function return 建構資料格式</a></h3><p>在元件的使用上，如果有使用到 <code>data</code> 這個屬性，一定要搭配 <code>function return</code> 的用法才能正常運作，這是為了確保  </p>
+<p>每個 <code>instance</code> 實例可以維護一份獨立的拷貝物件，避免修改一個 <code>instance</code> 的數值後影響到其他所有的 <code>instance</code>。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript"><span class="keyword">var</span> child = {</span>
+<span class="actionscript">    data: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">        <span class="keyword">return</span> {</span>
+          counter: 0
+        }
+    },
+<span class="actionscript">    props: [<span class="string">'person'</span>],</span>
+<span class="actionscript">    template: <span class="string">'#rowComponentTemplate'</span></span>
+}
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+ data: {},
+ components: {
+<span class="actionscript">     <span class="string">'row-component'</span>: child</span>
+ }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="props-基本觀念"><a href="#props-基本觀念" class="headerlink" title="props 基本觀念"></a><a id="id4">props 基本觀念</a></h3><p>這邊要介紹由外到內的資料傳遞，什麼時候會使用到呢？  </p>
+<p>先前有提到每個元件的資料狀態都是獨立的，當我們外部的資料要傳遞到內部時，就必須使用到元件裡的 <code>props</code> 屬性。  </p>
+<p><code>props</code> 為父元件向子元件傳遞資料的方式，在子元件中設定所要傳入的變數名稱，在 <code>HTML</code> 中使用該元件時使用該變數  </p>
+<p>名稱即可將資料傳入。  </p>
+</br>  
+
+<p>傳遞資料的方式有兩種  </p>
+<ul>
+<li>靜態傳遞的寫法：  </li>
+</ul>
+<p>將 <code>Vue.component</code> 裡 <code>props</code> 定義的變數名稱 <code>imgUrl</code> ，放入 <code>HTML</code> 中，放入之後他就會將資料透過 <code>props</code> 傳進去。  </p>
+<blockquote>
+<p>注意：<br>在 <code>Vue</code> 中 <code>props</code> 的變數名稱 <code>imgUrl</code> 是使用小駝峰的寫法，但是如果要放入 <code>HTML</code> 中仍使用小駝峰是不符合規範的，必須改為 <code>img-url</code> 。  </p>
+</blockquote>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>靜態傳遞<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">photo</span> <span class="attr">img-url</span>=<span class="string">"https://images.unsplash.com/photo-1522204538344-922f76ecc041?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=50e38600a12d623a878983fc5524423f&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80"</span>&gt;</span><span class="tag">&lt;/<span class="name">photo</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>動態傳遞<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">photo</span>&gt;</span><span class="tag">&lt;/<span class="name">photo</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"photo"</span>&gt;</span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;img :src=<span class="string">"imgUrl"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"img-fluid"</span> alt=<span class="string">""</span> /&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>風景照<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'photo'</span>, {</span>
+<span class="actionscript">  props: [<span class="string">'imgUrl'</span>],</span>
+<span class="actionscript">  template: <span class="string">'#photo'</span></span>
+})
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    url: <span class="string">'https://images.unsplash.com/photo-1522204538344-922f76ecc041?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=50e38600a12d623a878983fc5524423f&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80'</span></span>
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+
+<ul>
+<li>動態傳遞的寫法：  </li>
+</ul>
+<p>我們一樣使用變數名稱 <code>img-url</code> ，但是前面須加上冒號 <code>:</code> ，這個跟 <code>v-bind</code> 的概念是一樣的，當我們要用動態資料的時候，  </p>
+<p>就會使用這種方式，就是在屬性前方加上冒號 <code>:img-url</code> ，接著我們再把 <code>new Vue</code> 中 <code>data</code> 裡的變數 <code>url</code> 放在等號後面，  </p>
+<p>即 <code>:img-url=&quot;url&quot;</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>靜態傳遞<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">photo</span>&gt;</span><span class="tag">&lt;/<span class="name">photo</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>動態傳遞<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">photo</span> <span class="attr">:img-url</span>=<span class="string">"url"</span>&gt;</span><span class="tag">&lt;/<span class="name">photo</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"photo"</span>&gt;</span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;img :src=<span class="string">"imgUrl"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"img-fluid"</span> alt=<span class="string">""</span> /&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>風景照<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'photo'</span>, {</span>
+<span class="actionscript">  props: [<span class="string">'imgUrl'</span>],</span>
+<span class="actionscript">  template: <span class="string">'#photo'</span></span>
+})
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    url: <span class="string">'https://images.unsplash.com/photo-1522204538344-922f76ecc041?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=50e38600a12d623a878983fc5524423f&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80'</span></span>
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="props-使用上的注意事項"><a href="#props-使用上的注意事項" class="headerlink" title="props 使用上的注意事項"></a><a id="id5">props 使用上的注意事項</a></h3><ol>
+<li>單向數據流  </li>
+</ol>
+<p>看到下圖有一個 <code>url</code> ，這個是由 <code>Vue</code> 的應用程式由外層所帶進來的，沒有經過任何處理。  </p>
+<p><img src="https://imgur.com/YzCI1jo.png" alt=" ">  </p>
+<p>這時候如果在畫面上直接修改 <code>url</code> ， <code>console</code> 就會直接跳錯告訴你不要直接修改 <code>props</code> 的內容，它會希望你在處理資料  </p>
+<p>的時候是單向，而不要反向的寫回去。</p>
+<p><img src="https://imgur.com/etaGh3F.png" alt=" ">  </p>
+<p>這時候我們要在 <code>Vue.component</code> 裡新建一個 <code>data</code> 來接這個外部傳進來的資料內容，一樣 <code>data</code> 後面是 <code>function return</code> ，  </p>
+<p>裡面我們新建一個變數 <code>newUrl</code> 來接外部過來的 <code>props</code> ，而 <code>newUrl: this.imgUrl</code> 的 <code>imgUrl</code> 就是 <code>props</code> 所傳進來的。  </p>
+<p>接著把 <code>newUrl</code> 放入 <code>input</code> 的 <code>v-model</code> 裡，回到畫面重新整理後再去調整 <code>url</code> 就不會在跳錯了！  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>單向數據流<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">photo</span> <span class="attr">:img-url</span>=<span class="string">"url"</span>&gt;</span><span class="tag">&lt;/<span class="name">photo</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>修正單向數據流所造成的錯誤<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"photo"</span>&gt;</span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;img :src=<span class="string">"imgUrl"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"img-fluid"</span> alt=<span class="string">""</span> /&gt;</span>
+<span class="javascript">  &lt;input type=<span class="string">"text"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> v-model=<span class="string">"newUrl"</span>&gt;</span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'photo'</span>, {</span>
+<span class="actionscript">  props: [<span class="string">'imgUrl'</span>],</span>
+<span class="actionscript">  template: <span class="string">'#photo'</span>,</span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+<span class="actionscript">      newUrl: <span class="keyword">this</span>.imgUrl</span>
+    }
+  }
+})
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    user: {},
+<span class="actionscript">    url: <span class="string">'https://images.unsplash.com/photo-1522204538344-922f76ecc041?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=50e38600a12d623a878983fc5524423f&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80'</span>,</span>
+<span class="actionscript">    isShow: <span class="literal">true</span></span>
+  },
+<span class="actionscript">  created: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="javascript">    $.ajax({</span>
+<span class="actionscript">      url: <span class="string">'https://randomuser.me/api/'</span>,</span>
+<span class="actionscript">      dataType: <span class="string">'json'</span>,</span>
+<span class="actionscript">      success: <span class="function"><span class="keyword">function</span><span class="params">(data)</span> </span>{</span>
+        vm.user = data.results[0];
+      }
+    });
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<ol start="2">
+<li>物件傳參考特性 及 尚未宣告的變數  </li>
+</ol>
+<p>可以看到 <code>new Vue</code> 應用程式內，主要需傳入的資料內容有 <code>user</code> 跟 <code>url</code> ，裡面的 <code>user</code> 目前是空的，我們希望傳入的時候  </p>
+<p>是經過 <code>ajax</code> 這個非同步的行為處理完之後，才把 <code>user</code> 的資料傳進去，所以在沒有 <code>user</code> 資料的時候，畫面可能就會出錯，  </p>
+<p>來看我們該如何解決這個問題。  </p>
+</br>  
+
+<p>看到 <code>Vue.component</code> 的 <code>card</code> ，它會接收外部的 <code>userData</code> ，並且將卡片這個元件繪製出來。  </p>
+<p>那這個 <code>userData</code> 是怎麼來的呢？它是透過 <code>new Vue</code> 應用程式，先宣告一個 <code>user</code> 的物件，再透過 <code>ajax</code> 行為，  </p>
+<p>把遠端的資料抓進來之後，才把它存進 <code>user</code> 裡面。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>物件傳參考特性 及 尚未宣告的變數<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-sm-4"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">card</span> <span class="attr">:user-data</span>=<span class="string">"user"</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"card"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card"</span>&gt;</span>
+<span class="javascript">  &lt;img <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-img-top"</span> :src=<span class="string">"user.picture.large"</span> alt=<span class="string">"Card image cap"</span>&gt;</span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-body"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">"card-title"</span>&gt;</span><span class="comment">{{ user.name.first }}</span> <span class="comment">{{ user.name.last }}</span><span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"card-text"</span>&gt;</span><span class="comment">{{ user.email }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-footer"</span>&gt;</span>
+<span class="javascript">    &lt;input type=<span class="string">"email"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> v-model=<span class="string">"user.email"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'card'</span>, {</span>
+<span class="actionscript">  props: [<span class="string">'userData'</span>],</span>
+<span class="actionscript">  template: <span class="string">'#card'</span>,</span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+<span class="actionscript">      user: <span class="keyword">this</span>.userData</span>
+    }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    user: {},
+<span class="actionscript">    url: <span class="string">'https://images.unsplash.com/photo-1522204538344-922f76ecc041?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=50e38600a12d623a878983fc5524423f&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80'</span>,</span>
+<span class="actionscript">    isShow: <span class="literal">true</span> </span>
+  },
+<span class="actionscript">  created: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="javascript">    $.ajax({</span>
+<span class="actionscript">      url: <span class="string">'https://randomuser.me/api/'</span>,</span>
+<span class="actionscript">      dataType: <span class="string">'json'</span>,</span>
+<span class="actionscript">      success: <span class="function"><span class="keyword">function</span><span class="params">(data)</span> </span>{</span>
+        vm.user = data.results[0];
+      }
+    });
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>那這個 <code>user</code> 在傳入的時候會有時間差，所以就會跳出錯誤，因為它根本找不到裡面其中一些變數。</p>
+<p><img src="https://imgur.com/A7yN99T.png" alt=" ">  </p>
+<p>這時候該怎麼做呢？  </p>
+<p>我們可以在 <code>html</code> 的 <code>card</code> 標籤裡，新增 <code>v-if</code> 。  </p>
+<p>假設 <code>user</code> 的哪一個特性並沒有完全讀進來之前，就不要將這個卡片執行出來。我們可以打開 <code>Vue</code> 開發者工具，像是 <code>ajax</code>  </p>
+<p>的時候它就會讀進來一些資料，我們就選取一個它一定會得到的資料內容，假設它有電話號碼才能把卡片繪製出來，那 <code>v-if</code> 後  </p>
+<p>面就加入 <code>user.phone</code> ，這時候卡片就能正確繪製並不會跳錯了。  </p>
+<blockquote>
+<p>這邊的重點是：<br>如果你的資料載入有時間差，就可以使用 <code>v-if</code> 讓元件的產生時間往後移，可以判斷資料中的某個特性尚未讀入就不要顯示該元件之類的，避免 <code>error / warn</code> 產生。</p>
+</blockquote>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>物件傳參考特性 及 尚未宣告的變數<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-sm-4"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">card</span> <span class="attr">:user-data</span>=<span class="string">"user"</span> <span class="attr">v-if</span>=<span class="string">"user.phone"</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"card"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card"</span>&gt;</span>
+<span class="javascript">  &lt;img <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-img-top"</span> :src=<span class="string">"user.picture.large"</span> alt=<span class="string">"Card image cap"</span>&gt;</span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-body"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">"card-title"</span>&gt;</span><span class="comment">{{ user.name.first }}</span> <span class="comment">{{ user.name.last }}</span><span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"card-text"</span>&gt;</span><span class="comment">{{ user.email }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-footer"</span>&gt;</span>
+<span class="javascript">    &lt;input type=<span class="string">"email"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> v-model=<span class="string">"user.email"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'card'</span>, {</span>
+<span class="actionscript">  props: [<span class="string">'userData'</span>],</span>
+<span class="actionscript">  template: <span class="string">'#card'</span>,</span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+<span class="actionscript">      user: <span class="keyword">this</span>.userData</span>
+    }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    user: {},
+<span class="actionscript">    url: <span class="string">'https://images.unsplash.com/photo-1522204538344-922f76ecc041?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=50e38600a12d623a878983fc5524423f&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80'</span>,</span>
+<span class="actionscript">    isShow: <span class="literal">true</span> </span>
+  },
+<span class="actionscript">  created: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="javascript">    $.ajax({</span>
+<span class="actionscript">      url: <span class="string">'https://randomuser.me/api/'</span>,</span>
+<span class="actionscript">      dataType: <span class="string">'json'</span>,</span>
+<span class="actionscript">      success: <span class="function"><span class="keyword">function</span><span class="params">(data)</span> </span>{</span>
+        vm.user = data.results[0];
+      }
+    });
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+
+<p>另外這邊要提到物件傳參考的特性，先打開 <code>Vue</code> 開發者工具，下方有一個 <code>email</code> ，我們可以看到 <code>Card</code> →  <code>user</code> → <code>email</code> ，  </p>
+<p>這整個物件是從外層應用程式傳進來的，所以我們可以看到 <code>Root</code> →  <code>user</code> 這裡有一個一模一樣的 <code>email</code> 。  </p>
+<p>這時候我們在畫面中修改這個 <code>email</code> ，會發生什麼事呢？  </p>
+<p><img src="https://imgur.com/EX0VItW.png" alt=" ">  </p>
+<p>這時候可以透過 <code>Vue</code> 開發者工具看到 <code>Card</code> 跟 <code>Root</code> 裡面的 <code>email</code> 都被修改過去了，這個是 <code>javascript</code> 的特性，  </p>
+<p>物件在傳遞的時候它是傳參考，透過下面例子你就會了解了！  </p>
+<p><img src="https://imgur.com/RlpRVEK.png" alt=" ">  </p>
+<p><code>JavaScript</code> 在傳遞物件時 <code>call by reference</code>，所以在子元件內部的物件資料變動會影響外部物件。</p>
+</br>  
+</br>  
+
+<ol start="3">
+<li>維持狀態與生命週期  </li>
+</ol>
+<p>這邊的卡片在每次啟動的時候都會執行一段 <code>ajax</code> ，我們在畫面的 <code>Check me out</code> 前方的欄位打勾跟取消，你會發現照片顯示  </p>
+<p>的不一樣，也就是說它在每次元件銷毀再生成的時候，它是重新再執行一次這段 <code>ajax</code> ，當然如果這是符合預期的狀態這麼做  </p>
+<p>是沒有問題的，但是有時候我們不希望每次元件在重新生成的時候，還要完全重新執行一次裡面的程式碼，這時候該怎麼做呢？</p>
+<p><img src="https://imgur.com/2zZUls6.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<p>這時候就可以使用 <code>&lt;keep-alive&gt;</code> 來維持元件的生命週期，在 <code>html</code> 裡面新增 <code>&lt;keep-alive&gt;</code> 標籤，將 <code>&lt;keep-card&gt;</code> 元件放入  </p>
+<p><code>&lt;keep-alive&gt;</code> 裡面，接著把 <code>v-if=&quot;isShow&quot;</code> 放入 <code>&lt;keep-card&gt;</code> 標籤。好了之後回到畫面重新整理，將 <code>Check me out</code> 前方的  </p>
+<p>欄位打勾跟取消，你會發現照片顯示的是同一個人。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>維持狀態與生命週期<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-check"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"form-check-input"</span> <span class="attr">id</span>=<span class="string">"isShow"</span> <span class="attr">v-model</span>=<span class="string">"isShow"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"form-check-label"</span> <span class="attr">for</span>=<span class="string">"isShow"</span>&gt;</span>Check me out<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-sm-4"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">keep-card</span> <span class="attr">v-if</span>=<span class="string">"isShow"</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">keep-card</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span>
+
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"card"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card"</span>&gt;</span>
+<span class="javascript">  &lt;img <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-img-top"</span> :src=<span class="string">"user.picture.large"</span> alt=<span class="string">"Card image cap"</span>&gt;</span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-body"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">"card-title"</span>&gt;</span><span class="comment">{{ user.name.first }}</span> <span class="comment">{{ user.name.last }}</span><span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"card-text"</span>&gt;</span><span class="comment">{{ user.email }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-footer"</span>&gt;</span>
+<span class="javascript">    &lt;input type=<span class="string">"email"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> v-model=<span class="string">"user.email"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'keepCard'</span>, {</span>
+<span class="actionscript">  template: <span class="string">'#card'</span>,</span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+      user: {}
+    }
+  },
+<span class="actionscript">  created: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="javascript">    $.ajax({</span>
+<span class="actionscript">      url: <span class="string">'https://randomuser.me/api/'</span>,</span>
+<span class="actionscript">      dataType: <span class="string">'json'</span>,</span>
+<span class="actionscript">      success: <span class="function"><span class="keyword">function</span><span class="params">(data)</span> </span>{</span>
+        vm.user = data.results[0];
+      }
+    });
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    user: {},
+<span class="actionscript">    url: <span class="string">'https://images.unsplash.com/photo-1522204538344-922f76ecc041?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=50e38600a12d623a878983fc5524423f&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80'</span>,</span>
+<span class="actionscript">    isShow: <span class="literal">true</span></span>
+  },
+<span class="actionscript">  created: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span>
+<span class="javascript">    $.ajax({</span>
+<span class="actionscript">      url: <span class="string">'https://randomuser.me/api/'</span>,</span>
+<span class="actionscript">      dataType: <span class="string">'json'</span>,</span>
+<span class="actionscript">      success: <span class="function"><span class="keyword">function</span><span class="params">(data)</span> </span>{</span>
+        vm.user = data.results[0];
+      }
+    });
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/xucWgC4.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<p>我們看一下 <code>Vue</code> 的開發者工具，將畫面中 <code>Check me out</code> 取消勾選時， <code>&lt;keep-card&gt;</code> 旁邊會顯示 <code>inactive</code> ，這只是暫時將它  </p>
+<p>隱藏。當我們下次啟動的時候，它不會重新執行整個元件的生命週期，它會重新將它呼叫出來而已，所以這就是維持生命周期的  </p>
+<p>方法。  </p>
+<p><img src="https://imgur.com/X2kTuWj.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<p>不過在元件中有一個問題，它無法讀到特定的屬性。例如：在 <code>template</code> 裡面的 <code>img</code> 中 <code>:src=&quot;user.picture.large&quot;</code> 這張照片  </p>
+<p>無法讀取到，原因是因為這邊這段跟上方有點相同，在讀取物件的時候 <code>ajax</code> 還沒有執行完成。  </p>
+<p><img src="https://imgur.com/91b4PHa.png" alt=" ">  </p>
+<p>所以我們可以在 <code>:src</code> 後方加上 <code>v-if=&quot;user.picture&quot;</code> ，另外一個在 <code>&lt;h5&gt;</code> 標籤後方也加上 <code>v-if=&quot;user.name&quot;</code>，這樣就不會再  </p>
+<p>跳錯了。而這些內容都會確保在資料載入之後，才將物件的內容讀出來。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"card"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card"</span>&gt;</span>
+<span class="javascript">  &lt;img <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-img-top"</span> :src=<span class="string">"user.picture.large"</span> v-<span class="keyword">if</span>=<span class="string">"user.picture"</span> alt=<span class="string">"Card image cap"</span>&gt;</span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-body"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">"card-title"</span> <span class="attr">v-if</span>=<span class="string">"user.name"</span>&gt;</span><span class="comment">{{ user.name.first }}</span> <span class="comment">{{ user.name.last }}</span><span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"card-text"</span>&gt;</span><span class="comment">{{ user.email }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-footer"</span>&gt;</span>
+<span class="javascript">    &lt;input type=<span class="string">"email"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> v-model=<span class="string">"user.email"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="props-型別及預設值"><a href="#props-型別及預設值" class="headerlink" title="props 型別及預設值"></a><a id="id6">props 型別及預設值</a></h3><p>在前面我們已經了解了元件，現在我們要來多加說明 <code>props</code> 這個屬性， <code>props</code> 是由外而內傳遞資料所使用的屬性，  </p>
+<p>有時候我們傳遞的資料也許是需要數值型態來計算的，這時候我們該如何來定義型別？  </p>
+<p>下面我們有一個 <code>prop-type</code> 的元件，動態綁著  <code>props</code> 傳遞過來的資料 <code>cash</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Props 的型別<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">prop-type</span> <span class="attr">:cash</span>=<span class="string">"cash"</span>&gt;</span><span class="tag">&lt;/<span class="name">prop-type</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"propType"</span>&gt;</span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;input type=<span class="string">"number"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> v-model=<span class="string">"newCash"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="comment">{{ typeof(cash)}}</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'prop-type'</span>, {</span>
+<span class="actionscript">  props: [<span class="string">'cash'</span>],</span>
+<span class="actionscript">  template: <span class="string">'#propType'</span>,</span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+<span class="actionscript">      newCash: <span class="keyword">this</span>.cash</span>
+    }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">    cash: <span class="string">'300'</span></span>
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>這個時候會發現，我們的型別會是字串，那如果我們想要在傳遞時就給它定義數值型別呢？  </p>
+<p><img src="https://imgur.com/Ph0NDqH.png" alt=" ">  </p>
+<p>這個時候我們就可以改寫一下 <code>props</code> 的部分：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'prop-type'</span>, {</span>
+  props: {
+      cash: {
+<span class="javascript">          type: <span class="built_in">Number</span>,</span>
+      }
+  },
+<span class="actionscript">  template: <span class="string">'#propType'</span>,</span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+<span class="actionscript">      newCash: <span class="keyword">this</span>.cash</span>
+    }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+<span class="actionscript">  cash: <span class="string">'300'</span></span>
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>我們把 <code>props</code> 改成物件型態，並把要接受過來的 <code>cash</code> 也寫成物件，並給予 <code>type</code> 屬性為 <code>Number</code> 。  </p>
+<p>這時候數值型別就定義好了，可是會發現，畫面上還是顯示字串，這個時候我們就可以檢查 <code>Vue</code> 應用程式內的  </p>
+<p><code>data</code> 的 <code>cash</code> 就會發現竟然是字串!!! 這時候把它改寫成 <code>cash: 300</code> 寫成數值就可以了。  </p>
+</br>  
+
+<p>如果我們在元件並沒有動態綁定要傳遞的資料，如下:  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Props 的型別<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">prop-type</span>&gt;</span><span class="tag">&lt;/<span class="name">prop-type</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>這時候我們可以在 <code>props</code> 內的 <code>cash</code> 物件，多加一個 <code>default</code> 屬性，並給它一個數值，這個就是當元件沒有綁定要傳遞  </p>
+<p>的資料，預設要給予多少數值：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'prop-type'</span>, {</span>
+  props: {
+      cash: {
+<span class="javascript">          type: <span class="built_in">Number</span>,</span>
+<span class="actionscript">          <span class="keyword">default</span>: <span class="number">300</span>,</span>
+      }
+  },
+<span class="actionscript">  template: <span class="string">'#propType'</span>,</span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+<span class="actionscript">      newCash: <span class="keyword">this</span>.cash</span>
+    }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+    ...
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<p>另外一種情況是靜態與動態傳入數值的差異性，如下：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>靜態與動態傳入數值差異<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">prop-type</span> <span class="attr">cash</span>=<span class="string">"300"</span>&gt;</span><span class="tag">&lt;/<span class="name">prop-type</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>如果我們是採用靜態的方式直接傳入數值，會發現型態仍然是字串，但如果我們把它改成動態的：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>靜態與動態傳入數值差異<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">prop-type</span> <span class="attr">:cash</span>=<span class="string">"300"</span>&gt;</span><span class="tag">&lt;/<span class="name">prop-type</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>即在 <code>cash</code> 加上 <code>:</code> ，也就是 <code>(v-bind)</code> 縮寫，  </p>
+<p>就會發現會自動轉型成數值傳遞了，這是比較值得注意的一點  </p>
+</br>  
+</br>  
+
+<h3 id="emit-向外層傳遞事件"><a href="#emit-向外層傳遞事件" class="headerlink" title="emit 向外層傳遞事件"></a><a id="id7">emit 向外層傳遞事件</a></h3><p>前面講到 <code>props</code> ，它是由外而內傳遞資料的一種屬性  </p>
+<p>不同於 <code>props</code>， <code>emit</code> 是一種事件，而且特性是由內至外  </p>
+<p>有一種情境是，當我們在 <code>Vue</code> 的 <code>methods</code> 寫好了一個 <code>function</code> ，而元件也想使用時，這時候我們難道還要在元件底下  </p>
+<p>重新寫一次，而不能直接取用外面的 <code>methods</code> 的 <code>function</code> 嗎 ？  </p>
+</br>  
+
+<p>所以 <code>emit</code> 就是這樣的功用，  </p>
+<p>首先我們先把基本的情境架構寫出來：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>透過 emit 向外傳遞資訊<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  我透過元件儲值了 <span class="comment">{{ cash }}</span> 元
+  <span class="tag">&lt;<span class="name">button</span>&gt;</span>按我<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button-counter</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button-counter</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'buttonCounter'</span>, {</span>
+<span class="handlebars"><span class="xml">  template: `<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"incrementCounter"</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span>&gt;</span>增加 <span class="comment">{{ counter }}</span> 元<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span>
+<span class="javascript">    &lt;input type=<span class="string">"number"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control mt-2"</span> v-model=<span class="string">"counter"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+      counter: 1
+    }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    cash: 300
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>第一件事情是點擊「按我」的按鈕會觸發一個事件，然後讓 <code>data</code> 內的 <code>cash +1</code><br>這時候我們在 <code>Vue</code> 的應用程式底下  </p>
+<p>新增一個 <code>methods</code> 屬性，並新增一個讓 <code>cash +1</code> 的 <code>function</code> ，也就是 <code>incrementTotal</code>  </p>
+</br>  
+
+<p><img src="https://imgur.com/GVngFSK.png" alt=" ">  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+Vue.component()
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">    el: <span class="string">'#app'</span>,</span>
+    data:{
+        cash: 300
+    },
+    methods: {
+<span class="actionscript">        incrementTotal: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">            <span class="keyword">this</span>.cash ++;</span>
+        }
+    }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>然後在「按我」的按鈕新增一個 <code>click</code> 事件，觸發 <code>function</code> ，即 <code>@click=&quot;incrementTotal&quot;</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>透過 emit 向外傳遞資訊<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  我透過元件儲值了 <span class="comment">{{ cash }}</span> 元
+  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"incrementTotal"</span>&gt;</span>按我<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button-counter</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button-counter</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>這時候 <code>button-counter</code> 元件也想使用 <code>incrementTotal</code> 這個 <code>function</code> 的話，該如何使用 <code>emit</code> 來寫呢？  </p>
+<p>首先先在 <code>button-counter</code> 元件新增 <code>v-on:自訂義的名字=&quot;incrementTotal&quot;</code>  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>透過 emit 向外傳遞資訊<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  我透過元件儲值了 <span class="comment">{{ cash }}</span> 元
+  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"incrementTotal"</span>&gt;</span>按我<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button-counter</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>再來，在 <code>button-counter</code> 元件的程式碼內新增一個 <code>methods</code> 屬性，並再自訂義一個 <code>function</code> 使用 <code>emit</code> ：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'buttonCounter'</span>, {</span>
+<span class="handlebars"><span class="xml">  template: `<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"incrementCounter"</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span>&gt;</span>增加 <span class="comment">{{ counter }}</span> 元<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span>
+<span class="javascript">    &lt;input type=<span class="string">"number"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control mt-2"</span> v-model=<span class="string">"counter"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+      counter: 1
+    }
+  },
+  methods: {
+<span class="actionscript">      incrementCounter: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="keyword">this</span>.$emit(<span class="string">'increment'</span>);</span>
+      }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    cash: 300
+  },
+  methods: {
+<span class="actionscript">      incrementTotal: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="keyword">this</span>.cash ++;</span>
+      }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>到這裡就會發現，我們點擊 <code>button-counter</code> 元件產生的 <code>button</code> 時，也能讓 <code>cash +1</code> 了。  </p>
+<blockquote>
+<p>注意： <code>emit</code> 事件的命名需為小寫  </p>
+</blockquote>
+</br>  
+</br>  
+
+<p>另外， <code>emit</code> 其實可以傳遞參數，我們在 <code>this.$emit(&#39;increment&#39;);</code> 內的 <code>&#39;increment&#39;</code> 後方加上 <code>this.counter</code> ，這個 <code>counter</code> 其實是 <code>input</code> 裡面的數值。但是為了避免傳出去的不是數值，我們應該要寫這樣 <code>Number(this.counter)</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'buttonCounter'</span>, {</span>
+<span class="handlebars"><span class="xml">  template: `<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"incrementCounter"</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span>&gt;</span>增加 <span class="comment">{{ counter }}</span> 元<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span>
+<span class="javascript">    &lt;input type=<span class="string">"number"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control mt-2"</span> v-model=<span class="string">"counter"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+      counter: 1
+    }
+  },
+  methods: {
+<span class="actionscript">      incrementCounter: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="javascript">          <span class="keyword">this</span>.$emit(<span class="string">'increment'</span>, <span class="built_in">Number</span>(<span class="keyword">this</span>.counter));</span>
+      }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    cash: 300
+  },
+  methods: {
+<span class="actionscript">      incrementTotal: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="actionscript">          <span class="keyword">this</span>.cash ++;</span>
+      }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>那麼傳入的數值要從外層的 <code>incrementTotal</code> 方法做接收，所以在 <code>function</code> 內要增加一個參數 <code>newNumber</code> ，而 <code>function</code> 內程式碼要改成 <code>this.cash = this.cash + newNumber;</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'buttonCounter'</span>, {</span>
+<span class="handlebars"><span class="xml">  template: `<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"incrementCounter"</span> <span class="attr">class</span>=<span class="string">"btn btn-outline-primary"</span>&gt;</span>增加 <span class="comment">{{ counter }}</span> 元<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span>
+<span class="javascript">    &lt;input type=<span class="string">"number"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control mt-2"</span> v-model=<span class="string">"counter"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span>
+<span class="actionscript">  data: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</span>
+<span class="actionscript">    <span class="keyword">return</span> {</span>
+      counter: 1
+    }
+  },
+  methods: {
+<span class="actionscript">      incrementCounter: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</span>
+<span class="javascript">          <span class="keyword">this</span>.$emit(<span class="string">'increment'</span>, <span class="built_in">Number</span>(<span class="keyword">this</span>.counter));</span>
+      }
+  }
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    cash: 300
+  },
+  methods: {
+<span class="actionscript">      incrementTotal: <span class="function"><span class="keyword">function</span> <span class="params">(newNumber)</span> </span>{</span>
+<span class="actionscript">          <span class="keyword">this</span>.cash = <span class="keyword">this</span>.cash + newNumber;</span>
+      }
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p><img src="https://imgur.com/tR58ebE.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<h3 id="Slot-元件插槽"><a href="#Slot-元件插槽" class="headerlink" title="Slot 元件插槽"></a><a id="id8">Slot 元件插槽</a></h3><p>前面幾篇講到了元件，並介紹元件之間由外而內資料傳遞的屬性 <code>props</code> ，還有由內而外傳遞的事件 <code>emit</code> 。  </p>
+<p>元件也不只可以重複的讓我們來做使用，如果今天一個元件我們只想要替換部分內容也是可行的，這時候就要來介紹 <code>slot</code> 了，  </p>
+<p>也就是替換部分內容。  </p>
+<p>首先先照前面的方式建立一個元件：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>沒有插槽可替換的狀態<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">no-slot-component</span>&gt;</span><span class="tag">&lt;/<span class="name">no-slot-component</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"noSlotComponent"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"alert alert-warning"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">h6</span>&gt;</span>我是一個元件<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span></span>
+    這沒有插槽。
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'no-slot-component'</span>, {</span>
+<span class="actionscript">  template: <span class="string">'#noSlotComponent'</span>,</span>
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {}
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>這時候如果在 <code>no-slot-component</code> 元件內，加上一些內容：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>沒有插槽可替換的狀態<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">no-slot-component</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">p</span>&gt;</span>這是一段置換的內容<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">no-slot-component</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>會發現內容根本沒有被呈現出來  </p>
+<p><img src="https://imgur.com/52ktUcw.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<p>如果今天換成另外一種情況：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Slot 基礎範例<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">single-slot-component</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">p</span>&gt;</span>使用這段取代原本的 Slot。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">single-slot-component</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"singleSlotComponent"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"alert alert-warning"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">h6</span>&gt;</span>我是一個元件<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+    如果沒有內容，則會顯示此段落。
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'single-slot-component'</span>, {</span>
+<span class="actionscript">  template: <span class="string">'#singleSlotComponent'</span>,</span>
+})
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {}
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>我們在 <code>single-slot-component</code> 元件內新增了一個 <code>&lt;p&gt;</code>，然後在 <code>x-template</code> 的地方新增一個 <code>&lt;slot&gt;</code> 標籤：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"singleSlotComponent"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"alert alert-warning"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">h6</span>&gt;</span>我是一個元件<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+    如果沒有內容，則會顯示此段落。
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>會發現內容就被呈現出來了  </p>
+<p><img src="https://imgur.com/gDkzohm.png" alt=" ">  </p>
+<p>有趣的是當我們替換成下面的樣子時：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"singleSlotComponent"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"alert alert-warning"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">h6</span>&gt;</span>我是一個元件<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">slot</span>&gt;</span></span></span>
+    如果沒有內容，則會顯示此段落。
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>如果 <code>single-slot-component</code> 元件沒有任何內容時，就會顯示 <code>&lt;slot&gt;</code> 標籤內的內容，如果有的話，就是呈現插入的內容  </p>
+<p><img src="https://imgur.com/G47b2Yz.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<p>如果我們想要多個部分內容置換時：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>具名插槽<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">named-slot-component</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">header</span>&gt;</span>替換的 Header<span class="tag">&lt;/<span class="name">header</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">template</span>&gt;</span>替換的 Footer<span class="tag">&lt;/<span class="name">template</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">template</span>&gt;</span>按鈕內容<span class="tag">&lt;/<span class="name">template</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">named-slot-component</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"namedSlotComponent"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card my-3"</span>&gt;</span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-header"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>這段是預設的文字<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-body"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">slot</span>&gt;</span></span></span>
+<span class="javascript">      &lt;h5 <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-title"</span>&gt;Special title treatment&lt;<span class="regexp">/h5&gt;</span></span>
+<span class="javascript">      &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-text"</span>&gt;With supporting text below <span class="keyword">as</span> a natural lead-<span class="keyword">in</span> to additional content.&lt;<span class="regexp">/p&gt;</span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span>
+<span class="javascript">    &lt;a href=<span class="string">"#"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-primary"</span>&gt;</span>
+<span class="handlebars"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>spanGo somewhere<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-footer"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>這是預設的 Footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'named-slot-component'</span>, {</span>
+<span class="actionscript">  template: <span class="string">'#namedSlotComponent'</span>,</span>
+});
+
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {}
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>我們已經把要置換的內容放在 <code>named-slot-component</code> 元件裡面了，這時候我們只要在 <code>x-template</code> 的地方，把要置換的部分對應起來，這時候除了用 <code>slot</code> 標籤之外，還要賦予 <code>name</code> 這個屬性，值可以自定義，如下：  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"namedSlotComponent"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card my-3"</span>&gt;</span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-header"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"header"</span>&gt;</span>這段是預設的文字<span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-body"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">slot</span>&gt;</span></span></span>
+<span class="javascript">      &lt;h5 <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-title"</span>&gt;Special title treatment&lt;<span class="regexp">/h5&gt;</span></span>
+<span class="javascript">      &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-text"</span>&gt;With supporting text below <span class="keyword">as</span> a natural lead-<span class="keyword">in</span> to additional content.&lt;<span class="regexp">/p&gt;</span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span>
+<span class="javascript">    &lt;a href=<span class="string">"#"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-primary"</span>&gt;</span>
+<span class="handlebars"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>spanGo somewhere<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-footer"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>這是預設的 Footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>然後在 <code>named-slot-component</code> 元件置換內容的部分，新增 <code>slot</code> 屬性，值就是我們剛剛自定義 <code>name</code> 屬性的值  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>具名插槽<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">named-slot-component</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">header</span> <span class="attr">slot</span>=<span class="string">"header"</span>&gt;</span>替換的 Header<span class="tag">&lt;/<span class="name">header</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">template</span>&gt;</span>替換的 Footer<span class="tag">&lt;/<span class="name">template</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">template</span>&gt;</span>按鈕內容<span class="tag">&lt;/<span class="name">template</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">named-slot-component</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>這時候內容就會替換上去了。  </p>
+<p><img src="https://imgur.com/ctwNsVu.png" alt=" ">  </p>
+<p>其他地方也是一樣的。  </p>
+<p><img src="https://imgur.com/Ouy2Vfj.png" alt=" ">  </p>
+<p>但是有發現我元件內的置換內容有用到 <code>&lt;header&gt;</code> 跟 <code>&lt;template&gt;</code> 標籤，它們有甚麼差異嗎？  </p>
+<p>我們打開開發者工具，看到 <code>&lt;div class=&quot;card-header&quot;&gt;</code> 下方的 <code>&lt;slot&gt;</code> 標籤並不會顯示出來，而 <code>&lt;header&gt;</code> 標籤是從外層替換  </p>
+<p>過來的，所以外層是用什麼標籤內層就會替換成什麼標籤。  </p>
+<p><img src="https://imgur.com/JBozGSc.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<p>但有些時候我們不希望標籤被輸出的時候可以怎麼做呢？  </p>
+<p>我們就可以使用 <code>&lt;template&gt;</code> 標籤，可以看到這裡的 <code>&lt;a&gt;</code> 標籤，裡面對應的是 <code>&lt;slot&gt;</code> ，而 <code>&lt;slot&gt;</code> 本身是不會被輸出的。  </p>
+<p>而 <code>&lt;template&gt;</code> 一樣的道理，它不會被輸出，有些時候我們在使用 <code>HTML</code> ，我們不喜歡產生額外的標籤，就可以使用  </p>
+<p><code>&lt;template&gt;</code>  </p>
+<p><img src="https://imgur.com/Ypwa9KS.png" alt=" ">  </p>
+</br>  
+</br>  
+
+<h3 id="使用-is-動態切換元件"><a href="#使用-is-動態切換元件" class="headerlink" title="使用 is 動態切換元件"></a><a id="id9">使用 is 動態切換元件</a></h3><p>這邊要來介紹用 <code>is</code> 來動態切換組件，先來看一下程式碼：  </p>
+<p>下方有兩個組件一個是 <code>id=&quot;primaryComponent&quot;</code> ，另一個是 <code>id=&quot;dangerComponent&quot;</code> ，<br>兩者只差在顏色的不同而已。  </p>
+<p>可以看到 <code>Vue</code> 初始化內容的 <code>current</code> ，等一下我們會將 <code>&#39;primary-component&#39;</code> 透過 <code>is</code> 切換成 <code>&#39;dangerComponent&#39;</code> ，</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"primaryComponent"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card text-white bg-primary mb-3"</span> style=<span class="string">"max-width: 18rem;"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"card-header"</span>&gt;</span><span class="comment">{{ data.header }}</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-body"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">"card-title"</span>&gt;</span><span class="comment">{{ data.title }}</span><span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"card-text"</span>&gt;</span><span class="comment">{{ data.text }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"dangerComponent"</span>&gt;</span>
+<span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card text-white bg-danger mb-3"</span> style=<span class="string">"max-width: 18rem;"</span>&gt;</span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"card-header"</span>&gt;</span><span class="comment">{{ data.header }}</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="javascript">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"card-body"</span>&gt;</span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">"card-title"</span>&gt;</span><span class="comment">{{ data.title }}</span><span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"card-text"</span>&gt;</span><span class="comment">{{ data.text }}</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">Vue.component(<span class="string">'primary-component'</span>, {</span>
+<span class="actionscript">  props: [<span class="string">'data'</span>],</span>
+<span class="actionscript">  template: <span class="string">'#primaryComponent'</span>,</span>
+});
+<span class="actionscript">Vue.component(<span class="string">'danger-component'</span>, {</span>
+<span class="actionscript">  props: [<span class="string">'data'</span>],</span>
+<span class="actionscript">  template: <span class="string">'#dangerComponent'</span>,</span>
+});
+
+<span class="actionscript"><span class="comment">// Vue 初始化的內容</span></span>
+<span class="actionscript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">  el: <span class="string">'#app'</span>,</span>
+  data: {
+    item: {
+<span class="actionscript">      header: <span class="string">'這裡是 header'</span>,</span>
+<span class="actionscript">      title: <span class="string">'這裡是 title'</span>,</span>
+<span class="actionscript">      text: <span class="string">'Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim perferendis illo reprehenderit ex natus earum explicabo modi voluptas cupiditate aperiam, quasi quisquam mollitia velit ut odio vitae atque incidunt minus?'</span></span>
+    },
+<span class="actionscript">    current: <span class="string">'primary-component'</span></span>
+  }
+});
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span></code></pre>
+<p>我們先來看一下這邊現在是使用 <code>&lt;primary-component :data=&quot;item&quot;&gt;&lt;/primary-component&gt;</code> ，所以畫面上看到的會是  </p>
+<p><code>primary-component</code> 的原件。</p>
+<p><img src="https://imgur.com/b5CCYDp.png" alt=" ">  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>使用 is 顯示單一組件<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">primary-component</span> <span class="attr">:data</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">primary-component</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>那我們可以用另外一種寫法，我們使用 <code>&lt;div&gt;</code> 標籤，裡面寫入 <code>is=&quot;primary-component&quot;</code> ，再將 <code>:data=&quot;item&quot;</code> 資料內容  </p>
+<p>也放入 <code>&lt;div&gt;</code> 標籤。</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>使用 is 顯示單一組件<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">is</span>=<span class="string">"primary-component"</span> <span class="attr">:data</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="comment">&lt;!-- &lt;primary-component :data="item"&gt;&lt;/primary-component&gt; --&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+<p>可以看到兩個元件顯示的一模一樣。  </p>
+<p><img src="https://imgur.com/XDOrfeL.png" alt=" ">  </p>
+<p>但是它有其他額外的使用方式，可以看到 <code>&lt;ul&gt;</code> 裡面包著兩個 <code>&lt;li&gt;</code> 的頁籤內容，我們會透過 <code>@click</code> 來切換 <code>current</code> 的值，  </p>
+<p>那 <code>current</code> 的值一個是 <code>primary-component</code> ，另一個是 <code>danger-component</code> 。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>使用 is 動態切換組件<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav nav-pills"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">:class</span>=<span class="string">"{'active': current == 'primary-component'}"</span> <span class="attr">href</span>=<span class="string">"#"</span> @<span class="attr">click.prevent</span>=<span class="string">"current = 'primary-component'"</span>&gt;</span>藍綠色元件<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">:class</span>=<span class="string">"{'active': current == 'danger-component'}"</span> <span class="attr">href</span>=<span class="string">"#"</span> @<span class="attr">click.prevent</span>=<span class="string">"current = 'danger-component'"</span>&gt;</span>紅色元件<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">primary-component</span> <span class="attr">:data</span>=<span class="string">"item"</span> <span class="attr">v-if</span>=<span class="string">"current === 'primary-component'"</span>&gt;</span><span class="tag">&lt;/<span class="name">primary-component</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">danger-component</span> <span class="attr">:data</span>=<span class="string">"item"</span> <span class="attr">v-if</span>=<span class="string">"current === 'danger-component'"</span>&gt;</span><span class="tag">&lt;/<span class="name">danger-component</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+
+<p>我們打開 <code>Vue</code> 開發者工具，可以看到當我們切換的時候它就會切換兩者。  </p>
+</br>  
+
+<p><img src="https://imgur.com/6mw2y9D.png" alt=" ">  </p>
+<p>這邊目前是使用 <code>v-if</code> 做切換，不過因為數量不多，所以程式碼看起來不會很亂。有些時候我們在切換頁籤內容，  </p>
+<p>它的數量可能會很多，這時候我們就可以使用 <code>&lt;div&gt;</code> 標籤，使用 <code>is</code> 來切換元件的內容，不過因為我們是動態切換，  </p>
+<p>所以 <code>is</code> 前面要加上冒號 <code>:</code> ，那我們要切換的是 <code>current</code> 這個變數，所以我們在動態切換 <code>current</code> 的時候它也會動態載入，  </p>
+<p>接下來再把 <code>:data=&quot;item&quot;</code> 放進 <code>&lt;div&gt;</code> 標籤，這樣就完成了。  </p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>使用 is 動態切換組件<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav nav-pills"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">:class</span>=<span class="string">"{'active': current == 'primary-component'}"</span> <span class="attr">href</span>=<span class="string">"#"</span> @<span class="attr">click.prevent</span>=<span class="string">"current = 'primary-component'"</span>&gt;</span>藍綠色元件<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"nav-item"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"nav-link"</span> <span class="attr">:class</span>=<span class="string">"{'active': current == 'danger-component'}"</span> <span class="attr">href</span>=<span class="string">"#"</span> @<span class="attr">click.prevent</span>=<span class="string">"current = 'danger-component'"</span>&gt;</span>紅色元件<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mt-3"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">:is</span>=<span class="string">"current"</span> <span class="attr">:data</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="comment">&lt;!-- &lt;primary-component :data="item" v-if="current === 'primary-component'"&gt;&lt;/primary-component&gt;</span>
+<span class="comment">    &lt;danger-component :data="item" v-if="current === 'danger-component'"&gt;&lt;/danger-component&gt; --&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></code></pre>
+</br>  
+</br>  
+
+<h3 id="元件章節作業"><a href="#元件章節作業" class="headerlink" title="元件章節作業"></a><a id="id10">元件章節作業</a></h3><p><a href="">CodePen</a>  </p>
+</br>  
+</br>  
+
+<h3 id="Vue-元件測驗"><a href="#Vue-元件測驗" class="headerlink" title="Vue 元件測驗"></a><a id="id11">Vue 元件測驗</a></h3>
     </div>
 
     
@@ -220,8 +1442,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/tag1/" rel="tag"># tag1</a>
-              <a href="/tags/tag2/" rel="tag"># tag2</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
           </div>
 
         
@@ -286,15 +1507,16 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          Inhaltsverzeichnis
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          Übersicht
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元件概念介紹"><span class="nav-number">2.</span> <span class="nav-text">元件概念介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-x-template-建立元件"><span class="nav-number">3.</span> <span class="nav-text">使用 x-template 建立元件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-function-return-建構資料格式"><span class="nav-number">4.</span> <span class="nav-text">使用 function return 建構資料格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-基本觀念"><span class="nav-number">5.</span> <span class="nav-text">props 基本觀念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-使用上的注意事項"><span class="nav-number">6.</span> <span class="nav-text">props 使用上的注意事項</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-型別及預設值"><span class="nav-number">7.</span> <span class="nav-text">props 型別及預設值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emit-向外層傳遞事件"><span class="nav-number">8.</span> <span class="nav-text">emit 向外層傳遞事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slot-元件插槽"><span class="nav-number">9.</span> <span class="nav-text">Slot 元件插槽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-is-動態切換元件"><span class="nav-number">10.</span> <span class="nav-text">使用 is 動態切換元件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元件章節作業"><span class="nav-number">11.</span> <span class="nav-text">元件章節作業</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-元件測驗"><span class="nav-number">12.</span> <span class="nav-text">Vue 元件測驗</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -309,20 +1531,20 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">110</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-name">Artikel</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">التصنيفات</span></a>
+        <span class="site-state-item-name">Kategorien</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">الوسوم</span></a>
+        <span class="site-state-item-name">schlagwörter</span></a>
       </div>
   </nav>
 </div>
@@ -354,7 +1576,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
