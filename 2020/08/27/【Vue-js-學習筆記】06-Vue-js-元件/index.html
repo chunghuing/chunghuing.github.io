@@ -52,7 +52,7 @@
 <meta property="og:image" content="https://imgur.com/XDOrfeL.png">
 <meta property="og:image" content="https://imgur.com/6mw2y9D.png">
 <meta property="article:published_time" content="2020-08-27T11:27:43.000Z">
-<meta property="article:modified_time" content="2020-09-09T09:42:32.476Z">
+<meta property="article:modified_time" content="2020-09-25T03:46:18.118Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
@@ -111,7 +111,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -141,22 +141,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -208,22 +208,22 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2020-08-27 19:27:43" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:43+08:00">2020-08-27</time>
+              <time title="أُنشأ: 2020-08-27 19:27:43" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:43+08:00">2020-08-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2020-09-09 17:42:32" itemprop="dateModified" datetime="2020-09-09T17:42:32+08:00">2020-09-09</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-09-25 11:46:18" itemprop="dateModified" datetime="2020-09-25T11:46:18+08:00">2020-09-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
                 </span>
@@ -1429,11 +1429,80 @@ Vue.component()
 </br>  
 </br>  
 
-<h3 id="元件章節作業"><a href="#元件章節作業" class="headerlink" title="元件章節作業"></a><a id="id10">元件章節作業</a></h3><p><a href="">CodePen</a>  </p>
+<h3 id="元件章節作業"><a href="#元件章節作業" class="headerlink" title="元件章節作業"></a><a id="id10">元件章節作業</a></h3><p><a href="https://codepen.io/chunghuing/pen/wvGXrMO" target="_blank" rel="noopener">CodePen</a>  </p>
 </br>  
 </br>  
 
-<h3 id="Vue-元件測驗"><a href="#Vue-元件測驗" class="headerlink" title="Vue 元件測驗"></a><a id="id11">Vue 元件測驗</a></h3>
+<h3 id="Vue-元件測驗"><a href="#Vue-元件測驗" class="headerlink" title="Vue 元件測驗"></a><a id="id11">Vue 元件測驗</a></h3><h4 id="第一題"><a href="#第一題" class="headerlink" title="第一題"></a>第一題</h4><p>Vue 的元件中，外部資料要傳入到內層，要使用何種方式？  </p>
+<ol>
+<li>props  </li>
+<li>emit  </li>
+<li>on  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 1  
+</code></pre>
+</details>  
+
+<hr>
+<h4 id="第二題"><a href="#第二題" class="headerlink" title="第二題"></a>第二題</h4><p>Vue 的元件中，外部資料要傳入到內層的字串、數值，內層可以再次修改它？  </p>
+<ol>
+<li>對，它都傳進來了，怎麼做都可以。  </li>
+<li>不對，這樣會有錯誤提示。  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 2  
+</code></pre>
+</details>  
+
+<hr>
+<h4 id="第三題"><a href="#第三題" class="headerlink" title="第三題"></a>第三題</h4><p>Vue 的元件中，資料建構需額外使用 function return 的方式？  </p>
+<pre><code class="javascript">data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+<span class="keyword">return</span> {}
+}</code></pre>
+<ol>
+<li>對。  </li>
+<li>錯，沒有那個必要。  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 1  
+</code></pre>
+</details>  
+
+<hr>
+<h4 id="第四題"><a href="#第四題" class="headerlink" title="第四題"></a>第四題</h4><p>Vue 的元件，如果外層有使用 keep-alive 包起來，在 created 生命週期加上 Ajax 則？  </p>
+<ol>
+<li>每次切換元件時，資料都會重新載入。  </li>
+<li>只有第一次會載入資料，重新切換則會維持就有狀態。  </li>
+<li>元件將無法被 v-if 切換。  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 2  
+</code></pre>
+</details>  
+
+<hr>
+<h4 id="第五題"><a href="#第五題" class="headerlink" title="第五題"></a>第五題</h4><p>內層的元件，如何傳遞數值到外層？  </p>
+<ol>
+<li>內層元件使用 emit 向外做事件傳遞。  </li>
+<li>外層使用 props 就能雙向綁定。  </li>
+<li>沒有辦法，元件資料是單向數據流。  </li>
+</ol>
+<details>
+<summary>點我看答案</summary>
+<pre><code><font face="微軟正黑體">
+答案: 1  
+</code></pre>
+</details>  
+
     </div>
 
     
@@ -1507,16 +1576,16 @@ Vue.component()
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Inhaltsverzeichnis
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Übersicht
+          عام
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元件概念介紹"><span class="nav-number">2.</span> <span class="nav-text">元件概念介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-x-template-建立元件"><span class="nav-number">3.</span> <span class="nav-text">使用 x-template 建立元件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-function-return-建構資料格式"><span class="nav-number">4.</span> <span class="nav-text">使用 function return 建構資料格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-基本觀念"><span class="nav-number">5.</span> <span class="nav-text">props 基本觀念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-使用上的注意事項"><span class="nav-number">6.</span> <span class="nav-text">props 使用上的注意事項</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-型別及預設值"><span class="nav-number">7.</span> <span class="nav-text">props 型別及預設值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emit-向外層傳遞事件"><span class="nav-number">8.</span> <span class="nav-text">emit 向外層傳遞事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slot-元件插槽"><span class="nav-number">9.</span> <span class="nav-text">Slot 元件插槽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-is-動態切換元件"><span class="nav-number">10.</span> <span class="nav-text">使用 is 動態切換元件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元件章節作業"><span class="nav-number">11.</span> <span class="nav-text">元件章節作業</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-元件測驗"><span class="nav-number">12.</span> <span class="nav-text">Vue 元件測驗</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元件概念介紹"><span class="nav-number">2.</span> <span class="nav-text">元件概念介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-x-template-建立元件"><span class="nav-number">3.</span> <span class="nav-text">使用 x-template 建立元件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-function-return-建構資料格式"><span class="nav-number">4.</span> <span class="nav-text">使用 function return 建構資料格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-基本觀念"><span class="nav-number">5.</span> <span class="nav-text">props 基本觀念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-使用上的注意事項"><span class="nav-number">6.</span> <span class="nav-text">props 使用上的注意事項</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props-型別及預設值"><span class="nav-number">7.</span> <span class="nav-text">props 型別及預設值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emit-向外層傳遞事件"><span class="nav-number">8.</span> <span class="nav-text">emit 向外層傳遞事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slot-元件插槽"><span class="nav-number">9.</span> <span class="nav-text">Slot 元件插槽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-is-動態切換元件"><span class="nav-number">10.</span> <span class="nav-text">使用 is 動態切換元件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元件章節作業"><span class="nav-number">11.</span> <span class="nav-text">元件章節作業</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-元件測驗"><span class="nav-number">12.</span> <span class="nav-text">Vue 元件測驗</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一題"><span class="nav-number">12.1.</span> <span class="nav-text">第一題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二題"><span class="nav-number">12.2.</span> <span class="nav-text">第二題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三題"><span class="nav-number">12.3.</span> <span class="nav-text">第三題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四題"><span class="nav-number">12.4.</span> <span class="nav-text">第四題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五題"><span class="nav-number">12.5.</span> <span class="nav-text">第五題</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1531,20 +1600,20 @@ Vue.component()
           <a href="/archives/">
         
           <span class="site-state-item-count">110</span>
-          <span class="site-state-item-name">Artikel</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">Kategorien</span></a>
+        <span class="site-state-item-name">التصنيفات</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">schlagwörter</span></a>
+        <span class="site-state-item-name">الوسوم</span></a>
       </div>
   </nav>
 </div>
@@ -1576,7 +1645,7 @@ Vue.component()
   </span>
   <span class="author" itemprop="copyrightHolder">Renee</span>
 </div>
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
