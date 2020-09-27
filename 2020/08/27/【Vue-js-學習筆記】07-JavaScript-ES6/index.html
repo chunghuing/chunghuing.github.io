@@ -20,16 +20,17 @@
     var CONFIG = {"hostname":"chunghuing.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="前言">
+<meta property="og:type" content="article">
 <meta property="og:title" content="【Vue.js 學習筆記】07. JavaScript ES6">
 <meta property="og:url" content="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9107-JavaScript-ES6/index.html">
 <meta property="og:site_name" content="Renee&#39;s Blog">
+<meta property="og:description" content="前言">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-08-27T11:27:50.000Z">
-<meta property="article:modified_time" content="2020-08-27T11:27:50.828Z">
+<meta property="article:modified_time" content="2020-09-25T08:31:18.680Z">
 <meta property="article:author" content="Renee">
-<meta property="article:tag" content="tag1">
-<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9107-JavaScript-ES6/">
@@ -186,17 +187,20 @@
 
               <time title="أُنشأ: 2020-08-27 19:27:50" itemprop="dateCreated datePublished" datetime="2020-08-27T19:27:50+08:00">2020-08-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-09-25 16:31:18" itemprop="dateModified" datetime="2020-09-25T16:31:18+08:00">2020-09-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/" itemprop="url" rel="index"><span itemprop="name">tag1</span></a>
-                </span>
-                  ، 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tag1/tag2/" itemprop="url" rel="index"><span itemprop="name">tag2</span></a>
+                  <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
                 </span>
             </span>
 
@@ -211,7 +215,164 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><a id="more"></a>  
+
+<p>本節內容包含下述子章節：  </p>
+<ol>
+<li><a href="#id1">使用 let 與 const 宣告變數</a>  </li>
+<li><a href="#id2">展開與其餘參數</a>  </li>
+<li><a href="#id3">解構</a>  </li>
+<li><a href="#id4">縮寫</a>  </li>
+<li><a href="#id5">箭頭函式與傳統函式</a>  </li>
+<li><a href="#id6">字串模板 Template String</a>  </li>
+<li><a href="#id7">常用陣列方法</a>  </li>
+<li><a href="#id8">測驗 2： ES6 小測驗</a>  </li>
+</ol>
+</br>  
+</br>  
+
+<h3 id="使用-let-與-const-宣告變數"><a href="#使用-let-與-const-宣告變數" class="headerlink" title="使用 let 與 const 宣告變數"></a><a id="id1">使用 let 與 const 宣告變數</a></h3><p>在以往我們都是使用 <code>var</code> 來宣告變數，先來講 <code>let</code> 的部分，假設今天我們的程式碼如下：  </p>
+<pre><code class="javascript"><span class="built_in">console</span>.log(mom);
+
+<span class="keyword">var</span> mom = <span class="string">'老媽'</span>;
+
+(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(mom);
+})();</code></pre>
+<p>這時候會依序輸出： <code>undefined</code>、老媽  </p>
+<p>但如果我們把 <code>var</code> 改成 <code>let</code> ，輸出就會錯誤，這是因為 <code>var</code> 宣告時，已經在記憶體佔了一個位置，只是我們還沒賦予值，  </p>
+<p>所以第一次在 <code>console</code> 的時候才會顯示 <code>undefined</code> 而當第二行我們賦予值的時候才被輸出出來，但是 <code>let</code> 宣告的話，  </p>
+<p>依序從上而下，還沒有發現宣告的變數賦予值，所以才會出現錯誤  </p>
+<br>  
+<br>  
+
+<p>第二種情況，是作用域的部分：  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">varMing</span> (<span class="params"></span>) </span>{
+  <span class="keyword">var</span> ming = <span class="string">'小明'</span>;
+  <span class="keyword">if</span> (<span class="literal">true</span>) {
+    <span class="keyword">var</span> ming = <span class="string">'杰哥'</span>;  
+  }
+  <span class="built_in">console</span>.log(ming);
+}
+varMing();</code></pre>
+<p>這時候在 <code>console</code> 輸出會出現杰哥，但是如果改成 <code>let</code> 宣告的話，輸出就會是小明，並不會被 <code>if</code> 的判斷式取代掉。  </p>
+<p><code>var</code> 的作用域是 <code>function scope</code> ，<br><code>let</code> 的作用域是 <code>block</code> 。<br>簡單來說 <code>let</code> 的作用域是 <code>{}</code> 大括號之間的部分。  </p>
+<br>  
+<br>  
+
+<p>第三種情況是 <code>for</code> 迴圈，宣告變數 <code>i</code> 的時候：  </p>
+<pre><code class="javascript"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {
+  <span class="built_in">console</span>.log(i);
+  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="string">'這執行第'</span> + i + <span class="string">'次'</span>);
+  }, <span class="number">10</span>);
+}</code></pre>
+<p>在這樣的情況下， <code>console</code> 會直接輸出，這執行第 <code>10</code> 次，並不是我們預期的，這執行第 <code>1</code> 次，這執行第 <code>2</code> 次，  </p>
+<p>這執行第 <code>3</code> 次….。這是因為 <code>i</code> 已經被宣告為全域變數了，他會在迴圈內累加之後再輸出，我們在 <code>console</code> 內輸入 <code>window.i</code>  </p>
+<p>就會發現有數字輸出，如果改成 <code>let</code> 宣告 <code>i</code> 變數，就會發現結果如我們所預期，這是因為 <code>let</code> 的作用域是 <code>block</code> 是在 <code>{}</code>  </p>
+<p>之間，且在 <code>console</code> 輸入 <code>window.i</code> 就會是 <code>undefined</code>。  </p>
+<br>  
+<br>  
+
+<p>接著我們來說明 <code>const</code>：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> ming = <span class="string">'鐵錚錚男子漢'</span>;</code></pre>
+<p>當我們宣告一個變數使用 <code>const</code> 的時候，就不能去改動它的值，這會出現錯誤，如果這時候我們把 <code>ming</code> 改成其他的內容：  </p>
+<pre><code class="javascript">ming  = <span class="string">'男子漢'</span>;</code></pre>
+<p>就會發現在 <code>console</code> 會跳錯，但是如果是更改物件的屬性呢：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> family = {
+  mom: <span class="string">'老媽'</span>,
+  me: <span class="string">'小明'</span>,
+  sister: <span class="string">'小橙'</span>
+};
+family.father = <span class="string">'爸爸'</span>;</code></pre>
+<p>會發現是可以的，因為物件的屬性是傳參考特性就不影響，如果把宣告的物件改成空物件，這時候就會出錯了。  </p>
+<br>  
+<br>  
+
+<p>補充說明：  </p>
+<p><code>var</code> 宣告的變數，往往都會是全域變數，進而會影響到開發，舉個例子：  </p>
+<p>在 <code>for</code> 迴圈的時候，或者 <code>if</code> 判斷式的時候  </p>
+<pre><code class="javascript"><span class="comment">// for 迴圈</span>
+<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++){
+    <span class="built_in">console</span>.log(i);
+}
+<span class="built_in">console</span>.log(i);
+
+<span class="comment">// if 判斷式</span>
+<span class="keyword">if</span>(<span class="literal">true</span>){
+    <span class="keyword">var</span> feedBack = <span class="string">'同意'</span>;
+}
+<span class="built_in">console</span>.log(feedBack);</code></pre>
+<p>在上述兩種情況，會發現在 <code>for</code> 迴圈外和 <code>if</code> 判斷式外，用 <code>console</code> 查看在內部宣告的變數，仍然可以看到，  </p>
+<p>這是因為 <code>var</code> 宣告的變數為全域，為了讓變數可以在 <code>{}</code> 的作用域內，這時候就可以採用 <code>let</code> 來做宣告。  </p>
+<p>假設沒有 <code>let</code> 的情況下，該如何解決既有的這個問題？  </p>
+<p>可以採取立即函式！  </p>
+<pre><code class="javascript">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++){
+        <span class="built_in">console</span>.log(i);
+    }
+}());
+
+<span class="built_in">console</span>.log(i);</code></pre>
+<p>這時候 <code>console</code> 就會跳錯，這也是為了限制作用域的部分。  </p>
+<br>  
+<br>  
+<br>  
+
+<h3 id="展開與其餘參數"><a href="#展開與其餘參數" class="headerlink" title="展開與其餘參數"></a><a id="id2">展開與其餘參數</a></h3><ul>
+<li><h4 id="展開語法"><a href="#展開語法" class="headerlink" title="展開語法"></a>展開語法</h4></li>
+</ul>
+<p>用 … 將陣列中的值一個個取出來再 <code>return</code> 回去  </p>
+<pre><code class="javascript"><span class="keyword">let</span> groupA = [<span class="string">'小明'</span>, <span class="string">'杰倫'</span>, <span class="string">'阿姨'</span>];  
+<span class="keyword">let</span> groupB = [<span class="string">'老媽'</span>, <span class="string">'老爸'</span>];
+
+<span class="keyword">let</span> familyAll5 = groupA.concat(groupB) <span class="comment">//ES5合併陣列  </span>
+<span class="keyword">let</span> familyAll6=[...groupA,...groupB] <span class="comment">//ES6合併陣列</span></code></pre>
+<br>  
+
+<ul>
+<li><h4 id="淺複製-Shallow-Copy-V-S-深複製-Deep-Copy"><a href="#淺複製-Shallow-Copy-V-S-深複製-Deep-Copy" class="headerlink" title="淺複製 (Shallow Copy) V.S. 深複製 (Deep Copy)"></a>淺複製 (Shallow Copy) V.S. 深複製 (Deep Copy)</h4></li>
+</ul>
+<p><code>JavaScript</code> 的物件或是陣列的儲存方式是記錄記憶體位置，因此當將 <code>groupA</code> 指給 <code>groupB</code> 對 <code>groupB</code> 進行賦值時，  </p>
+<p>是使用淺複製的方式將 <code>groupA</code> 所記錄的記憶體位置傳給 <code>groupB</code>，最終會導致當對 <code>groupB</code> 進行操作時，  </p>
+<p><code>groupA</code> 也會後受到影響。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> groupA = [<span class="string">'小明'</span>, <span class="string">'杰倫'</span>, <span class="string">'阿姨'</span>];
+<span class="keyword">let</span> groupB = groupA
+groupB.push(<span class="string">'阿明'</span>);
+<span class="built_in">console</span>.log(groupA);  <span class="comment">//["小明", "杰倫", "阿姨", "阿明"]</span></code></pre>
+<p>為了避免這種影響到互相影響發生，可以改採深複製的方式，借助上一節所提到的展開語法，將 <code>groupA</code> 值一一取出後，  </p>
+<p>放入一個新的陣列中，處理物件也是相同宣告方法。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> groupB = [...groupA]</code></pre>
+<br>  
+
+<ul>
+<li><h4 id="類陣列觀念說明"><a href="#類陣列觀念說明" class="headerlink" title="類陣列觀念說明"></a>類陣列觀念說明</h4></li>
+</ul>
+<p>在使用 <code>Node.childNodes</code> 或 <code>document.querySelectorAll</code> 時會回傳包含指定節點的子節點的集合，此集合稱為 <code>Node List</code>，  </p>
+<p>是種類似陣列的資料結構，但是不能使用陣列的部份方法，因此又被稱為類陣列。  </p>
+<p>若要將 <code>Node List</code> 轉成陣列，一樣是使用展開語法  </p>
+<pre><code class="javascript"><span class="keyword">let</span> myArray = [...myNodeList]</code></pre>
+<br>  
+
+<ul>
+<li><h4 id="其餘參數"><a href="#其餘參數" class="headerlink" title="其餘參數"></a>其餘參數</h4></li>
+</ul>
+<p>就是不定長度參數的宣告，如果你傳入參數多於你宣告的個數，多餘的部份會變成名為 <code>arguments</code> 的類陣列物件  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">updateEasyCard</span>(<span class="params"></span>) </span>{
+   <span class="keyword">let</span> arg = [...arguments];
+   <span class="keyword">let</span> sum = arg.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">accumulator, currentValue</span>) </span>{
+      <span class="keyword">return</span> accumulator + currentValue;
+   }, <span class="number">0</span>);
+   <span class="built_in">console</span>.log(<span class="string">'我有 '</span> + sum + <span class="string">' 元'</span>);
+}
+
+updateEasyCard(<span class="number">0</span>); <span class="comment">// 我有 0 元</span>
+updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">500</span>); <span class="comment">// 我有 718 元</span></code></pre>
+<br>  
+<br>  
+<br>  
+
+<h3 id="解構"><a href="#解構" class="headerlink" title="解構"></a><a id="id3">解構</a></h3>
     </div>
 
     
@@ -220,8 +381,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/tag1/" rel="tag"># tag1</a>
-              <a href="/tags/tag2/" rel="tag"># tag2</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
           </div>
 
         
@@ -292,6 +452,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-let-與-const-宣告變數"><span class="nav-number">2.</span> <span class="nav-text">使用 let 與 const 宣告變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展開與其餘參數"><span class="nav-number">3.</span> <span class="nav-text">展開與其餘參數</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#展開語法"><span class="nav-number">3.1.</span> <span class="nav-text">展開語法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#淺複製-Shallow-Copy-V-S-深複製-Deep-Copy"><span class="nav-number">3.2.</span> <span class="nav-text">淺複製 (Shallow Copy) V.S. 深複製 (Deep Copy)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#類陣列觀念說明"><span class="nav-number">3.3.</span> <span class="nav-text">類陣列觀念說明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其餘參數"><span class="nav-number">3.4.</span> <span class="nav-text">其餘參數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解構"><span class="nav-number">4.</span> <span class="nav-text">解構</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
