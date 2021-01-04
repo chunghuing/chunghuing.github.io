@@ -27,11 +27,17 @@
 <meta property="og:site_name" content="Renee&#39;s Blog">
 <meta property="og:description" content="前言">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://imgur.com/VGTczsB.png">
+<meta property="og:image" content="https://imgur.com/qB6vWd4.png">
+<meta property="og:image" content="https://imgur.com/5zegrZF.png">
+<meta property="og:image" content="https://imgur.com/E8lk4yO.png">
+<meta property="og:image" content="https://imgur.com/PzEYO28.png">
 <meta property="article:published_time" content="2020-08-27T11:27:50.000Z">
-<meta property="article:modified_time" content="2020-09-25T08:31:18.680Z">
+<meta property="article:modified_time" content="2020-09-30T10:53:15.061Z">
 <meta property="article:author" content="Renee">
 <meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgur.com/VGTczsB.png">
 
 <link rel="canonical" href="http://chunghuing.github.io/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9107-JavaScript-ES6/">
 
@@ -192,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-09-25 16:31:18" itemprop="dateModified" datetime="2020-09-25T16:31:18+08:00">2020-09-25</time>
+                <time title="عُدل: 2020-09-30 18:53:15" itemprop="dateModified" datetime="2020-09-30T18:53:15+08:00">2020-09-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -372,7 +378,414 @@ updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <
 <br>  
 <br>  
 
-<h3 id="解構"><a href="#解構" class="headerlink" title="解構"></a><a id="id3">解構</a></h3>
+<h3 id="解構"><a href="#解構" class="headerlink" title="解構"></a><a id="id3">解構</a></h3><p>上面認識 <code>ES6</code> 的展開與其餘，這邊內容將著重在介紹什麼是 <code>ES6</code> 的解構賦值<code>（destructuring）</code>，  </p>
+<p>我們可以把解構賦值想像成是鏡子的概念，將右方資料往左邊送，然後依照「順序」或「屬性」對上特定值，  </p>
+<p>如同鏡射的概念，但不會左右顛倒。而實務上的幫助在於透過更簡短的程式碼來達成相同效果，除了使用便利外，  </p>
+<p>更能有效提升程式碼的閱讀性。  </p>
+<br>  
+
+<p>解構賦值常用於陣列和物件當中，兩者最大的差異為：  </p>
+<p>陣列的解構賦值強調的是「順序」，而物件的解構賦值強調的則是「屬性名稱」，屬性名稱必須相互對應才能夠取得到值。  </p>
+<ul>
+<li><h4 id="陣列解構賦值（array-destructuring）"><a href="#陣列解構賦值（array-destructuring）" class="headerlink" title="陣列解構賦值（array destructuring）"></a>陣列解構賦值（array destructuring）</h4></li>
+</ul>
+<p>過去想要將陣列內的元素取出，賦與其他變數值的時候，只能透過一個一個給值的作法，程式碼如下：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> team = [<span class="string">'基紐'</span>, <span class="string">'吉斯'</span>, <span class="string">'巴特'</span>];
+<span class="keyword">let</span> Ginyu = team[<span class="number">0</span>];
+<span class="keyword">let</span> Jeice = team[<span class="number">1</span>];
+<span class="keyword">let</span> burter = team[<span class="number">2</span>];
+<span class="built_in">console</span>.log(Ginyu, Jeice, burter); <span class="comment">//基紐, 吉斯, 巴特</span></code></pre>
+<p>若是以 <code>ES6</code> 解構賦值時，程式碼如下：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> team = [<span class="string">'基紐'</span>, <span class="string">'吉斯'</span>, <span class="string">'巴特'</span>];
+<span class="keyword">let</span> [Ginyu, Jeice, burter] = [<span class="string">'基紐'</span>, <span class="string">'吉斯'</span>, <span class="string">'巴特'</span>];
+<span class="built_in">console</span>.log(Ginyu, Jeice, burter); <span class="comment">//基紐, 吉斯, 巴特</span></code></pre>
+<p>透過陣列解構賦值強調的「順序」概念，將變數依序傳入，如此，變數則會直接完成賦值 <code>Ginyu=&#39;基紐&#39;</code>、<code>Jeice=&#39;吉斯&#39;</code>、  </p>
+<p><code>burter=&#39;巴特&#39;</code>。  </p>
+<br>  
+
+<h4 id="當左方輸入的變數多於右方所給的值"><a href="#當左方輸入的變數多於右方所給的值" class="headerlink" title="當左方輸入的變數多於右方所給的值"></a>當左方輸入的變數多於右方所給的值</h4><p>顧名思義，多出來的那個變數會被賦予 <code>undefined</code> 的值，程式碼如下：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> team = [<span class="string">'基紐'</span>, <span class="string">'吉斯'</span>, <span class="string">'巴特'</span>];
+<span class="keyword">let</span> [Ginyu, Jeice, burter, Peter] = [<span class="string">'基紐'</span>, <span class="string">'吉斯'</span>, <span class="string">'巴特'</span>];
+<span class="built_in">console</span>.log(Ginyu, Jeice, burter, Peter); <span class="comment">//基紐, 吉斯, 巴特, undefined</span></code></pre>
+<br>  
+
+<h4 id="當左方輸入的變數小於右方所給的值"><a href="#當左方輸入的變數小於右方所給的值" class="headerlink" title="當左方輸入的變數小於右方所給的值"></a>當左方輸入的變數小於右方所給的值</h4><p>此時，只有被指定到的變數會有相對應的值，而少掉的變數則會直接空過來，程式碼如下：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> team = [<span class="string">'基紐'</span>, <span class="string">'吉斯'</span>, <span class="string">'巴特'</span>];
+<span class="keyword">let</span> [Ginyu, , burter] = [<span class="string">'基紐'</span>, <span class="string">'吉斯'</span>, <span class="string">'巴特'</span>];
+<span class="built_in">console</span>.log(Ginyu, burter); <span class="comment">//基紐, , 巴特</span></code></pre>
+<br>  
+
+<h4 id="陣列解構（展開語法）"><a href="#陣列解構（展開語法）" class="headerlink" title="陣列解構（展開語法）"></a>陣列解構（展開語法）</h4><p>我們會將 <code>team</code> 的值一一賦予到變數上，因此，<code>Ginyu=&#39;基紐&#39;</code>、<code>Jeice=&#39;吉斯&#39;</code>，而此時剩餘的 <code>team</code> 值則會被賦予到 <code>others</code>  </p>
+<p>變數。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> team = [<span class="string">'基紐'</span>, <span class="string">'吉斯'</span>, <span class="string">'巴特'</span>, <span class="string">'彼得'</span>];
+<span class="keyword">let</span> [Ginyu, Jeice, ...others] = team;
+<span class="built_in">console</span>.log(Ginyu, Jeice, others);</code></pre>
+<p>結果如下：  </p>
+<p><img src="https://imgur.com/VGTczsB.png" alt=" ">  </p>
+<br>  
+
+<h4 id="陣列解構（變數交換）"><a href="#陣列解構（變數交換）" class="headerlink" title="陣列解構（變數交換）"></a>陣列解構（變數交換）</h4><p>由於前面提到的解構賦值（鏡射）的概念，下面範例中直接將右邊的變數交換到左邊，可以看到是同時交換變數，  </p>
+<p>所以在互換變數值上是非常方便的。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> Ginyu = <span class="string">'基紐'</span>;
+<span class="keyword">let</span> Jeice = <span class="string">'吉斯'</span>;
+[Ginyu, Jeice] = [Jeice, Ginyu];
+<span class="built_in">console</span>.log(Ginyu, Jeice); <span class="comment">//吉斯, 基紐</span></code></pre>
+<br>  
+
+<h4 id="陣列解構（字串拆解）"><a href="#陣列解構（字串拆解）" class="headerlink" title="陣列解構（字串拆解）"></a>陣列解構（字串拆解）</h4><p>如同前面提到陣列解構的「順序」特性，若是遇到字串則會將字串拆解成一個一個字元，並依序賦予到左方的變數。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> str = <span class="string">'阿爾史卡特斯'</span>;
+<span class="keyword">let</span> [a, s, d, f, g] = str;
+<span class="built_in">console</span>.log(a, s, d, f, g); <span class="comment">//阿, 爾, 史, 卡, 特, 斯</span></code></pre>
+<br>  
+<br>  
+
+<ul>
+<li><h4 id="物件解構賦值（object-destructuring）"><a href="#物件解構賦值（object-destructuring）" class="headerlink" title="物件解構賦值（object destructuring）"></a>物件解構賦值（object destructuring）</h4></li>
+</ul>
+<p>如同之前所提，陣列是使用「順序」作為索引值的對應。但物件則是其「屬性名稱」來做對應，因此在物件解構賦值中  </p>
+<p>沒有「順序」性的存在。  </p>
+<br>  
+
+<p>基礎用法：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> obj = {
+  player: <span class="string">'基紐'</span>,
+  jerseyNumber: <span class="number">12</span>
+};
+<span class="keyword">let</span> { player, jerseyNumber } = obj;
+<span class="built_in">console</span>.log(player); <span class="comment">// 基紐</span>
+<span class="built_in">console</span>.log(jerseyNumber); <span class="comment">// 12</span></code></pre>
+<p>物件解構賦值的簡寫看似簡單，如同上面這段程式碼中 <code>let { player, jerseyNumber } = obj</code> ，但實際上完整寫法如下：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> { <span class="attr">player</span>: player, <span class="attr">jerseyNumber</span>: jerseyNumber } = obj;</code></pre>
+<p>它會根據前面的屬性名稱來對應要給的值，但值其實是賦與給冒號 <code>：</code> 後面的變數，如：<code>player</code> 和 <code>jerseyNumber</code> 。  </p>
+<p>換個寫法，相信你會更清楚，此時 <code>py === &#39;基紐&#39;</code> ，而 <code>jN === 12</code> 。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> { <span class="attr">player</span>: py, <span class="attr">jerseyNumber</span>: jN } = { <span class="attr">player</span>: <span class="string">'基紐'</span>, <span class="attr">jerseyNumber</span>: <span class="number">12</span> };</code></pre>
+<p>因此，相對的，當冒號前的屬性名稱對應不到物件中的屬性名稱時，則會出現 <code>undefined</code> 的情況，如程式碼：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> { player } = { <span class="attr">py</span>: <span class="string">'基紐'</span> };
+<span class="built_in">console</span>.log(player); <span class="comment">// undefined</span></code></pre>
+<p>在物件解構賦值中，冒號前是用來對應物件的屬性名稱，冒號後才是真正建立的變數名稱和被賦值的對象。  </p>
+<br>  
+<br>  
+
+<p>透過以下範例來加深印象：  </p>
+<ol>
+<li>重新賦予變數名稱  </li>
+</ol>
+<p>如以下 <code>wang</code> 在取得值後，將變數名稱改為 <code>chen</code>，因此 <code>chen === &#39;大王&#39;</code> ，而原先的 <code>wang</code> 變數就會消失，  </p>
+<p>因此回傳 <code>not defined</code> 的訊息。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> Team = {
+  wang: <span class="string">"大王"</span>,
+  jay: <span class="string">"周董"</span>,
+  chia: <span class="string">"恰恰"</span>
+};
+<span class="keyword">let</span> { <span class="attr">wang</span>: chen } = Team;
+<span class="built_in">console</span>.log(wang); <span class="comment">// 錯誤， not defined</span>
+<span class="built_in">console</span>.log(chen); <span class="comment">// 大王</span></code></pre>
+<br>  
+
+<ol start="2">
+<li>混合使用練習  </li>
+</ol>
+<p>讓我們混合解構賦值的「陣列」和「物件」實際來練習一次吧。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> {
+  player: chia,
+  team: [ , jay ]
+} = {
+  player: <span class="string">"恰恰"</span>,
+  team: [<span class="string">"大王"</span>, <span class="string">"周董"</span>, <span class="string">"大師兄"</span>]
+};
+<span class="built_in">console</span>.log(chia, jay);</code></pre>
+<p>請問此時答案是什麼，說明如下：  </p>
+<ul>
+<li><p><code>player</code> 取得右方的 <code>&quot;恰恰&quot;</code> 後，並將變數名稱改為 <code>chia</code>  </p>
+</li>
+<li><p><code>team</code> 取得球隊陣列後，第一個值 <code>&quot;大王&quot;</code> 被放入一個空變數，接著自然會將第二個值套用在 <code>jay</code> 上囉！  </p>
+</li>
+</ul>
+<br>  
+
+<ol start="3">
+<li>預設值  </li>
+</ol>
+<p>為了避免值沒有賦予造成 <code>undefined</code> ，可以使用預設值避免此問題。  </p>
+<ul>
+<li>物件案例  </li>
+</ul>
+<p><code>team</code> 屬性當中的變數 <code>chia</code> 會被預設值為 <code>恰恰</code> ，如下方程式碼。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> { <span class="attr">team</span>: chia = <span class="string">"恰恰"</span> } = {}
+<span class="built_in">console</span>.log(chia); <span class="comment">//chia: "恰恰"</span></code></pre>
+<ul>
+<li>陣列案例  </li>
+</ul>
+<p>第一個變數 <code>chia</code> 會被重新賦值為 <code>皮皮</code>，第二個則會用預設值為 <code>周董</code> 。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> [ chia = <span class="string">"恰恰"</span>, jay = <span class="string">"周董"</span> ] = [<span class="string">"皮皮"</span>];
+<span class="built_in">console</span>.log(chia, jay); <span class="comment">//皮皮 ,周董</span></code></pre>
+<br>  
+<br>  
+<br>  
+
+<h3 id="縮寫"><a href="#縮寫" class="headerlink" title="縮寫"></a><a id="id4">縮寫</a></h3><ul>
+<li><h4 id="物件縮寫"><a href="#物件縮寫" class="headerlink" title="物件縮寫"></a>物件縮寫</h4></li>
+</ul>
+<p>在過去相同名稱的物件如果要賦予在另一個屬性上，必須寫成 <code>屬性: 物件</code>，這個邏輯很直覺，不過在 <code>ES6</code> 中  </p>
+<p>如果物件名稱與屬性名稱相同時，則不需要寫兩次，可以改成寫一次即可。  </p>
+<pre><code class="javascript"><span class="keyword">let</span> Frieza = <span class="string">'弗利沙'</span>
+<span class="keyword">const</span> GinyuTeam = {
+  Ginyu: <span class="string">'基紐'</span>,
+  Jeice: <span class="string">'吉斯'</span>,
+  burter: <span class="string">'巴特'</span>,
+  <span class="comment">// ...</span>
+}
+
+<span class="comment">// 原本寫法</span>
+<span class="keyword">const</span> newTeam = {
+  GinyuTeam: GinyuTeam,
+  Frieza: Frieza
+}
+
+<span class="comment">// 縮寫</span>
+<span class="keyword">const</span> newTeam = {
+  GinyuTeam,
+    Frieza
+}</code></pre>
+<p>這段也很常在 <code>webpack</code>、<code>Node.js</code> 引用外部套件時使用，如果有使用相關工具開發應該會常看到如以下：  </p>
+<pre><code class="javascript"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>
+<span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>
+<span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'./router'</span>
+<span class="comment">// 將套件由 './App' 路徑載入，並使用 App 這個變數名稱</span>
+
+<span class="keyword">new</span> Vue({
+  el: <span class="string">'#app'</span>,
+  router,
+  template: <span class="string">'&lt;App/&gt;'</span>,
+  components: { App }
+});
+<span class="comment">// 縮寫方式載入及使用</span></code></pre>
+<ul>
+<li><h4 id="物件函式縮寫"><a href="#物件函式縮寫" class="headerlink" title="物件函式縮寫"></a>物件函式縮寫</h4></li>
+</ul>
+<p><code>function</code> 這個詞彙如果使用在物件內，也可以省略 <code>:function</code>，省略後的語意是沒有變化的。  </p>
+<pre><code class="javascript"><span class="comment">//以往的寫法</span>
+<span class="keyword">const</span> newTeam = {
+  showPosture: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="string">'我們是 基紐特戰隊'</span>)
+  }
+}
+
+<span class="comment">//縮寫的寫法</span>
+<span class="keyword">const</span> newTeam = {
+  showPosture () {
+    <span class="built_in">console</span>.log(<span class="string">'我們是 基紐特戰隊'</span>)
+  }
+}</code></pre>
+<ul>
+<li><h4 id="搭配解構使用"><a href="#搭配解構使用" class="headerlink" title="搭配解構使用"></a>搭配解構使用</h4></li>
+</ul>
+<p>若搭配解構使用的話，原先我們把新的變數 <code>newTeam</code> 指向 <code>GinyuTeam</code> 這個物件，再對 <code>newTeam</code> 變數新增一個 <code>ming</code> 屬性  </p>
+<p>並賦予值 <code>小明</code> ，這時候原來的 <code>GinyuTeam</code> 物件也會跟著改動，因為物件是傳參考特性，如下：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> GinyuTeam = {
+  Ginyu: {
+    name: <span class="string">'基紐'</span>
+  },
+  Jeice: {
+    name: <span class="string">'吉斯'</span>
+  },
+  burter: {
+    name: <span class="string">'巴特'</span>
+  },
+}
+<span class="keyword">const</span> newTeam = GinyuTeam
+newTeam.ming = <span class="string">'小明'</span>;</code></pre>
+<p><img src="https://imgur.com/qB6vWd4.png" alt=" ">  </p>
+<br>  
+<br>  
+
+<p>我們可以跟解構搭配使用，不去更動原本的 <code>GinyuTeam</code> 物件，並新增一個 <code>ming</code> 屬性，寫法如下：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> newTeam = {
+    ...GinyuTeam
+}
+newTeam.ming = <span class="string">'小明'</span>;
+<span class="built_in">console</span>.log(newTeam, GinyuTeam);</code></pre>
+<p><img src="https://imgur.com/5zegrZF.png" alt=" ">  </p>
+<p>這時候如果用 <code>console</code> 來比較兩者，就會發現其中的差異性了  </p>
+<br>  
+<br>  
+<br>  
+
+<h3 id="箭頭函式與傳統函式"><a href="#箭頭函式與傳統函式" class="headerlink" title="箭頭函式與傳統函式"></a><a id="id5">箭頭函式與傳統函式</a></h3><p>一般傳統函式的寫法：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> callSomeone = <span class="function"><span class="keyword">function</span> (<span class="params">someone</span>) </span>{
+  <span class="keyword">return</span> someone + <span class="string">'吃飯了'</span>
+}</code></pre>
+<p>改成箭頭函式的寫法：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> callSomeone = <span class="function">(<span class="params">someone</span>) =&gt;</span> {
+    <span class="keyword">return</span> someone + <span class="string">'吃飯了'</span>
+}</code></pre>
+<p>在 <code>return</code> 只有單行的時候，我們可以縮寫的更精簡：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> callSomeone = <span class="function">(<span class="params">someone</span>) =&gt;</span> someone + <span class="string">'吃飯了'</span>;</code></pre>
+<p>在參數的部分我們甚至可以省略 ( ) ，變成：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> callSomeone = <span class="function"><span class="params">someone</span> =&gt;</span> someone + <span class="string">'吃飯了'</span>;</code></pre>
+<p>如果沒有參數代入，( ) 是不可以省略的：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> callSomeone = <span class="function"><span class="params">()</span> =&gt;</span> someone + <span class="string">'吃飯了'</span>;</code></pre>
+<br>  
+<br>  
+
+<p>另外箭頭函式是沒有 <code>arguments</code> 變數的，如果是一般傳統函式，呼叫函式時參數帶入一個不用參數的 <code>function</code> 時，  </p>
+<p>這時候還有 <code>arguments</code> 變數可以來存放：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> updateEasyCard = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+  <span class="keyword">let</span> cash = <span class="number">0</span>;
+  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);
+}
+updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">500</span>);</code></pre>
+<p>但在箭頭函式，並沒有 <code>arguments</code> 這個變數，如果我們把它改成箭頭函式：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> updateEasyCard = <span class="function"><span class="params">()</span> =&gt;</span> {
+  <span class="keyword">let</span> cash = <span class="number">0</span>;
+  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);
+}
+updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">500</span>);</code></pre>
+<p><img src="https://imgur.com/E8lk4yO.png" alt=" ">  </p>
+<p>這時候是會跳錯的，但是我們使用前面講的其餘的方式來存放這些呼叫函式的參數：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> updateEasyCard = <span class="function">(<span class="params">...arg</span>) =&gt;</span> {
+  <span class="keyword">let</span> cash = <span class="number">0</span>;
+  <span class="built_in">console</span>.log(arg);
+}
+updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">500</span>);</code></pre>
+<p>這時候就會正常顯示了  </p>
+<br>  
+<br>  
+
+<p>然而箭頭函式跟一般傳統函式最大的差異性是 <code>this</code> 的使用上，會指向不一樣的地方，先用傳統函式來撰寫，  </p>
+<p>會發現 <code>this</code> 指向的都是 <code>auntie</code> 這個物件，如我們預期：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> name = <span class="string">'全域阿婆'</span>
+<span class="keyword">var</span> auntie = {
+  name: <span class="string">'漂亮阿姨'</span>,
+  callName: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{ 
+    <span class="built_in">console</span>.log(<span class="string">'1'</span>, <span class="keyword">this</span>.name); <span class="comment">// 1 漂亮阿姨</span>
+    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+      <span class="built_in">console</span>.log(<span class="string">'2'</span>, <span class="keyword">this</span>.name); <span class="comment">// 2 全域阿婆</span>
+      <span class="built_in">console</span>.log(<span class="string">'3'</span>, <span class="keyword">this</span>); <span class="comment">// 3 window 物件</span>
+    }, <span class="number">10</span>);
+  },
+}
+auntie.callName();</code></pre>
+<p>補充一下， <code>setTimeout</code> 用的其實是在 <code>window</code> 物件下，所以它的 <code>this</code> 會指向全域的部分，  </p>
+<p>如果改成箭頭函式：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> name = <span class="string">'全域阿婆'</span>
+<span class="keyword">var</span> auntie = {
+  name: <span class="string">'漂亮阿姨'</span>,
+  callName: <span class="function"><span class="params">()</span> =&gt;</span> { 
+    <span class="built_in">console</span>.log(<span class="string">'1'</span>, <span class="keyword">this</span>.name); <span class="comment">// 1 全域阿婆</span>
+    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+      <span class="built_in">console</span>.log(<span class="string">'2'</span>, <span class="keyword">this</span>.name); <span class="comment">// 2 全域阿婆</span>
+      <span class="built_in">console</span>.log(<span class="string">'3'</span>, <span class="keyword">this</span>); <span class="comment">// 3 window 物件</span>
+    }, <span class="number">10</span>);
+  },
+}
+auntie.callName();</code></pre>
+<p>會發現它的 <code>this</code> 都是指向 <code>window</code> ，為了避免這樣的狀況，我們在使用 <code>Vue</code> 時的 <code>methods</code> 盡量採用傳統函式，  </p>
+<p>不然 <code>this</code> 會指向其他物件。那箭頭函式到底用在哪呢？  </p>
+<p>其實我們可以如下使用：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> auntie = {
+  name: <span class="string">'漂亮阿姨'</span>,
+  callName () {
+    <span class="keyword">var</span> vm = <span class="keyword">this</span>;
+    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+      <span class="built_in">console</span>.log(vm);
+    }, <span class="number">10</span>);
+  }
+}
+auntie.callName();</code></pre>
+<p>主要是在 <code>callName</code> 這個 <code>function</code> 內先宣告一個 <code>vm</code> 變數指向這個物件，這樣 <code>setTimeout</code> 就會指向這個物件了  </p>
+<br>  
+<br>  
+<br>  
+
+<h3 id="字串模板-Template-String"><a href="#字串模板-Template-String" class="headerlink" title="字串模板 Template String"></a><a id="id6">字串模板 Template String</a></h3><p>在以往我們在字串的組合上會比較冗長，如下：  </p>
+<pre><code class="javascript"><span class="keyword">const</span> people = [
+  {
+    name: <span class="string">'小明'</span>,
+    friends: <span class="number">2</span>
+  },
+  {
+    name: <span class="string">'阿姨'</span>,
+    friends: <span class="number">999</span>
+  },
+  {
+    name: <span class="string">'杰倫'</span>,
+    friends: <span class="number">0</span>
+  }
+];
+
+<span class="keyword">let</span> originString = <span class="string">'我叫做 '</span> + people[<span class="number">0</span>].name;
+<span class="keyword">let</span> originUl = <span class="string">'&lt;ul&gt;\</span>
+<span class="string">  &lt;li&gt;我叫做 '</span> + people[<span class="number">0</span>].name + <span class="string">'&lt;/li&gt;\</span>
+<span class="string">  &lt;li&gt;我叫做 '</span> + people[<span class="number">1</span>].name + <span class="string">'&lt;/li&gt;\</span>
+<span class="string">  &lt;li&gt;我叫做 '</span> + people[<span class="number">2</span>].name + <span class="string">'&lt;/li&gt;\</span>
+<span class="string">&lt;/ul&gt;'</span>;</code></pre>
+<p>在 <code>ES6</code> 的字串組合上方便許多，像是上面的 <code>originString</code> 把它改寫一下：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> newString = <span class="string">`我叫做 <span class="subst">${ people[<span class="number">0</span>].name }</span>`</span></code></pre>
+<p>輸出結果會是一樣的，主要是 <code>、</code> 反引號，以及 <code>$</code> 搭配 <code>{}</code> 的使用方式，<code>{}</code> 內放置變數即可  </p>
+<br>  
+<br>  
+
+<p>在搭配標籤的組合上也可以改寫成：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> newUl = <span class="string">`</span>
+<span class="string">    &lt;ul&gt;</span>
+<span class="string">        &lt;li&gt;我叫做 <span class="subst">${people[<span class="number">0</span>].name}</span> &lt;/li&gt;</span>
+<span class="string">        &lt;li&gt;我叫做 <span class="subst">${people[<span class="number">1</span>].name}</span> &lt;/li&gt;</span>
+<span class="string">        &lt;li&gt;我叫做 <span class="subst">${people[<span class="number">2</span>].name}</span> &lt;/li&gt;</span>
+<span class="string">    &lt;/ul&gt;</span>
+<span class="string">`</span></code></pre>
+<p>而 <code>{}</code> 內不只可以放置變數，也可以放置 <code>JS</code> 語法，我們在把上面的標籤組合改寫一下：  </p>
+<pre><code class="javascript">newUl = <span class="string">`</span>
+<span class="string">    &lt;ul&gt;</span>
+<span class="string">        <span class="subst">${people.map((person) =&gt; { <span class="keyword">return</span> <span class="string">`&lt;li&gt;我叫做 <span class="subst">${person.name}</span>&lt;/li&gt;`</span> }</span>)}</span>
+<span class="string">    &lt;/ul&gt;</span>
+<span class="string">`</span></code></pre>
+<p>我們在 <code>ul</code> 底下寫了一個 <code>.map()</code> 的方法，用迴圈的方式 <code>return</code> 每個 <code>li</code>  </p>
+<p>結果像這樣：  </p>
+<p><img src="https://imgur.com/PzEYO28.png" alt=" ">  </p>
+<br>  
+<br>  
+<br>  
+
+<p>這裡補充一下 <code>.map()</code> 這個方法以及 <code>.forEach()</code> 有什麼差別，首先我們先宣告一個陣列：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> fruits = [<span class="string">'apple'</span>, <span class="string">'banana'</span>, <span class="string">'strawberry'</span>];</code></pre>
+<p>接著我們用 各別使用 <code>.map()</code> 和 <code>.forEach()</code> :  </p>
+<pre><code class="javascript">fruits.map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>{
+    <span class="built_in">console</span>.log(<span class="string">'map'</span>, item);
+});
+<span class="comment">// map apple</span>
+<span class="comment">// map banana</span>
+<span class="comment">// map strawberry</span>
+<span class="comment">// [undefined, undefined, undefined]</span>
+
+fruits.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>{
+    <span class="built_in">console</span>.log(<span class="string">'for'</span>, item);
+});
+<span class="comment">// for apple</span>
+<span class="comment">// for banana</span>
+<span class="comment">// for strawberry</span>
+<span class="comment">// undefined</span></code></pre>
+<p>一樣都可以用迴圈的型式讀取到每筆資料，但最後的 <code>undefined</code> 的資料狀態不一樣，<code>.map()</code> 是陣列型式  </p>
+<p>那兩者的區別在哪呢？  </p>
+<p><code>.map()</code> 的使用上可以類似加工的概念再 <code>return</code> 回去，而 <code>.forEach()</code> 卻不能，我們在針對 <code>.map()</code> 的使用進一步的寫下去：  </p>
+<pre><code class="javascript"><span class="keyword">var</span> newFruits = fruits.map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>{
+    <span class="keyword">return</span> <span class="string">'new '</span> + item;
+});
+
+<span class="built_in">console</span>.log(newFruits);
+<span class="comment">// ['new apple', 'nwe banana', 'new strawberry']</span></code></pre>
+<p>就會發現它可以新宣告的變數會變成陣列，並把加工 <code>return</code> 回來的值塞進去<br>如果用 <code>.forEach()</code> 是無法做到這樣的，  </p>
+<p>如果要在 <code>.forEach()</code> 做到一樣的效果，要再新宣告一個變數為空陣列：  </p>
+<pre><code class="javascript"><span class="keyword">let</span> copy = [];
+
+fruits.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>{
+    copy.push(<span class="string">'new '</span> + item);
+});
+
+<span class="built_in">console</span>.log(copy);
+<span class="comment">// ['new apple', 'nwe banana', 'new strawberry']</span></code></pre>
+<p>上面就是 <code>.map()</code> 和 <code>.forEach()</code> 的差別  </p>
+
     </div>
 
     
@@ -393,7 +806,10 @@ updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <
     <a href="/2020/08/27/%E3%80%90Vue-js-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%E3%80%9106-Vue-js-%E5%85%83%E4%BB%B6/" rel="prev" title="【Vue.js 學習筆記】06. Vue.js 元件">
       <i class="fa fa-chevron-left"></i> 【Vue.js 學習筆記】06. Vue.js 元件
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/03/%E5%85%AD%E8%A7%92%E7%B6%B2%E9%A0%81%E5%88%87%E7%89%88%E7%9B%B4%E6%92%AD%E7%8F%AD%E5%BF%83%E5%BE%97/" rel="next" title="六角網頁切版直播班心得">
+      六角網頁切版直播班心得 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -452,7 +868,7 @@ updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-let-與-const-宣告變數"><span class="nav-number">2.</span> <span class="nav-text">使用 let 與 const 宣告變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展開與其餘參數"><span class="nav-number">3.</span> <span class="nav-text">展開與其餘參數</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#展開語法"><span class="nav-number">3.1.</span> <span class="nav-text">展開語法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#淺複製-Shallow-Copy-V-S-深複製-Deep-Copy"><span class="nav-number">3.2.</span> <span class="nav-text">淺複製 (Shallow Copy) V.S. 深複製 (Deep Copy)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#類陣列觀念說明"><span class="nav-number">3.3.</span> <span class="nav-text">類陣列觀念說明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其餘參數"><span class="nav-number">3.4.</span> <span class="nav-text">其餘參數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解構"><span class="nav-number">4.</span> <span class="nav-text">解構</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-let-與-const-宣告變數"><span class="nav-number">2.</span> <span class="nav-text">使用 let 與 const 宣告變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展開與其餘參數"><span class="nav-number">3.</span> <span class="nav-text">展開與其餘參數</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#展開語法"><span class="nav-number">3.1.</span> <span class="nav-text">展開語法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#淺複製-Shallow-Copy-V-S-深複製-Deep-Copy"><span class="nav-number">3.2.</span> <span class="nav-text">淺複製 (Shallow Copy) V.S. 深複製 (Deep Copy)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#類陣列觀念說明"><span class="nav-number">3.3.</span> <span class="nav-text">類陣列觀念說明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其餘參數"><span class="nav-number">3.4.</span> <span class="nav-text">其餘參數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解構"><span class="nav-number">4.</span> <span class="nav-text">解構</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#陣列解構賦值（array-destructuring）"><span class="nav-number">4.1.</span> <span class="nav-text">陣列解構賦值（array destructuring）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#當左方輸入的變數多於右方所給的值"><span class="nav-number">4.2.</span> <span class="nav-text">當左方輸入的變數多於右方所給的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#當左方輸入的變數小於右方所給的值"><span class="nav-number">4.3.</span> <span class="nav-text">當左方輸入的變數小於右方所給的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陣列解構（展開語法）"><span class="nav-number">4.4.</span> <span class="nav-text">陣列解構（展開語法）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陣列解構（變數交換）"><span class="nav-number">4.5.</span> <span class="nav-text">陣列解構（變數交換）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陣列解構（字串拆解）"><span class="nav-number">4.6.</span> <span class="nav-text">陣列解構（字串拆解）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#物件解構賦值（object-destructuring）"><span class="nav-number">4.7.</span> <span class="nav-text">物件解構賦值（object destructuring）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#縮寫"><span class="nav-number">5.</span> <span class="nav-text">縮寫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#物件縮寫"><span class="nav-number">5.1.</span> <span class="nav-text">物件縮寫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#物件函式縮寫"><span class="nav-number">5.2.</span> <span class="nav-text">物件函式縮寫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搭配解構使用"><span class="nav-number">5.3.</span> <span class="nav-text">搭配解構使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭頭函式與傳統函式"><span class="nav-number">6.</span> <span class="nav-text">箭頭函式與傳統函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字串模板-Template-String"><span class="nav-number">7.</span> <span class="nav-text">字串模板 Template String</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -466,7 +882,7 @@ updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
@@ -506,7 +922,7 @@ updateEasyCard(<span class="number">10</span>, <span class="number">50</span>, <
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
